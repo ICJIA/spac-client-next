@@ -28,7 +28,7 @@
           $vuetify.goTo(0);
         })
       "
-      ><span style="color: purple" class="agency"
+      ><span style="color: purple" class="agency default-font"
         >THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL</span
       ></v-toolbar-title
     >
@@ -43,8 +43,8 @@
               <v-btn
                 v-if="link.hasSubMenus && link.pages.length > 0"
                 depressed
-                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px; "
-                class="heavy white "
+                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px; font-family: 'Lato', sans-serif !important; "
+                class="heavy white default-font"
                 v-on="on"
               >
                 {{ link.title }}<v-icon right small>arrow_drop_down</v-icon>
@@ -52,8 +52,8 @@
               <v-btn
                 v-else
                 depressed
-                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px;"
-                class="heavy white "
+                style="height: 99%; margin-bottom: 1px; margin-top: 0px; font-size: 13px; font-family: 'Lato', sans-serif !important;"
+                class="heavy white default-font"
                 :to="`/${link.slug}`"
               >
                 {{ link.title }}

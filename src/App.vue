@@ -83,11 +83,11 @@ export default {
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
       console.log("Debug: ", this.$store.getters.debug);
-      const routesPromise = process.BROWSER_BUILD
-        ? import("@/api/routes.json")
-        : Promise.resolve(require("@/api/routes.json"));
-      let routes = await routesPromise;
-      this.$store.dispatch("setRoutes", routes);
+      // const routesPromise = process.BROWSER_BUILD
+      //   ? import("@/api/routes.json")
+      //   : Promise.resolve(require("@/api/routes.json"));
+      // let routes = await routesPromise;
+      // this.$store.dispatch("setRoutes", routes);
 
       const searchIndexPromise = process.BROWSER_BUILD
         ? import("@/api/searchIndex.json")

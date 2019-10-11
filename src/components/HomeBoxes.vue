@@ -69,6 +69,7 @@ h2 {
   display: -webkit-flex;
   display: flex;
   min-height: 250px;
+  font-family: "Lato", sans-serif !important;
 }
 
 /* .flexbox-container h2 {

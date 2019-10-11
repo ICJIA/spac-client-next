@@ -23,12 +23,6 @@
               sentencing policy decisions and to review the effectiveness and
               efficiency of current sentencing policies and practices.
             </div>
-            <!-- <v-btn class="mt-6" color="white" to="/about/overview"
-              >Learn More</v-btn
-            >&nbsp;&nbsp;
-            <v-btn class="mt-6" to="/about/faqs" outlined color="white"
-              >FAQs</v-btn
-            > -->
           </v-col>
         </div>
       </v-row>
@@ -37,7 +31,12 @@
 </template>
 
 <script>
+import SearchMini from "@/components/SearchMini";
+import { EventBus } from "../event-bus.js";
 export default {
+  components: {
+    SearchMini
+  },
   data() {
     return {
       colors: ["grey darken-1", "grey darken-1", "grey darken-1"],
@@ -64,7 +63,7 @@ export default {
   width: 100%;
   background: rgba(79, 80, 79, 0.7);
   padding: 20px;
-  margin-top: -250px;
+  margin-top: -300px;
 }
 
 @media only screen and (max-width: 600px) {

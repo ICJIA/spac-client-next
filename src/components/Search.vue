@@ -26,7 +26,6 @@
                       style="color: #065f60; font-size: 12px;"
                     >
                       {{ $store.getters.config.clientURL
-                      }}{{ $store.getters.config.publicPath
                       }}{{ getCategory(item) | lowerCase }}
                     </div>
                   </template>

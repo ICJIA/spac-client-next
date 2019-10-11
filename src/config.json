@@ -1,6 +1,6 @@
 {
   "clientURL": "https://spac.illinois.gov",
-  "publicPath": "/",
+  "publicPath": "",
   "publications": { "truncateSummaryAt": 28 },
   "search": {
     "shouldSort": true,

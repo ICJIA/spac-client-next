@@ -9,7 +9,7 @@ var sm = require("sitemap");
 const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
-const sections = ["pages", "news", "tags", "resources", "meetings"];
+const sections = ["pages", "news", "tags", "meetings"];
 let routes = [];
 
 const query = `{
@@ -26,11 +26,7 @@ const query = `{
     
    
   }
-  resources (where: {isPublished: true}) {
-    slug
-    category 
-    
-  }
+  
   meetings (where: {isPublished: true}){
     slug
     category
@@ -83,14 +79,14 @@ request(api, query).then(res => {
        *
        * Resources
        *
-       */
-      if (section === "resources") {
-        let catEnum = config.categoryEnums.resources.filter(cat => {
-          return item.category === cat.enum;
-        });
+      //  */
+      // if (section === "resources") {
+      //   let catEnum = config.categoryEnums.resources.filter(cat => {
+      //     return item.category === cat.enum;
+      //   });
 
-        path = `/resources/${catEnum[0].slug}/${item.slug}`;
-      }
+      //   path = `/resources/${catEnum[0].slug}/${item.slug}`;
+      // }
       /**
        *
        * Meetings
