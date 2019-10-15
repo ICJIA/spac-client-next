@@ -117,62 +117,6 @@ const getAllNewsQuery = () => {
 }`;
 };
 
-const getFeaturedPublicationsQuery = () => {
-  return `{
-  publications  {
-    title
-    slug
-    category
-    tags {
-      name
-      slug
-    }
-    summary
-    createdAt
-    isPublished
-    year
-    file {
-      name
-      url
-    }
-    externalURL
-    thumbnail {
-      url
-      name
-    }
-    
-  }
-} `;
-};
-
-const getAllPublicationsQuery = () => {
-  return `{
-  publications (sort: "title:asc", where: {isPublished: true}) {
-    title
-    slug
-    category
-    tags {
-      name
-      slug
-    }
-    summary
-    createdAt
-    isPublished
-    year
-    file {
-      name
-      url
-    }
-    externalURL
-    thumbnail {
-      url
-      name
-    }
-    
-  }
-} `;
-};
-
 const getContentByTagQuery = slug => {
   return `
   {
@@ -235,26 +179,6 @@ const getContentByTagQuery = slug => {
     }
 
 
-    resources (sort: "publicationDate:desc", where: {isPublished: true}) {
-    createdAt
-    updatedAt
-    title
-    slug
-    publicationDate
-    summary
-    category
-    content
-    
-    
-     tags {
-      name
-      slug
-    }
-  }
-
-    
-
-
 
     biographies(sort: "alphabetizeBy:asc", where: { isPublished: true }) {
       firstName
@@ -295,35 +219,6 @@ const getContentByTagQuery = slug => {
 }
   
   `;
-};
-
-const getSinglePublicationQuery = slug => {
-  return `{
-  publications (where: {slug: "${slug}", isPublished: true})  {
-    title
-    slug
-    category
-    tags {
-      name
-      slug
-    }
-    summary
-    createdAt
-    isPublished
-    year
-    file {
-      name
-      url
-    }
-    externalURL
-    thumbnail {
-      url
-      name
-    }
-   
-  }
-} 
-`;
 };
 
 const getAllSectionsQuery = () => {
@@ -548,103 +443,38 @@ const getSingleMeetingQuery = slug => {
 }`;
 };
 
-const getAllResourcesQuery = () => {
+const getFrontPagePublicationsQuery = () => {
   return `{
-  resources (sort: "publicationDate:desc", where: {isPublished: true}) {
+  publications(
+    sort: "createdAt:desc"
+    where: { isPublished: true, addToBanner: true }
+  ) {
     createdAt
     updatedAt
     title
+    isPublished
     slug
-    publicationDate
+    searchMeta
     summary
     category
-    content
+    addToBanner
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+      }
+    }
     externalMediaMaterial {
       name
       url
       summary
     }
-    mediaMaterial {
-      name
-      summary
-      file {
-        name
-        hash
-        url
-      }
-    }
-    
-     tags {
-      name
-      slug
-    }
-  }
-}
-  `;
-};
-
-const getResourceByCategoryQuery = category => {
-  return `{
-  resources (where: {isPublished: true, category: "${category}"}) {
-    createdAt
-    updatedAt
-    title
-    slug
-    publicationDate
-    summary
-    category
-    content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
-    mediaMaterial {
-      name
-      summary
-      file {
-        name
-        hash
-        url
-      }
-    }
-     tags {
-      name
-      slug
-    }
-  }
-}
-  `;
-};
-
-const getSingleResourceQuery = slug => {
-  return `
-  {
-  resources (sort: "publicationDate:desc", where: {slug: "${slug}", isPublished: true}) {
-    createdAt
-    updatedAt
-    title
-    slug
-    publicationDate
-    summary
-    category
-    content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
-    mediaMaterial {
-      name
-      summary
-      file {
-        name
-        hash
-        url
-      }
-    }
-  
-     tags {
+    tags {
       name
       slug
     }
@@ -710,36 +540,12 @@ const getFeaturedPublications = async () => {
   }
 };
 
-const getAllPublications = async () => {
-  try {
-    let publications = await queryEndpoint(getAllPublicationsQuery());
-    return publications.data.data.publications;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
 const getContentByTag = async ({ slug }) => {
   try {
     slug = xss(slug);
     let content = await queryEndpoint(getContentByTagQuery(slug));
 
     return content.data.data.tags;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getSinglePublication = async ({ slug }) => {
-  try {
-    slug = xss(slug);
-    let publication = await queryEndpoint(getSinglePublicationQuery(slug));
-
-    return publication.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -840,34 +646,13 @@ const getSingleMeeting = async ({ slug }) => {
   }
 };
 
-const getAllResources = async () => {
+const getFrontPagePublications = async () => {
   try {
-    let resources = await queryEndpoint(getAllResourcesQuery());
-    return resources.data.data.resources;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getResourceByCategory = async ({ category }) => {
-  try {
-    category = xss(category);
-    let resource = await queryEndpoint(getResourceByCategoryQuery(category));
-    return resource.data.data.resources;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getSingleResource = async ({ slug }) => {
-  try {
-    slug = xss(slug);
-    let resource = await queryEndpoint(getSingleResourceQuery(slug));
-    return resource.data.data.resources;
+    let featuredPublications = await queryEndpoint(
+      getFrontPagePublicationsQuery()
+    );
+    console.log(featuredPublications.data.data.publications);
+    return featuredPublications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -880,10 +665,7 @@ export {
   getPost,
   getFrontPageNews,
   getAllNews,
-  getFeaturedPublications,
-  getAllPublications,
   getContentByTag,
-  getSinglePublication,
   getAllSections,
   getPageBySection,
   getSiteDescription,
@@ -892,7 +674,5 @@ export {
   getSingleBiography,
   getAllMeetings,
   getSingleMeeting,
-  getAllResources,
-  getSingleResource,
-  getResourceByCategory
+  getFrontPagePublications
 };

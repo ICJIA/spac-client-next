@@ -9,6 +9,21 @@ const thumborURL = new ThumborUrlBuilder(
   `${config.imageServerURL}`
 );
 
+const getThumbnailLink = function(mediaMaterial) {
+  let imagePath;
+  if (mediaMaterial.length && mediaMaterial[0].thumbnail) {
+    imagePath = `${config.baseURL}${mediaMaterial[0].thumbnail.url}`;
+  } else {
+    imagePath = config.thumbnail.defaultUrl;
+  }
+  const link = thumborURL
+    .setImagePath(`${imagePath}`)
+    .resize(config.thumbnail.defaultWidth, config.thumbnail.defaultHeight)
+    .smartCrop(false)
+    .buildUrl();
+  return link;
+};
+
 const getHeadshotLink = function(headshot) {
   const imagePath = headshot.url;
   const link = thumborURL
@@ -21,4 +36,4 @@ const getHeadshotLink = function(headshot) {
   return link;
 };
 
-export { getHeadshotLink };
+export { getHeadshotLink, getThumbnailLink };

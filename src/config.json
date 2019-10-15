@@ -24,14 +24,14 @@
   },
   "frontPageItems": {
     "news": 2,
-    "publications": 3,
-    "search": { "xs": 3, "sm": 4, "md": 5, "lg": 6, "xl": 6 }
+    "publications": 2,
+    "search": { "xs": 3, "sm": 4, "md": 4, "lg": 4, "xl": 4 }
   },
   "contentCacheSize": 25,
   "thumbnail": {
-    "defaultUrl": "https://ari.icjia-api.cloud/uploads/state-seal-default-20190917T17255296.png",
-    "defaultWidth": 150,
-    "defaultHeight": 150
+    "defaultUrl": "https://spac.icjia-api.cloud/uploads/spac-purple-small-20191015T14513293.png",
+    "defaultWidth": 310,
+    "defaultHeight": 390
   },
   "imageServerURL": "https://image.icjia.cloud",
   "taggableContent": [
@@ -98,21 +98,24 @@
         "slug": "annual-report",
         "title": "Annual Reports",
         "short": "Annual Report",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       },
       {
         "enum": "costBenefitAnalysis",
         "slug": "cost-benefit-analysis",
         "title": "Cost Benefit Analysis",
         "short": "Cost Benefit",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       },
       {
         "enum": "fiscalImpactAnalysis",
         "slug": "fiscal-impact-analysis",
         "title": "Fiscal Impact Analysis",
         "short": "Fiscal Impact",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       }
     ],
     "meetings": [

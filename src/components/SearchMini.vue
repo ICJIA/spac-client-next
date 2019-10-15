@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     instantSearch() {
-      this.queryResults = this.fuse.search(this.query).slice(0, 4);
+      this.queryResults = this.fuse.search(this.query).slice(0, 3);
     },
     hideQuery() {
       this.query = "";

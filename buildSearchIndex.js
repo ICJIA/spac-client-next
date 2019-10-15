@@ -102,18 +102,15 @@ const query = `{
     }
   }
 
-  resources (sort: "publicationDate:desc", where: {isPublished: true}) {
-    createdAt
+  publications (sort: "year:desc,title:asc", where: {isPublished: true}) {
+   createdAt
     updatedAt
     title
     slug
-    publicationDate
+    searchMeta
     summary
     category
-    content
-    
-   
-     tags {
+    tags {
       name
       slug
     }

@@ -8,6 +8,15 @@ const searchIndexPromise = process.BROWSER_BUILD
   ? import("@/api/searchIndex.json")
   : Promise.resolve(require("@/api/searchIndex.json"));
 
+const configPromise = process.BROWSER_BUILD
+  ? import("@/config.json")
+  : Promise.resolve(require("@/config.json"));
+
+const strapiEnumToCategory = function(contentType, strapiEnum) {
+  console.log(config.categoryEnums["publications"]);
+  return strapiEnum;
+};
+
 const getSearchIndex = async () => {
   try {
     let searchIndex = await searchIndexPromise;
@@ -37,16 +46,21 @@ const getSearchIndex = async () => {
     });
 
     let meetings = searchIndex["meetings"].map(item => {
-      item.parentPath = `/about/meetings/${item.category}`;
+      item.parentPath = `/meetings/${item.category}`;
       return item;
     });
 
     let biographies = searchIndex["biographies"].map(item => {
-      item.parentPath = "/about/biographies";
+      item.parentPath = "/biographies";
       return item;
     });
 
-    return [...news, ...pages, ...meetings, ...biographies];
+    let publications = searchIndex["publications"].map(item => {
+      item.parentPath = `/publications/${item.category}`;
+      return item;
+    });
+
+    return [...news, ...pages, ...meetings, ...biographies, ...publications];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
     console.log(e.toString());

@@ -2,7 +2,7 @@
   <div>
     <v-img
       src="@/assets/img/spac-columns.jpg"
-      height="600"
+      height="500"
       aspect-ratio="1.3"
       class="mt-0"
       style="border-bottom: 1px solid #bbb;"
@@ -22,11 +22,11 @@
                     $vuetify.breakpoint.xl
                 }"
               >
-                <h1 class="mb-5" style="color: #fff; font-weight: 900;">
+                <h1 class="default-font" style="color: #fff; font-weight: 900;">
                   THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL
                 </h1>
                 <div
-                  class="default-font carousel-medium mt-10 px-12 carousel-sub-text"
+                  class="mt-3 default-font carousel-medium carousel-sub-text"
                 >
                   The Illinois Sentencing Policy Advisory Council (SPAC) was
                   created to more accurately determine the consequences of
@@ -36,7 +36,7 @@
                 <v-flex class="text-center" style="width: 100% !important">
                   <SearchMini
                     style="background: #fff;position: relative;"
-                    class="py-3 px-3 mt-10"
+                    class="py-3 px-3 mt-8"
                   />
                 </v-flex>
               </div>
@@ -70,12 +70,12 @@ export default {
   width: 100%;
   background: rgba(79, 80, 79, 0.6);
   padding: 50px;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 @media only screen and (max-width: 600px) {
   .banner {
-    margin-top: 30px;
+    margin-top: 10px;
     background: rgba(79, 80, 79, 0.5);
   }
 }
