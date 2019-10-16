@@ -52,14 +52,16 @@ export default new Router({
      */
 
     {
-      path: "/about/oversight",
+      path: "/about/council-members",
       name: "oversightBoard",
       component: () =>
-        import(/* webpackChunkName: "biographies" */ "./views/Oversight.vue")
+        import(
+          /* webpackChunkName: "biographies" */ "./views/CouncilMembers.vue"
+        )
     },
     {
       path: "/about/staff",
-      name: "stafff",
+      name: "staff",
       component: () =>
         import(/* webpackChunkName: "biographies" */ "./views/Staff.vue")
     },
@@ -111,24 +113,28 @@ export default new Router({
 
     /**
      *
-     * Resources
+     * Publications
      *
      */
 
-    // {
-    //   path: "/resources",
-    //   name: "resources",
+    {
+      path: "/publications",
+      name: "publications",
 
-    //   component: () =>
-    //     import(/* webpackChunkName: "resources" */ "./views/Resources.vue")
-    // },
-    // {
-    //   path: "/resources/:category",
-    //   name: "resourcesByCategory",
+      component: () =>
+        import(
+          /* webpackChunkName: "publications" */ "./views/Publications.vue"
+        )
+    },
+    {
+      path: "/publications/:category",
+      name: "publicationsByCategory",
 
-    //   component: () =>
-    //     import(/* webpackChunkName: "resources" */ "./views/ResourcesByCategory.vue")
-    // },
+      component: () =>
+        import(
+          /* webpackChunkName: "publications" */ "./views/PublicationsByCategory.vue"
+        )
+    },
     // {
     //   path: "/resources/:category/:slug",
     //   name: "resourcesSingle",

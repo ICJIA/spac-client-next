@@ -20,7 +20,7 @@
               <div>
                 {{ resourceCategory }}
                 <!-- <div
-                  v-for="category in $store.getters.config.categoryEnums
+                  v-for="category in $store.getters.config.strapiEnums
                     .resources"
                   :key="category.enum"
                 >

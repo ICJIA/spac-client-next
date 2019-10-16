@@ -13,7 +13,7 @@
         <h1
           style="margin: 0; padding: 0; width: 100%;"
           class="hover mt-5 mb-3 title-link"
-          @click="downloadFile(item)"
+          @click="download(item)"
         >
           {{ item.title }}
         </h1>
@@ -29,6 +29,7 @@
               class="cover elevation-0 px-1"
               width="120"
               style="border: 1px solid #bbb"
+              @click="download(item)"
             />
             <div class="text-xs-center mt-2">
               <v-btn
@@ -37,6 +38,7 @@
                 color="purple darken-2"
                 class="white--text"
                 style="margin-left: 10px; margin-top: 10px;"
+                @click="download(item)"
               >
                 READ
                 <v-icon right dark>cloud_download</v-icon>
@@ -71,8 +73,12 @@ export default {
   methods: {
     routeToCategory(item) {
       let categoryObj = strapiEnumToObject("publications", item.category);
-      let path = `/publications/${categoryObj[0].slug}/${item.slug}`;
+      let path = `/publications/${categoryObj[0].slug}`;
       this.$router.push(`${path}`);
+    },
+    download(item) {
+      let path = item.mediaMaterial.file.url;
+      window.open(this.$store.getters.config.baseURL + path);
     }
   },
   props: {

@@ -85,7 +85,7 @@ export default {
 
       const contentMap = new Map();
       const section = "about";
-      const slug = "oversight";
+      const slug = "council-members";
 
       const name = `getPageBySection-${section}${slug}`;
       contentMap.set(name, {

@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 import { EventBus } from "@/event-bus";
+import { strapiEnumToObject } from "@/services/Utilities";
 
 const searchIndexPromise = process.BROWSER_BUILD
   ? import("@/api/searchIndex.json")
@@ -11,11 +12,6 @@ const searchIndexPromise = process.BROWSER_BUILD
 const configPromise = process.BROWSER_BUILD
   ? import("@/config.json")
   : Promise.resolve(require("@/config.json"));
-
-const strapiEnumToCategory = function(contentType, strapiEnum) {
-  console.log(config.categoryEnums["publications"]);
-  return strapiEnum;
-};
 
 const getSearchIndex = async () => {
   try {
@@ -46,7 +42,8 @@ const getSearchIndex = async () => {
     });
 
     let meetings = searchIndex["meetings"].map(item => {
-      item.parentPath = `/meetings/${item.category}`;
+      let categoryObj = strapiEnumToObject("meetings", item.category);
+      item.parentPath = `/meetings/${categoryObj[0].slug}`;
       return item;
     });
 
@@ -56,13 +53,15 @@ const getSearchIndex = async () => {
     });
 
     let publications = searchIndex["publications"].map(item => {
-      item.parentPath = `/publications/${item.category}`;
+      let categoryObj = strapiEnumToObject("publications", item.category);
+      item.parentPath = `/publications/${categoryObj[0].slug}`;
       return item;
     });
 
     return [...news, ...pages, ...meetings, ...biographies, ...publications];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
+    // eslint-disable-next-line no-console
     console.log(e.toString());
     return [];
   }

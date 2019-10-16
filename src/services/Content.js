@@ -386,11 +386,7 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
+    
     mediaMaterial {
       name
       summary
@@ -446,12 +442,47 @@ const getSingleMeetingQuery = slug => {
 const getFrontPagePublicationsQuery = () => {
   return `{
   publications(
-    sort: "createdAt:desc"
+    sort: "year:desc"
     where: { isPublished: true, addToBanner: true }
   ) {
     createdAt
     updatedAt
     title
+    year
+    isPublished
+    slug
+    searchMeta
+    summary
+    category
+    addToBanner
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+      }
+    }
+    
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getAllPublicationsQuery = () => {
+  return `
+  {
+  publications(sort: "year:desc", where: { isPublished: true }) {
+    createdAt
+    updatedAt
+    title
+    year
     isPublished
     slug
     searchMeta
@@ -522,17 +553,6 @@ const getAllNews = async () => {
   try {
     let news = await queryEndpoint(getAllNewsQuery());
     return news.data.data.posts;
-  } catch (e) {
-    EventBus.$emit("contentServiceError", e.toString());
-    console.log("contentServiceError", e.toString());
-    return [];
-  }
-};
-
-const getFeaturedPublications = async () => {
-  try {
-    let featured = await queryEndpoint(getFeaturedPublicationsQuery());
-    return featured.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
     console.log("contentServiceError", e.toString());
@@ -660,6 +680,17 @@ const getFrontPagePublications = async () => {
   }
 };
 
+const getAllPublications = async () => {
+  try {
+    let publications = await queryEndpoint(getAllPublicationsQuery());
+    return publications.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -674,5 +705,6 @@ export {
   getSingleBiography,
   getAllMeetings,
   getSingleMeeting,
-  getFrontPagePublications
+  getFrontPagePublications,
+  getAllPublications
 };

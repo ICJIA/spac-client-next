@@ -13,6 +13,7 @@
           </v-row>
         </v-container>
       </template>
+
       <template v-slot:content>
         <v-container
           v-if="content"

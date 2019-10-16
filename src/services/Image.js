@@ -11,8 +11,8 @@ const thumborURL = new ThumborUrlBuilder(
 
 const getThumbnailLink = function(mediaMaterial) {
   let imagePath;
-  if (mediaMaterial.length && mediaMaterial[0].thumbnail) {
-    imagePath = `${config.baseURL}${mediaMaterial[0].thumbnail.url}`;
+  if (mediaMaterial && mediaMaterial.thumbnail) {
+    imagePath = `${config.baseURL}${mediaMaterial.thumbnail.url}`;
   } else {
     imagePath = config.thumbnail.defaultUrl;
   }

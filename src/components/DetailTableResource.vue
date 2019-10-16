@@ -30,16 +30,6 @@
           {{ getCategoryTitle(item.category) }}
         </template>
 
-        <!-- <template v-slot:item.materials="{ item }">
-          <v-btn
-            small
-            depressed
-            v-if="checkForSingleFile(item)"
-            @click="getFile(item)"
-            >DOWNLOAD <v-icon right>cloud_download</v-icon></v-btn
-          >
-        </template> -->
-
         <template v-slot:item.externalURL="{ item }">
           <v-btn
             small
@@ -119,12 +109,7 @@ export default {
           align: "center",
           sortable: false
         },
-        // {
-        //   text: "External",
-        //   value: "externalURL",
-        //   align: "center",
-        //   sortable: false
-        // },
+
         {
           text: "Link",
           value: "slug",
@@ -135,32 +120,8 @@ export default {
     };
   },
   methods: {
-    // checkForSingleFile(item) {
-    //   if (item.materials.length === 1) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-    // checkForExternalURL(item) {
-    //   if (item.externalURL) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-    // getFile(item) {
-    //   if (item.materials.length === 1) {
-    //     return getFile(item.materials[0]);
-    //   }
-    // },
-    // gotoExternalURL(item) {
-    //   if (item.externalURL) {
-    //     window.open(item.externalURL, "_blank");
-    //   }
-    // },
     getRoute(resource) {
-      let parentPath = this.$store.getters.config.categoryEnums.resources.filter(
+      let parentPath = this.$store.getters.config.strapiEnums.resources.filter(
         cat => {
           return cat.enum === resource.category;
         }
@@ -169,12 +130,13 @@ export default {
       if (parentPath) {
         return `/resources/${parentPath[0].slug}/${resource.slug}`;
       } else {
+        // eslint-disable-next-line no-console
         console.error("Category not found in config");
         return null;
       }
     },
     getCategoryTitle(catEnum) {
-      let categoryName = this.$store.getters.config.categoryEnums.resources.filter(
+      let categoryName = this.$store.getters.config.strapiEnums.resources.filter(
         c => {
           return c.enum === catEnum;
         }

@@ -126,14 +126,14 @@ export default {
 }
 
 .visible {
-  color: #057879;
+  color: purple;
   font-weight: bold;
 }
 .anchor {
   padding: 2px 5px 2px 5px;
 }
 .anchor:hover {
-  color: #057879;
+  color: purple;
   background: #eee;
 }
 
@@ -163,7 +163,7 @@ ul.toc-list li {
 }
 
 ul.toc-list li:hover {
-  color: #065f60;
+  color: #aaa;
   background: #eee;
 }
 @media only screen and (max-width: 1024px) {

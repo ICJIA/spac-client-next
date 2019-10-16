@@ -81,7 +81,7 @@ request(api, query).then(res => {
        *
       //  */
       // if (section === "resources") {
-      //   let catEnum = config.categoryEnums.resources.filter(cat => {
+      //   let catEnum = config.strapiEnums.resources.filter(cat => {
       //     return item.category === cat.enum;
       //   });
 
@@ -92,7 +92,7 @@ request(api, query).then(res => {
        * Meetings
        *
        */
-      let catEnum = config.categoryEnums.meetings.filter(cat => {
+      let catEnum = config.strapiEnums.meetings.filter(cat => {
         return item.category === cat.enum;
       });
       if (section === "meetings") {

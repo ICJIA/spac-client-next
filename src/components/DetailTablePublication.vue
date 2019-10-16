@@ -14,7 +14,7 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="meetings"
+        :items="publications"
         :items-per-page="15"
         :search="search"
         class="elevation-1 meetingTable"
@@ -23,8 +23,8 @@
         :single-expand="singleExpand"
         :expanded.sync="expanded"
       >
-        <template v-slot:item.scheduledDate="{ item }">
-          {{ item.scheduledDate | format }}
+        <template v-slot:item.createdAt="{ item }">
+          {{ item.createdAt | format }}
         </template>
 
         <template v-slot:item.category="{ item }" v-if="!hideCategory">
@@ -32,8 +32,8 @@
         </template>
 
         <template v-slot:item.slug="{ item }">
-          <v-btn small depressed :to="getRoute(item)"
-            ><v-icon>link</v-icon></v-btn
+          <v-btn small outlined @click="download(item)"
+            >Read&nbsp;<v-icon>cloud_download</v-icon></v-btn
           >
         </template>
 
@@ -53,7 +53,13 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
-              <MeetingCard :content="item"></MeetingCard>
+              <!-- <MeetingCard :content="item"></MeetingCard> -->
+              <pub-preview
+                :item="item"
+                mode="minimal"
+                class="post default-font mb-3"
+                :key="forceRender()"
+              />
             </div>
           </td>
         </template>
@@ -63,11 +69,11 @@
 </template>
 
 <script>
-import MeetingCard from "@/components/MeetingCard";
+import PubPreview from "@/components/PubPreview";
 
 export default {
   components: {
-    MeetingCard
+    PubPreview
   },
   mounted() {
     if (!this.hideCategory) {
@@ -81,7 +87,7 @@ export default {
         value: "category"
       };
 
-      this.headers.insert(1, obj);
+      this.headers.insert(0, obj);
     }
   },
 
@@ -89,15 +95,11 @@ export default {
     return {
       search: "",
       expanded: [],
+      key: 0,
       singleExpand: true,
       headers: [
-        {
-          text: "Scheduled",
-          align: "left",
-          sortable: true,
-          value: "scheduledDate"
-        },
-        { text: "Meeting Title", value: "title" },
+        { text: "Year", value: "year" },
+        { text: "Title", value: "title" },
         {
           text: "",
           value: "slug",
@@ -108,33 +110,26 @@ export default {
     };
   },
   methods: {
-    getRoute(meeting) {
-      let parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
-        cat => {
-          return cat.enum === meeting.category;
-        }
-      );
-
-      if (parentPath) {
-        return `/about/meetings/${parentPath[0].slug}/${meeting.slug}`;
-      } else {
-        // eslint-disable-next-line no-console
-        console.error("Category not found in config");
-        return null;
-      }
+    forceRender() {
+      return this.key + 1;
+    },
+    download(item) {
+      let path = item.mediaMaterial.file.url;
+      window.open(this.$store.getters.config.baseURL + path);
     },
     getCategoryTitle(catEnum) {
-      let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
-        c => {
-          return c.enum === catEnum;
-        }
-      );
-      return categoryName[0].short;
+      //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
+      //     c => {
+      //       return c.enum === catEnum;
+      //     }
+      //   );
+      //   return categoryName[0].short;
+      return "cat title here";
     }
   },
 
   props: {
-    meetings: {
+    publications: {
       type: Array,
       default: () => []
     },
