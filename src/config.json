@@ -67,23 +67,6 @@
       "listComponent": "ListTable",
       "singletonPath": "",
       "appendCategory": false
-    },
-    {
-      "plural": "sites",
-      "type": "site",
-      "slug": "sites",
-      "alias": "Local Programs / Sites",
-      "listComponent": "ListTable",
-      "singletonPath": "/sites",
-      "appendCategory": false
-    },
-    {
-      "type": "resource",
-      "plural": "resources",
-      "slug": "resources",
-      "listComponent": "ListTable",
-      "singletonPath": "/resources",
-      "appendCategory": true
     }
   ],
   "status": {
@@ -91,7 +74,7 @@
     "prod": "https://adultredeploy.netlify.com/.netlify/functions/status"
   },
   "debug": true,
-  "categoryEnums": {
+  "strapiEnums": {
     "publications": [
       {
         "enum": "annualReport",

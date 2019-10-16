@@ -1,4 +1,5 @@
 const { MD5 } = require("crypto-js");
+const config = require("@/config.json");
 
 const getHash = salt => {
   let hash = MD5(salt).toString();
@@ -52,4 +53,26 @@ const truncate = function(string, maxWords = 10) {
   return string;
 };
 
-export { getHash, titleCase, checkIfValidPage, stripHTML, truncate, getOffset };
+const strapiEnumToObject = function(contentType, strapiEnum) {
+  let content = config.strapiEnums[contentType] || [
+    {
+      slug: "",
+      title: "",
+      enum: ""
+    }
+  ];
+
+  return content.filter(e => {
+    return e.enum === strapiEnum;
+  });
+};
+
+export {
+  getHash,
+  titleCase,
+  checkIfValidPage,
+  stripHTML,
+  truncate,
+  getOffset,
+  strapiEnumToObject
+};

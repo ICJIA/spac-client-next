@@ -5,9 +5,9 @@
       class="pt-3 pb-4 elevation-4"
     >
       <div class="px-4 lato">
-        <div class="text-xs-right spac-purple mt-2">
+        <div class="text-right spac-purple mt-2">
           <div class="heavy category" @click="routeToCategory(item)">
-            {{ item.category.name }}
+            {{ strapiEnumToObject("publications", item.category)[0].title }}
           </div>
         </div>
         <h1
@@ -19,7 +19,10 @@
         </h1>
 
         <v-card-text class="pb-5"
-          ><div style="float: left; margin-right: 20px; margin-bottom: 10px;">
+          ><div
+            class="hover"
+            style="float: left; margin-right: 20px; margin-bottom: 10px;"
+          >
             <v-img
               :contain="true"
               :src="getThumbnailLink(item.mediaMaterial)"
@@ -56,14 +59,22 @@
 
 <script>
 import { getThumbnailLink } from "@/services/Image";
+import { strapiEnumToObject } from "@/services/Utilities";
 import { EventBus } from "@/event-bus";
 export default {
   data() {
     return {
-      getThumbnailLink
+      getThumbnailLink,
+      strapiEnumToObject
     };
   },
-  methods: {},
+  methods: {
+    routeToCategory(item) {
+      let categoryObj = strapiEnumToObject("publications", item.category);
+      let path = `/publications/${categoryObj[0].slug}/${item.slug}`;
+      this.$router.push(`${path}`);
+    }
+  },
   props: {
     item: {
       type: Object,
@@ -77,4 +88,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.category {
+  background: purple;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  display: inline;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category:hover {
+  background: #ccc;
+  color: #000;
+}
+</style>
