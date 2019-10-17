@@ -125,21 +125,7 @@ const getContentByTagQuery = slug => {
     slug
     content
 
-    sites(sort: "title:asc", where: { isPublished: true }) {
-      id
-      title
-      slug
-      summary
-      content
-      siteType
-      showToc
-      createdAt
-      updatedAt
-      tags {
-        name
-        slug
-      }
-    }
+    
 
     meetings (sort: "scheduledDate:desc", where: {isPublished: true}) {
     createdAt

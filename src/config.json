@@ -48,7 +48,7 @@
       "plural": "meetings",
       "slug": "meetings",
       "listComponent": "ListTable",
-      "singletonPath": "/about/meetings",
+      "singletonPath": "/meetings",
       "appendCategory": true
     },
     {
