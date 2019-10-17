@@ -37,7 +37,7 @@
                 outlined
                 color="purple darken-2"
                 class="white--text"
-                style="margin-left: 10px; margin-top: 10px;"
+                style="margin-left: 20px; margin-top: 10px;"
                 @click="download(item)"
               >
                 READ

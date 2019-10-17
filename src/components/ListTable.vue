@@ -46,15 +46,15 @@ export default {
       this.headers.insert(0, obj);
     }
 
-    if (this.contentType === "resource") {
+    if (this.contentType === "publication") {
       let obj = {
-        text: "Publication Date",
+        text: "Year",
         align: "left",
         sortable: true,
-        value: "publicationDate"
+        value: "year"
       };
 
-      this.headers.insert(1, obj);
+      this.headers.insert(0, obj);
     }
   },
   props: {

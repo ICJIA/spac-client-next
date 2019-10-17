@@ -164,6 +164,33 @@ const getContentByTagQuery = slug => {
       }
     }
 
+    publications(
+    sort: "year:desc"
+    where: { isPublished: true }
+  ) {
+    createdAt
+    updatedAt
+    title
+    year
+    isPublished
+    slug
+    searchMeta
+    summary
+    category
+    addToBanner
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+      }
+    }
+  }
+
 
 
     biographies(sort: "alphabetizeBy:asc", where: { isPublished: true }) {
@@ -188,6 +215,12 @@ const getContentByTagQuery = slug => {
         name
       }
     }
+
+
+
+
+
+
     news: posts(sort: "createdAt:desc", where: { isPublished: true }) {
       title
       slug
