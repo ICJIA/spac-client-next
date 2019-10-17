@@ -423,6 +423,35 @@ const getAllMeetingsQuery = () => {
   `;
 };
 
+const getMeetingsByCategoryQuery = category => {
+  return `{
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
 const getSingleMeetingQuery = slug => {
   return `
   {
@@ -727,6 +756,22 @@ const getAllMeetings = async () => {
   }
 };
 
+const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
+  try {
+    strapiEnumCategory = xss(strapiEnumCategory);
+    console.log("category: ", strapiEnumCategory);
+    let meetings = await queryEndpoint(
+      getMeetingsByCategoryQuery(strapiEnumCategory)
+    );
+    console.log(meetings.data);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 const getSingleMeeting = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -805,6 +850,7 @@ export {
   getAllBiographies,
   getSingleBiography,
   getAllMeetings,
+  getMeetingsByCategory,
   getSingleMeeting,
   getFrontPagePublications,
   getAllPublications,
