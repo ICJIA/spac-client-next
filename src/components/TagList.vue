@@ -7,7 +7,7 @@
           <v-chip
             :small="true"
             label
-            color="green darken-4"
+            color="purple darken-4"
             class="chip"
             text-color="white"
           >

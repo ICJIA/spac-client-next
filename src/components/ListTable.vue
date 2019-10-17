@@ -21,7 +21,7 @@
       </template>
       <template v-slot:item.slug="{ item }">
         <v-btn small depressed :to="getRoute(item)"
-          >More<v-icon right>open_in_new</v-icon></v-btn
+          >LINK<v-icon right>open_in_new</v-icon></v-btn
         >
       </template></v-data-table
     >
