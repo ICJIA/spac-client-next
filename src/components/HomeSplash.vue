@@ -2,6 +2,7 @@
   <div>
     <v-img
       src="@/assets/img/spac-columns.jpg"
+      lazy-src="@/assets/img/spac-columns-min.jpg"
       height="500"
       aspect-ratio="1.3"
       class="mt-0"
