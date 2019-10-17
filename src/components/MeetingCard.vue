@@ -4,6 +4,11 @@
       content.title
     }}</v-card-title>
     <v-card-text>
+      <div class="text-left" style="font-size: 18px; font-weight: 900">
+        Scheduled: {{ content.scheduledDate | format }}
+      </div></v-card-text
+    >
+    <v-card-text>
       <div
         v-html="renderToHtml(content.content)"
         v-if="content.content"

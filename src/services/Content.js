@@ -386,8 +386,7 @@ const getAllMeetingsQuery = () => {
     summary
     category
     content
-    
-    mediaMaterial {
+    meetingMaterial {
       name
       summary
       file {
@@ -417,12 +416,7 @@ const getSingleMeetingQuery = slug => {
     summary
     category
     content
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
-    mediaMaterial {
+    meetingMaterial {
       name
       summary
       file {
@@ -511,7 +505,7 @@ const getAllPublicationsQuery = () => {
 
 const getPublicationsByCategoryQuery = category => {
   return `{
-  publications (where: {isPublished: true, category: "${category}"}) {
+  publications (sort: "year:desc", where: {isPublished: true, category: "${category}"}) {
     createdAt
     updatedAt
     title

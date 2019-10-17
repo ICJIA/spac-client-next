@@ -116,7 +116,7 @@ export default {
       );
 
       if (parentPath) {
-        return `/about/meetings/${parentPath[0].slug}/${meeting.slug}`;
+        return `/meetings/${parentPath[0].slug}/${meeting.slug}`;
       } else {
         // eslint-disable-next-line no-console
         console.error("Category not found in config");
