@@ -94,7 +94,7 @@
           <NavPublications></NavPublications>
         </span>
       </span>
-      <v-btn depressed small color="white" to="/search"
+      <v-btn depressed small color="white" to="/search" aria-label="Search SPAC"
         ><v-icon style="color: purple">search</v-icon></v-btn
       >
     </v-toolbar-items>
