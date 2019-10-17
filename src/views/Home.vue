@@ -44,6 +44,7 @@
                       class="white--text "
                       style="padding: 0; margin: 0;"
                       @click="previousFeatured()"
+                      aria-label="Navigate to Previous"
                       ><v-icon dark>navigate_before</v-icon>
                     </v-btn>
 
@@ -53,6 +54,7 @@
                       color="purple lighten-1"
                       class="white--text ml-2"
                       style="padding: 0; margin: 0;"
+                      aria-label="Navigate to Next"
                       @click="nextFeatured()"
                     >
                       <v-icon dark>navigate_next</v-icon>

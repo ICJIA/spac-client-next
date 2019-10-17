@@ -18,7 +18,14 @@
       <base-list :items="queryResults" empty="">
         <template slot-scope="item">
           <div class="px-8 py-2 lato hover text-left" @click="route(item)">
-            {{ item.title }}
+            <span v-if="item.parentPath === '/about/biographies'">
+              {{ item.firstName }}&nbsp;{{ item.middleName }}&nbsp;{{
+                item.lastName
+              }}</span
+            >
+            <span v-else>
+              {{ item.title }}
+            </span>
           </div>
         </template>
       </base-list>
@@ -57,6 +64,14 @@ export default {
     //   });
     //   this.instantSearch();
     // }
+    window.onscroll = () => {
+      /**
+       * hide search card on scroll only on md or lg screens
+       */
+      if (this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg) {
+        this.hideQuery();
+      }
+    };
   },
   data() {
     return {

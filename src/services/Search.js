@@ -48,7 +48,7 @@ const getSearchIndex = async () => {
     });
 
     let biographies = searchIndex["biographies"].map(item => {
-      item.parentPath = "/biographies";
+      item.parentPath = "/about/biographies";
       return item;
     });
 
