@@ -115,7 +115,8 @@
         "slug": "budget",
         "title": "Budget Committee",
         "short": "Budget",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       },
 
       {
@@ -123,7 +124,8 @@
         "slug": "regular",
         "title": "Regular Meeting",
         "short": "Regular Meeting",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte."
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       }
     ]
   },

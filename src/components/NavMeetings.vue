@@ -7,14 +7,14 @@
         class="heavy white default-font"
         v-on="on"
       >
-        Publications&nbsp;<v-icon right small>arrow_drop_down</v-icon>
+        Meetings&nbsp;<v-icon right small>arrow_drop_down</v-icon>
       </v-btn>
     </template>
     <v-list>
       <v-list-item v-for="(item, index) in items" :key="index">
         <v-list-item-content
           @click="
-            $router.push(`/publications/${item.slug}`).catch(err => {
+            $router.push(`/meetings/${item.slug}`).catch(err => {
               $vuetify.goTo(0);
             })
           "
@@ -32,8 +32,8 @@
         <v-list-item-title
           style="font-size: 14px; font-weight: bold; "
           class="hover"
-          @click="$router.push('/publications')"
-          >All publications</v-list-item-title
+          @click="$router.push('/meetings')"
+          >All meetings</v-list-item-title
         >
       </v-list-item>
     </v-list>
@@ -46,9 +46,9 @@ export default {
     items: () => []
   }),
   mounted() {
-    this.items = this.$store.getters.config.strapiEnums["publications"].filter(
-      pub => {
-        return pub.displayNav === true;
+    this.items = this.$store.getters.config.strapiEnums["meetings"].filter(
+      m => {
+        return m.displayNav === true;
       }
     );
   }

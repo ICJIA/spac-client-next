@@ -90,12 +90,14 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "meetings" */ "./views/MeetingsSingle.vue")
     },
-    // {
-    //   path: "/about/meetings/:category",
-    //   name: "meetingsCategory",
-    //   component: () =>
-    //     import(/* webpackChunkName: "meetings" */ "./views/MeetingsCategory.vue")
-    // },
+    {
+      path: "/meetings/:category",
+      name: "meetingsCategory",
+      component: () =>
+        import(
+          /* webpackChunkName: "meetings" */ "./views/MeetingsByCategory.vue"
+        )
+    },
 
     /**
      *

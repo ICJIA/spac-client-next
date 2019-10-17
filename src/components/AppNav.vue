@@ -37,7 +37,12 @@
 
     <v-toolbar-items class="hidden-sm-and-down">
       <span v-for="link in sections" :key="link.title" class="flexitem">
-        <span v-if="link.displayNav && link.slug !== 'publications'">
+        <span
+          v-if="
+            link.displayNav &&
+              (link.slug !== 'publications' && link.slug !== 'meetings')
+          "
+        >
           <v-menu offset-y left eager style="background: yellow">
             <template v-slot:activator="{ on }">
               <v-btn
@@ -93,6 +98,9 @@
         <span v-if="link.displayNav && link.slug === 'publications'">
           <NavPublications></NavPublications>
         </span>
+        <span v-if="link.displayNav && link.slug === 'meetings'">
+          <NavMeetings></NavMeetings>
+        </span>
       </span>
       <v-btn depressed small color="white" to="/search" aria-label="Search SPAC"
         ><v-icon style="color: purple">search</v-icon></v-btn
@@ -105,6 +113,7 @@
 /* eslint-disable vue/no-use-v-if-with-v-for */
 import { EventBus } from "@/event-bus";
 import NavPublications from "@/components/NavPublications";
+import NavMeetings from "@/components/NavMeetings";
 export default {
   props: {
     sections: {
@@ -113,7 +122,8 @@ export default {
     }
   },
   components: {
-    NavPublications
+    NavPublications,
+    NavMeetings
   },
   methods: {
     toggleDrawer() {
