@@ -52,14 +52,6 @@
       "appendCategory": true
     },
     {
-      "type": "publication",
-      "plural": "publications",
-      "slug": "publications",
-      "listComponent": "ListTable",
-      "singletonPath": "/publications",
-      "appendCategory": true
-    },
-    {
       "plural": "news",
       "type": "post",
       "alias": "news",
@@ -75,6 +67,14 @@
       "listComponent": "ListTable",
       "singletonPath": "",
       "appendCategory": false
+    },
+    {
+      "type": "publication",
+      "plural": "publications",
+      "slug": "publications",
+      "listComponent": "ListTable",
+      "singletonPath": "/publications",
+      "appendCategory": true
     }
   ],
   "status": {

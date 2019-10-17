@@ -9,7 +9,14 @@ var sm = require("sitemap");
 const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
-const sections = ["pages", "news", "tags", "meetings"];
+const sections = [
+  "pages",
+  "news",
+  "tags",
+  "meetings",
+  "publications",
+  "sections"
+];
 let routes = [];
 
 const query = `{
@@ -21,16 +28,25 @@ const query = `{
     
   }
 
+  sections (where: {isPublished: true}){
+    slug
+  }
+
   news: posts (where: {isPublished: true}) {
     slug
-    
-   
+  }
+
+   publications (where: {isPublished: true}){
+    slug
+    category
   }
   
   meetings (where: {isPublished: true}){
     slug
     category
   }
+
+ 
 
   tags {
     slug
@@ -52,12 +68,16 @@ request(api, query).then(res => {
        * Pages
        *
        */
-      if (section === "pages") {
-        if (item.section.slug === item.slug) {
-          path = `/${item.section.slug}`;
-        } else {
-          path = `/${item.section.slug}/${item.slug}`;
-        }
+      // if (section === "pages") {
+      //   path = `/${item.section.slug}`;
+      // }
+      /**
+       *
+       * Sections
+       *
+       */
+      if (section === "sections") {
+        path = `/${item.slug}`;
       }
       /**
        *
@@ -77,16 +97,16 @@ request(api, query).then(res => {
       }
       /**
        *
-       * Resources
+       * Publications
        *
-      //  */
-      // if (section === "resources") {
-      //   let catEnum = config.strapiEnums.resources.filter(cat => {
-      //     return item.category === cat.enum;
-      //   });
+       */
+      if (section === "publications") {
+        let catEnum = config.strapiEnums.publications.filter(cat => {
+          return item.category === cat.enum;
+        });
 
-      //   path = `/resources/${catEnum[0].slug}/${item.slug}`;
-      // }
+        path = `/publications/${catEnum[0].slug}/${item.slug}`;
+      }
       /**
        *
        * Meetings
