@@ -56,14 +56,28 @@ const truncate = function(string, maxWords = 10) {
 const strapiEnumToObject = function(contentType, strapiEnum) {
   let content = config.strapiEnums[contentType] || [
     {
-      slug: "",
-      title: "",
-      enum: ""
+      slug: null,
+      title: null,
+      enum: null
     }
   ];
 
   return content.filter(e => {
     return e.enum === strapiEnum;
+  });
+};
+
+const strapiSlugToObject = function(contentType, strapiSlug) {
+  let content = config.strapiEnums[contentType] || [
+    {
+      slug: null,
+      title: null,
+      enum: null
+    }
+  ];
+
+  return content.filter(e => {
+    return e.slug === strapiSlug;
   });
 };
 
@@ -74,5 +88,6 @@ export {
   stripHTML,
   truncate,
   getOffset,
-  strapiEnumToObject
+  strapiEnumToObject,
+  strapiSlugToObject
 };

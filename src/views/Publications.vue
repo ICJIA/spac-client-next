@@ -76,7 +76,7 @@ import { getPageBySection, getAllPublications } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
-import Toggle from "@/components/Toggle";
+
 export default {
   mixins: [handleClicks],
   data() {
@@ -94,7 +94,7 @@ export default {
   components: {
     BaseContent,
     TOC,
-    Toggle,
+
     DetailTablePublication
   },
   created() {
@@ -147,20 +147,6 @@ export default {
       );
       this.content = this.sectionContent[0].pages;
 
-      console.log(this.content);
-
-      //   if (checkIfValidPage(this.sectionContent)) {
-      //     this.content = this.sectionContent[0].pages;
-
-      //     if (checkIfValidPage(this.content)) {
-      //       this.showToc = this.content[0].showToc;
-      //     } else {
-      //       this.routeToError();
-      //     }
-      //   } else {
-      //     this.routeToError();
-      //   }
-
       this.publications = this.$store.getters.getContentFromCache(
         contentMap,
         publicationsName
@@ -172,21 +158,6 @@ export default {
       return this.publications.filter(publication => {
         return publication.category === categoryEnum;
       });
-    },
-    routeToError() {
-      //   this.content = null;
-      //   this.loading = false;
-      //   this.$router
-      //     .push({
-      //       name: "error",
-      //       params: {
-      //         msg: "Page not found",
-      //         statusCode: 404,
-      //         debug: this.$route.params
-      //       }
-      //     })
-      //     // eslint-disable-next-line no-unused-vars
-      //     .catch(err => {});
     }
   }
 };

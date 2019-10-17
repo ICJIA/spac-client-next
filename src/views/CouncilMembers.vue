@@ -126,7 +126,7 @@ export default {
       );
 
       this.board = biographyContent.filter(person => {
-        return person.category === "board";
+        return person.category === "council";
       });
       this.board = _.sortBy(this.board, "order");
 

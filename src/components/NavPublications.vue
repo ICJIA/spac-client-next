@@ -38,6 +38,7 @@
         <v-list-item-title
           style="font-size: 14px; font-weight: bold; "
           class="hover"
+          @click="$router.push('/publications')"
           >All publications</v-list-item-title
         >
       </v-list-item>

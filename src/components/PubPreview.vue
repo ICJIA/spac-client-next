@@ -62,7 +62,7 @@
 <script>
 import { getThumbnailLink } from "@/services/Image";
 import { strapiEnumToObject } from "@/services/Utilities";
-import { EventBus } from "@/event-bus";
+// import { EventBus } from "@/event-bus";
 export default {
   data() {
     return {

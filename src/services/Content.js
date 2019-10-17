@@ -500,17 +500,77 @@ const getAllPublicationsQuery = () => {
         url
       }
     }
-    externalMediaMaterial {
-      name
-      url
-      summary
-    }
+    
     tags {
       name
       slug
     }
   }
 }`;
+};
+
+const getPublicationsByCategoryQuery = category => {
+  return `{
+  publications (where: {isPublished: true, category: "${category}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    year
+    summary
+    category
+    addToBanner
+    isPublished
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
+const getSinglePublicationQuery = slug => {
+  return `{
+  publications (where: {isPublished: true, slug: "${slug}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    year
+    summary
+    category
+    addToBanner
+    isPublished
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
 };
 
 const getPage = async ({ slug }) => {
@@ -691,6 +751,34 @@ const getAllPublications = async () => {
   }
 };
 
+const getPublicationsByCategory = async ({ strapiEnumCategory }) => {
+  try {
+    strapiEnumCategory = xss(strapiEnumCategory);
+    console.log("category: ", strapiEnumCategory);
+    let publications = await queryEndpoint(
+      getPublicationsByCategoryQuery(strapiEnumCategory)
+    );
+    console.log(publications.data);
+    return publications.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getSinglePublication = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    let publication = await queryEndpoint(getSinglePublicationQuery(slug));
+    return publication.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -706,5 +794,7 @@ export {
   getAllMeetings,
   getSingleMeeting,
   getFrontPagePublications,
-  getAllPublications
+  getAllPublications,
+  getPublicationsByCategory,
+  getSinglePublication
 };

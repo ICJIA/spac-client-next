@@ -135,15 +135,15 @@ export default new Router({
           /* webpackChunkName: "publications" */ "./views/PublicationsByCategory.vue"
         )
     },
-    // {
-    //   path: "/resources/:category/:slug",
-    //   name: "resourcesSingle",
+    {
+      path: "/publications/:category/:slug",
+      name: "publicationsSingle",
 
-    //   component: () =>
-    //     import(
-    //       /* webpackChunkName: "resources" */ "./views/ResourcesSingle.vue"
-    //     )
-    // },
+      component: () =>
+        import(
+          /* webpackChunkName: "publications" */ "./views/PublicationsSingle.vue"
+        )
+    },
 
     /**
      *

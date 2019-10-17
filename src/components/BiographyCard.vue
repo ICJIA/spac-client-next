@@ -48,9 +48,9 @@
             style="font-size: 12px"
             v-if="displayCategory"
           >
-            <div v-if="person.category === 'board'">
-              <v-btn small depressed to="/about/oversight"
-                >OVERSIGHT BOARD <v-icon right>open_in_new</v-icon></v-btn
+            <div v-if="person.category === 'council'">
+              <v-btn small depressed to="/about/council-members"
+                >COUNCIL MEMBERS <v-icon right>open_in_new</v-icon></v-btn
               >
             </div>
             <div v-else>
