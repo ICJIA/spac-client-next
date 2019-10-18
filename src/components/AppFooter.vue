@@ -50,7 +50,7 @@
           >&nbsp;|&nbsp; -->
           <strong>
             <a
-              href="https://github.com/ICJIA/adult-redeploy-client-next"
+              href="https://github.com/ICJIA/spac-client-next-prod"
               target="_blank"
               class="footer-link"
               rel="noreferrer"

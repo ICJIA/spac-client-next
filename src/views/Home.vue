@@ -6,9 +6,9 @@
       <home-boxes></home-boxes>
     </div>
 
-    <div class="mt-12 px-5">
+    <!-- <div class="mt-12 px-5">
       <home-about :content="about" v-if="about" data-aos="fade"></home-about>
-    </div>
+    </div> -->
     <div style="margin-top: -35px; background: #fff">
       <base-content :loading="loading">
         <template v-slot:content>
