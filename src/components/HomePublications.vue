@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-center mb-4">
+    <div class="text-center mb-4 hidden-sm-and-down">
       <span v-for="index in dots" :key="index">
         <span
           class="dot mx-1 hover"

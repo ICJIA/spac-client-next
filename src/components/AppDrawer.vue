@@ -34,7 +34,7 @@
     </v-container>
     <v-divider></v-divider>
     <v-container>
-      <v-row justify="left" class="fill-height">
+      <v-row class="fill-height">
         <v-col>
           <v-list dense v-for="link in sections" :key="link.name">
             <v-list-item class="link-item">

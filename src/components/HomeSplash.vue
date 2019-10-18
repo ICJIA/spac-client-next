@@ -23,7 +23,10 @@
                     $vuetify.breakpoint.xl
                 }"
               >
-                <h1 class="default-font" style="color: #fff; font-weight: 900;">
+                <h1
+                  class="default-font home-title"
+                  style="color: #fff; font-weight: 900;"
+                >
                   THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL
                 </h1>
                 <div
@@ -78,6 +81,10 @@ export default {
   .banner {
     margin-top: 10px;
     background: rgba(79, 80, 79, 0.5);
+  }
+
+  h1.home-title {
+    font-size: 22px;
   }
 }
 </style>
