@@ -6,6 +6,12 @@
       style="color: black"
       large
     ></v-app-bar-nav-icon>
+    <!-- 
+    <v-app-bar-nav-icon
+      @click="toggleDrawer"
+      style="color: black"
+      large
+    ></v-app-bar-nav-icon> -->
 
     <div style="width: 15px"></div>
 

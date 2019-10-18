@@ -8,7 +8,57 @@
     clipped
     disable-resize-watcher
   >
-    <v-row class="fill-height">
+    <v-container>
+      <v-row>
+        <v-col class="text-center">
+          <v-list class="drawer" rounded>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="text-center heavy">
+                  <img
+                    :src="require('@/assets/img/spac-horizontal-white.png')"
+                    alt="THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL"
+                    width="220"
+                    class="hover"
+                    @click="
+                      $router.push('/').catch(err => {
+                        $vuetify.goTo(0);
+                      })
+                    "
+                /></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-divider></v-divider>
+    <v-container>
+      <v-row justify="left" class="fill-height">
+        <v-col>
+          <v-list dense v-for="link in sections" :key="link.name">
+            <v-list-item class="link-item">
+              <v-list-item-content>
+                <v-list-item-title
+                  @click="
+                    $router
+                      .push(link.slug === 'home' ? '/' : `/${link.slug}`)
+                      .catch(err => {
+                        $vuetify.goTo(0);
+                      })
+                  "
+                  style="font-weight: 900 !important; cursor: pointer"
+                  class="push-right"
+                  >{{ link.title }}</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <!-- <v-row class="fill-height">
       <v-list class="drawer" rounded>
         <v-list-item>
           <v-list-item-content>
@@ -21,10 +71,7 @@
         <v-divider></v-divider>
 
         <v-list dense v-for="link in sections" :key="link.name">
-          <v-list-item
-            class="link-item"
-            v-if="!link.hasSubMenus && link.pages.length > 0"
-          >
+          <v-list-item class="link-item">
             <v-list-item-content>
               <v-list-item-title
                 @click="
@@ -39,9 +86,9 @@
                 >{{ link.title }}</v-list-item-title
               >
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
 
-          <v-list-group no-action sub-group v-if="link.hasSubMenus">
+    <!-- <v-list-group no-action sub-group v-if="link.hasSubMenus">
             <template v-slot:activator>
               <v-list-item-content>
                 <v-list-item-title style="font-weight: 900 !important">
@@ -65,12 +112,12 @@
                 </v-list-item>
               </div>
             </span>
-          </v-list-group>
-        </v-list>
+          </v-list-group> -->
+    <!-- </v-list>
       </v-list>
       <v-spacer></v-spacer>
-      <v-divider></v-divider>
-      <div class="text-center px-3 py-5" style="color: #fff">
+      <v-divider></v-divider> -->
+    <!-- <div class="text-center px-3 py-5" style="color: #fff">
         <a href="http://www.icjia.state.il.us">
           <img
             :src="require('@/assets/img/icjia-logo-white.png')"
@@ -89,8 +136,8 @@
             >Illinois Criminal Justice Information Authority
           </a>
         </strong>
-      </div>
-    </v-row>
+      </div> -->
+    <!-- </v-row> -->
   </v-navigation-drawer>
 </template>
 
@@ -126,7 +173,7 @@ export default {
 }
 
 .push-right {
-  padding-left: 50px;
+  padding-left: 30px;
 }
 .drawer .v-list-item--active {
   color: #fff !important;
@@ -137,6 +184,6 @@ export default {
 } */
 
 .link-item:hover {
-  background: #268384;
+  background: #6a1b9a;
 }
 </style>
