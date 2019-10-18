@@ -83,7 +83,7 @@ export default {
           vmid: "description",
           name: "description",
           content:
-            "The concept for the Illinois Sentencing Policy Advisory Council (SPAC) was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission. SPAC was created to collect, analyze and present data from all relevant sources to more accurately determine the consequences of sentencing policy decisions and to review the effectiveness and efficiency of current sentencing policies and practices. "
+            "The Illinois Sentencing Policy Advisory Council (SPAC) was created to more accurately determine the consequences of sentencing policy decisions. "
         }
       ]
     };

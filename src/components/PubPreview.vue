@@ -10,13 +10,13 @@
             {{ strapiEnumToObject("publications", item.category)[0].title }}
           </div>
         </div>
-        <h1
+        <h2
           style="margin: 0; padding: 0; width: 100%;"
           class="hover mt-5 mb-3 title-link"
           @click="download(item)"
         >
           {{ item.title }}
-        </h1>
+        </h2>
 
         <v-card-text class="pb-5"
           ><div
