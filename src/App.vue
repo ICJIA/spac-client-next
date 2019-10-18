@@ -62,6 +62,32 @@ import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
+  metaInfo() {
+    return {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: "Illinois Sentencing Policy Advisory Council",
+      // all titles will be injected into this template
+      titleTemplate: "SPAC | %s",
+      htmlAttrs: {
+        lang: "en"
+      },
+      link: [{ rel: "canonical", href: this.canonical }],
+      meta: [
+        { charset: "utf-8" },
+        {
+          vmid: "robots",
+          name: "robots",
+          content: "index, follow"
+        },
+        {
+          vmid: "description",
+          name: "description",
+          content:
+            "The concept for the Illinois Sentencing Policy Advisory Council (SPAC) was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission. SPAC was created to collect, analyze and present data from all relevant sources to more accurately determine the consequences of sentencing policy decisions and to review the effectiveness and efficiency of current sentencing policies and practices. "
+        }
+      ]
+    };
+  },
   components: {
     AppNav,
     AppDrawer,
@@ -71,6 +97,12 @@ export default {
     OutdatedBrowser
   },
   methods: {},
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    $route(to, from) {
+      this.canonical = this.$store.getters.config.clientURL + this.$route.path;
+    }
+  },
   async mounted() {},
   async created() {
     this.loading = true;
@@ -82,6 +114,9 @@ export default {
       let config = await configPromise;
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
+      this.canonical = config.clientURL + this.$route.path;
+
+      // eslint-disable-next-line no-console
       console.log("Debug: ", this.$store.getters.debug);
       // const routesPromise = process.BROWSER_BUILD
       //   ? import("@/api/routes.json")
@@ -109,7 +144,8 @@ export default {
       sections: [],
       loading: true,
       test: [],
-      env: process.env.NODE_ENV
+      env: process.env.NODE_ENV,
+      canonical: null
     };
   }
 };

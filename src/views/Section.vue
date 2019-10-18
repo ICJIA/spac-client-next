@@ -62,11 +62,17 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: null,
       content: [],
-      renderToHtml
+      renderToHtml,
+      title: ""
     };
   },
   components: {
@@ -101,12 +107,18 @@ export default {
           this.routeToError();
         }
       }
+      this.title = this.content.title;
 
       this.loading = false;
     }
   },
   created() {
     this.fetchContent();
+  },
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
   }
 };
 </script>

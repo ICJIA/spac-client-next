@@ -24,6 +24,12 @@ import "@/css/app.css";
 import browserDetect from "vue-browser-detect-plugin";
 Vue.use(browserDetect);
 
+import VueMeta from "vue-meta";
+Vue.use(VueMeta, {
+  // optional pluginOptions
+  refreshOnceOnNavigation: true
+});
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });
