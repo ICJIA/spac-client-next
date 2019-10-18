@@ -4,11 +4,9 @@
       <home-splash></home-splash>
 
       <home-boxes></home-boxes>
+      <home-about :content="about" v-if="about" data-aos="fade"></home-about>
     </div>
 
-    <!-- <div class="mt-12 px-5">
-      <home-about :content="about" v-if="about" data-aos="fade"></home-about>
-    </div> -->
     <div style="margin-top: -35px; background: #fff">
       <base-content :loading="loading">
         <template v-slot:content>

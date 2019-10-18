@@ -1,11 +1,17 @@
 <template>
-  <div v-if="content">
-    <p
-      v-html="renderToHtml(content[0].content)"
-      @click="handleClicks"
-      class="dynamic-content"
-    ></p>
-  </div>
+  <v-container fluid class="px-5 pt-8" style="background: #fff">
+    <v-row>
+      <v-col>
+        <div v-if="content">
+          <p
+            v-html="renderToHtml(content[0].content)"
+            @click="handleClicks"
+            class="dynamic-content"
+          ></p>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
