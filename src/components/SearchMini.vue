@@ -4,6 +4,9 @@
       ref="textfield"
       v-model="query"
       class="pt-3"
+      dense
+      append-icon="search"
+      :clearable="true"
       placeholder="Search SPAC"
       label="Search"
       @keyup="instantSearch"
@@ -11,7 +14,7 @@
     </v-text-field>
 
     <v-card
-      v-if="query.length"
+      v-if="query && query.length"
       style="position: absolute; margin-top: -5px; margin-left: -12px; width: 50%; postition: absolute; top: 82px; width: 100%; z-index: 500000; "
       class="py-2 mr-5 text-xs-left"
     >
