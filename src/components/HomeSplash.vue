@@ -79,7 +79,7 @@ export default {
 
 @media only screen and (max-width: 600px) {
   .banner {
-    margin-top: 30px;
+    margin-top: 25px;
     background: rgba(79, 80, 79, 0.5);
   }
 
