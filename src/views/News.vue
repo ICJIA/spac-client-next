@@ -48,12 +48,18 @@ export default {
     NewsCard
   },
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.title
+    };
+  },
   data() {
     return {
       loading: false,
       content: [],
       news: [],
-      renderToHtml
+      renderToHtml,
+      title: "News Archive"
     };
   },
   created() {

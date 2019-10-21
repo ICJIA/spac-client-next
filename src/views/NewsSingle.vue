@@ -39,7 +39,13 @@ export default {
       loading: true,
       content: null,
       renderToHtml,
-      newsContent: {}
+      newsContent: {},
+      title: ""
+    };
+  },
+  metaInfo() {
+    return {
+      title: this.computedTitle
     };
   },
   components: {
@@ -50,6 +56,11 @@ export default {
   created() {
     this.fetchContent();
     this.newsContent.content = "Test content";
+  },
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
   },
   methods: {
     async fetchContent() {
@@ -69,9 +80,10 @@ export default {
       this.content = this.$store.getters.getContentFromCache(contentMap, name);
 
       checkIfValidPage(this.content) ? null : this.routeToError();
-
+      this.title = this.content[0].title;
       this.loading = false;
     },
+
     routeToError() {
       this.content = null;
       this.loading = false;

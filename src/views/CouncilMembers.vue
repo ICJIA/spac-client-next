@@ -58,7 +58,13 @@ export default {
       sectionContent: null,
       staff: null,
       board: null,
-      person: {}
+      person: {},
+      title: ""
+    };
+  },
+  metaInfo() {
+    return {
+      title: this.computedTitle
     };
   },
   components: {
@@ -70,6 +76,9 @@ export default {
     this.fetchContent();
   },
   computed: {
+    computedTitle() {
+      return this.title;
+    },
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "xs12";
@@ -113,6 +122,7 @@ export default {
 
         if (checkIfValidPage(this.content)) {
           this.showToc = this.content[0].showToc;
+          this.title = this.content[0].title;
         } else {
           this.routeToError();
         }
