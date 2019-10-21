@@ -30,6 +30,14 @@ Vue.use(VueMeta, {
   refreshOnceOnNavigation: true
 });
 
+import VueAnalytics from "vue-analytics";
+Vue.use(VueAnalytics, {
+  id: "UA-150580082-1",
+  debug: {
+    sendHitTask: process.env.NODE_ENV === "production"
+  }
+});
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });

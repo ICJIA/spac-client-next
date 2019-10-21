@@ -81,6 +81,11 @@ export default {
 
       checkIfValidPage(this.content) ? null : this.routeToError();
       this.title = this.content[0].title;
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
       this.loading = false;
     },
 

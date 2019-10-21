@@ -115,8 +115,8 @@ export default {
 }
 .searchContainer {
   z-index: unset;
-  left: 25%;
-  width: 50%;
+  left: 16.5%;
+  width: 66.66%;
 }
 
 @media only screen and (max-width: 600px) {
