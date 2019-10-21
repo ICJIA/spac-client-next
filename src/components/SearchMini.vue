@@ -20,7 +20,10 @@
     >
       <base-list :items="queryResults" empty="">
         <template slot-scope="item">
-          <div class="px-8 py-2 lato hover text-left" @click="route(item)">
+          <div
+            class="px-8 py-2 lato hover background text-left"
+            @click="route(item)"
+          >
             <span v-if="item.parentPath === '/about/biographies'">
               {{ item.firstName }}&nbsp;{{ item.middleName }}&nbsp;{{
                 item.lastName
@@ -107,6 +110,9 @@ export default {
 </script>
 
 <style>
+.background:hover {
+  background: #efefef;
+}
 .searchContainer {
   z-index: unset;
   left: 25%;
