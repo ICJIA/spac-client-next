@@ -79,12 +79,12 @@ export default {
 
 @media only screen and (max-width: 600px) {
   .banner {
-    margin-top: 10px;
+    margin-top: 30px;
     background: rgba(79, 80, 79, 0.5);
   }
 
   h1.home-title {
-    font-size: 22px;
+    font-size: 26px;
   }
 }
 </style>

@@ -133,7 +133,6 @@ export default {
         this.routeToError();
       }
       this.title = this.content[0].title;
-      console.log(this.title);
       this.loading = false;
     },
     routeToError() {

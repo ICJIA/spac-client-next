@@ -1,5 +1,5 @@
 <template>
-  <div style="z-index: unset">
+  <div style="" class="searchContainer">
     <v-text-field
       ref="textfield"
       v-model="query"
@@ -12,7 +12,7 @@
 
     <v-card
       v-if="query.length"
-      style="position: absolute; margin-top: -5px; margin-left: -12px; width: 50%; postition: absolute; top: 82px; width: 100%; z-index: 500000"
+      style="position: absolute; margin-top: -5px; margin-left: -12px; width: 50%; postition: absolute; top: 82px; width: 100%; z-index: 500000; "
       class="py-2 mr-5 text-xs-left"
     >
       <base-list :items="queryResults" empty="">
@@ -103,4 +103,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.searchContainer {
+  z-index: unset;
+  left: 25%;
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .searchContainer {
+    left: 0%;
+    width: 100%;
+  }
+}
+</style>
