@@ -9,14 +9,7 @@ var sm = require("sitemap");
 const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
-const sections = [
-  "pages",
-  "news",
-  "tags",
-  "meetings",
-  "publications",
-  "sections"
-];
+const sections = ["pages", "news", "tags", "meetings", "publications"];
 let routes = [];
 
 const query = `{
@@ -28,10 +21,7 @@ const query = `{
     
   }
 
-  sections (where: {isPublished: true}){
-    slug
-  }
-
+  
   news: posts (where: {isPublished: true}) {
     slug
   }
@@ -68,17 +58,16 @@ request(api, query).then(res => {
        * Pages
        *
        */
-      // if (section === "pages") {
-      //   path = `/${item.section.slug}`;
-      // }
-      /**
-       *
-       * Sections
-       *
-       */
-      if (section === "sections") {
-        path = `/${item.slug}`;
+      if (section === "pages") {
+        //   if (item.section.slug && item.section) {
+        if (item.slug !== item.section.slug) {
+          path = `/${item.section.slug}/${item.slug}`;
+        } else {
+          path = `/${item.section.slug}`;
+        }
+        //   }
       }
+
       /**
        *
        * News
@@ -122,6 +111,7 @@ request(api, query).then(res => {
     });
     routes.push(...sectionRoutes);
   });
+  //console.log(routes);
   let temp = routes.filter(Boolean);
   // remove dupes
   let paths = [...new Set(temp)];

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "node buildSearchIndex.js && vue-cli-service serve",
-    "build": "node buildSearchIndex.js && vue-cli-service build",
+    "serve": "node buildSearchIndex.js && node buildSitemap.js && vue-cli-service serve",
+    "build": "node buildSearchIndex.js && node buildSitemap.js && vue-cli-service build",
     "build:search": "node buildSearchIndex.js",
     "lint": "vue-cli-service lint"
   },
