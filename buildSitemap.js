@@ -11,10 +11,12 @@ const apiDir = "./src/api";
 const filename = "routes.json";
 const sections = ["pages", "news", "tags", "meetings", "publications"];
 let routes = [];
+const lastModMap = new Map();
 
 const query = `{
   pages (where: {isPublished: true}) {
     slug
+    updatedAt
     section {
       slug
     }
@@ -24,22 +26,26 @@ const query = `{
   
   news: posts (where: {isPublished: true}) {
     slug
+    updatedAt
   }
 
    publications (where: {isPublished: true}){
     slug
     category
+    updatedAt
   }
   
   meetings (where: {isPublished: true}){
     slug
     category
+    updatedAt
   }
 
  
 
   tags {
     slug
+    updatedAt
   }
   
 }`;
@@ -107,16 +113,18 @@ request(api, query).then(res => {
       if (section === "meetings") {
         path = `/meetings/${catEnum[0].slug}/${item.slug}`;
       }
+      lastModMap.set(`${path}`, item.updatedAt);
       return `${config.publicPath}${path}`;
     });
     routes.push(...sectionRoutes);
   });
-  //console.log(routes);
-  let temp = routes.filter(Boolean);
+  //console.log(lastModMap);
+  //let temp = routes.filter(Boolean);
   // remove dupes
-  let paths = [...new Set(temp)];
+  let paths = [...new Set(routes)];
   // add root
   paths.push("/");
+  lastModMap.set(`/`, new Date());
   jsonfile.writeFile(`${apiDir}/${filename}`, paths, function(err) {
     if (err) console.error(err);
     console.log(`Created: ${apiDir}/${filename}`);
@@ -126,8 +134,8 @@ request(api, query).then(res => {
     let obj = {};
     obj.url = route;
     obj.changefreq = "weekly";
-    obj.priority = 0.8;
-    // obj.lastmodrealtime = true;
+    obj.priority = 0.5;
+    obj.lastmod = lastModMap.get(route);
     return obj;
   });
 
