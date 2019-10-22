@@ -159,6 +159,12 @@ export default {
         this.$store.getters.config.frontPageItems.publications
     );
 
+    this.$ga.page({
+      page: this.$route.path,
+      title: "Home",
+      location: window.location.href
+    });
+
     this.loading = false;
   }
 };

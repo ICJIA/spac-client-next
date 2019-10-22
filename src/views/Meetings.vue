@@ -109,6 +109,11 @@ import { handleClicks } from "@/mixins/handleClicks";
 import Toggle from "@/components/Toggle";
 export default {
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -118,7 +123,8 @@ export default {
       showToc: false,
       sectionContent: null,
       meetings: null,
-      displayMode: {}
+      displayMode: {},
+      title: ""
     };
   },
   components: {
@@ -144,6 +150,9 @@ export default {
       } else {
         return this.showToc ? "xs10" : "xs12";
       }
+    },
+    computedTitle() {
+      return this.title;
     }
   },
 
@@ -181,6 +190,12 @@ export default {
 
         if (checkIfValidPage(this.content)) {
           this.showToc = this.content[0].showToc;
+          this.title = this.content[0].title;
+          this.$ga.page({
+            page: this.$route.path,
+            title: this.title,
+            location: window.location.href
+          });
         } else {
           this.routeToError();
         }

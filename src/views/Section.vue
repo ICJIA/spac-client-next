@@ -108,6 +108,11 @@ export default {
         }
       }
       this.title = this.content.title;
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
 
       this.loading = false;
     }

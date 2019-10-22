@@ -91,6 +91,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   mixins: [handleClicks],
   data() {
     return {
@@ -99,7 +104,8 @@ export default {
       checkIfValidPage,
       renderToHtml,
       showToc: true,
-      sectionContent: null
+      sectionContent: null,
+      title: ""
     };
   },
   components: {
@@ -111,7 +117,11 @@ export default {
   created() {
     this.fetchContent();
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     dynamicFlex() {
@@ -141,6 +151,12 @@ export default {
 
       if (checkIfValidPage(this.content)) {
         this.showToc = true;
+        this.title = this.content[0].name;
+        this.$ga.page({
+          page: this.$route.path,
+          title: this.title,
+          location: window.location.href
+        });
       } else {
         this.routeToError();
       }

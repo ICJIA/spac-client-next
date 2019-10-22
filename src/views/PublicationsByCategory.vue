@@ -53,6 +53,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -64,7 +69,8 @@ export default {
       publications: null,
       displayMode: {},
       categoryTitle: "",
-      categoryDescription: "undefined"
+      categoryDescription: "undefined",
+      title: ""
     };
   },
   components: {
@@ -79,7 +85,11 @@ export default {
       this.displayMode = payload;
     });
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     async fetchContent() {
@@ -106,6 +116,12 @@ export default {
           contentMap,
           name
         );
+        this.title = category[0].title;
+        this.$ga.page({
+          page: this.$route.path,
+          title: category[0].title,
+          location: window.location.href
+        });
         this.loading = false;
       } else {
         this.routeToError();

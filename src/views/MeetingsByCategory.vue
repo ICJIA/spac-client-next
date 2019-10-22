@@ -13,6 +13,7 @@
       <template v-slot:content>
         <v-container
           id="scrollArea"
+          v-if="meetings"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
@@ -53,6 +54,11 @@ export default {
   watch: {
     $route: "fetchContent"
   },
+  metaInfo() {
+    return {
+      title: this.computedTitle
+    };
+  },
   data() {
     return {
       loading: true,
@@ -64,7 +70,8 @@ export default {
       meetings: null,
       displayMode: {},
       categoryTitle: "",
-      categoryDescription: "undefined"
+      categoryDescription: "undefined",
+      title: ""
     };
   },
   components: {
@@ -79,7 +86,11 @@ export default {
       this.displayMode = payload;
     });
   },
-  computed: {},
+  computed: {
+    computedTitle() {
+      return this.title;
+    }
+  },
 
   methods: {
     async fetchContent() {
@@ -102,10 +113,19 @@ export default {
           params: { strapiEnumCategory }
         });
         await this.$store.dispatch("cacheContent", contentMap);
+
         this.meetings = this.$store.getters.getContentFromCache(
           contentMap,
           name
         );
+
+        this.title = category[0].title;
+        this.$ga.page({
+          page: this.$route.path,
+          title: category[0].title,
+          location: window.location.href
+        });
+
         this.loading = false;
       } else {
         this.routeToError();

@@ -759,11 +759,11 @@ const getAllMeetings = async () => {
 const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
   try {
     strapiEnumCategory = xss(strapiEnumCategory);
-    console.log("category: ", strapiEnumCategory);
+    //console.log("category: ", strapiEnumCategory);
     let meetings = await queryEndpoint(
       getMeetingsByCategoryQuery(strapiEnumCategory)
     );
-    console.log(meetings.data);
+    //console.log(meetings.data);
     return meetings.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -789,7 +789,7 @@ const getFrontPagePublications = async () => {
     let featuredPublications = await queryEndpoint(
       getFrontPagePublicationsQuery()
     );
-    console.log(featuredPublications.data.data.publications);
+    //console.log(featuredPublications.data.data.publications);
     return featuredPublications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());

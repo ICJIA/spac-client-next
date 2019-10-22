@@ -7,7 +7,9 @@
             <h1 style="font-size: 48px; color: #067879">Oops.</h1>
             <h2
               class="mt-10"
-              v-if="$route.params.statusCode && $route.params.msg"
+              v-if="
+                $route.params && $route.params.statusCode && $route.params.msg
+              "
             >
               {{ $route.params.statusCode }} | {{ $route.params.msg }}
             </h2>
@@ -35,6 +37,11 @@ import ErrorContent from "@/components/ErrorContent";
 export default {
   components: {
     ErrorContent
+  },
+  metaInfo() {
+    return {
+      title: "Error"
+    };
   },
   mounted() {
     this.$store.commit("CLEAR_CACHE");

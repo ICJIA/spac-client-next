@@ -79,6 +79,11 @@ import { handleClicks } from "@/mixins/handleClicks";
 
 export default {
   mixins: [handleClicks],
+  metaInfo() {
+    return {
+      title: this.title
+    };
+  },
   data() {
     return {
       loading: true,
@@ -88,7 +93,8 @@ export default {
       showToc: true,
       sectionContent: null,
       publications: null,
-      displayMode: {}
+      displayMode: {},
+      title: ""
     };
   },
   components: {
@@ -151,7 +157,12 @@ export default {
         contentMap,
         publicationsName
       );
-
+      this.title = "Publications";
+      this.$ga.page({
+        page: this.$route.path,
+        title: "Publications",
+        location: window.location.href
+      });
       this.loading = false;
     },
     filterPublicationData(categoryEnum) {
