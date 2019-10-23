@@ -107,14 +107,30 @@
         "short": "Fiscal Impact",
         "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
         "displayNav": true
+      },
+      {
+        "enum": "researchReport",
+        "slug": "research-reports",
+        "title": "Research Reports",
+        "short": "Research Reports",
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
+      },
+      {
+        "enum": "prisonPopulationProjection",
+        "slug": "prison-population-projections",
+        "title": "Prison Population Projections",
+        "short": "Population Projections",
+        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "displayNav": true
       }
     ],
     "meetings": [
       {
-        "enum": "budget",
-        "slug": "budget",
-        "title": "Budget Committee",
-        "short": "Budget",
+        "enum": "specialTopic",
+        "slug": "special-topic",
+        "title": "Special Topic",
+        "short": "Special Topic",
         "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
         "displayNav": true
       },

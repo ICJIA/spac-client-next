@@ -48,9 +48,7 @@
           <p class="default-font table-font">
             {{ item.summary }}
           </p>
-          <div>
-            <!-- <TagList v-if="mode !== 'minimal'" :tags="item.tags" class="mt-2" /> -->
-          </div>
+          <div></div>
         </v-card-text>
 
         <v-card-text />
