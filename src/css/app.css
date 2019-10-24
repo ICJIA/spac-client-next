@@ -29,6 +29,14 @@ a.no-underline {
   text-decoration: none;
 }
 
+a.dark-link {
+  color: #555 !important;
+}
+
+a.dark-link:hover {
+  color: #bbb !important;
+}
+
 .carousel-large {
   font-size: 35px;
   color: #fff;

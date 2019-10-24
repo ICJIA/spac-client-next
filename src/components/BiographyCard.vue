@@ -28,13 +28,17 @@
           <v-list-item-title class="headline mb-1"
             ><router-link
               :to="`/about/biographies/${person.slug}`"
-              class="no-underline"
+              class="no-underline dark-link"
               >{{ person.prefix }} {{ person.firstName }}
               {{ person.middleName }} {{ person.lastName }}{{ person.suffix }}
             </router-link></v-list-item-title
           >
 
-          <v-list-item-subtitle v-html="person.title"></v-list-item-subtitle>
+          <v-list-item-subtitle>
+            <div :class="{ boldTitle: person.boldTitle }">
+              {{ person.title }}
+            </div>
+          </v-list-item-subtitle>
 
           <div
             @click="handleClicks"
@@ -94,4 +98,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.boldTitle {
+  font-weight: 900;
+  color: #555;
+}
+</style>

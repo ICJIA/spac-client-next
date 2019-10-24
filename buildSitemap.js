@@ -122,7 +122,7 @@ request(api, query).then(res => {
 
   for (let category in config.strapiEnums) {
     let categoryRoutes = config.strapiEnums[category].map(m => {
-      let singleRoute = `${publicPath}/${category}/${m.slug}`;
+      let singleRoute = `${config.publicPath}/${category}/${m.slug}`;
       lastModMap.set(`${singleRoute}`, new Date());
       return singleRoute;
     });

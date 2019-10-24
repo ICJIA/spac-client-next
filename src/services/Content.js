@@ -199,6 +199,7 @@ const getContentByTagQuery = slug => {
       lastName
       membership
       order
+      boldTitle
       slug
       prefix
       suffix
@@ -344,6 +345,7 @@ const getAllBiographiesQuery = () => {
     firstName
     middleName
     lastName
+    boldTitle
     membership
     order
     slug
@@ -373,6 +375,7 @@ const getSingleBiographiesQuery = slug => {
     firstName
     middleName
     lastName
+    boldTitle
     membership
     order
     prefix
