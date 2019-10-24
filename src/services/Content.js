@@ -484,7 +484,7 @@ const getSingleMeetingQuery = slug => {
 const getFrontPagePublicationsQuery = () => {
   return `{
   publications(
-    sort: "year:desc"
+    sort: "createdAt:desc"
     where: { isPublished: true, addToBanner: true }
   ) {
     createdAt

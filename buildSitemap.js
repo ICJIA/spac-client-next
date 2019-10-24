@@ -10,6 +10,7 @@ const api = `${config.baseURL}/graphql`;
 const apiDir = "./src/api";
 const filename = "routes.json";
 const sections = ["pages", "news", "tags", "meetings", "publications"];
+const publicPath = "";
 let routes = [];
 const lastModMap = new Map();
 
@@ -118,8 +119,16 @@ request(api, query).then(res => {
     });
     routes.push(...sectionRoutes);
   });
-  //console.log(lastModMap);
-  //let temp = routes.filter(Boolean);
+
+  for (let category in config.strapiEnums) {
+    let categoryRoutes = config.strapiEnums[category].map(m => {
+      let singleRoute = `${publicPath}/${category}/${m.slug}`;
+      lastModMap.set(`${singleRoute}`, new Date());
+      return singleRoute;
+    });
+    routes.push(...categoryRoutes);
+  }
+
   // remove dupes
   let paths = [...new Set(routes)];
   // add root
