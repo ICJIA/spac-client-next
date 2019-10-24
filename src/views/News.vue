@@ -19,6 +19,11 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
+            <!-- <v-col cols="12">
+              {{ content }}
+            </v-col> -->
+          </v-row>
+          <v-row>
             <v-col cols="12" class="mb-10">
               <base-list :items="news" empty="">
                 <template slot-scope="item">
@@ -57,6 +62,7 @@ export default {
     return {
       loading: false,
       content: [],
+      sectionContent: [],
       news: [],
       renderToHtml,
       title: "News Archive"
@@ -97,7 +103,7 @@ export default {
       this.news = this.$store.getters.getContentFromCache(contentMap, newsName);
 
       // if (checkIfValidPage(this.sectionContent)) {
-      //   this.content = this.sectionContent[0].pages;
+      //   this.content = this.sectionContent[0].summary;
       // } else {
       //   this.routeToError();
       // }
