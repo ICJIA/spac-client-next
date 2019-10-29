@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getFile, getExternalFile } from "@/services/Download";
+//import { getFile, getExternalFile } from "@/services/Download";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
@@ -62,8 +62,7 @@ export default {
   },
   data() {
     return {
-      renderToHtml,
-      getExternalFile
+      renderToHtml
     };
   },
   computed: {},
@@ -79,13 +78,6 @@ export default {
       } else {
         return false;
       }
-    },
-    downloadFile(item) {
-      // if (item.file) {
-      //   return getFile(item.file);
-      // }
-      console.log(item);
-      return getFile(item);
     }
   },
   props: {

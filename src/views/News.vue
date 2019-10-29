@@ -42,7 +42,9 @@
 import BaseContent from "@/components/BaseContent";
 import BaseList from "@/components/BaseList";
 import NewsCard from "@/components/NewsCard";
+// eslint-disable-next-line no-unused-vars
 import { getPageBySection, getAllNews } from "@/services/Content";
+// eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";

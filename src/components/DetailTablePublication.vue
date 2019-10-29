@@ -117,6 +117,7 @@ export default {
       let path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
     },
+    // eslint-disable-next-line no-unused-vars
     getCategoryTitle(catEnum) {
       //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
       //     c => {

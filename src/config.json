@@ -89,7 +89,7 @@
         "slug": "annual-report",
         "title": "Annual Report",
         "short": "Annual Report",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       },
       {
@@ -97,7 +97,7 @@
         "slug": "cost-benefit-analysis",
         "title": "Cost Benefit Analysis",
         "short": "Cost Benefit",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       },
       {
@@ -105,7 +105,7 @@
         "slug": "fiscal-impact-analysis",
         "title": "Fiscal Impact Analysis",
         "short": "Fiscal Impact",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       },
       {
@@ -113,7 +113,7 @@
         "slug": "research-reports",
         "title": "Research Reports",
         "short": "Research Reports",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       },
       {
@@ -121,7 +121,7 @@
         "slug": "prison-population-projections",
         "title": "Prison Population Projections",
         "short": "Population Projections",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       }
     ],
@@ -131,7 +131,7 @@
         "slug": "special-topic",
         "title": "Special Topic",
         "short": "Special Topic",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       },
 
@@ -140,7 +140,7 @@
         "slug": "regular",
         "title": "Regular Meeting",
         "short": "Regular Meeting",
-        "description": "Ego in nusquam acuta iubes, et sanguine? Miscet alis sanguis, miserata referam certamina: tanto alte.",
+        "description": "",
         "displayNav": true
       }
     ]

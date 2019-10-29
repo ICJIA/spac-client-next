@@ -77,6 +77,8 @@ export default {
     download(item) {
       let path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
+      let ext = item.mediaMaterial.file.name.split(".").pop();
+      console.log("Download event: ", item.mediaMaterial.file.hash + "." + ext);
     }
   },
   props: {

@@ -17,6 +17,7 @@
                 <a
                   :href="`${$store.getters.config.baseURL}${item.file.url}`"
                   target="_blank"
+                  @click="fireDownloadEvent(item)"
                   >{{ item.name }}</a
                 >
                 <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
@@ -61,6 +62,7 @@
               <a
                 :href="`${$store.getters.config.baseURL}${item.file[0].url}`"
                 target="_blank"
+                @click="fireDownloadEvent(item)"
                 >{{ item.name }}</a
               >
               <div class="mt-1" v-if="item.summary">{{ item.summary }}</div>
@@ -84,7 +86,13 @@ export default {
     };
   },
   mixins: [handleClicks],
-  methods: {},
+  methods: {
+    fireDownloadEvent(item) {
+      // let ext = item.mediaMaterial.file.name.split(".").pop();
+      // console.log("Download event: ", item.mediaMaterial.file.hash + "." + ext);
+      console.log(item.file);
+    }
+  },
 
   props: {
     content: {

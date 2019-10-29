@@ -187,6 +187,7 @@ const getContentByTagQuery = slug => {
       file {
         name
         url
+        hash
       }
     }
   }
@@ -509,6 +510,7 @@ const getFrontPagePublicationsQuery = () => {
       file {
         name
         url
+        hash
       }
     }
     
@@ -543,6 +545,7 @@ const getAllPublicationsQuery = () => {
       file {
         name
         url
+        hash
       }
     }
     
@@ -575,6 +578,7 @@ const getPublicationsByCategoryQuery = category => {
       file {
         name
         url
+        hash
       }
     }
      tags {
@@ -607,6 +611,7 @@ const getSinglePublicationQuery = slug => {
       file {
         name
         url
+        hash
       }
     }
      tags {

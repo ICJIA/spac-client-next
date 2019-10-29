@@ -27,6 +27,7 @@ export default {
         payload.message = this.toggleOff;
       }
       payload.name = this.name;
+      // eslint-disable-next-line no-console
       console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
     }
