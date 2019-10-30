@@ -24,15 +24,14 @@
                 cols="12"
                 sm="12"
                 md="5"
-                style="padding-left: 30px; padding-right: 30px"
-                class="mb-10"
+                style="padding-left: 30px; padding-right: 30px; margin-top: -2px;"
               >
                 <div
-                  class="text-xs-left mb-5 mt-12 px-2"
+                  class="text-xs-left mb-5 px-2"
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
                 >
                   <span style="font-size: 24px; font-weight: 900;"
-                    >FEATURED PUBLICATIONS</span
+                    >FEATURED</span
                   >
                   <span class="hidden-sm-and-down"
                     ><v-btn
