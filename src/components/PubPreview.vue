@@ -83,10 +83,20 @@ export default {
       this.$router.push(`${path}`);
     },
     download(item) {
-      let path = item.mediaMaterial.file.url;
-      window.open(this.$store.getters.config.baseURL + path);
-      let ext = item.mediaMaterial.file.name.split(".").pop();
-      console.log("Download event: ", item.mediaMaterial.file.hash + "." + ext);
+      if (item.mediaMaterial.file) {
+        let path = item.mediaMaterial.file.url;
+        window.open(this.$store.getters.config.baseURL + path);
+        let ext = item.mediaMaterial.file.name.split(".").pop();
+        console.log(
+          "Download event: ",
+          item.mediaMaterial.file.hash + "." + ext
+        );
+        this.$ga.event({
+          eventCategory: "File",
+          eventAction: "Download",
+          eventLabel: item.mediaMaterial.file.hash + "." + ext
+        });
+      }
     }
   },
   props: {
