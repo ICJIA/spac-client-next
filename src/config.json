@@ -81,7 +81,7 @@
     "dev": "http://localhost:9000/.netlify/functions/status",
     "prod": "https://adultredeploy.netlify.com/.netlify/functions/status"
   },
-  "debug": true,
+  "debug": false,
   "strapiEnums": {
     "publications": [
       {

@@ -33,7 +33,9 @@
 
         <template v-slot:item.slug="{ item }">
           <v-btn small outlined @click="download(item)"
-            >Read&nbsp;<v-icon>cloud_download</v-icon></v-btn
+            >Read &nbsp;&nbsp;<v-icon class="ml-1"
+              >cloud_download</v-icon
+            ></v-btn
           >
         </template>
 
