@@ -1,8 +1,9 @@
 <template>
   <div>
     <v-card
-      style="background: #fff; border-bottom: 1px solid #eee;min-height: 380px"
+      style="border-bottom: 1px solid #eee;min-height: 390px"
       class="pt-3 pb-4 elevation-4"
+      :class="{ cardBackground: mode !== 'minimal' }"
     >
       <div class="px-4 lato">
         <v-row v-if="mode === 'minimal'">
@@ -137,5 +138,9 @@ export default {
 .category:hover {
   background: #ccc;
   color: #000;
+}
+
+.cardBackground {
+  background: #f5f5f5 !important;
 }
 </style>
