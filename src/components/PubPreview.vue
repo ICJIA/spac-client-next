@@ -1,18 +1,29 @@
 <template>
   <div>
     <v-card
-      style="background: #fff; border-bottom: 1px solid #eee;min-height: 350px"
+      style="background: #fff; border-bottom: 1px solid #eee;min-height: 380px"
       class="pt-3 pb-4 elevation-4"
     >
       <div class="px-4 lato">
-        <div class="text-right spac-purple mt-2">
-          <div class="heavy category" @click="routeToCategory(item)">
-            {{ strapiEnumToObject("publications", item.category)[0].title }}
-          </div>
+        <v-row v-if="mode === 'minimal'">
+          <v-col cols="12">
+            <div class="text-right spac-purple">
+              <div class="heavy category" @click="routeToCategory(item)">
+                {{ strapiEnumToObject("publications", item.category)[0].title }}
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+        <div
+          style="font-weight: 700; font-size: 12px; color: #999"
+          class="mt-5"
+        >
+          {{ item.year }}
         </div>
+
         <h2
           style="margin: 0; padding: 0; width: 100%;"
-          class="hover mt-5 mb-3 title-link"
+          class="hover mb-3 title-link"
           @click="download(item)"
         >
           {{ item.title }}

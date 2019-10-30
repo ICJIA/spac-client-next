@@ -56,7 +56,7 @@ a.tag-link:hover {
 
 .v-chip--label .v-chip__content {
   cursor: pointer;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
 }
 
