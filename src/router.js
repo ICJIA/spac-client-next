@@ -51,28 +51,28 @@ export default new Router({
      *
      */
 
-    {
-      path: "/about/council-members",
-      name: "oversightBoard",
-      component: () =>
-        import(
-          /* webpackChunkName: "biographies" */ "./views/CouncilMembers.vue"
-        )
-    },
-    {
-      path: "/about/staff",
-      name: "staff",
-      component: () =>
-        import(/* webpackChunkName: "biographies" */ "./views/Staff.vue")
-    },
-    {
-      path: "/about/biographies/:slug",
-      name: "biographiesSingle",
-      component: () =>
-        import(
-          /* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue"
-        )
-    },
+    // {
+    //   path: "/about/council-members",
+    //   name: "oversightBoard",
+    //   component: () =>
+    //     import(
+    //       /* webpackChunkName: "biographies" */ "./views/CouncilMembers.vue"
+    //     )
+    // },
+    // {
+    //   path: "/about/staff",
+    //   name: "staff",
+    //   component: () =>
+    //     import(/* webpackChunkName: "biographies" */ "./views/Staff.vue")
+    // },
+    // {
+    //   path: "/about/biographies/:slug",
+    //   name: "biographiesSingle",
+    //   component: () =>
+    //     import(
+    //       /* webpackChunkName: "biographies" */ "./views/BiographiesSingle.vue"
+    //     )
+    // },
     /**
      *
      * Meetings
