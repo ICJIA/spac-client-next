@@ -53,7 +53,6 @@
                         item.plural | titleCase
                       }}</span>
                     </h2>
-                    <!-- {{ content[0][item.plural] }} -->
 
                     <component
                       :is="item.listComponent"
