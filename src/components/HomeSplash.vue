@@ -102,7 +102,7 @@ blockquote.splash:before {
   content: "\201C";
   font-size: 80px;
   position: absolute;
-  left: -20px;
+  left: -30px;
   top: -20px;
   color: #fff;
 }
@@ -136,8 +136,8 @@ blockquote.splash cite:before {
 
 @media only screen and (max-width: 1024px) {
   blockquote.splash:before {
-    padding-left: 0px;
-    left: -20px;
+    padding-left: 20px;
+    left: -50px;
     top: -20px;
   }
 }
