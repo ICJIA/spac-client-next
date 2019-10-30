@@ -50,18 +50,25 @@
           </p>
           <div></div>
         </v-card-text>
-
-        <v-card-text />
+        <v-card-text>
+          <TagList :tags="item.tags"></TagList>
+        </v-card-text>
       </div>
     </v-card>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
 import { getThumbnailLink } from "@/services/Image";
 import { strapiEnumToObject } from "@/services/Utilities";
+import TagList from "@/components/TagList";
 // import { EventBus } from "@/event-bus";
+
 export default {
+  components: {
+    TagList
+  },
   data() {
     return {
       getThumbnailLink,

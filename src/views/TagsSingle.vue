@@ -11,6 +11,15 @@
               <h1 class="page-title">{{ content[0].name }}</h1>
             </v-col>
           </v-row>
+          <v-row v-if="content[0].content">
+            <v-col>
+              <div
+                @click="handleClicks"
+                class="dynamic-content mb-12"
+                v-html="renderToHtml(content[0].content)"
+              ></div>
+            </v-col>
+          </v-row>
         </v-container>
       </template>
       <template v-slot:content>
@@ -36,8 +45,13 @@
                 <div v-if="content[0][item.plural]">
                   <div v-if="content[0][item.plural].length">
                     <h2 :id="item.slug">
-                      <span v-if="item.alias">{{ item.alias | titleCase }}</span
-                      ><span v-else>{{ item.plural | titleCase }}</span>
+                      <div class="mt-8"></div>
+                      <span v-if="item.alias" class="mt-8">{{
+                        item.alias | titleCase
+                      }}</span
+                      ><span v-else class="mt-8">{{
+                        item.plural | titleCase
+                      }}</span>
                     </h2>
                     <!-- {{ content[0][item.plural] }} -->
 
