@@ -45,12 +45,12 @@
               </v-btn>
             </div>
           </div>
-          <p class="default-font table-font">
+          <p class="default-font table-font" style="min-height: 135px">
             {{ item.summary }}
           </p>
           <div></div>
         </v-card-text>
-        <v-card-text>
+        <v-card-text class="mt-3" v-if="mode !== 'minimal'">
           <TagList :tags="item.tags"></TagList>
         </v-card-text>
       </div>
@@ -67,6 +67,7 @@ import TagList from "@/components/TagList";
 
 export default {
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     TagList
   },
   data() {

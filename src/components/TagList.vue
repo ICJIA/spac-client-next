@@ -1,14 +1,14 @@
 <template>
   <div>
     <span v-if="tags.length" class="pt-3">
-      <span v-for="(tag, index) in tags" :key="index" class="pl-2 pr-2">
+      <span v-for="(tag, index) in tags" :key="index" class="pl-1 pr-1 ">
         <!-- <div :to="`/tags/${tag.slug}`" class="tag-link"> -->
         <span @click.prevent.stop="routeTo(`/tags/${tag.slug}`)">
           <v-chip
             :small="true"
             label
             color="purple darken-4"
-            class="chip"
+            class="chip mt-2"
             text-color="white"
           >
             <v-icon left color="grey lighten-4">label</v-icon

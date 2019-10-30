@@ -58,7 +58,7 @@
               <!-- <MeetingCard :content="item"></MeetingCard> -->
               <pub-preview
                 :item="item"
-                mode="minimal"
+                mode="max"
                 class="post default-font mb-3"
                 :key="forceRender()"
               />
