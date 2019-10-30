@@ -15,7 +15,11 @@
         @click="handleClicks"
         class="dynamic-content site-description"
       ></div>
-      <DownloadBox :content="content"></DownloadBox>
+
+      <DownloadBox
+        :content="content"
+        v-if="content.meetingMaterial.length"
+      ></DownloadBox>
 
       <v-container class="mt-4">
         <v-row>
