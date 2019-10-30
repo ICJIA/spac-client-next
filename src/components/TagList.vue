@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="tags.length" class="pt-3">
-      <span v-for="(tag, index) in tags" :key="index">
+      <span v-for="(tag, index) in tags" :key="index" class="pl-2 pr-2">
         <!-- <div :to="`/tags/${tag.slug}`" class="tag-link"> -->
         <span @click.prevent.stop="routeTo(`/tags/${tag.slug}`)">
           <v-chip

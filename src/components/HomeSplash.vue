@@ -29,14 +29,19 @@
                 >
                   THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL
                 </h1>
-                <div
-                  class="mt-3 default-font carousel-medium carousel-sub-text"
-                >
-                  The Illinois Sentencing Policy Advisory Council (SPAC) was
-                  created to more accurately determine the consequences of
-                  sentencing policy decisions and to review the effectiveness
-                  and efficiency of current sentencing policies and practices.
-                </div>
+
+                <blockquote class="splash">
+                  All penalities
+                  <span style="color: #fff">shall be determined</span> both
+                  according to the seriousness of the offense and with the
+                  object of
+                  <span style="color: #fff">restoring the offender</span> to
+                  useful citizenship.
+                  <cite
+                    >The Illinois Constitution Article I, Section 11
+                    (1970)</cite
+                  >
+                </blockquote>
                 <v-flex class="text-center" style="width: 100% !important">
                   <SearchMini
                     style="background: #fff;position: relative;"
@@ -70,11 +75,48 @@ export default {
 </script>
 
 <style>
+.purple {
+  color: purple;
+}
 .banner {
   width: 100%;
   background: rgba(79, 80, 79, 0.6);
   padding: 50px;
   margin-top: 30px;
+}
+
+blockquote.splash {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+
+  padding: 0.35em 10px;
+  line-height: 1.45;
+  position: relative;
+  color: #fff;
+}
+
+blockquote.splash:before {
+  display: block;
+  padding-left: 20px;
+  content: "\201C";
+  font-size: 80px;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  color: #fff;
+}
+
+blockquote.splash cite {
+  color: #eee;
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+}
+
+blockquote.splash cite:before {
+  content: "\2014 \2009";
 }
 
 @media only screen and (max-width: 600px) {
@@ -83,8 +125,20 @@ export default {
     background: rgba(79, 80, 79, 0.5);
   }
 
+  blockquote.splash {
+    display: none;
+  }
+
   h1.home-title {
     font-size: 26px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  blockquote.splash:before {
+    padding-left: 0px;
+    left: -20px;
+    top: -20px;
   }
 }
 </style>

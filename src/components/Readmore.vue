@@ -13,7 +13,7 @@
           @click="handleClicks"
           class="dynamic-content"
         ></span>
-        <TagList :tags="tags" class="mt-5"></TagList>
+        <TagList :tags="tags" class="mt-10"></TagList>
       </div>
     </div>
     <div
