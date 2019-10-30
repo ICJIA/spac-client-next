@@ -24,7 +24,7 @@
                 cols="12"
                 sm="12"
                 md="5"
-                style="padding-left: 30px; padding-right: 30px; margin-top: -2px;"
+                style="padding-left: 30px; padding-right: 30px; margin-top: 13px;"
               >
                 <div
                   class="text-xs-left mb-5 px-2"
