@@ -55,7 +55,7 @@
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
                     class="cover elevation-0 px-1"
                     width="120"
-                    style="margin-right: 20px; border: 1px solid #eee; "
+                    style="margin-right: 20px; border: 1px solid #bbb; "
                     @click="download(item)"
                   >
                     <v-fade-transition>
@@ -82,7 +82,7 @@
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
                     class="cover elevation-0 px-1"
                     width="120"
-                    style="margin-right: 20px; border: 1px solid #eee; "
+                    style="margin-right: 20px; border: 1px solid #bbb; "
                     @click="gotoExternal(item)"
                   >
                     <v-fade-transition>

@@ -17,11 +17,12 @@
         :items="publications"
         :items-per-page="15"
         :search="search"
-        class="elevation-1 meetingTable"
+        class="elevation-1 meetingTable hover"
         show-expand
         item-key="slug"
         :single-expand="singleExpand"
         :expanded.sync="expanded"
+        @click:row="clicked"
       >
         <template v-slot:item.createdAt="{ item }">
           {{ item.createdAt | format }}
@@ -51,7 +52,7 @@
           >
         </template>
 
-        <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
+        <!-- <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
           <v-btn
             color="grey lighten-2"
             small
@@ -63,7 +64,7 @@
           <v-btn small depressed @click="expand(false)" v-if="isExpanded"
             >Less<v-icon right>arrow_drop_up</v-icon></v-btn
           >
-        </template>
+        </template> -->
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
@@ -83,7 +84,7 @@
 
 <script>
 import PubPreview from "@/components/PubPreview";
-
+/* eslint-disable vue/valid-v-on */
 export default {
   components: {
     PubPreview
@@ -125,6 +126,13 @@ export default {
   methods: {
     forceRender() {
       return this.key + 1;
+    },
+    clicked(value) {
+      if (this.expanded.length) {
+        this.expanded = [];
+      } else {
+        this.expanded.push(value);
+      }
     },
     download(item) {
       let path = item.mediaMaterial.file.url;
