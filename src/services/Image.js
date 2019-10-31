@@ -24,6 +24,17 @@ const getThumbnailLink = function(mediaMaterial) {
   return link;
 };
 
+const getDefaultThumbnail = function(mediaMaterial) {
+  let imagePath = config.thumbnail.defaultUrl;
+
+  const link = thumborURL
+    .setImagePath(`${imagePath}`)
+    .resize(config.thumbnail.defaultWidth, config.thumbnail.defaultHeight)
+    .smartCrop(false)
+    .buildUrl();
+  return link;
+};
+
 const getHeadshotLink = function(headshot) {
   const imagePath = headshot.url;
   const link = thumborURL
@@ -36,4 +47,4 @@ const getHeadshotLink = function(headshot) {
   return link;
 };
 
-export { getHeadshotLink, getThumbnailLink };
+export { getHeadshotLink, getThumbnailLink, getDefaultThumbnail };

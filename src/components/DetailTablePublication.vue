@@ -32,10 +32,22 @@
         </template>
 
         <template v-slot:item.slug="{ item }">
-          <v-btn small outlined @click="download(item)"
-            >Read &nbsp;&nbsp;<v-icon class="ml-1"
+          <v-btn
+            small
+            outlined
+            @click="download(item)"
+            v-if="item.mediaMaterial && item.mediaMaterial.file"
+            >Read&nbsp;&nbsp;&nbsp;<v-icon class="ml-1"
               >cloud_download</v-icon
             ></v-btn
+          >
+
+          <v-btn
+            small
+            outlined
+            @click="gotoExternal(item)"
+            v-if="item.externalMediaMaterial && item.externalMediaMaterial.url"
+            >GO TO <v-icon class="ml-1">open_in_new</v-icon></v-btn
           >
         </template>
 
@@ -55,7 +67,6 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
-              <!-- <MeetingCard :content="item"></MeetingCard> -->
               <pub-preview
                 :item="item"
                 mode="max"
@@ -118,6 +129,17 @@ export default {
     download(item) {
       let path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
+    },
+    gotoExternal(item) {
+      //console.log(item.externalMediaMaterial.url);
+      if (item.externalMediaMaterial.url) {
+        this.$ga.event({
+          eventCategory: "Video",
+          eventAction: "Play",
+          eventLabel: item.externalMediaMaterial.url
+        });
+        window.open(item.externalMediaMaterial.url);
+      }
     },
     // eslint-disable-next-line no-unused-vars
     getCategoryTitle(catEnum) {

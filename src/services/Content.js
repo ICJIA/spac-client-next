@@ -501,6 +501,16 @@ const getFrontPagePublicationsQuery = () => {
     summary
     category
     addToBanner
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
     mediaMaterial {
       summary
       thumbnail {
@@ -536,6 +546,16 @@ const getAllPublicationsQuery = () => {
     summary
     category
     addToBanner
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
     mediaMaterial {
       summary
       thumbnail {
@@ -569,6 +589,16 @@ const getPublicationsByCategoryQuery = category => {
     category
     addToBanner
     isPublished
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
     mediaMaterial {
       summary
       thumbnail {
@@ -602,6 +632,16 @@ const getSinglePublicationQuery = slug => {
     category
     addToBanner
     isPublished
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
     mediaMaterial {
       summary
       thumbnail {

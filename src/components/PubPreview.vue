@@ -22,11 +22,7 @@
           {{ item.year }}
         </div>
 
-        <h2
-          style="margin: 0; padding: 0; width: 100%;"
-          class="hover mb-3 title-link"
-          @click="download(item)"
-        >
+        <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3 title-link">
           {{ item.title }}
         </h2>
 
@@ -35,14 +31,43 @@
             class="hover"
             style="float: left; margin-right: 20px; margin-bottom: 10px;"
           >
-            <v-img
-              :contain="true"
-              :src="getThumbnailLink(item.mediaMaterial)"
-              class="cover elevation-0 px-1"
-              width="120"
-              style="border: 1px solid #bbb"
-              @click="download(item)"
-            />
+            <div v-if="item.mediaMaterial && item.mediaMaterial.thumbnail">
+              <v-img
+                :contain="true"
+                :src="getThumbnailLink(item.mediaMaterial)"
+                class="cover elevation-0 px-1"
+                width="120"
+                style="border: 1px solid #bbb"
+                @click="download(item)"
+              />
+            </div>
+
+            <div
+              v-else-if="
+                item.externalMediaMaterial &&
+                  item.externalMediaMaterial.thumbnail
+              "
+            >
+              <v-img
+                :contain="true"
+                :src="getThumbnailLink(item.externalMediaMaterial)"
+                class="cover elevation-0 px-1"
+                width="120"
+                style="border: 1px solid #bbb"
+                @click="download(item)"
+              />
+            </div>
+            <div v-else>
+              <v-img
+                :contain="true"
+                :src="getDefaultThumbnail()"
+                class="cover elevation-0 px-1"
+                width="120"
+                style="border: 1px solid #bbb"
+                @click="download(item)"
+              />
+            </div>
+
             <div class="text-xs-center mt-2">
               <v-btn
                 small
@@ -51,9 +76,24 @@
                 class="white--text"
                 style="margin-left: 20px; margin-top: 10px;"
                 @click="download(item)"
+                v-if="item.mediaMaterial && item.mediaMaterial.file"
               >
                 READ
                 <v-icon right dark>cloud_download</v-icon>
+              </v-btn>
+              <v-btn
+                small
+                outlined
+                color="purple darken-2"
+                class="white--text"
+                style="margin-left: 20px; margin-top: 10px;"
+                @click="gotoExternal(item)"
+                v-if="
+                  item.externalMediaMaterial && item.externalMediaMaterial.url
+                "
+              >
+                GO TO
+                <v-icon right dark>open_in_new</v-icon>
               </v-btn>
             </div>
           </div>
@@ -72,7 +112,7 @@
 
 <script>
 /* eslint-disable no-unused-vars */
-import { getThumbnailLink } from "@/services/Image";
+import { getThumbnailLink, getDefaultThumbnail } from "@/services/Image";
 import { strapiEnumToObject } from "@/services/Utilities";
 import TagList from "@/components/TagList";
 // import { EventBus } from "@/event-bus";
@@ -85,6 +125,7 @@ export default {
   data() {
     return {
       getThumbnailLink,
+      getDefaultThumbnail,
       strapiEnumToObject
     };
   },
@@ -93,6 +134,17 @@ export default {
       let categoryObj = strapiEnumToObject("publications", item.category);
       let path = `/publications/${categoryObj[0].slug}`;
       this.$router.push(`${path}`);
+    },
+    gotoExternal(item) {
+      //console.log(item.externalMediaMaterial.url);
+      if (item.externalMediaMaterial.url) {
+        this.$ga.event({
+          eventCategory: "Video",
+          eventAction: "Play",
+          eventLabel: item.externalMediaMaterial.url
+        });
+        window.open(item.externalMediaMaterial.url);
+      }
     },
     download(item) {
       if (item.mediaMaterial.file) {
