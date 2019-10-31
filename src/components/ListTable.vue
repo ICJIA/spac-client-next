@@ -5,7 +5,8 @@
       :headers="headers"
       :items="items"
       :items-per-page="-1"
-      class="elevation-1 tagTable"
+      class="elevation-1 tagTable hover"
+      @click:row="clicked"
     >
       <template v-slot:item.title="{ item }">
         <span style="font-weight:bold">{{ item.title }}</span>
@@ -21,7 +22,7 @@
       </template>
       <template v-slot:item.slug="{ item }">
         <v-btn small depressed :to="getRoute(item)"
-          >LINK<v-icon right>open_in_new</v-icon></v-btn
+          >GO TO<v-icon right>open_in_new</v-icon></v-btn
         >
       </template></v-data-table
     >
@@ -84,6 +85,11 @@ export default {
       } else {
         return `/${item.section.slug}/${item.slug}`;
       }
+    },
+    clicked(item) {
+      //console.log(item);
+      let route = this.getRoute(item);
+      this.$router.push(route);
     }
   },
   data() {
@@ -103,7 +109,7 @@ export default {
           sortable: true,
           value: "summary"
         },
-        { text: "Link", value: "slug", align: "center", sortable: false }
+        { text: "", value: "slug", align: "center", sortable: false }
       ]
     };
   }
