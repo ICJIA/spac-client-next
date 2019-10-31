@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      style="border-bottom: 1px solid #eee;min-height: 390px"
+      style="border-bottom: 1px solid #eee;min-height: 350px"
       class="pt-3 pb-4 elevation-4"
       :class="{ cardBackground: mode !== 'minimal' }"
     >
@@ -23,21 +23,36 @@
         </div>
 
         <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3 title-link">
-          {{ item.title }}
+          <span
+            v-if="item.mediaMaterial && item.mediaMaterial.file"
+            @click="download(item)"
+            class="hover pubTitle"
+          >
+            {{ item.title }}
+          </span>
+          <span
+            v-else-if="
+              item.externalMediaMaterial && item.externalMediaMaterial.url
+            "
+            @click="gotoExternal(item)"
+            class="hover pubTitle"
+          >
+            {{ item.title }}
+          </span>
+          <span v-else>
+            {{ item.title }}
+          </span>
         </h2>
 
-        <v-card-text class="pb-5"
-          ><div
-            class="hover"
-            style="float: left; margin-right: 20px; margin-bottom: 10px;"
-          >
+        <v-card-text class="pb-5">
+          <div class="hover" style="float: left; margin-bottom: 30px;">
             <div v-if="item.mediaMaterial && item.mediaMaterial.thumbnail">
               <v-img
                 :contain="true"
                 :src="getThumbnailLink(item.mediaMaterial)"
                 class="cover elevation-0 px-1"
                 width="120"
-                style="border: 1px solid #bbb"
+                style="margin-right: 20px; border: 1px solid #bbb"
                 @click="download(item)"
               />
             </div>
@@ -53,57 +68,47 @@
                 :src="getThumbnailLink(item.externalMediaMaterial)"
                 class="cover elevation-0 px-1"
                 width="120"
-                style="border: 1px solid #bbb"
-                @click="download(item)"
-              />
-            </div>
-            <div v-else>
-              <v-img
-                :contain="true"
-                :src="getDefaultThumbnail()"
-                class="cover elevation-0 px-1"
-                width="120"
-                style="border: 1px solid #bbb"
-                @click="download(item)"
-              />
-            </div>
-
-            <div class="text-xs-center mt-2">
-              <v-btn
-                small
-                outlined
-                color="purple darken-2"
-                class="white--text"
-                style="margin-left: 20px; margin-top: 10px;"
-                @click="download(item)"
-                v-if="item.mediaMaterial && item.mediaMaterial.file"
-              >
-                READ
-                <v-icon right dark>cloud_download</v-icon>
-              </v-btn>
-              <v-btn
-                small
-                outlined
-                color="purple darken-2"
-                class="white--text"
-                style="margin-left: 20px; margin-top: 10px;"
+                style="margin-right: 20px; border: 1px solid #bbb; "
                 @click="gotoExternal(item)"
-                v-if="
-                  item.externalMediaMaterial && item.externalMediaMaterial.url
-                "
-              >
-                GO TO
-                <v-icon right dark>open_in_new</v-icon>
-              </v-btn>
+              />
             </div>
           </div>
-          <p class="default-font table-font" style="min-height: 135px">
-            {{ item.summary }}
-          </p>
-          <div></div>
+          <div class="default-font table-font" style="min-height: 130px">
+            {{ item.summary }}<br />
+            <v-chip
+              small
+              class="mt-4 hover"
+              color="primary"
+              outlined
+              pill
+              @click="download(item)"
+              v-if="item.mediaMaterial && item.mediaMaterial.file"
+            >
+              READ
+              <v-icon right>cloud_download</v-icon>
+            </v-chip>
+            <v-chip
+              small
+              class="mt-4 hover"
+              color="primary"
+              outlined
+              pill
+              @click="gotoExternal(item)"
+              v-if="
+                item.externalMediaMaterial && item.externalMediaMaterial.url
+              "
+            >
+              GO TO
+              <v-icon right>open_in_new</v-icon>
+            </v-chip>
+          </div>
         </v-card-text>
+
         <v-card-text class="mt-3" v-if="mode !== 'minimal'">
           <TagList :tags="item.tags"></TagList>
+        </v-card-text>
+        <v-card-text class="mt-3" v-else>
+          <div style="height: 10px"></div>
         </v-card-text>
       </div>
     </v-card>
@@ -194,5 +199,9 @@ export default {
 
 .cardBackground {
   background: #f5f5f5 !important;
+}
+
+.pubTitle:hover {
+  color: #666;
 }
 </style>
