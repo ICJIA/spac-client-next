@@ -47,14 +47,32 @@
         <v-card-text class="pb-5">
           <div class="hover" style="float: left; margin-bottom: 30px;">
             <div v-if="item.mediaMaterial && item.mediaMaterial.thumbnail">
-              <v-img
+              <!-- <v-img
                 :contain="true"
                 :src="getThumbnailLink(item.mediaMaterial)"
                 class="cover elevation-0 px-1"
                 width="120"
                 style="margin-right: 20px; border: 1px solid #bbb"
                 @click="download(item)"
-              />
+              /> -->
+              <v-hover>
+                <template v-slot:default="{ hover }">
+                  <v-img
+                    :contain="true"
+                    :src="getThumbnailLink(item.mediaMaterial)"
+                    class="cover elevation-0 px-1"
+                    width="120"
+                    style="margin-right: 20px; border: 1px solid #bbb; "
+                    @click="download(item)"
+                  >
+                    <v-fade-transition>
+                      <v-overlay v-if="hover" absolute color="#036358">
+                        <v-btn><v-icon>cloud_download</v-icon></v-btn>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-img>
+                </template>
+              </v-hover>
             </div>
 
             <div
@@ -63,14 +81,24 @@
                   item.externalMediaMaterial.thumbnail
               "
             >
-              <v-img
-                :contain="true"
-                :src="getThumbnailLink(item.externalMediaMaterial)"
-                class="cover elevation-0 px-1"
-                width="120"
-                style="margin-right: 20px; border: 1px solid #bbb; "
-                @click="gotoExternal(item)"
-              />
+              <v-hover>
+                <template v-slot:default="{ hover }">
+                  <v-img
+                    :contain="true"
+                    :src="getThumbnailLink(item.externalMediaMaterial)"
+                    class="cover elevation-0 px-1"
+                    width="120"
+                    style="margin-right: 20px; border: 1px solid #bbb; "
+                    @click="gotoExternal(item)"
+                  >
+                    <v-fade-transition>
+                      <v-overlay v-if="hover" absolute color="#036358">
+                        <v-btn><v-icon>open_in_new</v-icon></v-btn>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-img>
+                </template>
+              </v-hover>
             </div>
           </div>
           <div class="default-font table-font" style="min-height: 130px">
@@ -133,7 +161,8 @@ export default {
     return {
       getThumbnailLink,
       getDefaultThumbnail,
-      strapiEnumToObject
+      strapiEnumToObject,
+      overlay: false
     };
   },
   methods: {
