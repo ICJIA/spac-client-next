@@ -8,13 +8,8 @@
       class="elevation-1 tagTable hover"
       @click:row="clicked"
     >
-      <template v-slot:item.category="{ item }">
-        <span style="font-weight:bold">{{
-          strapiEnumToObject("publications", item.category)[0].title
-        }}</span>
-      </template>
       <template v-slot:item.title="{ item }">
-        <span style="font-weight:normal">{{ item.title }}</span>
+        <span style="font-weight:bold">{{ item.title }}</span>
       </template>
       <template v-slot:item.scheduledDate="{ item }">
         {{ item.scheduledDate | format }}
@@ -23,19 +18,19 @@
         {{ item.publicationDate | format }}
       </template>
       <template v-slot:item.summary="{ item }">
-        {{ truncate(stripHTML(item.summary), 8) }}
+        {{ truncate(stripHTML(item.summary), 10) }}
       </template>
-      <!-- <template v-slot:item.slug="{ item }">
+      <template v-slot:item.slug="{ item }">
         <v-btn small depressed :to="getRoute(item)"
           >GO TO<v-icon right>open_in_new</v-icon></v-btn
         >
-      </template> -->
-    </v-data-table>
+      </template></v-data-table
+    >
   </div>
 </template>
 
 <script>
-import { truncate, stripHTML, strapiEnumToObject } from "@/services/Utilities";
+import { truncate, stripHTML } from "@/services/Utilities";
 export default {
   mounted() {
     Array.prototype.insert = function(index, item) {
@@ -53,21 +48,14 @@ export default {
     }
 
     if (this.contentType === "publication") {
-      let obj1 = {
+      let obj = {
         text: "Year",
         align: "left",
         sortable: true,
         value: "year"
       };
 
-      this.headers.insert(0, obj1);
-      let obj2 = {
-        text: "Category",
-        align: "left",
-        sortable: true,
-        value: "category"
-      };
-      this.headers.insert(1, obj2);
+      this.headers.insert(0, obj);
     }
   },
   props: {
@@ -108,7 +96,6 @@ export default {
     return {
       truncate,
       stripHTML,
-      strapiEnumToObject,
       headers: [
         {
           text: "Title",
@@ -121,8 +108,8 @@ export default {
           align: "left",
           sortable: true,
           value: "summary"
-        }
-        // { text: "", value: "slug", align: "center", sortable: false }
+        },
+        { text: "", value: "slug", align: "center", sortable: false }
       ]
     };
   }

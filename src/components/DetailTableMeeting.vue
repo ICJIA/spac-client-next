@@ -148,7 +148,7 @@ export default {
     },
     hideCategory: {
       type: Boolean,
-      default: true
+      default: false
     }
   }
 };
