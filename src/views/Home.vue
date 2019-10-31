@@ -20,12 +20,7 @@
                   data-aos="fade"
                 ></home-news>
               </v-col>
-              <v-col
-                cols="12"
-                sm="12"
-                md="5"
-                style="padding-left: 30px; padding-right: 30px; margin-top: 13px;"
-              >
+              <v-col cols="12" sm="12" md="5" style="margin-top: 13px;">
                 <div
                   class="text-xs-left mb-5 px-2"
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
