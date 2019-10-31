@@ -74,33 +74,35 @@
             </div>
           </div>
           <div class="default-font table-font" style="min-height: 130px">
-            {{ item.summary }}<br />
-            <v-chip
-              small
-              class="mt-4 hover"
-              color="primary"
-              outlined
-              pill
-              @click="download(item)"
-              v-if="item.mediaMaterial && item.mediaMaterial.file"
-            >
-              READ
-              <v-icon right>cloud_download</v-icon>
-            </v-chip>
-            <v-chip
-              small
-              class="mt-4 hover"
-              color="primary"
-              outlined
-              pill
-              @click="gotoExternal(item)"
-              v-if="
-                item.externalMediaMaterial && item.externalMediaMaterial.url
-              "
-            >
-              GO TO
-              <v-icon right>open_in_new</v-icon>
-            </v-chip>
+            {{ item.summary }}
+            <div :class="{ 'text-right': mode === 'minimal' }">
+              <v-chip
+                small
+                class="mt-4 hover"
+                color="primary"
+                outlined
+                pill
+                @click="download(item)"
+                v-if="item.mediaMaterial && item.mediaMaterial.file"
+              >
+                READ
+                <v-icon right>cloud_download</v-icon>
+              </v-chip>
+              <v-chip
+                small
+                class="mt-4 hover"
+                color="primary"
+                outlined
+                pill
+                @click="gotoExternal(item)"
+                v-if="
+                  item.externalMediaMaterial && item.externalMediaMaterial.url
+                "
+              >
+                GO TO
+                <v-icon right>open_in_new</v-icon>
+              </v-chip>
+            </div>
           </div>
         </v-card-text>
 
