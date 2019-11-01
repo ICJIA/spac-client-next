@@ -58,8 +58,20 @@
                     style="margin-right: 20px; border: 1px solid #bbb; "
                     @click="download(item)"
                   >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey darken-5"
+                        ></v-progress-circular>
+                      </v-row>
+                    </template>
                     <v-fade-transition>
-                      <v-overlay v-if="hover" absolute color="#036358">
+                      <v-overlay v-if="hover" absolute color="#B158C2">
                         <v-btn><v-icon>cloud_download</v-icon></v-btn>
                       </v-overlay>
                     </v-fade-transition>

@@ -125,10 +125,15 @@ export default {
       }
     },
     clicked(value) {
-      if (this.expanded.length) {
+      if (value === this.expanded[0]) {
         this.expanded = [];
       } else {
-        this.expanded.push(value);
+        if (this.expanded.length) {
+          this.expanded.push(value);
+          this.expanded.shift();
+        } else {
+          this.expanded.push(value);
+        }
       }
     },
     getCategoryTitle(catEnum) {

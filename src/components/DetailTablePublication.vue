@@ -128,10 +128,15 @@ export default {
       return this.key + 1;
     },
     clicked(value) {
-      if (this.expanded.length) {
+      if (value === this.expanded[0]) {
         this.expanded = [];
       } else {
-        this.expanded.push(value);
+        if (this.expanded.length) {
+          this.expanded.shift();
+          this.expanded.push(value);
+        } else {
+          this.expanded.push(value);
+        }
       }
     },
     download(item) {
