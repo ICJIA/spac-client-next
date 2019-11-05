@@ -96,7 +96,7 @@ blockquote.splash {
   color: #fff;
 }
 
-blockquote.splash:before {
+/* blockquote.splash:before {
   display: block;
   padding-left: 20px;
   content: "\201C";
@@ -105,7 +105,7 @@ blockquote.splash:before {
   left: -30px;
   top: -20px;
   color: #fff;
-}
+} */
 
 blockquote.splash cite {
   color: #eee;
