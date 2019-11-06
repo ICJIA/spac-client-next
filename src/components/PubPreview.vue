@@ -46,7 +46,13 @@
 
         <v-card-text class="pb-5">
           <div class="hover" style="float: left; margin-bottom: 30px;">
-            <div v-if="item.mediaMaterial && item.mediaMaterial.thumbnail">
+            <div
+              v-if="
+                item.mediaMaterial &&
+                  item.mediaMaterial.thumbnail &&
+                  !$browserDetect.isIE
+              "
+            >
               <v-hover>
                 <template v-slot:default="{ hover }">
                   <v-img

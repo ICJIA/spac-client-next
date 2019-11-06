@@ -10,7 +10,7 @@
       @click="hideQuery"
     >
       <div style="" class="banner">
-        <v-container bg grid-list-md text-center style=" " class="text-center">
+        <v-container bg grid-list-md text-center class="text-center">
           <v-layout row wrap align-center>
             <v-flex class="text-center">
               <div
