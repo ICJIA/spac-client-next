@@ -89,7 +89,8 @@
             <div
               v-else-if="
                 item.externalMediaMaterial &&
-                  item.externalMediaMaterial.thumbnail
+                  item.externalMediaMaterial.thumbnail &&
+                  !$browserDetect.isIE
               "
             >
               <v-hover>

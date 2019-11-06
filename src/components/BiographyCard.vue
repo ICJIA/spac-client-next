@@ -10,7 +10,7 @@
           tile
           size="85"
           color="grey"
-          v-if="person.headshot"
+          v-if="person.headshot && !$browserDetect.isIE"
           class="hidden-sm-and-down"
         >
           <v-img
