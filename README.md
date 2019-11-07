@@ -1,29 +1,27 @@
-# spac-client-next-prod
+# Illinois Sentencing Policy Advisory Council
 
-## Project setup
+> The concept for Illinois' sentencing commission, the Sentencing Policy Advisory Council (SPAC), was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission in 2009. The CLEAR Commissioners studied and reorganized the Unified Code of Corrections in an effort to make it less confusing and easier for the public and practitioners to use. That process led to the conclusion that, although many agencies collected statistics and data about sentencing in Illinois, no agency compiled sentencing data specifically to perform comprehensive analysis for reporting to policy makers.
+
+> SPAC was created to collect, analyze and present data from all relevant sources to more accurately determine the consequences of sentencing policy decisions and to review the effectiveness and efficiency of current sentencing policies and practices. SPAC reports directly to the Governor and the General Assembly.
+
+## Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Installation
+
+Rename ```env.sample``` to ```.env``` and fill in missing variables.
+
+## Compile and hot-reload for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+## Build for production
 ```
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
+Deploy ```/dist``` folder.
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
