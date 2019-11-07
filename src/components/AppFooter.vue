@@ -62,7 +62,7 @@
 
           &nbsp;|&nbsp;<strong
             ><a
-              :href="getArchive()"
+              href="https://archive.icjia.cloud/files/spac/"
               target="_blank"
               rel="noreferrer"
               class="footer-link"
