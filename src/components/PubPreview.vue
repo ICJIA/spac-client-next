@@ -114,7 +114,10 @@
               </v-hover>
             </div>
           </div>
-          <div class="default-font table-font" style="min-height: 130px">
+          <div
+            class="default-font table-font"
+            :class="{ summaryMinHeight: item.summary }"
+          >
             {{ item.summary }}
             <div :class="{ 'text-right': mode === 'minimal' }">
               <v-chip
@@ -149,7 +152,7 @@
         </v-card-text>
 
         <v-card-text class="mt-3" v-if="mode !== 'minimal'">
-          <TagList :tags="item.tags"></TagList>
+          <TagList :tags="item.tags" style="margin-left: -20px"></TagList>
         </v-card-text>
         <v-card-text class="mt-3" v-else>
           <div style="height: 10px"></div>
@@ -252,5 +255,9 @@ export default {
 
 .pullLeft {
   margin-left: -18px;
+}
+
+.summaryMinHeight {
+  min-height: 130px;
 }
 </style>
