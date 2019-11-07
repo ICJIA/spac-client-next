@@ -34,12 +34,14 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        <img
-          :src="require('@/assets/img/spac-horizontal-white.png')"
-          alt="Illinois Criminal Justice Information Authority"
-          width="250"
-          class="mt-3"
-        />
+        <router-link to="/">
+          <img
+            :src="require('@/assets/img/spac-horizontal-white.png')"
+            alt="Illinois Criminal Justice Information Authority"
+            width="250"
+            class="mt-3 hover"
+          />
+        </router-link>
         <br />
         <div style="font-size: 12px">
           <!-- {{ new Date().getFullYear() }}
@@ -64,7 +66,12 @@
               target="_blank"
               rel="noreferrer"
               class="footer-link"
-              >ICJIA Archive</a
+              >Archive</a
+            ></strong
+          >
+          &nbsp;|&nbsp;<strong
+            ><router-link class="footer-link" to="/contact"
+              >Contact</router-link
             ></strong
           >
         </div>
