@@ -29,7 +29,7 @@
 
       You're using <span style="font-weight: 900">Internet Explorer</span>.
       Internet Explorer is outdated and will not display everything correctly
-      for this website. ICJIA recommends updating to a more secure, modern
+      for this website. SPAC recommends updating to a more secure, modern
       browser.<br />Please download the latest version of
       <a href="https://www.google.com/chrome" target="_blank" rel="noreferrer"
         >Chrome</a
