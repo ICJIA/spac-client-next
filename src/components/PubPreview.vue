@@ -123,6 +123,7 @@
                 color="primary"
                 outlined
                 pill
+                :class="{ pullLeft: !item.summary }"
                 @click="download(item)"
                 v-if="item.mediaMaterial && item.mediaMaterial.file"
               >
@@ -247,5 +248,9 @@ export default {
 
 .pubTitle:hover {
   color: #666;
+}
+
+.pullLeft {
+  margin-left: -18px;
 }
 </style>
