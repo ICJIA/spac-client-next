@@ -15,11 +15,13 @@ const checkIfValidPage = arr => {
 };
 
 const stripHTML = str => {
+  if (!str) return;
   let regex = /(<([^>]+)>)/gi;
   return str.replace(regex, "");
 };
 
 const titleCase = str => {
+  if (!str) return;
   return str
     .toLowerCase()
     .split(" ")
@@ -41,6 +43,7 @@ const getOffset = function(el) {
 };
 
 const truncate = function(string, maxWords = 10) {
+  if (!string) return;
   let strippedString = string.trim();
   let array = strippedString.split(" ");
   let wordCount = array.length;

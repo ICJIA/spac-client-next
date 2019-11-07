@@ -16,6 +16,10 @@ const getThumbnailLink = function(mediaMaterial) {
   } else {
     imagePath = config.thumbnail.defaultUrl;
   }
+  let ext = imagePath.substr(imagePath.lastIndexOf(".") + 1);
+  if (ext === "pdf") {
+    imagePath = config.thumbnail.defaultUrl;
+  }
   const link = thumborURL
     .setImagePath(`${imagePath}`)
     .resize(config.thumbnail.defaultWidth, config.thumbnail.defaultHeight)
