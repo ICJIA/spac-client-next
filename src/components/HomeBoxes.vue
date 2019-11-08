@@ -18,7 +18,7 @@
       <h2 class="heavy text-center">Pies and Average Profiles</h2>
       <p class="pt-4">
         Prison population pie charts and descriptive profiles of people
-        convicted in Illinois
+        convicted in Illinois.
       </p>
     </div>
     <div
