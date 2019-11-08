@@ -32,11 +32,15 @@
 
                 <blockquote class="splash">
                   All penalities
-                  <span style="color: #fff">shall be determined</span> both
-                  according to the seriousness of the offense and with the
+                  <span style="color: #fff; font-weight: 900"
+                    >shall be determined</span
+                  >
+                  both according to the seriousness of the offense and with the
                   object of
-                  <span style="color: #fff">restoring the offender</span> to
-                  useful citizenship.
+                  <span style="color: #fff; font-weight: 900"
+                    >restoring the offender</span
+                  >
+                  to useful citizenship.
                   <cite
                     >The Illinois Constitution Article I, Section 11
                     (1970)</cite
@@ -81,13 +85,13 @@ export default {
 .banner {
   width: 100%;
   background: rgba(79, 80, 79, 0.6);
-  padding: 50px;
+  padding: 40px;
   margin-top: 30px;
 }
 
 blockquote.splash {
   font-family: Georgia, serif;
-  font-size: 18px;
+  font-size: 22px;
   font-style: italic;
 
   padding: 0.35em 10px;
@@ -109,7 +113,7 @@ blockquote.splash {
 
 blockquote.splash cite {
   color: #eee;
-  font-size: 14px;
+  font-size: 18px;
   display: block;
   margin-top: 5px;
   text-align: right;

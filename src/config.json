@@ -31,7 +31,7 @@
   "thumbnail": {
     "defaultUrl": "https://spac.icjia-api.cloud/uploads/spac-purple-small-20191015T14513293.png",
     "defaultWidth": 310,
-    "defaultHeight": 390
+    "defaultHeight": 360
   },
   "imageServerURL": "https://image.icjia.cloud",
   "taggableContent": [
@@ -105,7 +105,7 @@
         "slug": "fiscal-impact-analysis",
         "title": "Fiscal Impact Analysis",
         "short": "Fiscal Impact",
-        "description": "",
+        "description": "SPAC Fiscal Impact Analysis reports an estimated correctional resource need for changes to Illinois' sentencing policies or practices. Where possible, the analysis will include as many costs or benefits as possible with detailed description of the calculations used to create the estimates.",
         "displayNav": true
       },
       {

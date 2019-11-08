@@ -3,7 +3,7 @@
     <v-card
       style="border-bottom: 1px solid #eee;"
       class="pt-3 pb-4 elevation-4"
-      :class="{ cardBackground: mode !== 'minimal' }"
+      :class="{ cardBackground: mode !== 'minimal', minHeight: imageExists }"
     >
       <div class="px-4 lato">
         <v-row v-if="mode === 'minimal'">
@@ -59,8 +59,8 @@
                     :contain="true"
                     :src="getThumbnailLink(item.mediaMaterial)"
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
-                    class="cover elevation-0 px-1"
-                    width="120"
+                    class="cover elevation-1 px-1"
+                    width="200"
                     style="margin-right: 20px; border: 1px solid #bbb; "
                     @click="download(item)"
                   >
@@ -100,7 +100,7 @@
                     :src="getThumbnailLink(item.externalMediaMaterial)"
                     :lazy-src="require('@/assets/img/spac-purple-lazy.png')"
                     class="cover elevation-0 px-1"
-                    width="120"
+                    width="200"
                     style="margin-right: 20px; border: 1px solid #bbb; "
                     @click="gotoExternal(item)"
                   >
@@ -114,10 +114,7 @@
               </v-hover>
             </div>
           </div>
-          <div
-            class="default-font table-font"
-            :class="{ summaryMinHeight: item.summary }"
-          >
+          <div class="default-font table-font">
             {{ item.summary }}
             <div :class="{ 'text-right': mode === 'minimal' }">
               <v-chip
@@ -181,6 +178,21 @@ export default {
       strapiEnumToObject,
       overlay: false
     };
+  },
+  computed: {
+    imageExists() {
+      if (
+        this.item.externalMediaMaterial &&
+        this.item.externalMediaMaterial.thumbnail
+      ) {
+        return true;
+      }
+      if (this.item.mediaMaterial && this.item.mediaMaterial.thumbnail) {
+        return true;
+      }
+
+      return false;
+    }
   },
   methods: {
     routeToCategory(item) {
@@ -258,6 +270,10 @@ export default {
 }
 
 .summaryMinHeight {
-  min-height: 130px;
+  min-height: 230px;
+}
+
+.minHeight {
+  min-height: 430px;
 }
 </style>

@@ -31,7 +31,7 @@
     <div
       class="box box-3"
       @click="
-        $router.push('/publications/fiscal-impact-analysis').catch(err => {
+        $router.push('/tags/fiscal-impact').catch(err => {
           $vuetify.goTo(0);
         })
       "

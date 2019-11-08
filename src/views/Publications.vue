@@ -34,6 +34,9 @@
                 :key="category.enum"
               >
                 <h2 :id="category.slug" class="mt-8">{{ category.title }}</h2>
+
+                {{ category.description }}
+
                 <DetailTablePublication
                   :publications="filterPublicationData(category.enum)"
                   class="mt-8 "
