@@ -1,6 +1,9 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
     <div class="box box-1" @click="gotoAnimation()">
+      <div class="text-center mb-5">
+        <v-icon style="color: #fff;" size="80px">insert_chart</v-icon>
+      </div>
       <h2 class="heavy text-center">Prison Population Animation</h2>
       <p class="pt-4">
         SPAC created a short animation to help understand how two levers
@@ -15,7 +18,11 @@
         })
       "
     >
+      <div class="text-center mb-5">
+        <v-icon style="color: #fff;" size="80px">pie_chart</v-icon>
+      </div>
       <h2 class="heavy text-center">Pies and Average Profiles</h2>
+
       <p class="pt-4">
         Prison population pie charts and descriptive profiles of people
         convicted in Illinois.
@@ -29,6 +36,9 @@
         })
       "
     >
+      <div class="text-center mb-5">
+        <v-icon style="color: #fff;" size="80px">monetization_on</v-icon>
+      </div>
       <h2 class="heavy text-center">Fiscal Impact Analyses</h2>
       <p class="pt-4">
         Estimates of the benefits and costs of proposed sentencing legislation
