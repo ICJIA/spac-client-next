@@ -4,7 +4,7 @@
       <h2 class="heavy text-center">Prison Population Animation</h2>
       <p class="pt-4">
         SPAC created a short animation to help understand how two levers
-        interact and impact prison.
+        interact and impact prison capacity flow.
       </p>
     </div>
     <div

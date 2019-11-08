@@ -34,14 +34,18 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        <router-link to="/">
-          <img
-            :src="require('@/assets/img/spac-horizontal-white.png')"
-            alt="Illinois Criminal Justice Information Authority"
-            width="250"
-            class="mt-3 hover"
-          />
-        </router-link>
+        <img
+          :src="require('@/assets/img/spac-horizontal-white.png')"
+          alt="Illinois Criminal Justice Information Authority"
+          width="250"
+          class="mt-3 hover"
+          @click="
+            $router.push('/').catch(err => {
+              $vuetify.goTo(0);
+            })
+          "
+        />
+
         <br />
         <div style="font-size: 12px">
           <!-- {{ new Date().getFullYear() }}
