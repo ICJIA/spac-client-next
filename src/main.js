@@ -38,6 +38,9 @@ Vue.use(VueAnalytics, {
   }
 });
 
+import VueRouterBackButton from "vue-router-back-button";
+Vue.use(VueRouterBackButton, { router });
+
 Vue.config.productionTip = false;
 // eslint-disable-next-line no-undef
 NProgress.configure({ showSpinner: false });

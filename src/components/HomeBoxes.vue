@@ -1,51 +1,38 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
-    <div
-      class="box box-1"
-      @click="
-        $router.push('/').catch(err => {
-          $vuetify.goTo(0);
-        })
-      "
-    >
-      <h2 class="heavy text-center">Lorem ipsum dolor</h2>
+    <div class="box box-1" @click="gotoAnimation()">
+      <h2 class="heavy text-center">Prison Population Animation</h2>
       <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque.
+        SPAC created a short animation to help understand how two levers
+        interact and impact prison.
       </p>
     </div>
     <div
       class="box box-2"
       @click="
-        $router.push('/').catch(err => {
+        $router.push('/tags/prison-pies').catch(err => {
           $vuetify.goTo(0);
         })
       "
     >
-      <h2 class="heavy text-center">Consectetur adipiscing elit</h2>
+      <h2 class="heavy text-center">Pies and Average Profiles</h2>
       <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque.
+        Prison population pie charts and descriptive profiles of people
+        convicted in Illinois
       </p>
     </div>
     <div
       class="box box-3"
       @click="
-        $router.push('/').catch(err => {
+        $router.push('/publications/fiscal-impact-analysis').catch(err => {
           $vuetify.goTo(0);
         })
       "
     >
-      <h2 class="heavy text-center">Tincidunt pulvinar</h2>
+      <h2 class="heavy text-center">Fiscal Impact Analyses</h2>
       <p class="pt-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dolor mi,
-        sollicitudin ut elit ut, tincidunt pulvinar nisl. Fusce auctor, nulla ac
-        dapibus dapibus, neque risus molestie nisl, in tempus ligula erat vel
-        neque dssds.
+        Estimates of the benefits and costs of proposed sentencing legislation
+        and policy changes.
       </p>
     </div>
   </div>
@@ -55,6 +42,11 @@
 export default {
   mounted() {
     this.$emit("home-boxes");
+  },
+  methods: {
+    gotoAnimation() {
+      window.open("https://www.youtube.com/embed/2tqlbIAhXUQ");
+    }
   }
 };
 </script>

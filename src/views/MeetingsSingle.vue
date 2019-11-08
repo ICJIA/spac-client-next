@@ -12,6 +12,14 @@
             <v-col cols="12">
               <MeetingCard :content="content[0]"></MeetingCard>
             </v-col>
+            <!-- <v-col cols="12">
+              <router-link
+                v-if="$routerHistory.hasPrevious()"
+                :to="{ path: $routerHistory.previous().path }"
+              >
+                &laquo;GO BACK
+              </router-link>
+            </v-col> -->
           </v-row>
         </v-container>
       </template>
