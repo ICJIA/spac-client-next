@@ -8,6 +8,9 @@
         >
           <v-row>
             <v-col cols="12">
+              <div style="font-size: 14px; font-weight: bold; color: purple">
+                Items tagged with:
+              </div>
               <h1 class="page-title">{{ content[0].name }}</h1>
             </v-col>
           </v-row>
