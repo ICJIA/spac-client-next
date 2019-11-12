@@ -61,7 +61,7 @@
               </div>
               <div v-if="displayMode.message === 'Full list by year'">
                 <DetailTablePublication
-                  :publications="publications"
+                  :publications="publicationsSorted"
                   class="mt-8 "
                   :class="{
                     'pl-6':
@@ -97,6 +97,8 @@
 import BaseContent from "@/components/BaseContent";
 import DetailTablePublication from "@/components/DetailTablePublication";
 import { EventBus } from "@/event-bus";
+// eslint-disable-next-line no-unused-vars
+import { sortBy } from "lodash";
 import TOC from "@/components/TOC";
 import { getPageBySection, getAllPublications } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -120,6 +122,7 @@ export default {
       showToc: true,
       sectionContent: null,
       publications: null,
+      publicationsSorted: null,
       displayMode: {},
       title: ""
     };
@@ -185,6 +188,11 @@ export default {
         contentMap,
         publicationsName
       );
+
+      this.publicationsSorted = sortBy(
+        sortBy(this.publications, "title").reverse(),
+        "year"
+      ).reverse();
       this.title = "Publications";
       this.$ga.page({
         page: this.$route.path,
@@ -194,7 +202,7 @@ export default {
       this.loading = false;
     },
     filterPublicationData(categoryEnum) {
-      return this.publications.filter(publication => {
+      return this.publicationsSorted.filter(publication => {
         return publication.category === categoryEnum;
       });
     }
