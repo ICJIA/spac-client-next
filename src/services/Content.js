@@ -136,6 +136,15 @@ const getContentByTagQuery = slug => {
     summary
     category
     content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
     
     
      tags {
@@ -184,7 +193,7 @@ const getContentByTagQuery = slug => {
       name
       slug
     }
-    addToBanner
+    
     mediaMaterial {
       summary
       thumbnail {

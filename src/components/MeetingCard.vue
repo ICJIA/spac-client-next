@@ -18,7 +18,7 @@
 
       <DownloadBox
         :content="content"
-        v-if="content.meetingMaterial.length"
+        v-if="content.meetingMaterial && content.meetingMaterial.length"
       ></DownloadBox>
 
       <v-container class="mt-4">
@@ -54,6 +54,7 @@
 
 <script>
 //import { getFile, getExternalFile } from "@/services/Download";
+/* eslint-disable vue/no-unused-components */
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";

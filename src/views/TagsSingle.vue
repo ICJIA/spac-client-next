@@ -97,7 +97,7 @@ import BaseContent from "@/components/BaseContent";
 import ListTable from "@/components/ListTable";
 import ListTableBiography from "@/components/ListTableBiography";
 import ListTablePublication from "@/components/ListTablePublication";
-
+import ListTableMeeting from "@/components/ListTableMeeting";
 import TOC from "@/components/TOC";
 
 import { getContentByTag } from "@/services/Content";
@@ -130,7 +130,8 @@ export default {
     TOC,
     ListTable,
     ListTableBiography,
-    ListTablePublication
+    ListTablePublication,
+    ListTableMeeting
   },
   created() {
     this.fetchContent();
