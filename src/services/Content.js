@@ -164,6 +164,9 @@ const getContentByTagQuery = slug => {
       }
     }
 
+
+
+
     publications(
     sort: "year:desc"
     where: { isPublished: true }
@@ -177,6 +180,10 @@ const getContentByTagQuery = slug => {
     searchMeta
     summary
     category
+     tags {
+      name
+      slug
+    }
     addToBanner
     mediaMaterial {
       summary
@@ -191,6 +198,10 @@ const getContentByTagQuery = slug => {
       }
     }
   }
+
+
+
+
 
 
 

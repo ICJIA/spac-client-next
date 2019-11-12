@@ -6,7 +6,7 @@
       :class="{ cardBackground: mode !== 'minimal', minHeight: imageExists }"
     >
       <div class="px-4 lato">
-        <v-row v-if="mode === 'minimal'">
+        <v-row>
           <v-col cols="12">
             <div class="text-right spac-purple">
               <div class="heavy category" @click="routeToCategory(item)">
@@ -21,7 +21,6 @@
         >
           {{ item.year }}
         </div>
-
         <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3 title-link">
           <span
             v-if="item.mediaMaterial && item.mediaMaterial.file"
@@ -114,7 +113,10 @@
               </v-hover>
             </div>
           </div>
-          <div class="default-font table-font">
+          <div
+            class="default-font table-font"
+            :class="{ summaryMinHeight: imageExists }"
+          >
             {{ item.summary }}
             <div :class="{ 'text-right': mode === 'minimal' }">
               <v-chip
@@ -270,7 +272,7 @@ export default {
 }
 
 .summaryMinHeight {
-  min-height: 230px;
+  min-height: 210px;
 }
 
 .minHeight {

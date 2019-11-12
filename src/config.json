@@ -72,7 +72,7 @@
       "type": "publication",
       "plural": "publications",
       "slug": "publications",
-      "listComponent": "ListTable",
+      "listComponent": "ListTablePublication",
       "singletonPath": "/publications",
       "appendCategory": true
     }
