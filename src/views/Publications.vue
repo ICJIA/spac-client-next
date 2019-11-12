@@ -27,18 +27,41 @@
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
               ></div>
+              <toggle
+                toggleOn="By Category"
+                toggleOff="Full list by year"
+                name="meetings"
+                class="mt-10"
+              ></toggle>
+              <div v-if="displayMode.message === 'By Category'">
+                <div
+                  v-for="category in $store.getters.config.strapiEnums
+                    .publications"
+                  :key="category.enum"
+                >
+                  <h2 :id="category.slug" class="mt-8">{{ category.title }}</h2>
 
-              <div
-                v-for="category in $store.getters.config.strapiEnums
-                  .publications"
-                :key="category.enum"
-              >
-                <h2 :id="category.slug" class="mt-8">{{ category.title }}</h2>
+                  {{ category.description }}
 
-                {{ category.description }}
-
+                  <DetailTablePublication
+                    :publications="filterPublicationData(category.enum)"
+                    class="mt-8 "
+                    :class="{
+                      'pl-6':
+                        $vuetify.breakpoint.md ||
+                        $vuetify.breakpoint.lg ||
+                        $vuetify.breakpoint.xl,
+                      'pr-6':
+                        $vuetify.breakpoint.md ||
+                        $vuetify.breakpoint.lg ||
+                        $vuetify.breakpoint.xl
+                    }"
+                  ></DetailTablePublication>
+                </div>
+              </div>
+              <div v-if="displayMode.message === 'Full list by year'">
                 <DetailTablePublication
-                  :publications="filterPublicationData(category.enum)"
+                  :publications="publications"
                   class="mt-8 "
                   :class="{
                     'pl-6':
@@ -60,7 +83,7 @@
               order-md="2"
               order="1"
               order-sm="1"
-              v-if="showToc"
+              v-if="showToc && displayMode.message === 'By Category'"
               ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
             ></v-col>
           </v-row>
@@ -79,6 +102,7 @@ import { getPageBySection, getAllPublications } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+import Toggle from "@/components/Toggle";
 
 export default {
   mixins: [handleClicks],
@@ -103,6 +127,7 @@ export default {
   components: {
     BaseContent,
     TOC,
+    Toggle,
 
     DetailTablePublication
   },

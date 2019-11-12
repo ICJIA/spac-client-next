@@ -880,11 +880,11 @@ const getAllPublications = async () => {
 const getPublicationsByCategory = async ({ strapiEnumCategory }) => {
   try {
     strapiEnumCategory = xss(strapiEnumCategory);
-    console.log("category: ", strapiEnumCategory);
+    //console.log("category: ", strapiEnumCategory);
     let publications = await queryEndpoint(
       getPublicationsByCategoryQuery(strapiEnumCategory)
     );
-    console.log(publications.data);
+    //console.log(publications.data);
     return publications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());

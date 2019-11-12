@@ -49,12 +49,25 @@
                   <div v-if="content[0][item.plural].length">
                     <h2 :id="item.slug">
                       <div class="mt-8"></div>
-                      <span v-if="item.alias" class="mt-8">{{
-                        item.alias | titleCase
-                      }}</span
-                      ><span v-else class="mt-8">{{
-                        item.plural | titleCase
-                      }}</span>
+                      <span
+                        v-if="item.alias"
+                        class="mt-8 catLink"
+                        :class="{
+                          hoverColor:
+                            item.singletonPath && item.singletonPath.length
+                        }"
+                        @click.prevent="routeToPath(item)"
+                        >{{ item.alias | titleCase }}</span
+                      ><span
+                        v-else
+                        @click.prevent="routeToPath(item)"
+                        class="mt-8"
+                        :class="{
+                          hoverColor:
+                            item.singletonPath && item.singletonPath.length
+                        }"
+                        >{{ item.plural | titleCase }}</span
+                      >
                     </h2>
 
                     <component
@@ -143,6 +156,11 @@ export default {
   },
 
   methods: {
+    routeToPath(item) {
+      if (item.singletonPath && item.singletonPath.length) {
+        this.$router.push(item.singletonPath);
+      }
+    },
     dynamicFlex() {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "12";
@@ -201,4 +219,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.hoverColor:hover {
+  color: purple;
+  cursor: pointer;
+}
+</style>
