@@ -29,7 +29,7 @@
               ></div>
               <toggle
                 toggleOn="By Category"
-                toggleOff="Full list by year"
+                toggleOff="By Year"
                 name="meetings"
                 class="mt-10"
               ></toggle>
@@ -59,7 +59,7 @@
                   ></DetailTablePublication>
                 </div>
               </div>
-              <div v-if="displayMode.message === 'Full list by year'">
+              <div v-if="displayMode.message === 'By Year'">
                 <DetailTablePublication
                   :publications="publicationsSorted"
                   class="mt-8 "

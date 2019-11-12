@@ -24,7 +24,8 @@
               ></div>
 
               <DetailTablePublication
-                :publications="publications"
+                :publications="publicationsSorted"
+                :sortBy="title"
                 class="mt-8 "
               ></DetailTablePublication>
             </v-col>
@@ -47,6 +48,8 @@ import {
 } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+// eslint-disable-next-line no-unused-vars
+import { sortBy } from "lodash";
 
 export default {
   mixins: [handleClicks],
@@ -70,7 +73,8 @@ export default {
       displayMode: {},
       categoryTitle: "",
       categoryDescription: "undefined",
-      title: ""
+      title: "",
+      publicationsSorted: null
     };
   },
   components: {
@@ -116,6 +120,11 @@ export default {
           contentMap,
           name
         );
+
+        this.publicationsSorted = sortBy(
+          sortBy(this.publications, "title").reverse(),
+          "year"
+        ).reverse();
         this.title = category[0].title;
         this.$ga.page({
           page: this.$route.path,
