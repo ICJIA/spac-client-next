@@ -20,7 +20,14 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
-            <v-col :[dynamicFlex]="true" order-md="1" order="2" order-sm="2">
+            <v-col
+              cols="12"
+              sm="12"
+              :md="dynamicFlex()"
+              order-md="1"
+              order="2"
+              order-sm="2"
+            >
               <div
                 @click="handleClicks"
                 class="dynamic-content"
@@ -84,7 +91,11 @@
               order="1"
               order-sm="1"
               v-if="showToc && displayMode.message === 'By Category'"
-              ><TOC selector="#scrollArea" top="#baseContentTop"></TOC
+              ><TOC
+                selector="#scrollArea"
+                top="#baseContentTop"
+                tocHeading="Categories"
+              ></TOC
             ></v-col>
           </v-row>
         </v-container>
@@ -142,17 +153,7 @@ export default {
       this.displayMode = payload;
     });
   },
-  computed: {
-    dynamicFlex() {
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
-        return "xs12";
-      } else if (this.displayMode.message === "By Date") {
-        return "xs12";
-      } else {
-        return this.showToc ? "xs10" : "xs12";
-      }
-    }
-  },
+  computed: {},
 
   methods: {
     async fetchContent() {
@@ -200,6 +201,13 @@ export default {
         location: window.location.href
       });
       this.loading = false;
+    },
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "12";
+      } else {
+        return this.showToc ? "10" : "12";
+      }
     },
     filterPublicationData(categoryEnum) {
       return this.publicationsSorted.filter(publication => {

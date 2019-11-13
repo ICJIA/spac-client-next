@@ -90,7 +90,7 @@
               ><TOC
                 selector="#scrollArea"
                 top="#baseContentTop"
-                tocHeading="Meeting Categories"
+                tocHeading="Categories"
               ></TOC
             ></v-col>
           </v-row>
