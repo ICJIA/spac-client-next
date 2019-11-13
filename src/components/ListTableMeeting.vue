@@ -130,7 +130,7 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                this.expanded[0].title + " " + this.expanded[0].scheduled
+                this.expanded[0].title + " " + this.expanded[0].scheduledDate
             });
           }
         } else {
@@ -140,7 +140,7 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                this.expanded[0].title + " " + this.expanded[0].scheduled
+                this.expanded[0].title + " " + this.expanded[0].scheduledDate
             });
           }
         }
