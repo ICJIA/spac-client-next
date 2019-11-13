@@ -91,6 +91,10 @@ export default {
     PubPreview
   },
   mounted() {
+    let elements = document.getElementsByClassName("v-icon--link");
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].setAttribute("aria-label", "Read More / Read Less");
+    }
     if (!this.hideCategory) {
       Array.prototype.insert = function(index, item) {
         this.splice(index, 0, item);
