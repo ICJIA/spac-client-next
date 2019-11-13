@@ -16,7 +16,7 @@
           </v-col>
         </v-row>
         <div
-          style="font-weight: 700; font-size: 12px; color: #999"
+          style="font-weight: 700; font-size: 12px; color: purple"
           class="mt-5"
         >
           {{ item.year }}

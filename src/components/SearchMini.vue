@@ -43,6 +43,7 @@
 import Fuse from "fuse.js";
 import BaseList from "@/components/BaseList";
 import { getSearchIndex } from "@/services/Search";
+import { buildA11Yfunction } from "@/services/Utilities";
 import { EventBus } from "@/event-bus";
 export default {
   components: {
@@ -60,6 +61,9 @@ export default {
     // this.$nextTick(() => {
     //   this.$refs.textfield.focus()
     // })
+    buildA11Yfunction("v-text-field", "aria-label", "Search")();
+    buildA11Yfunction("v-icon--link", "aria-label", "Search")();
+    buildA11Yfunction("v-icon", "aria-label", "Search")();
     EventBus.$on("hideQuery", () => {
       this.hideQuery();
     });
