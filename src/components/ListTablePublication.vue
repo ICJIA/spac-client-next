@@ -71,14 +71,22 @@
 
 <script>
 import PubPreview from "@/components/PubPreview";
-import { strapiEnumToObject, addAttributeToElement } from "@/services/Utilities";
+// import { EventBus } from "@/event-bus";
+import {
+  strapiEnumToObject,
+  addAttributeToElement
+} from "@/services/Utilities";
 
 export default {
   components: {
     PubPreview
   },
   mounted() {
-    addAttributeToElement("v-icon--link", "aria-label", "Read More / Read Less")();
+    addAttributeToElement(
+      "v-icon--link",
+      "aria-label",
+      "Read More / Read Less"
+    )();
 
     if (!this.hideCategory) {
       Array.prototype.insert = function(index, item) {
@@ -124,8 +132,24 @@ export default {
         if (this.expanded.length) {
           this.expanded.shift();
           this.expanded.push(value);
+          //console.log("send preview event here: ", this.expanded[0].title);
+          if (this.expanded[0].title) {
+            this.$ga.event({
+              eventCategory: "Publication",
+              eventAction: "Preview",
+              eventLabel: this.expanded[0].title
+            });
+          }
         } else {
           this.expanded.push(value);
+          //console.log("send preview event here: ", this.expanded[0].title);
+          if (this.expanded[0].title) {
+            this.$ga.event({
+              eventCategory: "Publication",
+              eventAction: "Preview",
+              eventLabel: this.expanded[0].title
+            });
+          }
         }
       }
     },

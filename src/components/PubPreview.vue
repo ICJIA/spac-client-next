@@ -196,6 +196,12 @@ export default {
       return false;
     }
   },
+  watch: {},
+  mounted() {
+    if (this.sendAnalyticsEvent) {
+      console.log("send event here");
+    }
+  },
   methods: {
     routeToCategory(item) {
       let categoryObj = strapiEnumToObject("publications", item.category);
@@ -238,6 +244,10 @@ export default {
     mode: {
       type: String,
       default: "full"
+    },
+    sendAnalyticsEvent: {
+      type: Boolean,
+      default: false
     }
   }
 };
