@@ -14,6 +14,7 @@
         <v-container
           id="scrollArea"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+          v-if="publications && publications.length"
         >
           <v-row>
             <v-col xs12 order-md="1" order="2" order-sm="2">
@@ -133,7 +134,19 @@ export default {
         });
         this.loading = false;
       } else {
-        this.routeToError();
+        this.content = null;
+        this.loading = false;
+        this.$router
+          .push({
+            name: "error",
+            params: {
+              msg: "Page not found",
+              statusCode: 404,
+              debug: this.$route.params
+            }
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch(err => {});
       }
     },
     routeToError() {
