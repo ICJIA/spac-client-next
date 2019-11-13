@@ -71,14 +71,14 @@
 
 <script>
 import PubPreview from "@/components/PubPreview";
-import { strapiEnumToObject, buildA11Yfunction } from "@/services/Utilities";
+import { strapiEnumToObject, addAttributeToElement } from "@/services/Utilities";
 
 export default {
   components: {
     PubPreview
   },
   mounted() {
-    buildA11Yfunction("v-icon--link", "aria-label", "Read More / Read Less")();
+    addAttributeToElement("v-icon--link", "aria-label", "Read More / Read Less")();
 
     if (!this.hideCategory) {
       Array.prototype.insert = function(index, item) {

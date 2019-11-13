@@ -84,7 +84,7 @@ const strapiSlugToObject = function(contentType, strapiSlug) {
   });
 };
 
-const buildA11Yfunction = function(className, attribute, text) {
+const addAttributeToElement = function(className, attribute, text) {
   return function() {
     let elements = document.getElementsByClassName(className);
     for (let i = 0; i < elements.length; i++) {
@@ -102,5 +102,5 @@ export {
   getOffset,
   strapiEnumToObject,
   strapiSlugToObject,
-  buildA11Yfunction
+  addAttributeToElement
 };
