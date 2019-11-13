@@ -18,6 +18,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-unused-components */
 import BaseContent from "@/components/BaseContent";
 import PubPreview from "@/components/PubPreview";
 import { EventBus } from "@/event-bus";
@@ -84,8 +85,20 @@ export default {
         contentMap,
         name
       );
-      if (!checkIfValidPage(this.publication)) {
-        this.routeToError;
+      if (!this.publication.length) {
+        this.content = null;
+        this.loading = false;
+        this.$router
+          .push({
+            name: "error",
+            params: {
+              msg: "Page not found",
+              statusCode: 404,
+              debug: this.$route.params
+            }
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch(err => {});
       }
 
       this.title = this.publication[0].title;

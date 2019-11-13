@@ -45,6 +45,11 @@ export default {
   },
   mounted() {
     this.$store.commit("CLEAR_CACHE");
+    this.$ga.page({
+      page: this.$route.path,
+      title: this.title,
+      location: window.location.href
+    });
   }
 };
 </script>

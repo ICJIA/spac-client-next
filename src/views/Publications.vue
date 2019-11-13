@@ -50,8 +50,8 @@
 
                   {{ category.description }}
 
-                  <DetailTablePublication
-                    :publications="filterPublicationData(category.enum)"
+                  <ListTablePublication
+                    :items="filterPublicationData(category.enum)"
                     class="mt-8 "
                     :class="{
                       'pl-6':
@@ -63,12 +63,12 @@
                         $vuetify.breakpoint.lg ||
                         $vuetify.breakpoint.xl
                     }"
-                  ></DetailTablePublication>
+                  ></ListTablePublication>
                 </div>
               </div>
               <div v-if="displayMode.message === 'By Year'">
-                <DetailTablePublication
-                  :publications="publicationsSorted"
+                <ListTablePublication
+                  :items="publicationsSorted"
                   class="mt-8 "
                   :class="{
                     'pl-6':
@@ -80,7 +80,7 @@
                       $vuetify.breakpoint.lg ||
                       $vuetify.breakpoint.xl
                   }"
-                ></DetailTablePublication>
+                ></ListTablePublication>
               </div>
             </v-col>
             <v-col
@@ -106,7 +106,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import DetailTablePublication from "@/components/DetailTablePublication";
+import ListTablePublication from "@/components/ListTablePublication";
 import { EventBus } from "@/event-bus";
 // eslint-disable-next-line no-unused-vars
 import { sortBy } from "lodash";
@@ -143,7 +143,7 @@ export default {
     TOC,
     Toggle,
 
-    DetailTablePublication
+    ListTablePublication
   },
   created() {
     this.fetchContent();

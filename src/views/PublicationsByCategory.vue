@@ -23,11 +23,11 @@
                 v-html="categoryDescription"
               ></div>
 
-              <DetailTablePublication
-                :publications="publicationsSorted"
+              <ListTablePublication
+                :items="publicationsSorted"
                 :sortBy="title"
                 class="mt-8 "
-              ></DetailTablePublication>
+              ></ListTablePublication>
             </v-col>
           </v-row>
         </v-container>
@@ -38,7 +38,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import DetailTablePublication from "@/components/DetailTablePublication";
+import ListTablePublication from "@/components/ListTablePublication";
 import { EventBus } from "@/event-bus";
 import { getPublicationsByCategory } from "@/services/Content";
 import {
@@ -79,7 +79,7 @@ export default {
   },
   components: {
     BaseContent,
-    DetailTablePublication
+    ListTablePublication
   },
   created() {
     this.fetchContent();
