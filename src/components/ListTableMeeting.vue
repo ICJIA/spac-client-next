@@ -52,7 +52,7 @@
 
 <script>
 import MeetingCard from "@/components/MeetingCard";
-
+import { buildA11Yfunction } from "@/services/Utilities";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
@@ -72,10 +72,8 @@ export default {
 
       this.headers.insert(1, obj);
     }
-    let elements = document.getElementsByClassName("v-icon--link");
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].setAttribute("aria-label", "Read More / Read Less");
-    }
+
+    buildA11Yfunction("v-icon--link", "aria-label", "Read More / Read Less")();
   },
 
   data() {

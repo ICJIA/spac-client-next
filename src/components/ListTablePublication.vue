@@ -52,19 +52,6 @@
           >
         </template>
 
-        <!-- <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
-          <v-btn
-            color="grey lighten-2"
-            small
-            depressed
-            @click="expand(true)"
-            v-if="!isExpanded"
-            >More <v-icon right>arrow_drop_down</v-icon></v-btn
-          >
-          <v-btn small depressed @click="expand(false)" v-if="isExpanded"
-            >Less<v-icon right>arrow_drop_up</v-icon></v-btn
-          >
-        </template> -->
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
@@ -84,17 +71,15 @@
 
 <script>
 import PubPreview from "@/components/PubPreview";
-import { strapiEnumToObject } from "@/services/Utilities";
-/* eslint-disable vue/valid-v-on */
+import { strapiEnumToObject, buildA11Yfunction } from "@/services/Utilities";
+
 export default {
   components: {
     PubPreview
   },
   mounted() {
-    let elements = document.getElementsByClassName("v-icon--link");
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].setAttribute("aria-label", "Read More / Read Less");
-    }
+    buildA11Yfunction("v-icon--link", "aria-label", "Read More / Read Less")();
+
     if (!this.hideCategory) {
       Array.prototype.insert = function(index, item) {
         this.splice(index, 0, item);

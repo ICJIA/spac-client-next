@@ -84,6 +84,15 @@ const strapiSlugToObject = function(contentType, strapiSlug) {
   });
 };
 
+const buildA11Yfunction = function(className, attribute, text) {
+  return function() {
+    let elements = document.getElementsByClassName(className);
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].setAttribute(attribute, text);
+    }
+  };
+};
+
 export {
   getHash,
   titleCase,
@@ -92,5 +101,6 @@ export {
   truncate,
   getOffset,
   strapiEnumToObject,
-  strapiSlugToObject
+  strapiSlugToObject,
+  buildA11Yfunction
 };
