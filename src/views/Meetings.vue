@@ -54,8 +54,8 @@
                     class="dynamic-content"
                   ></p>
 
-                  <DetailTableMeeting
-                    :meetings="filterMeetingData(category.enum)"
+                  <ListTableMeeting
+                    :items="filterMeetingData(category.enum)"
                     class="mt-8 "
                     :class="{
                       'pl-6':
@@ -67,15 +67,15 @@
                         $vuetify.breakpoint.lg ||
                         $vuetify.breakpoint.xl
                     }"
-                  ></DetailTableMeeting>
+                  ></ListTableMeeting>
                 </div>
               </div>
               <div v-if="displayMode.message === 'By Date'">
-                <DetailTableMeeting
-                  :meetings="meetings"
+                <ListTableMeeting
+                  :items="meetings"
                   class="mt-8 "
                   :hideCategory="false"
-                ></DetailTableMeeting>
+                ></ListTableMeeting>
               </div>
             </v-col>
 
@@ -111,7 +111,7 @@
 <script>
 import BaseContent from "@/components/BaseContent";
 import { EventBus } from "@/event-bus";
-import DetailTableMeeting from "@/components/DetailTableMeeting";
+import ListTableMeeting from "@/components/ListTableMeeting";
 import TOC from "@/components/TOC";
 import { getPageBySection, getAllMeetings } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
@@ -141,7 +141,7 @@ export default {
   components: {
     BaseContent,
     TOC,
-    DetailTableMeeting,
+    ListTableMeeting,
     Toggle
   },
   created() {
@@ -209,7 +209,7 @@ export default {
         contentMap,
         meetingsName
       );
-
+      console.log(this.meetings);
       this.loading = false;
     },
     filterMeetingData(categoryEnum) {

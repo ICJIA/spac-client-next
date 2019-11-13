@@ -38,19 +38,6 @@
           >
         </template>
 
-        <!-- <template v-slot:item.data-table-expand="{ item, isExpanded, expand }">
-          <v-btn
-            color="grey lighten-2"
-            small
-            depressed
-            @click="expand(true)"
-            v-if="!isExpanded"
-            >More <v-icon right>arrow_drop_down</v-icon></v-btn
-          >
-          <v-btn small depressed @click="expand(false)" v-if="isExpanded"
-            >Less<v-icon right>arrow_drop_up</v-icon></v-btn
-          >
-        </template> -->
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
             <div class="py-5">
@@ -68,6 +55,7 @@ import MeetingCard from "@/components/MeetingCard";
 
 export default {
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     MeetingCard
   },
   mounted() {

@@ -24,10 +24,10 @@
                 v-html="categoryDescription"
               ></div>
 
-              <DetailTableMeeting
-                :meetings="meetings"
+              <ListTableMeeting
+                :items="meetings"
                 class="mt-8 "
-              ></DetailTableMeeting>
+              ></ListTableMeeting>
             </v-col>
           </v-row>
         </v-container>
@@ -38,7 +38,7 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import DetailTableMeeting from "@/components/DetailTableMeeting";
+import ListTableMeeting from "@/components/ListTableMeeting";
 import { EventBus } from "@/event-bus";
 import { getMeetingsByCategory } from "@/services/Content";
 import {
@@ -76,7 +76,7 @@ export default {
   },
   components: {
     BaseContent,
-    DetailTableMeeting
+    ListTableMeeting
   },
   created() {
     this.fetchContent();
