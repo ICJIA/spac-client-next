@@ -33,7 +33,7 @@
         </template>
 
         <template v-slot:item.slug="{ item }">
-          <v-btn small depressed :to="getRoute(item)"
+          <v-btn small depressed :to="getRoute(item)" aria-label="View Meeting"
             ><v-icon>link</v-icon></v-btn
           >
         </template>
@@ -71,6 +71,10 @@ export default {
       };
 
       this.headers.insert(1, obj);
+    }
+    let elements = document.getElementsByClassName("v-icon--link");
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].setAttribute("aria-label", "Read More / Read Less");
     }
   },
 
