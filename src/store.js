@@ -44,23 +44,33 @@ export default new Vuex.Store({
   mutations: {
     CLEAR_CACHE(state) {
       state.cache.clear();
-      console.log("Cache cleared");
+      if (state.config.debug) {
+        console.log("Cache cleared");
+      }
     },
     SET_APP_READY(state, bool) {
       state.isAppReady = bool;
-      console.log("isAppReady", bool);
+      if (state.config.debug) {
+        console.log("isAppReady", bool);
+      }
     },
     SET_CONFIG(state, config) {
       state.config = config;
-      console.log("Config loaded");
+      if (state.config.debug) {
+        console.log("Config loaded");
+      }
     },
     SET_ROUTES(state, routes) {
       state.routes = routes;
-      console.log("Routes loaded");
+      if (state.config.debug) {
+        console.log("Routes loaded");
+      }
     },
     SET_SEARCH_INDEX(state, searchIndex) {
       state.searchIndex = searchIndex;
-      console.log("Search index loaded");
+      if (state.config.debug) {
+        console.log("Search index loaded");
+      }
     },
     SET_CACHE(state, { hash, query }) {
       state.cache.set(hash, query);
@@ -68,11 +78,15 @@ export default new Vuex.Store({
     },
     SET_SECTIONS(state, sections) {
       state.sections = sections;
-      console.log("Sections loaded");
+      if (state.config.debug) {
+        console.log("Sections loaded");
+      }
     },
     SET_API_STATUS(state, apiStatus) {
       state.apiStatus = apiStatus;
-      console.log("API status code: ", apiStatus);
+      if (state.config.debug) {
+        console.log("API status code: ", apiStatus);
+      }
     },
     SET_SELECTED_COUNTY_DATA(state, payload) {
       state.selectedCountyData = payload;
@@ -84,7 +98,7 @@ export default new Vuex.Store({
       commit("CLEAR_CACHE");
       commit("SET_APP_READY", true);
     },
-    async setApiStatus({ commit }) {
+    async setApiStatus({ state, commit }) {
       // try {
       //   let status = await fetchData(buildStatusUrl());
       //   let apiStatus = status.filter(server => {
@@ -105,7 +119,9 @@ export default new Vuex.Store({
       //   commit("SET_API_STATUS", 500);
       // }
       commit("SET_API_STATUS", 200);
-      console.log("status server bypassed");
+      if (state.config.debug) {
+        console.log("status server bypassed");
+      }
     },
     setConfig({ commit }, config) {
       commit("SET_CONFIG", config);
