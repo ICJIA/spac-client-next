@@ -129,7 +129,8 @@ export default {
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
-              eventLabel: this.expanded[0].title
+              eventLabel:
+                this.expanded[0].title + " " + this.expanded[0].scheduled
             });
           }
         } else {
@@ -138,7 +139,8 @@ export default {
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
-              eventLabel: this.expanded[0].title
+              eventLabel:
+                this.expanded[0].title + " " + this.expanded[0].scheduled
             });
           }
         }
