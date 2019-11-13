@@ -20,7 +20,14 @@
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
           <v-row>
-            <v-col :[dynamicFlex]="true">
+            <v-col
+              cols="12"
+              sm="12"
+              :md="dynamicFlex()"
+              order-md="1"
+              order="2"
+              order-sm="2"
+            >
               <div
                 v-html="renderToHtml(content[0].content)"
                 v-if="content[0].content"
@@ -73,9 +80,13 @@
             </v-col>
 
             <v-col
+              cols="12"
+              sm="12"
               md="2"
-              v-if="showToc && displayMode.message === 'By Category'"
-              class="hidden-sm-and-down"
+              order-md="2"
+              order="1"
+              order-sm="1"
+              v-if="displayMode.message === 'By Category'"
               ><TOC
                 selector="#scrollArea"
                 top="#baseContentTop"
@@ -120,7 +131,7 @@ export default {
       content: null,
       checkIfValidPage,
       renderToHtml,
-      showToc: false,
+      showToc: true,
       sectionContent: null,
       meetings: null,
       displayMode: {},
@@ -142,15 +153,6 @@ export default {
     });
   },
   computed: {
-    dynamicFlex() {
-      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
-        return "xs12";
-      } else if (this.displayMode.message === "By Date") {
-        return "xs12";
-      } else {
-        return this.showToc ? "xs10" : "xs12";
-      }
-    },
     computedTitle() {
       return this.title;
     }
@@ -189,7 +191,7 @@ export default {
         this.content = this.sectionContent[0].pages;
 
         if (checkIfValidPage(this.content)) {
-          this.showToc = this.content[0].showToc;
+          this.showToc = true;
           this.title = this.content[0].title;
           this.$ga.page({
             page: this.$route.path,
@@ -214,6 +216,13 @@ export default {
       return this.meetings.filter(meeting => {
         return meeting.category === categoryEnum;
       });
+    },
+    dynamicFlex() {
+      if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
+        return "12";
+      } else {
+        return this.showToc ? "10" : "12";
+      }
     },
     routeToError() {
       this.content = null;
