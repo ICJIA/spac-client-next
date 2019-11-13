@@ -125,8 +125,22 @@ export default {
         if (this.expanded.length) {
           this.expanded.push(value);
           this.expanded.shift();
+          if (this.expanded[0].title) {
+            this.$ga.event({
+              eventCategory: "Meeting",
+              eventAction: "Preview",
+              eventLabel: this.expanded[0].title
+            });
+          }
         } else {
           this.expanded.push(value);
+          if (this.expanded[0].title) {
+            this.$ga.event({
+              eventCategory: "Meeting",
+              eventAction: "Preview",
+              eventLabel: this.expanded[0].title
+            });
+          }
         }
       }
     },
