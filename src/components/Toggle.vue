@@ -28,7 +28,7 @@ export default {
       }
       payload.name = this.name;
       // eslint-disable-next-line no-console
-      console.log("toggle: ", payload.message);
+      //console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
     }
   },
