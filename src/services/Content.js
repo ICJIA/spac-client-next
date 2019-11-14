@@ -92,6 +92,7 @@ const getFrontPageNewsQuery = limit => {
     summary
     content
     createdAt
+    updatedAt
     isPublished
     
   }
@@ -111,6 +112,7 @@ const getAllNewsQuery = () => {
     summary
     content
     createdAt
+    updatedAt
     isPublished
     
   }

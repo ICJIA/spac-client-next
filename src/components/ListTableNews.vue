@@ -28,6 +28,10 @@
           {{ item.createdAt | format }}
         </template>
 
+        <template v-slot:item.updatedAt="{ item }">
+          {{ displayUpdated(item) }}
+        </template>
+
         <template v-slot:item.title="{ item }">
           <b>{{ item.title }}</b>
         </template>
@@ -49,8 +53,9 @@
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
 import NewsCard from "@/components/NewsCard";
-import { addAttributeToElement } from "@/services/Utilities";
+import { addAttributeToElement, dateFormat } from "@/services/Utilities";
 
 export default {
   components: {
@@ -77,6 +82,12 @@ export default {
           align: "left",
           sortable: true,
           value: "createdAt"
+        },
+        {
+          text: "Updated",
+          align: "left",
+          sortable: false,
+          value: "updatedAt"
         }
       ]
     };
@@ -97,6 +108,15 @@ export default {
       //   return null;
       // }
       console.log("Route here: ", item);
+    },
+    displayUpdated(item) {
+      let created = dateFormat(item.createdAt);
+      let updated = dateFormat(item.updatedAt);
+      if (created === updated) {
+        return "-";
+      } else {
+        return updated;
+      }
     },
     clicked(value) {
       if (value === this.expanded[0]) {

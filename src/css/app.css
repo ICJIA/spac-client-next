@@ -209,9 +209,9 @@ summary:hover {
   color: #333;
 }
 
-.dynamic-content blockquote {
+/* .dynamic-content blockquote {
   border-left: 3px solid #bbb;
-}
+} */
 
 .dynamic-content ul li {
   margin-top: 3px;
