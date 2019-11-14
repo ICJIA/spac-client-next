@@ -57,6 +57,7 @@
                   <ListTableMeeting
                     :items="filterMeetingData(category.enum)"
                     class="mt-8 "
+                    :hideCategory="true"
                     :class="{
                       'pl-6':
                         $vuetify.breakpoint.md ||
