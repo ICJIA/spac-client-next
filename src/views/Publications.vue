@@ -206,7 +206,11 @@ export default {
       if (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) {
         return "12";
       } else {
-        return this.showToc ? "10" : "12";
+        if (this.displayMode.message === "By Category") {
+          return "10";
+        } else {
+          return "12";
+        }
       }
     },
     filterPublicationData(categoryEnum) {

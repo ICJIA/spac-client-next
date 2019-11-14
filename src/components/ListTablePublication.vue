@@ -15,7 +15,7 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        :items-per-page="15"
+        :items-per-page="-1"
         :search="search"
         class="elevation-1 meetingTable hover"
         show-expand
