@@ -256,6 +256,7 @@ const getContentByTagQuery = slug => {
       summary
       content
       createdAt
+      updatedAt
       isPublished
     }
   }
