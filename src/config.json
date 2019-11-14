@@ -56,7 +56,7 @@
       "type": "post",
       "alias": "news",
       "slug": "news",
-      "listComponent": "ListTable",
+      "listComponent": "ListTableNews",
       "singletonPath": "/news",
       "appendCategory": false
     },

@@ -18,18 +18,10 @@
           v-if="content"
           :fluid="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         >
-          <v-row>
-            <!-- <v-col cols="12">
-              {{ content }}
-            </v-col> -->
-          </v-row>
+          <v-row> </v-row>
           <v-row>
             <v-col cols="12" class="mb-10">
-              <base-list :items="news" empty="">
-                <template slot-scope="item">
-                  <NewsCard :content="item" :height="400"></NewsCard>
-                </template>
-              </base-list>
+              <ListTableNews :items="newsSorted"></ListTableNews>
             </v-col>
           </v-row>
         </v-container>
@@ -40,10 +32,11 @@
 
 <script>
 import BaseContent from "@/components/BaseContent";
-import BaseList from "@/components/BaseList";
-import NewsCard from "@/components/NewsCard";
+
+import ListTableNews from "@/components/ListTableNews";
 // eslint-disable-next-line no-unused-vars
 import { getPageBySection, getAllNews } from "@/services/Content";
+import { sortBy } from "lodash";
 // eslint-disable-next-line no-unused-vars
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
@@ -51,8 +44,8 @@ import { handleClicks } from "@/mixins/handleClicks";
 export default {
   components: {
     BaseContent,
-    BaseList,
-    NewsCard
+
+    ListTableNews
   },
   mixins: [handleClicks],
   metaInfo() {
@@ -67,7 +60,8 @@ export default {
       sectionContent: [],
       news: [],
       renderToHtml,
-      title: "News Archive"
+      title: "News Archive",
+      newsSorted: []
     };
   },
   created() {
@@ -103,6 +97,7 @@ export default {
       );
 
       this.news = this.$store.getters.getContentFromCache(contentMap, newsName);
+      this.newsSorted = sortBy(this.news, "createdAt").reverse();
 
       // if (checkIfValidPage(this.sectionContent)) {
       //   this.content = this.sectionContent[0].summary;

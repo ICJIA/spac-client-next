@@ -31,7 +31,15 @@
           :hideReadLess="true"
           class="markdown-body"
           :fullHeight="fullHeight"
+          v-if="readMore"
         ></readmore>
+        <div
+          v-else
+          @click="handleClicks"
+          class="dynamic-content"
+          v-html="renderToHtml(content.content)"
+        ></div>
+        <TagList :tags="content.tags" class="mt-5"></TagList>
       </v-card-text>
     </v-card>
   </div>
@@ -41,18 +49,26 @@
 import Readmore from "@/components/Readmore";
 import PostedDate from "@/components/PostedDate";
 import { renderToHtml } from "@/services/Markdown";
+import { handleClicks } from "@/mixins/handleClicks";
+import TagList from "@/components/TagList";
 export default {
   components: {
     PostedDate,
-    Readmore
+    Readmore,
+    TagList
   },
   data() {
     return {
       renderToHtml
     };
   },
+  mixins: [handleClicks],
   methods: {},
   props: {
+    readMore: {
+      type: Boolean,
+      default: true
+    },
     height: {
       type: Number,
       default: 150
