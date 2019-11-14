@@ -206,7 +206,9 @@ export default {
     routeToCategory(item) {
       let categoryObj = strapiEnumToObject("publications", item.category);
       let path = `/publications/${categoryObj[0].slug}`;
-      this.$router.push(`${path}`);
+      this.$router.push(`${path}`).catch(err => {
+        this.$vuetify.goTo(0);
+      });
     },
     gotoExternal(item) {
       //console.log(item.externalMediaMaterial.url);
