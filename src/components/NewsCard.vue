@@ -2,8 +2,11 @@
   <div>
     <v-card
       class="mx-auto py-5 mb-8"
-      color="white"
-      :class="{ 'elevation-1': elevation, 'elevation-0': !elevation }"
+      :class="{
+        'elevation-5': elevation,
+        'elevation-0': !elevation,
+        cardBackground: elevation
+      }"
     >
       <v-list-item three-line>
         <v-list-item-content>
@@ -79,7 +82,7 @@ export default {
     },
     elevation: {
       type: Boolean,
-      default: true
+      default: false
     },
     fullHeight: {
       type: Boolean,
@@ -89,4 +92,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.cardBackground {
+  background: #f5f5f5 !important;
+}
+</style>
