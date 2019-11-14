@@ -52,7 +52,7 @@
 
 <script>
 import MeetingCard from "@/components/MeetingCard";
-import { addAttributeToElement } from "@/services/Utilities";
+import { addAttributeToElement, formatDate } from "@/services/Utilities";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
@@ -130,7 +130,10 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                this.expanded[0].title + " " + this.expanded[0].scheduledDate
+                "Preview: " +
+                this.expanded[0].title +
+                ": " +
+                formatDate(this.expanded[0].scheduledDate)
             });
           }
         } else {
@@ -140,7 +143,10 @@ export default {
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                this.expanded[0].title + " " + this.expanded[0].scheduledDate
+                "Preview: " +
+                this.expanded[0].title +
+                ": " +
+                formatDate(this.expanded[0].scheduledDate)
             });
           }
         }

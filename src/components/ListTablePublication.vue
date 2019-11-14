@@ -137,7 +137,7 @@ export default {
             this.$ga.event({
               eventCategory: "Publication",
               eventAction: "Preview",
-              eventLabel: this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title
             });
           }
         } else {
@@ -147,7 +147,7 @@ export default {
             this.$ga.event({
               eventCategory: "Publication",
               eventAction: "Preview",
-              eventLabel: this.expanded[0].title
+              eventLabel: "Preview: " + this.expanded[0].title
             });
           }
         }
