@@ -36,7 +36,7 @@
           <v-btn
             small
             outlined
-            @click="download(item)"
+            @click.stop.prevent="download(item)"
             v-if="item.mediaMaterial && item.mediaMaterial.file"
             >Read&nbsp;&nbsp;&nbsp;<v-icon class="ml-1"
               >cloud_download</v-icon
@@ -154,6 +154,13 @@ export default {
       }
     },
     download(item) {
+      let ext = item.mediaMaterial.file.name.split(".").pop();
+      //console.log("Download: ", item.mediaMaterial.file.hash + "." + ext);
+      this.$ga.event({
+        eventCategory: "File",
+        eventAction: "Download",
+        eventLabel: item.mediaMaterial.file.hash + "." + ext
+      });
       let path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
     },
