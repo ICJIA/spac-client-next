@@ -24,8 +24,8 @@
         :expanded.sync="expanded"
         @click:row="clicked"
       >
-        <template v-slot:item.createdAt="{ item }">
-          {{ item.createdAt | format }}
+        <template v-slot:item.year="{ item }">
+          <b>&nbsp;&nbsp;{{ item.year }}&nbsp;&nbsp;</b>
         </template>
 
         <template v-slot:item.category="{ item }" v-if="!hideCategory">
@@ -99,7 +99,7 @@ export default {
         value: "category"
       };
 
-      this.headers.insert(0, obj);
+      this.headers.insert(1, obj);
     }
   },
 
@@ -202,4 +202,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+</style>

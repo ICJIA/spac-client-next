@@ -57,7 +57,7 @@ const getSearchIndex = async () => {
       item.parentPath = `/publications/${categoryObj[0].slug}`;
       return item;
     });
-
+    console.dir(pages);
     return [...news, ...pages, ...meetings, ...biographies, ...publications];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
