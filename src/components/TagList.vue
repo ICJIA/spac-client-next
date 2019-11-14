@@ -18,6 +18,15 @@
 
         &nbsp;
       </span>
+      <!-- <v-chip
+        :small="true"
+        label
+        color="grey"
+        class="chip mt-2"
+        text-color="black"
+      >
+        <v-icon color="grey lighten-4">more_horiz</v-icon>
+      </v-chip> -->
     </span>
     <!-- <span v-else :class="background" class="no-tags">No tags here!</span> -->
   </div>
@@ -26,6 +35,12 @@
 <script>
 // import { EventBus } from "@/event-bus";
 export default {
+  data() {
+    return {
+      maxTags: 2,
+      showAll: false
+    };
+  },
   props: {
     tags: {
       type: Array,
