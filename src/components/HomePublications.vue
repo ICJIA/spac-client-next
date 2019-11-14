@@ -100,6 +100,11 @@ export default {
           this.currentIndex + this.display
         );
         this.segment = this.segment + 1;
+        this.$ga.event({
+          eventCategory: "Featured (Next)",
+          eventAction: "Click",
+          eventLabel: "Click"
+        });
       }
     },
     previousFeatured() {
@@ -125,6 +130,11 @@ export default {
           this.pubsTotal
         );
       }
+      this.$ga.event({
+        eventCategory: "Featured (Previous)",
+        eventAction: "Click",
+        eventLabel: "Click"
+      });
     }
   },
   props: {
