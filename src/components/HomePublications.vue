@@ -103,7 +103,7 @@ export default {
         this.$ga.event({
           eventCategory: "Featured (Next)",
           eventAction: "Click",
-          eventLabel: "Click: " + this.forceRenderClick
+          eventLabel: "Click"
         });
       }
     },
@@ -133,7 +133,7 @@ export default {
       this.$ga.event({
         eventCategory: "Featured (Previous)",
         eventAction: "Click",
-        eventLabel: "Click: " + this.forceRenderClick
+        eventLabel: "Click"
       });
     }
   },
