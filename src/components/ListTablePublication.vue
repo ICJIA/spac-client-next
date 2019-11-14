@@ -28,6 +28,10 @@
           <b>&nbsp;&nbsp;{{ item.year }}&nbsp;&nbsp;</b>
         </template>
 
+        <template v-slot:item.title="{ item }">
+          <span :class="{'bold': hideCategory}">{{ item.title }}</span>
+        </template>
+
         <template v-slot:item.category="{ item }" v-if="!hideCategory">
           <b>{{ getCategoryTitle(item.category) }}</b>
         </template>
@@ -205,5 +209,9 @@ export default {
 <style>
 tr:nth-of-type(even) {
   background-color: rgba(0, 0, 0, 0.04);
+}
+
+.bold {
+  font-weight: bold;
 }
 </style>
