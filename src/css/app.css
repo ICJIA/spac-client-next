@@ -205,6 +205,14 @@ summary:hover {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.dynamic-content {
+  color: #333;
+}
+
+.dynamic-content blockquote {
+  border-left: 3px solid #bbb;
+}
+
 .dynamic-content ul li {
   margin-top: 3px;
 }
