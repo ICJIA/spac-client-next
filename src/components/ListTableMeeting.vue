@@ -52,8 +52,8 @@
 
 <script>
 import MeetingCard from "@/components/MeetingCard";
-import { addAttributeToElement } from "@/services/Utilities";
-import moment from "moment";
+import { addAttributeToElement, dateFormat } from "@/services/Utilities";
+
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
@@ -127,9 +127,8 @@ export default {
           this.expanded.push(value);
           this.expanded.shift();
           if (this.expanded[0].title) {
-            let scheduled = moment(this.expanded[0].scheduledDate).format(
-              "MMM DD, YYYY"
-            );
+            let scheduled = dateFormat(this.expanded[0].scheduledDate);
+            //console.log(scheduled);
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
@@ -140,9 +139,8 @@ export default {
         } else {
           this.expanded.push(value);
           if (this.expanded[0].title) {
-            let scheduled = moment(this.expanded[0].scheduledDate).format(
-              "MMM DD, YYYY"
-            );
+            let scheduled = dateFormat(this.expanded[0].scheduledDate);
+            //console.log(scheduled);
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
