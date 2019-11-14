@@ -39,7 +39,9 @@ export default {
   mounted() {},
   methods: {
     routeTo(route) {
-      this.$router.push(route);
+      this.$router.push(route).catch(() => {
+        this.$vuetify.goTo(0);
+      });
     }
   }
 };
