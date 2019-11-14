@@ -75,7 +75,7 @@ export default {
         this.$ga.event({
           eventCategory: "Search Conversion (Main)",
           eventAction: "Click",
-          eventLabel: "Query: " + this.query + " --> " + item.slug
+          eventLabel: "Query: '" + this.query + "' --> " + item.slug
         });
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`/${item.slug}`).catch(err => {
@@ -86,7 +86,10 @@ export default {
           eventCategory: "Search Conversion (Main)",
           eventAction: "Click",
           eventLabel:
-            "Query: " + this.query + " --> " + `${item.parentPath}/${item.slug}`
+            "Query: '" +
+            this.query +
+            "' --> " +
+            `${item.parentPath}/${item.slug}`
         });
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`${item.parentPath}/${item.slug}`).catch(err => {

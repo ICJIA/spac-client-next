@@ -107,7 +107,7 @@ export default {
         this.$ga.event({
           eventCategory: "Search Conversion (Home)",
           eventAction: "Click",
-          eventLabel: "Query: " + this.query + " --> " + item.slug
+          eventLabel: "Query: '" + this.query + "' --> " + item.slug
         });
         this.$router.push(`/${item.slug}`);
       } else {
@@ -115,7 +115,10 @@ export default {
           eventCategory: "Search Conversion (Home)",
           eventAction: "Click",
           eventLabel:
-            "Query: " + this.query + " --> " + `${item.parentPath}/${item.slug}`
+            "Query: '" +
+            this.query +
+            "' --> " +
+            `${item.parentPath}/${item.slug}`
         });
         this.$router.push(`${item.parentPath}/${item.slug}`);
       }
