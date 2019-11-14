@@ -27,6 +27,7 @@
               <ListTablePublication
                 :items="publicationsSorted"
                 :sortBy="title"
+                :hideCategory="true"
                 class="mt-8 "
               ></ListTablePublication>
             </v-col>
