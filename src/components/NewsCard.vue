@@ -39,7 +39,7 @@
           class="dynamic-content"
           v-html="renderToHtml(content.content)"
         ></div>
-        <TagList :tags="content.tags" class="mt-5"></TagList>
+        <TagList :tags="content.tags" class="mt-10" v-if="!readMore"></TagList>
       </v-card-text>
     </v-card>
   </div>
