@@ -104,8 +104,19 @@ export default {
     route(item) {
       if (!item.slug) return;
       if (item.parentPath === "/") {
+        this.$ga.event({
+          eventCategory: "Search Conversion (Home)",
+          eventAction: "Click",
+          eventLabel: "Query: " + this.query + " --> " + item.slug
+        });
         this.$router.push(`/${item.slug}`);
       } else {
+        this.$ga.event({
+          eventCategory: "Search Conversion (Home)",
+          eventAction: "Click",
+          eventLabel:
+            "Query: " + this.query + " --> " + `${item.parentPath}/${item.slug}`
+        });
         this.$router.push(`${item.parentPath}/${item.slug}`);
       }
     }
