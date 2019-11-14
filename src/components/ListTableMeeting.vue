@@ -52,7 +52,8 @@
 
 <script>
 import MeetingCard from "@/components/MeetingCard";
-import { addAttributeToElement, formatDate } from "@/services/Utilities";
+import { addAttributeToElement } from "@/services/Utilities";
+import moment from "moment";
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
@@ -126,27 +127,27 @@ export default {
           this.expanded.push(value);
           this.expanded.shift();
           if (this.expanded[0].title) {
+            let scheduled = moment(this.expanded[0].scheduledDate).format(
+              "MMM DD, YYYY"
+            );
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                "Preview: " +
-                this.expanded[0].title +
-                ": " +
-                formatDate(this.expanded[0].scheduledDate)
+                "Preview: " + this.expanded[0].title + ": " + scheduled
             });
           }
         } else {
           this.expanded.push(value);
           if (this.expanded[0].title) {
+            let scheduled = moment(this.expanded[0].scheduledDate).format(
+              "MMM DD, YYYY"
+            );
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
               eventLabel:
-                "Preview: " +
-                this.expanded[0].title +
-                ": " +
-                formatDate(this.expanded[0].scheduledDate)
+                "Preview: " + this.expanded[0].title + ": " + scheduled
             });
           }
         }
