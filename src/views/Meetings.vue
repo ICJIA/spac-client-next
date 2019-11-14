@@ -98,7 +98,9 @@
             <v-col>
               <p>
                 For meeting materials prior to 2019, please see
-                <a href="https://archive.icjia.cloud">the SPAC archives</a>.
+                <a href="https://archive.icjia.cloud/files/spac/"
+                  >the SPAC archives</a
+                >.
               </p>
             </v-col>
           </v-row>
