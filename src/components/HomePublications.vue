@@ -22,6 +22,41 @@
         </div>
       </template>
     </base-list>
+
+    <!-- <div class="text-center mb-4 mt-5 hidden-sm-and-down">
+      <span v-for="index in dots" :key="index">
+        <span
+          class="dot mx-1 hover"
+          :class="{ active: index === segment }"
+          @click="displaySegment(index)"
+        ></span>
+      </span>
+    </div> <div class="text-center mt-3">
+      <span class="hidden-sm-and-down"
+        ><v-btn
+          dark
+          small
+          color="purple lighten-1"
+          class="white--text "
+          style="padding: 0; margin: 0;"
+          @click="previousFeatured()"
+          aria-label="Navigate to Previous"
+          ><v-icon dark>navigate_before</v-icon>
+        </v-btn>
+
+        <v-btn
+          dark
+          small
+          color="purple lighten-1"
+          class="white--text ml-2"
+          style="padding: 0; margin: 0;"
+          aria-label="Navigate to Next"
+          @click="nextFeatured()"
+        >
+          <v-icon dark>navigate_next</v-icon>
+        </v-btn></span
+      >
+    </div> -->
   </div>
 </template>
 

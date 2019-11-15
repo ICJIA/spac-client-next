@@ -7,7 +7,7 @@
             ref="textfield"
             v-model="query"
             label="Search"
-            placeholder="Search Adult Redeploy Illinois"
+            placeholder="Search the Illinois Sentencing Policy Advisory Council"
             @keyup="instantSearch"
           />
 
