@@ -41,6 +41,11 @@ const getSearchIndex = async () => {
       return item;
     });
 
+    let sections = searchIndex["sections"].map(item => {
+      item.parentPath = "";
+      return item;
+    });
+
     let meetings = searchIndex["meetings"].map(item => {
       let categoryObj = strapiEnumToObject("meetings", item.category);
       item.parentPath = `/meetings/${categoryObj[0].slug}`;
@@ -58,7 +63,14 @@ const getSearchIndex = async () => {
       return item;
     });
     console.dir(pages);
-    return [...news, ...pages, ...meetings, ...biographies, ...publications];
+    return [
+      ...news,
+      ...pages,
+      ...meetings,
+      ...biographies,
+      ...publications,
+      ...sections
+    ];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());
     // eslint-disable-next-line no-console

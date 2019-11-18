@@ -116,6 +116,16 @@ const query = `{
     }
   }
 
+  sections (where: {isPublished: true}) {
+   createdAt
+    updatedAt
+    title
+    slug
+    searchMeta
+    summary
+    
+  }
+
   
  
  
