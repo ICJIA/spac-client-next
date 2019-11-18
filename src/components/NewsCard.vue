@@ -3,9 +3,8 @@
     <v-card
       class="mx-auto py-5 mb-8"
       :class="{
-        'elevation-5': elevation,
-        'elevation-0': !elevation,
-        cardBackground: elevation
+        'elevation-3': elevation,
+        'elevation-0': !elevation
       }"
     >
       <v-list-item three-line>
@@ -94,6 +93,6 @@ export default {
 
 <style>
 .cardBackground {
-  background: #f5f5f5 !important;
+  background: #fff !important;
 }
 </style>

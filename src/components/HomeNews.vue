@@ -1,7 +1,12 @@
 <template>
   <div>
     <div v-for="item in content" :key="item.slug" class="mb-3">
-      <NewsCard :content="item" :height="150" :elevation="false"></NewsCard>
+      <NewsCard
+        :content="item"
+        :height="150"
+        :elevation="true"
+        :readMore="false"
+      ></NewsCard>
     </div>
     <div class="text-center mt-6">
       <v-btn

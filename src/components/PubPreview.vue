@@ -2,7 +2,7 @@
   <div>
     <v-card
       style="border-bottom: 1px solid #eee;"
-      class="pt-3 pb-4 elevation-4"
+      class="pt-3 pb-4 elevation-3"
       :class="{ cardBackground: mode !== 'minimal', minHeight: imageExists }"
     >
       <div class="px-4 lato">
