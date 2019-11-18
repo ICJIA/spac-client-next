@@ -10,12 +10,16 @@
       <v-row>
         <v-col cols="12" v-if="displayNewsLink">
           <div class="text-right spac-purple mr-10">
-            <div class="heavy category hover">
-              <router-link
-                to="/news"
-                style="color: #fff !important; text-decoration: none !important; font-weight: 900 !important"
-                >SPAC News</router-link
-              >
+            <div
+              class="heavy category hover"
+              style="color: #fff !important; text-decoration: none !important; font-weight: 900 !important"
+              @click="
+                $router.push('/news').catch(err => {
+                  $vuetify.goTo(0);
+                })
+              "
+            >
+              SPAC News
             </div>
           </div>
         </v-col>

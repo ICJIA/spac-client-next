@@ -43,6 +43,7 @@
                 :content="item"
                 :readMore="false"
                 :elevation="true"
+                :displayNewsLink="true"
               ></NewsCard>
             </div>
           </td>

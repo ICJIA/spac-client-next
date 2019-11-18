@@ -23,6 +23,7 @@
           <div
             class="px-8 py-2 lato hover background text-left"
             @click="route(item)"
+            style="font-size: 14px; font-weight: bold;"
           >
             <span v-if="item.parentPath === '/about/biographies'">
               {{ item.firstName }}&nbsp;{{ item.middleName }}&nbsp;{{
