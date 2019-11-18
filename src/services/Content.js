@@ -93,6 +93,7 @@ const getFrontPageNewsQuery = limit => {
     content
     createdAt
     updatedAt
+    displayReadMore
     isPublished
     
   }

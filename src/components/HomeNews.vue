@@ -5,7 +5,7 @@
         :content="item"
         :height="150"
         :elevation="true"
-        :readMore="false"
+        :readMore="item.displayReadMore"
       ></NewsCard>
     </div>
     <div class="text-center mt-6">
