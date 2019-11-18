@@ -12,6 +12,7 @@
                 :content="content[0]"
                 :fullHeight="true"
                 :elevation="false"
+                :displayNewsLink="true"
               ></NewsCard>
             </v-col>
           </v-row>

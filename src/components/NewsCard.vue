@@ -4,9 +4,22 @@
       class="mx-auto py-5 mb-8"
       :class="{
         'elevation-3': elevation,
-        'elevation-0': !elevation
+        'elevation-1': !elevation
       }"
     >
+      <v-row>
+        <v-col cols="12" v-if="displayNewsLink">
+          <div class="text-right spac-purple mr-10">
+            <div class="heavy category hover">
+              <router-link
+                to="/news"
+                style="color: #fff !important; text-decoration: none !important; font-weight: 900 !important"
+                >SPAC News</router-link
+              >
+            </div>
+          </div>
+        </v-col>
+      </v-row>
       <v-list-item three-line>
         <v-list-item-content>
           <PostedDate
@@ -84,6 +97,10 @@ export default {
       default: false
     },
     fullHeight: {
+      type: Boolean,
+      default: false
+    },
+    displayNewsLink: {
       type: Boolean,
       default: false
     }
