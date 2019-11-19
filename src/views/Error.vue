@@ -15,7 +15,7 @@
             </h2>
 
             <div v-if="$store.getters.debug" class="mt-5">
-              {{ $route.params.debug }}
+              {{ debug }}
             </div>
             <v-btn
               class="mt-12"
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      debug: {}
+      debug: null
     };
   },
   mounted() {
@@ -53,9 +53,10 @@ export default {
 
     try {
       const referrer = localStorage.getItem(process.env.VUE_APP_LS_ROUTE_KEY);
-      this.debug["msg"] = this.$route.params.msg;
+      this.debug = {};
+      this.debug["meta"] = this.$route.params.msg;
       this.debug["referrer"] = referrer;
-      console.table(this.debug);
+      //console.table(this.debug);
       this.$ga.page({
         page: this.$route.path,
         title: this.title,
