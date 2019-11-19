@@ -6,7 +6,7 @@
         content.meetingMaterial
     "
   >
-    <div style="background: #eee" class="px-8 py-8">
+    <div style="background: #eee" class="mt-8 px-8 py-8">
       <div v-if="content.mediaMaterial && content.mediaMaterial.length">
         <h3 style="color: #222;" class="mb-5">{{ header[0] }}</h3>
 
