@@ -43,18 +43,33 @@ export default {
       title: "Error"
     };
   },
+  data() {
+    return {
+      debug: {}
+    };
+  },
   mounted() {
     this.$store.commit("CLEAR_CACHE");
-    this.$ga.page({
-      page: this.$route.path,
-      title: this.title,
-      location: window.location.href
-    });
-    this.$ga.event({
-      eventCategory: "Error",
-      eventAction: this.$route.params.msg,
-      eventLabel: JSON.stringify(this.$route.params.debug)
-    });
+
+    try {
+      const referrer = localStorage.getItem(process.env.VUE_APP_LS_ROUTE_KEY);
+      this.debug["msg"] = this.$route.params.msg;
+      this.debug["referrer"] = referrer;
+      console.table(this.debug);
+      this.$ga.page({
+        page: this.$route.path,
+        title: this.title,
+        location: window.location.href
+      });
+
+      this.$ga.event({
+        eventCategory: "Error",
+        eventAction: this.$route.params.msg,
+        eventLabel: JSON.stringify(this.debug)
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 </script>
