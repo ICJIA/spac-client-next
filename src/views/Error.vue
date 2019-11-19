@@ -50,6 +50,11 @@ export default {
       title: this.title,
       location: window.location.href
     });
+    this.$ga.event({
+      eventCategory: "Error",
+      eventAction: this.$route.params.msg,
+      eventLabel: this.$route.params.debug
+    });
   }
 };
 </script>
