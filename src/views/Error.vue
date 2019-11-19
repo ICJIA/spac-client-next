@@ -53,7 +53,7 @@ export default {
     this.$ga.event({
       eventCategory: "Error",
       eventAction: this.$route.params.msg,
-      eventLabel: this.$route.params.debug
+      eventLabel: JSON.stringify(this.$route.params.debug)
     });
   }
 };
