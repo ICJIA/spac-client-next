@@ -1,6 +1,7 @@
 {
   "clientURL": "https://spac.illinois.gov",
   "publicPath": "",
+  "localStorageReferrer": "spac:referrer",
   "publications": { "truncateSummaryAt": 28 },
   "search": {
     "shouldSort": true,
@@ -9,7 +10,7 @@
     "distance": 100,
     "maxPatternLength": 32,
     "minMatchCharLength": 3,
-    "keys": ["searchMeta", "title", "summary", "content"]
+    "keys": ["searchMeta", "title", "summary"]
   },
   "frontPageItems": {
     "news": 2,
