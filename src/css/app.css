@@ -216,3 +216,7 @@ summary:hover {
 .dynamic-content ul li {
   margin-top: 8px;
 }
+
+.dynamic-content ul {
+  margin-bottom: 8px;
+}
