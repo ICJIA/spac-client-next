@@ -30,6 +30,12 @@ export default {
       // eslint-disable-next-line no-console
       //console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
+      //console.log(payload.name, payload.message);
+      this.$ga.event({
+        eventCategory: "Toggle",
+        eventAction: payload.name,
+        eventLabel: payload.message
+      });
     }
   },
   mounted() {
