@@ -39,6 +39,13 @@
           </div>
         </template>
       </base-list>
+      <!-- <v-divider></v-divider>
+      <div
+        class="px-8 py-2 lato hover background text-left"
+        style="font-size: 14px; font-weight: bold;"
+      >
+        Full site search
+      </div> -->
     </v-card>
   </div>
 </template>

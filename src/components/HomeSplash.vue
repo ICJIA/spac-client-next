@@ -49,7 +49,7 @@
                 <v-flex class="text-center" style="width: 100% !important">
                   <SearchMini
                     style="background: #fff;position: relative;"
-                    class="py-3 px-3 mt-8"
+                    class="py-3 px-3 mt-5"
                   />
                 </v-flex>
               </div>
@@ -86,7 +86,7 @@ export default {
   width: 100%;
   background: rgba(79, 80, 79, 0.6);
   padding: 40px;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 blockquote.splash {
