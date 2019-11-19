@@ -126,6 +126,12 @@ const query = `{
     
   }
 
+  tags {
+    name
+    slug
+    searchMeta
+  }
+
   
  
  

@@ -14,6 +14,7 @@
             {{ item.lastName }}
             {{ item.suffix }}
           </div>
+          <div v-else-if="item.name">Tag: {{ item.name }}</div>
           <div v-else>{{ item.title }}</div>
         </h2>
 

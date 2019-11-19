@@ -46,6 +46,11 @@ const getSearchIndex = async () => {
       return item;
     });
 
+    let tags = searchIndex["tags"].map(item => {
+      item.parentPath = `/tags`;
+      return item;
+    });
+
     let meetings = searchIndex["meetings"].map(item => {
       let categoryObj = strapiEnumToObject("meetings", item.category);
       item.parentPath = `/meetings/${categoryObj[0].slug}`;
@@ -69,7 +74,8 @@ const getSearchIndex = async () => {
       ...meetings,
       ...biographies,
       ...publications,
-      ...sections
+      ...sections,
+      ...tags
     ];
   } catch (e) {
     EventBus.$emit("Search service error: ", e.toString());

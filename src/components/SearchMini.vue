@@ -30,6 +30,9 @@
                 item.lastName
               }}</span
             >
+            <span v-else-if="item.parentPath === '/tags'">
+              Tag: {{ item.name }}</span
+            >
             <span v-else>
               {{ item.title }}
             </span>
