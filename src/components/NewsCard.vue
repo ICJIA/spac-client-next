@@ -59,6 +59,26 @@
           v-html="renderToHtml(content.content)"
         ></div>
         <TagList :tags="content.tags" class="mt-10" v-if="!readMore"></TagList>
+        <v-container class="mt-4">
+          <v-row>
+            <!-- <v-col cols="12" sm="12" md="6">
+              <div class="text-left" v-if="content.createdAt">
+                Posted: {{ content.createdAt | timeAgoFormat }}
+              </div>
+            </v-col> -->
+            <v-col cols="12" sm="12" md="12">
+              <div
+                class="text-right"
+                v-if="
+                  content.updatedAt &&
+                    displayUpdated(content.createdAt, content.updatedAt)
+                "
+              >
+                Last updated: {{ content.updatedAt | timeAgoFormat }}
+              </div>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-card-text>
     </v-card>
   </div>
@@ -70,6 +90,7 @@ import PostedDate from "@/components/PostedDate";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import TagList from "@/components/TagList";
+import moment from "moment";
 export default {
   components: {
     PostedDate,
@@ -82,7 +103,19 @@ export default {
     };
   },
   mixins: [handleClicks],
-  methods: {},
+  methods: {
+    displayUpdated(createdAt, updatedAt) {
+      var posted = moment(createdAt);
+      var updated = moment(updatedAt);
+      var duration = moment.duration(updated.diff(posted)).days();
+
+      if (duration > 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   props: {
     readMore: {
       type: Boolean,
