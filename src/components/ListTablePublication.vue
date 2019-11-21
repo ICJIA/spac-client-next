@@ -29,7 +29,7 @@
         </template>
 
         <template v-slot:item.title="{ item }">
-          <span :class="{'bold': hideCategory}">{{ item.title }}</span>
+          <span :class="{ bold: hideCategory }">{{ item.title }}</span>
         </template>
 
         <template v-slot:item.category="{ item }" v-if="!hideCategory">

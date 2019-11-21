@@ -1,8 +1,8 @@
 const { MD5 } = require("crypto-js");
 const config = require("@/config.json");
 
-const getHash = salt => {
-  let hash = MD5(salt).toString();
+const getHash = str => {
+  let hash = MD5(str).toString();
   return hash;
 };
 
