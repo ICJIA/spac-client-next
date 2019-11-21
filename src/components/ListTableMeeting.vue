@@ -32,11 +32,11 @@
           {{ getCategoryTitle(item.category) }}
         </template>
 
-        <template v-slot:item.slug="{ item }">
+        <!-- <template v-slot:item.slug="{ item }">
           <v-btn small depressed :to="getRoute(item)" aria-label="View Meeting"
             ><v-icon>link</v-icon></v-btn
           >
-        </template>
+        </template> -->
 
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length + 2">
@@ -93,13 +93,13 @@ export default {
           sortable: true,
           value: "scheduledDate"
         },
-        { text: "Meeting Title", value: "title" },
-        {
-          text: "",
-          value: "slug",
-          align: "center",
-          sortable: false
-        }
+        { text: "Meeting Title", value: "title" }
+        // {
+        //   text: "",
+        //   value: "slug",
+        //   align: "center",
+        //   sortable: false
+        // }
       ]
     };
   },
