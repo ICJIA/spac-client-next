@@ -24,6 +24,10 @@
         :expanded.sync="expanded"
         @click:row="clicked"
       >
+        <template v-slot:item.createdAt="{ item }">
+          <span v-html="displayNewLabel(item.createdAt)"></span>
+        </template>
+
         <template v-slot:item.year="{ item }">
           <b>&nbsp;&nbsp;{{ item.year }}&nbsp;&nbsp;</b>
         </template>
@@ -80,7 +84,7 @@ import {
   strapiEnumToObject,
   addAttributeToElement
 } from "@/services/Utilities";
-
+import moment from "moment";
 export default {
   components: {
     PubPreview
@@ -103,7 +107,7 @@ export default {
         value: "category"
       };
 
-      this.headers.insert(1, obj);
+      this.headers.insert(2, obj);
     }
   },
 
@@ -114,6 +118,7 @@ export default {
       key: 0,
       singleExpand: true,
       headers: [
+        { text: "", value: "createdAt" },
         { text: "Year", value: "year" },
         { text: "Title", value: "title" },
         {
@@ -190,6 +195,16 @@ export default {
       //   );
       //   return categoryName[0].short;
       return cat[0].title;
+    },
+    // eslint-disable-next-line no-unused-vars
+    displayNewLabel(createdAt) {
+      var now = moment(new Date()); //todays date
+      var end = moment(createdAt); // another date
+      var duration = moment.duration(now.diff(end));
+      var days = duration.asDays();
+      if (days <= 7) {
+        return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green; padding: 3px 3px" class="text-center">NEW!</div>`;
+      }
     }
   },
 
