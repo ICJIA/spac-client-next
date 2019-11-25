@@ -17,7 +17,7 @@
 
     <img
       :src="require('@/assets/img/spac-purple-default.png')"
-      alt="THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL"
+      alt="ILLINOIS SENTENCING POLICY ADVISORY COUNCIL"
       :width="logoWidth()"
       style="margin-left: -5px; margin-right: 8px;"
       class="hover"
@@ -35,7 +35,7 @@
         })
       "
       ><span style="color: purple" class="agency default-font"
-        >THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL</span
+        >ILLINOIS SENTENCING POLICY ADVISORY COUNCIL</span
       ></v-toolbar-title
     >
 

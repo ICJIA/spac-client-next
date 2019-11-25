@@ -198,10 +198,10 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     displayNewLabel(createdAt) {
-      var now = moment(new Date()); //todays date
-      var end = moment(createdAt); // another date
-      var duration = moment.duration(now.diff(end));
-      var days = duration.asDays();
+      let now = moment(new Date()); //todays date
+      let end = moment(createdAt); // another date
+      let duration = moment.duration(now.diff(end));
+      let days = duration.asDays();
       if (days <= this.$store.state.config.daysToDisplayNewLabel) {
         return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green;" class="text-center">&nbsp;&nbsp;NEW!&nbsp;&nbsp;</div>`;
       }
