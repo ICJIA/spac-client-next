@@ -27,7 +27,7 @@
                   class="default-font home-title"
                   style="color: #fff; font-weight: 900;"
                 >
-                  THE ILLINOIS SENTENCING POLICY ADVISORY COUNCIL
+                  ILLINOIS SENTENCING POLICY ADVISORY COUNCIL
                 </h1>
 
                 <blockquote class="splash">
