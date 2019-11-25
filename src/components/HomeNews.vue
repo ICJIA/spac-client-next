@@ -15,7 +15,7 @@
         aria-label="News Archive"
         outlined
         color="primary"
-        >News & Events Archive<v-icon right>chevron_right</v-icon></v-btn
+        >News & Analysis Archive<v-icon right>chevron_right</v-icon></v-btn
       >
     </div>
   </div>

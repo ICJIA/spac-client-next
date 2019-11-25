@@ -13,7 +13,7 @@
           <v-container fluid>
             <v-row>
               <v-col cols="12" sm="12" md="7" class="mb-10">
-                <h2 class="heavy rule uppercase">News & Events</h2>
+                <h2 class="heavy rule uppercase">News & Analysis</h2>
                 <home-news
                   :content="news"
                   v-if="news"
