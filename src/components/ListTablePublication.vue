@@ -202,8 +202,8 @@ export default {
       var end = moment(createdAt); // another date
       var duration = moment.duration(now.diff(end));
       var days = duration.asDays();
-      if (days <= 7) {
-        return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green; padding: 3px 3px" class="text-center">NEW!</div>`;
+      if (days <= this.$store.state.config.daysToDisplayNewLabel) {
+        return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green;" class="text-center">&nbsp;&nbsp;NEW!&nbsp;&nbsp;</div>`;
       }
     }
   },
