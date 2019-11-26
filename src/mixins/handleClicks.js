@@ -52,7 +52,10 @@ export const handleClicks = {
         }
       }
 
-      if (/^.*\.(pdf|doc|docx)$/i.test(href)) {
+      if (
+        /^.*\.(pdf|doc|docx)$/i.test(href) &&
+        href.indexOf("icjia-api.cloud") > 1
+      ) {
         $event.preventDefault();
         const filename = href.split("/").pop();
         //console.log("register download event: ", filename);

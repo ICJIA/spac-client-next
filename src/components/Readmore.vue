@@ -203,8 +203,7 @@ export default {
           this.$router.push(to);
         }
       }
-      //console.log(href, href.indexOf("icjia-api.cloud"));
-      // catch links to /uploads/ on 'icjia-api.cloud'
+
       if (
         /^.*\.(pdf|doc|docx|xls|xlsx)$/i.test(href) &&
         href.indexOf("icjia-api.cloud") > 1
