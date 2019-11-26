@@ -14,8 +14,8 @@
     "keys": ["searchMeta", "title", "summary", "name"]
   },
   "frontPageItems": {
-    "news": 3,
-    "publications": 3,
+    "news": 2,
+    "publications": 2,
     "search": { "xs": 3, "sm": 4, "md": 4, "lg": 4, "xl": 4 }
   },
   "contentCacheSize": 25,

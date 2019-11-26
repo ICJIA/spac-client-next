@@ -4,7 +4,7 @@
       <NewsCard
         :content="item"
         :height="150"
-        :elevation="true"
+        :elevation="false"
         :readMore="item.displayReadMore"
       ></NewsCard>
     </div>
@@ -14,6 +14,7 @@
         to="/news"
         aria-label="News Archive"
         outlined
+        small
         color="primary"
         >News & Analysis Archive<v-icon right>chevron_right</v-icon></v-btn
       >

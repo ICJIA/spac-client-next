@@ -687,6 +687,24 @@ const getSinglePublicationQuery = slug => {
   `;
 };
 
+const getUpcomingMeetingsQuery = targetDate => {
+  return `
+  {
+  meetings(
+    sort: "scheduledDate:desc"
+    where: { scheduledDate_gte: "${targetDate}", isPublished: true }
+  ) {
+    scheduledDate
+    title
+    summary
+    isPublished
+    slug
+    category
+  }
+}
+  `;
+};
+
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
@@ -909,6 +927,18 @@ const getSinglePublication = async ({ slug }) => {
   }
 };
 
+const getUpcomingMeetings = async ({ targetDate }) => {
+  try {
+    let meetings = await queryEndpoint(getUpcomingMeetingsQuery(targetDate));
+    //console.table("upcoming meetings: ", meetings.data.data.meetings);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
 export {
   getPage,
   getPost,
@@ -927,5 +957,6 @@ export {
   getFrontPagePublications,
   getAllPublications,
   getPublicationsByCategory,
-  getSinglePublication
+  getSinglePublication,
+  getUpcomingMeetings
 };

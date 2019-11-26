@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-card
-      class="mx-auto py-5 mb-8"
+      class="mx-auto py-0 mb-8"
+      style="border-bottom: 1px solid #ddd"
       :class="{
         'elevation-3': elevation,
-        'elevation-1': !elevation
+        'elevation-0': !elevation
       }"
     >
       <v-row>

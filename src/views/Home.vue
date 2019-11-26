@@ -4,15 +4,25 @@
       <home-splash></home-splash>
 
       <home-boxes></home-boxes>
-      <home-about :content="about" v-if="about" data-aos="fade"></home-about>
+      <home-about
+        :about="about"
+        :upcoming="upcoming"
+        v-if="about && upcoming"
+      ></home-about>
     </div>
 
-    <div style="margin-top: -35px; background: #fff">
+    <div style=" background: #fff">
       <base-content :loading="loading">
         <template v-slot:content>
           <v-container fluid>
             <v-row>
-              <v-col cols="12" sm="12" md="7" class="mb-10">
+              <v-col
+                cols="12"
+                sm="12"
+                md="7"
+                class="mb-10"
+                style="margin-top: -45px"
+              >
                 <h2 class="heavy rule uppercase">News & Analysis</h2>
                 <home-news
                   :content="news"
@@ -20,7 +30,7 @@
                   data-aos="fade"
                 ></home-news>
               </v-col>
-              <v-col cols="12" sm="12" md="5" style="margin-top: 13px;">
+              <v-col cols="12" sm="12" md="5" style="margin-top: -33px;">
                 <div
                   class="text-xs-left mb-5 px-2"
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
@@ -74,11 +84,13 @@ import HomeNews from "@/components/HomeNews";
 import HomePublications from "@/components/HomePublications";
 import HomeAbout from "@/components/HomeAbout";
 import BaseContent from "@/components/BaseContent";
+import moment from "moment";
 import { EventBus } from "@/event-bus";
 import {
   getPage,
   getFrontPageNews,
-  getFrontPagePublications
+  getFrontPagePublications,
+  getUpcomingMeetings
 } from "@/services/Content";
 import { getHash } from "@/services/Utilities";
 // import Illinois from "@/components/Illinois";
@@ -97,6 +109,7 @@ export default {
       about: null,
       news: null,
       publications: null,
+      upcoming: null,
       dots: 0
     };
   },
@@ -133,6 +146,15 @@ export default {
       query: getFrontPagePublications,
       params: {}
     });
+    const targetDate = moment()
+      .subtract(1, "d")
+      .format();
+    console.log(targetDate);
+    contentMap.set("getUpcomingMeetings", {
+      hash: getHash("getUpcomingMeetings-home"),
+      query: getUpcomingMeetings,
+      params: { targetDate }
+    });
 
     await this.$store.dispatch("cacheContent", contentMap);
 
@@ -146,6 +168,11 @@ export default {
     this.publications = this.$store.getters.getContentFromCache(
       contentMap,
       "getFrontPagePublications"
+    );
+
+    this.upcoming = this.$store.getters.getContentFromCache(
+      contentMap,
+      "getUpcomingMeetings"
     );
 
     this.dots = Math.ceil(
