@@ -51,6 +51,7 @@
           :hideReadLess="true"
           class="markdown-body"
           :fullHeight="fullHeight"
+          :eventLabel="content.title"
           v-if="readMore"
         ></readmore>
         <div

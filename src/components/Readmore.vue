@@ -27,7 +27,7 @@
     >
       <button
         type="button"
-        @click="toggle()"
+        @click="toggle(eventLabel)"
         class="readMore btn"
         :class="triggerPosition"
         :style="{ 'font-size': triggerFontSize + 'px' }"
@@ -115,6 +115,10 @@ export default {
     fullHeight: {
       type: Boolean,
       default: false
+    },
+    eventLabel: {
+      type: String,
+      default: "undefined"
     }
   },
   data() {
@@ -262,7 +266,7 @@ export default {
       );
       element.setAttribute("data-collapsed", "false");
     },
-    toggle() {
+    toggle(eventLabel) {
       let section = document.getElementById(this.id);
       let isCollapsed = section.getAttribute("data-collapsed") === "true";
       if (isCollapsed) {
@@ -272,6 +276,14 @@ export default {
         this.collapseSection(section);
       }
       this.isCollapsed = !this.isCollapsed;
+      let status = this.isCollapsed ? "Closed" : "Opened";
+      //console.log(status + ": ", eventLabel);
+      //TODO: Register Google Event here
+      this.$ga.event({
+        eventCategory: "ReadMore",
+        eventAction: "Click",
+        eventLabel: status + ": " + eventLabel
+      });
     }
   }
 };
