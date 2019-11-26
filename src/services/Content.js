@@ -512,7 +512,7 @@ const getSingleMeetingQuery = slug => {
 const getFrontPagePublicationsQuery = () => {
   return `{
   publications(
-    sort: "createdAt:desc"
+    sort: "bannerRank:desc"
     where: { isPublished: true, addToBanner: true }
   ) {
     createdAt
@@ -525,6 +525,7 @@ const getFrontPagePublicationsQuery = () => {
     summary
     category
     addToBanner
+    bannerRank
     externalMediaMaterial {
       name
       summary
