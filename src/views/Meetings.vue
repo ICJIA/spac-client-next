@@ -34,6 +34,12 @@
                 @click="handleClicks"
                 class="dynamic-content"
               ></div>
+              <p>
+                For meeting materials prior to 2019, please see
+                <a href="https://archive.icjia.cloud/files/spac/"
+                  >the SPAC archives</a
+                >.
+              </p>
               <toggle
                 toggleOn="By Category"
                 toggleOff="By Date"
