@@ -170,7 +170,6 @@ export default {
   methods: {
     handleClicks(event) {
       const href = event.target.href;
-
       const { target } = event;
 
       // handle only links that do not reference external resources
@@ -204,8 +203,12 @@ export default {
           this.$router.push(to);
         }
       }
-
-      if (/^.*\.(pdf|doc|docx|xls|xlsx)$/i.test(href)) {
+      //console.log(href, href.indexOf("icjia-api.cloud"));
+      // catch links to /uploads/ on 'icjia-api.cloud'
+      if (
+        /^.*\.(pdf|doc|docx|xls|xlsx)$/i.test(href) &&
+        href.indexOf("icjia-api.cloud") > 1
+      ) {
         event.preventDefault();
         const filename = href.split("/").pop();
         console.log("register download event: ", filename);
