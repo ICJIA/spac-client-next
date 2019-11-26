@@ -91,7 +91,7 @@ export default {
       console.log(`/meetings/${meeting.category}/${meeting.slug}`);
       let category = strapiEnumToObject("meetings", meeting.category);
       //console.log(category[0].slug);
-      return `/${category[0].slug}/${meeting.slug}`;
+      return `/meetings/${category[0].slug}/${meeting.slug}`;
     }
   }
 };
