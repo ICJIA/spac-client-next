@@ -4,6 +4,7 @@
   "localStorageReferrer": "spac:referrer",
   "publications": { "truncateSummaryAt": 28 },
   "daysToDisplayNewLabel": 14,
+  "maxResults": 250,
   "search": {
     "shouldSort": true,
     "threshold": 0.8,

@@ -32,7 +32,11 @@
         <v-list-item-title
           style="font-size: 14px; font-weight: bold; "
           class="hover"
-          @click="$router.push('/meetings')"
+          @click="
+            $router.push(`/meetings`).catch(err => {
+              $vuetify.goTo(0);
+            })
+          "
           >All meetings</v-list-item-title
         >
       </v-list-item>

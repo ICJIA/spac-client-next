@@ -102,7 +102,7 @@ const getFrontPageNewsQuery = limit => {
 
 const getAllNewsQuery = () => {
   return `{
-  posts(sort: "createdAt:desc", where: {isPublished: true}) {
+  posts(sort: "createdAt:desc", where: {isPublished: true}, limit: ${config.maxResults}) {
     title
     slug
     isPublished
@@ -130,7 +130,7 @@ const getContentByTagQuery = slug => {
 
     
 
-    meetings (sort: "scheduledDate:desc", where: {isPublished: true}) {
+    meetings (sort: "scheduledDate:desc", where: {isPublished: true},limit: ${config.maxResults}) {
     createdAt
     updatedAt
     title
@@ -156,7 +156,7 @@ const getContentByTagQuery = slug => {
     }
   }
 
-    pages(sort: "title:asc", where: { isPublished: true }) {
+    pages(sort: "title:asc", where: { isPublished: true },limit: ${config.maxResults}) {
       title
       slug
       summary
@@ -181,7 +181,7 @@ const getContentByTagQuery = slug => {
 
     publications(
     sort: "year:desc"
-    where: { isPublished: true }
+    where: { isPublished: true },limit: ${config.maxResults}
   ) {
     createdAt
     updatedAt
@@ -246,7 +246,7 @@ const getContentByTagQuery = slug => {
 
 
 
-    news: posts(sort: "createdAt:desc", where: { isPublished: true }) {
+    news: posts(sort: "createdAt:desc", where: { isPublished: true },limit: ${config.maxResults}) {
       title
       slug
       isPublished
@@ -424,7 +424,7 @@ const getSingleBiographiesQuery = slug => {
 
 const getAllMeetingsQuery = () => {
   return `{
-  meetings (sort: "scheduledDate:desc", where: {isPublished: true}) {
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true},limit: ${config.maxResults}) {
     createdAt
     updatedAt
     title
@@ -453,7 +453,7 @@ const getAllMeetingsQuery = () => {
 
 const getMeetingsByCategoryQuery = category => {
   return `{
-  meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"}) {
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"},limit: ${config.maxResults}) {
     createdAt
     updatedAt
     title
@@ -560,7 +560,7 @@ const getFrontPagePublicationsQuery = () => {
 const getAllPublicationsQuery = () => {
   return `
   {
-  publications(sort: "year:desc", where: { isPublished: true }) {
+  publications(sort: "year:desc", where: { isPublished: true },limit: ${config.maxResults}) {
     createdAt
     updatedAt
     title
@@ -604,7 +604,7 @@ const getAllPublicationsQuery = () => {
 
 const getPublicationsByCategoryQuery = category => {
   return `{
-  publications (sort: "year:desc", where: {isPublished: true, category: "${category}"}) {
+  publications (sort: "year:desc", where: {isPublished: true, category: "${category}"},limit: ${config.maxResults}) {
     createdAt
     updatedAt
     title
