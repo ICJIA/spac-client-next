@@ -698,6 +698,7 @@ const getUpcomingMeetingsQuery = targetDate => {
     scheduledDate
     title
     summary
+    content
     isPublished
     slug
     category

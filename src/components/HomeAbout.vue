@@ -36,14 +36,18 @@
                     <v-list-item-title class="headline mb-1">{{
                       meeting.title
                     }}</v-list-item-title>
-                    <v-list-item-subtitle>{{
-                      meeting.summary
-                    }}</v-list-item-subtitle>
+                    <v-list-item-subtitle
+                      style="line-height: 1.5em"
+                      class="mt-3"
+                      >{{ meeting.summary }}</v-list-item-subtitle
+                    >
                   </v-list-item-content>
                 </v-list-item>
                 <div class="text-right">
                   <v-card-actions>
-                    <v-btn text :to="getRoute(meeting)">Read more</v-btn>
+                    <v-btn text :to="getRoute(meeting)"
+                      >Read more<v-icon right>chevron_right</v-icon></v-btn
+                    >
                   </v-card-actions>
                 </div>
               </v-card>
