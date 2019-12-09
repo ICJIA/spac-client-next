@@ -10,7 +10,7 @@
     </div>
     <div class="text-center mt-6">
       <v-btn
-        class="ma-2"
+        class="ma-2 mt-10"
         to="/news"
         aria-label="News Archive"
         outlined

@@ -23,7 +23,12 @@
                 class="mb-10"
                 style="margin-top: -45px"
               >
-                <h2 class="heavy rule uppercase">News & Analysis</h2>
+                <h2
+                  class="heavy rule uppercase"
+                  style="font-size: 36px; color: purple;"
+                >
+                  News & Analysis
+                </h2>
                 <home-news
                   :content="news"
                   v-if="news"
@@ -35,7 +40,8 @@
                   class="text-xs-left mb-5 px-2"
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
                 >
-                  <span style="font-size: 24px; font-weight: 900;"
+                  <span
+                    style="font-size: 36px; color: purple; font-weight: 900;"
                     >FEATURED</span
                   >
                   <span class="hidden-sm-and-down"
@@ -44,7 +50,7 @@
                       small
                       color="purple lighten-1"
                       class="white--text "
-                      style="padding: 0; margin: 0;"
+                      style="padding: 0; margin: 0; margin-top: 10px"
                       @click="previousFeatured()"
                       aria-label="Navigate to Previous"
                       ><v-icon dark>navigate_before</v-icon>
@@ -55,7 +61,7 @@
                       small
                       color="purple lighten-1"
                       class="white--text ml-2"
-                      style="padding: 0; margin: 0;"
+                      style="padding: 0; margin: 0; margin-top: 10px"
                       aria-label="Navigate to Next"
                       @click="nextFeatured()"
                     >

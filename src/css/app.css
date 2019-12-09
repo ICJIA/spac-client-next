@@ -171,13 +171,16 @@ summary:hover {
     visibility: hidden;
   }
 }
-
+a.news-link {
+  color: #444 !important;
+}
 .news-link {
   text-decoration: none !important;
 }
 
-.news-link:hover {
-  color: #aaa;
+a.news-link:hover {
+  color: purple !important;
+  text-decoration: underline !important;
 }
 .newsCard {
   min-height: 250px;
@@ -209,6 +212,11 @@ summary:hover {
   color: #333;
 }
 
+.dynamic-content h3,
+.dynamic-content h4 {
+  color: #555 !important;
+}
+
 /* .dynamic-content blockquote {
   border-left: 3px solid #bbb;
 } */
@@ -219,4 +227,12 @@ summary:hover {
 
 .dynamic-content ul {
   margin-bottom: 12px;
+}
+
+.dynamic-content a {
+  color: #444 !important;
+}
+
+.dynamic-content a:hover {
+  color: purple !important;
 }
