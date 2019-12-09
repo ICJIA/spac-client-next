@@ -14,44 +14,46 @@
           ></p>
         </div>
       </v-col>
-      <v-col style="margin-top: -10px" cols="12" sm="12" md="5">
-        <h2
-          class="heavy rule uppercase"
-          style="font-size: 36px; color: purple;"
+      <v-col style="margin-top: 10px" cols="12" sm="12" md="5">
+        <span
+          style="display: block; font-size: 36px; color: purple; font-weight: 900; padding-bottom: 7px !important; border-bottom: 1px solid #aaa !important;"
+          class="news-title hover"
+          @click="$router.push('/meetings')"
+          >UPCOMING MEETINGS</span
         >
-          Upcoming Meetings
-        </h2>
         <div v-if="upcoming && upcoming.length">
-          <div v-for="(meeting, index) in upcoming" :key="index">
-            <v-card class="mx-auto" outlined>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <div
-                    class="overline mb-4"
-                    style="font-size: 12px !important; font-weight: bold !important"
-                  >
-                    {{ meeting.scheduledDate | format }}
-                  </div>
-                  <v-list-item-title class="headline mb-1">{{
-                    meeting.title
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    meeting.summary
-                  }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <div class="text-right">
-                <v-card-actions>
-                  <v-btn text :to="getRoute(meeting)">Read more</v-btn>
-                </v-card-actions>
-              </div>
-            </v-card>
+          <div class="mt-8">
+            <div v-for="(meeting, index) in upcoming" :key="index">
+              <v-card class="mx-auto" outlined>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <div
+                      class="overline mb-4"
+                      style="font-size: 12px !important; font-weight: bold !important"
+                    >
+                      {{ meeting.scheduledDate | format }}
+                    </div>
+                    <v-list-item-title class="headline mb-1">{{
+                      meeting.title
+                    }}</v-list-item-title>
+                    <v-list-item-subtitle>{{
+                      meeting.summary
+                    }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+                <div class="text-right">
+                  <v-card-actions>
+                    <v-btn text :to="getRoute(meeting)">Read more</v-btn>
+                  </v-card-actions>
+                </div>
+              </v-card>
+            </div>
           </div>
         </div>
         <div v-else class="text-center mt-12 mb-12">
           <h3>No meetings scheduled.</h3>
         </div>
-        <div class="text-center mt-6">
+        <!-- <div class="text-center mt-6">
           <v-btn
             class="ma-2"
             to="/meetings"
@@ -61,7 +63,7 @@
             color="primary"
             >Meeting Archive<v-icon right>chevron_right</v-icon></v-btn
           >
-        </div>
+        </div> -->
       </v-col>
     </v-row>
   </v-container>

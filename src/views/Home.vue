@@ -33,17 +33,6 @@
                     @click="$router.push('/news')"
                     >NEWS & ANALYSIS</span
                   >
-                  <!-- <span class="hidden-sm-and-down"
-                    ><v-btn
-                      outlined
-                      small
-                      color="primary"
-                      style="margin-top: 14px; margin-right: 15px;"
-                      to="/news"
-                      aria-label="Navigate to News Archive"
-                      >News Archive<v-icon right dark>chevron_right</v-icon>
-                    </v-btn>
-                  </span> -->
                 </div>
                 <home-news
                   :content="news"
@@ -58,6 +47,8 @@
                 >
                   <span
                     style="font-size: 36px; color: purple; font-weight: 900;"
+                    class="news-title hover"
+                    @click="$router.push('/publications')"
                     >FEATURED</span
                   >
                   <span class="hidden-sm-and-down"
