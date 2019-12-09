@@ -14,8 +14,11 @@
           ></p>
         </div>
       </v-col>
-      <v-col style="margin-top: -20px" cols="12" sm="12" md="5">
-        <h2 class="heavy rule uppercase">
+      <v-col style="margin-top: -10px" cols="12" sm="12" md="5">
+        <h2
+          class="heavy rule uppercase"
+          style="font-size: 36px; color: purple;"
+        >
           Upcoming Meetings
         </h2>
         <div v-if="upcoming && upcoming.length">
