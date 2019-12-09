@@ -284,7 +284,7 @@ export default {
       this.isCollapsed = !this.isCollapsed;
       let status = this.isCollapsed ? "Closed" : "Opened";
       //console.log(status + ": ", eventLabel);
-      //TODO: Register Google Event here
+
       this.$ga.event({
         eventCategory: "ReadMore",
         eventAction: "Click",
