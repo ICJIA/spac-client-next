@@ -5,7 +5,11 @@
       v-if="!loading"
       :class="{ 'py-10': !$browserDetect.isIE, iePull: $browserDetect.isIE }"
     >
-      <slot name="title"></slot>
+      <div
+        style="font-family: 'Lato', sans-serif !important; font-weight: 900 !important;"
+      >
+        <slot name="title"></slot>
+      </div>
       <slot name="printer"></slot>
       <slot name="content"></slot>
     </div>

@@ -57,7 +57,7 @@
         <div
           v-else
           @click="handleClicks"
-          class="dynamic-content"
+          class="dynamic-content lato"
           v-html="renderToHtml(content.content)"
         ></div>
         <TagList :tags="content.tags" class="mt-10" v-if="!readMore"></TagList>

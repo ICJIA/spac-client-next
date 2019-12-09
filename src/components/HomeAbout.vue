@@ -16,7 +16,7 @@
       </v-col>
       <v-col style="margin-top: 10px" cols="12" sm="12" md="4">
         <span
-          style="display: block; font-size: 36px; color: purple; font-weight: 900; padding-bottom: 7px !important; border-bottom: 1px solid #aaa !important;"
+          style="display: block; font-size: 36px; font-family: 'Lato', sans-serif !important; color: purple; font-weight: 900; padding-bottom: 7px !important; border-bottom: 1px solid #aaa !important;"
           class="news-title hover"
           @click="$router.push('/meetings')"
           >UPCOMING MEETINGS</span
