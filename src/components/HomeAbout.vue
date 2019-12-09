@@ -5,7 +5,7 @@
     style="border-top: 1px solid #eee; border-bottom: 1px solid #eee; background: #f7f7f7"
   >
     <v-row>
-      <v-col cols="12" sm="12" md="7">
+      <v-col cols="12" sm="12" md="8">
         <div v-if="about">
           <p
             v-html="renderToHtml(about[0].content)"
@@ -14,7 +14,7 @@
           ></p>
         </div>
       </v-col>
-      <v-col style="margin-top: 10px" cols="12" sm="12" md="5">
+      <v-col style="margin-top: 10px" cols="12" sm="12" md="4">
         <span
           style="display: block; font-size: 36px; color: purple; font-weight: 900; padding-bottom: 7px !important; border-bottom: 1px solid #aaa !important;"
           class="news-title hover"
