@@ -84,13 +84,13 @@ export default {
           sortable: true,
           value: "createdAt"
         },
-        { text: "Title", value: "title" },
-        {
-          text: "Last Updated",
-          align: "left",
-          sortable: false,
-          value: "updatedAt"
-        }
+        { text: "Title", value: "title" }
+        // {
+        //   text: "Last Updated",
+        //   align: "left",
+        //   sortable: false,
+        //   value: "updatedAt"
+        // }
       ]
     };
   },
