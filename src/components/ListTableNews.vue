@@ -117,7 +117,7 @@ export default {
       if (created === updated) {
         return "-";
       } else {
-        return moment(updated).fromNow();
+        return moment(item.updatedAt).fromNow();
       }
     },
     clicked(value) {
