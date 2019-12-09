@@ -162,7 +162,7 @@ export default {
     const targetDate = moment()
       .subtract(1, "d")
       .format();
-    console.log(targetDate);
+    //console.log(targetDate);
     contentMap.set("getUpcomingMeetings", {
       hash: getHash("getUpcomingMeetings-home"),
       query: getUpcomingMeetings,

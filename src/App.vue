@@ -101,6 +101,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
+      console.log("Canonical: ", this.canonical);
     }
   },
   async mounted() {},

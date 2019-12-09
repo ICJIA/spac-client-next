@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     getRoute(meeting) {
-      console.log(`/meetings/${meeting.category}/${meeting.slug}`);
+      //console.log(`/meetings/${meeting.category}/${meeting.slug}`);
       let category = strapiEnumToObject("meetings", meeting.category);
       //console.log(category[0].slug);
       return `/meetings/${category[0].slug}/${meeting.slug}`;
