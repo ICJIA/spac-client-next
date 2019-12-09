@@ -170,9 +170,9 @@ summary:hover {
   line-height: 1.5em;
 }
 
-.headline a {
+/* .headline a {
   font-family: "Lato", sans-serif !important;
-}
+} */
 
 @media print {
   .noprint {

@@ -28,7 +28,7 @@
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
                 >
                   <span
-                    style="font-size: 36px; color: purple; font-weight: 900; font-family: 'Lato', sans-serif !important; "
+                    style="font-size: 36px; color: purple; font-weight: 900; "
                     class="news-title hover"
                     @click="$router.push('/news')"
                     >NEWS & ANALYSIS</span
@@ -46,7 +46,7 @@
                   style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
                 >
                   <span
-                    style="font-size: 36px; color: purple; font-weight: 900; font-family: 'Lato', sans-serif !important ;"
+                    style="font-size: 36px; color: purple; font-weight: 900; "
                     class="news-title hover"
                     @click="$router.push('/publications')"
                     >FEATURED</span

@@ -26,6 +26,7 @@
             v-if="item.mediaMaterial && item.mediaMaterial.file"
             @click="download(item)"
             class="hover pubTitle"
+            style="font-family: 'Roboto',sans-serif !important"
           >
             {{ item.title }}
           </span>
