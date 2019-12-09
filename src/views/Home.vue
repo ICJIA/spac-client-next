@@ -21,14 +21,30 @@
                 sm="12"
                 md="7"
                 class="mb-10"
-                style="margin-top: -45px"
+                style="margin-top: -33px"
               >
-                <h2
-                  class="heavy rule uppercase"
-                  style="font-size: 36px; color: purple;"
+                <div
+                  class="text-xs-left mb-5 px-2"
+                  style="display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #aaa;"
                 >
-                  News & Analysis
-                </h2>
+                  <span
+                    style="font-size: 36px; color: purple; font-weight: 900;"
+                    class="news-title hover"
+                    @click="$router.push('/news')"
+                    >NEWS & ANALYSIS</span
+                  >
+                  <!-- <span class="hidden-sm-and-down"
+                    ><v-btn
+                      outlined
+                      small
+                      color="primary"
+                      style="margin-top: 14px; margin-right: 15px;"
+                      to="/news"
+                      aria-label="Navigate to News Archive"
+                      >News Archive<v-icon right dark>chevron_right</v-icon>
+                    </v-btn>
+                  </span> -->
+                </div>
                 <home-news
                   :content="news"
                   v-if="news"
@@ -197,4 +213,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.news-title:hover {
+  text-decoration: underline;
+}
+</style>

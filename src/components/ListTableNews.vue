@@ -56,6 +56,7 @@
 <script>
 /* eslint-disable no-unused-vars */
 import NewsCard from "@/components/NewsCard";
+import moment from "moment";
 import { addAttributeToElement, dateFormat } from "@/services/Utilities";
 
 export default {
@@ -77,15 +78,15 @@ export default {
       expanded: [],
       singleExpand: true,
       headers: [
-        { text: "Title", value: "title" },
         {
           text: "Posted",
           align: "left",
           sortable: true,
           value: "createdAt"
         },
+        { text: "Title", value: "title" },
         {
-          text: "Updated",
+          text: "Last Updated",
           align: "left",
           sortable: false,
           value: "updatedAt"
@@ -116,7 +117,7 @@ export default {
       if (created === updated) {
         return "-";
       } else {
-        return updated;
+        return moment(updated).fromNow();
       }
     },
     clicked(value) {

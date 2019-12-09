@@ -8,7 +8,7 @@
         :readMore="item.displayReadMore"
       ></NewsCard>
     </div>
-    <div class="text-center mt-6">
+    <!-- <div class="text-center mt-6">
       <v-btn
         class="ma-2 mt-10"
         to="/news"
@@ -18,7 +18,7 @@
         color="primary"
         >News & Analysis Archive<v-icon right>chevron_right</v-icon></v-btn
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
