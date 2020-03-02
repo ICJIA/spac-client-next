@@ -11,28 +11,9 @@
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
+        <Corona ref="alert" />
         <transition name="fade" mode="out-in">
           <router-view></router-view>
-          <!-- <router-view v-if="$store.getters.isApiReady"></router-view>
-          <div v-else>
-            <v-alert
-              type="warning"
-              class="text-center mt-12"
-              v-if="env === 'development'"
-            >
-              You're running in <strong>development</strong> mode.<br />Please
-              be sure the Netlify functions are running.&nbsp;&nbsp;
-            </v-alert>
-            <v-alert type="error" class="text-center">
-              Can't connect to the Adult Redeploy Illinois
-              database.&nbsp;&nbsp;<br />
-              <div class="mt-3">
-                <a href="/" style="color: #fff;"
-                  ><strong>Please reload and try again.</strong></a
-                >
-              </div>
-            </v-alert>
-          </div> -->
         </transition>
       </v-content>
 
@@ -58,6 +39,7 @@ import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
+import Corona from "@/components/Corona";
 import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
@@ -94,7 +76,8 @@ export default {
     AppFooter,
     Breadcrumb,
     Loader,
-    OutdatedBrowser
+    OutdatedBrowser,
+    Corona
   },
   methods: {},
   watch: {
@@ -102,6 +85,7 @@ export default {
     $route(to, from) {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       console.log("Canonical: ", this.canonical);
+      if (this.$refs.alert) this.$refs.alert.reset();
     }
   },
   async mounted() {},
