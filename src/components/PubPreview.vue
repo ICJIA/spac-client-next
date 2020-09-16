@@ -15,17 +15,19 @@
             </div>
           </v-col>
         </v-row>
+
         <div
           style="font-weight: 700; font-size: 12px; color: purple"
           class="mt-5"
         >
           {{ item.year }}
         </div>
-        <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3 title-link">
+
+        <h2 style="margin: 0; padding: 0; width: 100%;" class="mb-3">
           <span
             v-if="item.mediaMaterial && item.mediaMaterial.file"
             @click="download(item)"
-            class="hover pubTitle"
+            class="hover "
             style="font-family: 'Roboto',sans-serif !important"
           >
             {{ item.title }}
@@ -35,7 +37,7 @@
               item.externalMediaMaterial && item.externalMediaMaterial.url
             "
             @click="gotoExternal(item)"
-            class="hover pubTitle"
+            class="hover "
           >
             {{ item.title }}
           </span>

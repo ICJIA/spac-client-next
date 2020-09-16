@@ -46,7 +46,8 @@
         <span
           v-if="
             link.displayNav &&
-              (link.slug !== 'publications' && link.slug !== 'meetings')
+              link.slug !== 'publications' &&
+              link.slug !== 'meetings'
           "
         >
           <v-menu offset-y left eager style="background: yellow">
