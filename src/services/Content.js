@@ -692,7 +692,7 @@ const getUpcomingMeetingsQuery = targetDate => {
   return `
   {
   meetings(
-    sort: "scheduledDate:desc"
+    sort: "scheduledDate:asc"
     where: { scheduledDate_gte: "${targetDate}", isPublished: true }
   ) {
     scheduledDate
