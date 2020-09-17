@@ -12,6 +12,7 @@
         style="background: #fafafa; min-height: 68vh"
       >
         <Corona ref="alert" />
+        <Census :key="$route.path"></Census>
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -35,6 +36,7 @@
 
 <script>
 import AppNav from "@/components/AppNav";
+import Census from "@/components/Census";
 import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -77,7 +79,8 @@ export default {
     Breadcrumb,
     Loader,
     OutdatedBrowser,
-    Corona
+    Corona,
+    Census
   },
   methods: {},
   watch: {
