@@ -6,9 +6,12 @@
         <v-card-text>
           <hr />
           <div style="font-weight: bold; font-size: 24px;" class="mt-5">
-            <v-icon color="red" large>check_box</v-icon> &nbsp;Be counted!
+            <v-icon color="red" large>check_box</v-icon> &nbsp;There's still
+            time to be counted!
           </div>
-          Complete the U.S. Census Before September 30, 2020<br /><br />
+          <br />
+          Due to COVID-19 the deadline for Census submission has been
+          extended.<br /><br />
           Visit <a href="https://my2020census.gov/">My2020Census.gov!</a>
         </v-card-text>
         <v-card-actions>
@@ -44,7 +47,7 @@ export default {
   computed: {
     censusActive() {
       const now = new Date();
-      const censusActiveUntil = new Date("2020-10-01");
+      const censusActiveUntil = new Date("2020-11-01");
 
       if (now < censusActiveUntil) {
         return true;
