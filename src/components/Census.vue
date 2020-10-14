@@ -47,7 +47,7 @@ export default {
   computed: {
     censusActive() {
       const now = new Date();
-      const censusActiveUntil = new Date("2020-11-01");
+      const censusActiveUntil = new Date("2020-10-05");
 
       if (now < censusActiveUntil) {
         return true;
