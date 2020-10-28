@@ -6,7 +6,7 @@
     <breadcrumb></breadcrumb>
     <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
     <div v-if="!loading">
-      <v-content
+      <v-main
         id="content-top"
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
@@ -16,7 +16,7 @@
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
-      </v-content>
+      </v-main>
 
       <app-footer :sections="sections"></app-footer>
     </div>
