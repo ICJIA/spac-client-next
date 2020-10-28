@@ -66,11 +66,11 @@
 
           &nbsp;|&nbsp;<strong
             ><a
-              href="https://archive.icjia.cloud/files/spac/"
+              href="https://archive.icjia-api.cloud/files/spac/"
               target="_blank"
               rel="noreferrer"
               class="footer-link"
-              >Archive</a
+              >Document Archive</a
             ></strong
           >
           &nbsp;|&nbsp;<strong
