@@ -2,8 +2,9 @@
   <div>
     <div v-if="!$browserDetect.isIE">
       <home-splash></home-splash>
-
+      <home-insert></home-insert>
       <home-boxes></home-boxes>
+
       <home-about
         :about="about"
         :upcoming="upcoming"
@@ -96,6 +97,7 @@ import HomeBoxes from "@/components/HomeBoxes";
 import HomeNews from "@/components/HomeNews";
 import HomePublications from "@/components/HomePublications";
 import HomeAbout from "@/components/HomeAbout";
+import HomeInsert from "@/components/HomeInsert";
 import BaseContent from "@/components/BaseContent";
 import moment from "moment";
 import { EventBus } from "@/event-bus";
@@ -114,7 +116,8 @@ export default {
     HomePublications,
     HomeAbout,
     HomeSplash,
-    BaseContent
+    BaseContent,
+    HomeInsert
   },
   data() {
     return {

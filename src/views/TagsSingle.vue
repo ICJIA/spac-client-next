@@ -35,7 +35,7 @@
             <v-col
               cols="12"
               sm="12"
-              :md="dynamicFlex()"
+              md="12"
               order-md="1"
               order="2"
               order-sm="2"
@@ -84,7 +84,7 @@
                 </div>
               </div>
             </v-col>
-            <v-col
+            <!-- <v-col
               cols="12"
               sm="12"
               md="2"
@@ -97,7 +97,7 @@
                 top="#baseContentTop"
                 tocHeading="Tagged Content"
               ></TOC
-            ></v-col>
+            ></v-col> -->
           </v-row>
         </v-container>
       </template>

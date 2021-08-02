@@ -1,13 +1,19 @@
 <template>
   <div class="flexbox-container hide-sm-and-down">
-    <div class="box box-1" @click="gotoAnimation()">
+    <div
+      class="box box-1"
+      @click="
+        $router.push('/tags/non-probationable-list').catch(err => {
+          $vuetify.goTo(0);
+        })
+      "
+    >
       <div class="text-center mb-5">
-        <v-icon style="color: #fff;" size="80px">insert_chart</v-icon>
+        <v-icon style="color: #fff" size="80px">insert_chart</v-icon>
       </div>
-      <h2 class="heavy text-center">Prison Population Animation</h2>
+      <h2 class="heavy text-center">Inventory of Non-Probationable Offenses</h2>
       <p class="pt-4">
-        SPAC created a short animation to help understand how admissions and
-        length of stay determine the size of the prison population.
+        Offenses to which mandatory minimum prison sentences apply.
       </p>
     </div>
     <div
@@ -19,7 +25,7 @@
       "
     >
       <div class="text-center mb-5">
-        <v-icon style="color: #fff;" size="80px">pie_chart</v-icon>
+        <v-icon style="color: #fff" size="80px">pie_chart</v-icon>
       </div>
       <h2 class="heavy text-center">Pies and Average Profiles</h2>
 
@@ -37,7 +43,7 @@
       "
     >
       <div class="text-center mb-5">
-        <v-icon style="color: #fff;" size="80px">monetization_on</v-icon>
+        <v-icon style="color: #fff" size="80px">monetization_on</v-icon>
       </div>
       <h2 class="heavy text-center">Fiscal Impact Analyses</h2>
       <p class="pt-4">
