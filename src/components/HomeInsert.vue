@@ -18,7 +18,7 @@
         Force will consider ways for incarcerated people, state’s attorneys, the
         Illinois Department of Corrections, and judges to file resentencing
         motions to allow second looks for people who previously received long
-        sentences
+        sentences.
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
