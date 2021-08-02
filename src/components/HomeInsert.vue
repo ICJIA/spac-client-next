@@ -7,8 +7,8 @@
       @click="$router.push('/tags/resentencing-task-force')"
     >
       <v-card-title>
-        <v-chip color="purple" dark>New!</v-chip>&nbsp;&nbsp;Resentencing Task
-        Force
+        <v-chip small color="purple" dark class="mr-3">New!</v-chip>Resentencing
+        Task Force
       </v-card-title>
 
       <v-card-text>
