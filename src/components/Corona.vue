@@ -3,14 +3,13 @@
     <div style="color: #000 !important">
       <v-icon color="red">error</v-icon>
 
-      View up to date information on how Illinois is handling the Coronavirus
-      Disease 2019 (COVID-19) from the
+     Anyone, 5 years of age and older, is eligible to receive the COVID-19 vaccine. Find your nearest vaccination location at
 
       <a
-        href="https://coronavirus.illinois.gov"
+        href="https://vaccines.gov"
         style="text-decoration: underline;"
-        >State of Illinois Coronavirus Response Site</a
-      >
+        >vaccines.gov</a
+      >.
     </div>
   </v-alert>
 </template>
