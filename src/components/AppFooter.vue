@@ -54,19 +54,9 @@
               >Illinois Criminal Justice Information Authority</a
             > </strong
           >&nbsp;|&nbsp; -->
-          <strong>
-            <a
-              href="https://github.com/ICJIA/spac-client-next-prod"
-              target="_blank"
-              class="footer-link"
-              rel="noreferrer"
-              >Github</a
-            >
-          </strong>
-
-          &nbsp;|&nbsp;<strong
+          <strong
             ><a
-              href="https://archive.icjia-api.cloud/files/spac/"
+              href="https://archive.icjia.cloud/"
               target="_blank"
               rel="noreferrer"
               class="footer-link"
