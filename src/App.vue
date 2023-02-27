@@ -4,15 +4,15 @@
     <app-drawer :sections="sections"></app-drawer>
 
     <breadcrumb></breadcrumb>
-    <outdated-browser v-if="$browserDetect.isIE"></outdated-browser>
+    <!-- <outdated-browser v-if="$browserDetect.isIE"></outdated-browser> -->
     <div v-if="!loading">
       <v-main
         id="content-top"
         aria-live="polite"
         style="background: #fafafa; min-height: 68vh"
       >
-        <Corona ref="alert" />
-        <Census :key="$route.path"></Census>
+        <!-- <Corona ref="alert" />
+        <Census :key="$route.path"></Census> -->
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -36,13 +36,13 @@
 
 <script>
 import AppNav from "@/components/AppNav";
-import Census from "@/components/Census";
+// import Census from "@/components/Census";
 import AppDrawer from "@/components/AppDrawer";
 import AppFooter from "@/components/AppFooter";
 import Breadcrumb from "@/components/Breadcrumb";
 import Loader from "@/components/Loader";
-import Corona from "@/components/Corona";
-import OutdatedBrowser from "@/components/OutdatedBrowser";
+// import Corona from "@/components/Corona";
+// import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
 export default {
   name: "App",
@@ -53,7 +53,7 @@ export default {
       // all titles will be injected into this template
       titleTemplate: "SPAC | %s",
       htmlAttrs: {
-        lang: "en"
+        lang: "en",
       },
       link: [{ rel: "canonical", href: this.canonical }],
       meta: [
@@ -61,15 +61,15 @@ export default {
         {
           vmid: "robots",
           name: "robots",
-          content: "index, follow"
+          content: "index, follow",
         },
         {
           vmid: "description",
           name: "description",
           content:
-            "The Illinois Sentencing Policy Advisory Council (SPAC) was created to more accurately determine the consequences of sentencing policy decisions. "
-        }
-      ]
+            "The Illinois Sentencing Policy Advisory Council (SPAC) was created to more accurately determine the consequences of sentencing policy decisions. ",
+        },
+      ],
     };
   },
   components: {
@@ -78,9 +78,6 @@ export default {
     AppFooter,
     Breadcrumb,
     Loader,
-    OutdatedBrowser,
-    Corona,
-    Census
   },
   methods: {},
   watch: {
@@ -89,7 +86,7 @@ export default {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       console.log("Canonical: ", this.canonical);
       if (this.$refs.alert) this.$refs.alert.reset();
-    }
+    },
   },
   async mounted() {},
   async created() {
@@ -133,9 +130,9 @@ export default {
       loading: true,
       test: [],
       env: process.env.NODE_ENV,
-      canonical: null
+      canonical: null,
     };
-  }
+  },
 };
 </script>
 <style></style>
