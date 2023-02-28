@@ -56,9 +56,9 @@ if (!fs.existsSync(apiDir)) {
   console.log(`Created: ${apiDir}/`);
 }
 
-request(api, query).then(res => {
-  sections.forEach(section => {
-    let sectionRoutes = res[section].map(item => {
+request(api, query).then((res) => {
+  sections.forEach((section) => {
+    let sectionRoutes = res[section].map((item) => {
       let path;
       /**
        *
@@ -97,7 +97,7 @@ request(api, query).then(res => {
        *
        */
       if (section === "publications") {
-        let catEnum = config.strapiEnums.publications.filter(cat => {
+        let catEnum = config.strapiEnums.publications.filter((cat) => {
           return item.category === cat.enum;
         });
 
@@ -108,7 +108,7 @@ request(api, query).then(res => {
        * Meetings
        *
        */
-      let catEnum = config.strapiEnums.meetings.filter(cat => {
+      let catEnum = config.strapiEnums.meetings.filter((cat) => {
         return item.category === cat.enum;
       });
       if (section === "meetings") {
@@ -121,7 +121,7 @@ request(api, query).then(res => {
   });
 
   for (let category in config.strapiEnums) {
-    let categoryRoutes = config.strapiEnums[category].map(m => {
+    let categoryRoutes = config.strapiEnums[category].map((m) => {
       let singleRoute = `${config.publicPath}/${category}/${m.slug}`;
       lastModMap.set(`${singleRoute}`, new Date());
       return singleRoute;
@@ -139,7 +139,7 @@ request(api, query).then(res => {
     console.log(`Created: ${apiDir}/${filename}`);
   });
 
-  let urls = paths.map(route => {
+  let urls = paths.map((route) => {
     let obj = {};
     obj.url = route;
     obj.changefreq = "weekly";
@@ -151,7 +151,7 @@ request(api, query).then(res => {
   let sitemap = sm.createSitemap({
     hostname: `${config.clientURL}`,
     cacheTime: 600000, //600 sec (10 min) cache purge period
-    urls
+    urls,
   });
 
   fs.writeFileSync("./public/sitemap.xml", sitemap.toString());
