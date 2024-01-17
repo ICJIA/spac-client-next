@@ -2,7 +2,7 @@
   <div>
     <div v-if="!$browserDetect.isIE">
       <home-splash></home-splash>
-      <home-insert></home-insert>
+      <!-- <home-insert></home-insert> -->
       <home-boxes></home-boxes>
 
       <home-about
@@ -97,7 +97,7 @@ import HomeBoxes from "@/components/HomeBoxes";
 import HomeNews from "@/components/HomeNews";
 import HomePublications from "@/components/HomePublications";
 import HomeAbout from "@/components/HomeAbout";
-import HomeInsert from "@/components/HomeInsert";
+
 import BaseContent from "@/components/BaseContent";
 import moment from "moment";
 import { EventBus } from "@/event-bus";
@@ -105,7 +105,7 @@ import {
   getPage,
   getFrontPageNews,
   getFrontPagePublications,
-  getUpcomingMeetings
+  getUpcomingMeetings,
 } from "@/services/Content";
 import { getHash } from "@/services/Utilities";
 // import Illinois from "@/components/Illinois";
@@ -117,7 +117,6 @@ export default {
     HomeAbout,
     HomeSplash,
     BaseContent,
-    HomeInsert
   },
   data() {
     return {
@@ -126,7 +125,7 @@ export default {
       news: null,
       publications: null,
       upcoming: null,
-      dots: 0
+      dots: 0,
     };
   },
   methods: {
@@ -138,7 +137,7 @@ export default {
     },
     nextFeatured() {
       EventBus.$emit("nextFeatured");
-    }
+    },
   },
   async created() {
     this.loading = true;
@@ -148,19 +147,19 @@ export default {
     contentMap.set("getPage", {
       hash: getHash("getPage-home"),
       query: getPage,
-      params: { slug: "home" }
+      params: { slug: "home" },
     });
 
     contentMap.set("getFrontPageNews", {
       hash: getHash("getFrontPageNews-home"),
       query: getFrontPageNews,
-      params: { limit: this.$store.getters.config.frontPageItems.news }
+      params: { limit: this.$store.getters.config.frontPageItems.news },
     });
 
     contentMap.set("getFrontPagePublications", {
       hash: getHash("getFrontPagePublications-home"),
       query: getFrontPagePublications,
-      params: {}
+      params: {},
     });
     const targetDate = moment()
       .subtract(1, "d")
@@ -169,7 +168,7 @@ export default {
     contentMap.set("getUpcomingMeetings", {
       hash: getHash("getUpcomingMeetings-home"),
       query: getUpcomingMeetings,
-      params: { targetDate }
+      params: { targetDate },
     });
 
     await this.$store.dispatch("cacheContent", contentMap);
@@ -199,11 +198,11 @@ export default {
     this.$ga.page({
       page: this.$route.path,
       title: "Home",
-      location: window.location.href
+      location: window.location.href,
     });
 
     this.loading = false;
-  }
+  },
 };
 </script>
 
