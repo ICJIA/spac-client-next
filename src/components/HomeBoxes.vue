@@ -1,9 +1,10 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="flexbox-container hide-sm-and-down">
     <div
       class="box box-1"
       @click="
-        $router.push('/tags/non-probationable-list').catch(err => {
+        $router.push('/tags/non-probationable-list').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -19,7 +20,7 @@
     <div
       class="box box-2"
       @click="
-        $router.push('/tags/prison-pies').catch(err => {
+        $router.push('/tags/prison-pies').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -37,7 +38,7 @@
     <div
       class="box box-3"
       @click="
-        $router.push('/tags/fiscal-impact').catch(err => {
+        $router.push('/tags/fiscal-impact').catch((err) => {
           $vuetify.goTo(0);
         })
       "
@@ -45,7 +46,7 @@
       <div class="text-center mb-5">
         <v-icon style="color: #fff" size="80px">monetization_on</v-icon>
       </div>
-      <h2 class="heavy text-center">Fiscal Impact Analyses</h2>
+      <h2 class="heavy text-center">Impact Analyses</h2>
       <p class="pt-4">
         Estimates of the benefits and costs of proposed sentencing legislation
         and policy changes.
@@ -62,8 +63,8 @@ export default {
   methods: {
     gotoAnimation() {
       window.open("https://www.youtube.com/embed/2tqlbIAhXUQ");
-    }
-  }
+    },
+  },
 };
 </script>
 
