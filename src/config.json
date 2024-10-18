@@ -2,7 +2,9 @@
   "clientURL": "https://spac.illinois.gov",
   "publicPath": "",
   "localStorageReferrer": "spac:referrer",
-  "publications": { "truncateSummaryAt": 28 },
+  "publications": {
+    "truncateSummaryAt": 28
+  },
   "daysToDisplayNewLabel": 14,
   "maxResults": 250,
   "search": {
@@ -12,12 +14,23 @@
     "distance": 100,
     "maxPatternLength": 32,
     "minMatchCharLength": 3,
-    "keys": ["searchMeta", "title", "summary", "name"]
+    "keys": [
+      "searchMeta",
+      "title",
+      "summary",
+      "name"
+    ]
   },
   "frontPageItems": {
     "news": 3,
     "publications": 3,
-    "search": { "xs": 3, "sm": 4, "md": 4, "lg": 4, "xl": 4 }
+    "search": {
+      "xs": 3,
+      "sm": 4,
+      "md": 4,
+      "lg": 4,
+      "xl": 4
+    }
   },
   "contentCacheSize": 25,
   "thumbnail": {
@@ -79,8 +92,8 @@
       {
         "enum": "annualReport",
         "slug": "annual-report",
-        "title": "Annual Report",
-        "short": "Annual Report",
+        "title": "Annual Reports",
+        "short": "Annual Reports",
         "description": "",
         "displayNav": true
       },
@@ -88,7 +101,7 @@
         "enum": "costBenefitAnalysis",
         "slug": "cost-benefit-analysis",
         "title": "Cost Benefit Analysis",
-        "short": "Cost Benefit",
+        "short": "Cost Benefit Analysis",
         "description": "",
         "displayNav": true
       },
@@ -126,7 +139,6 @@
         "description": "",
         "displayNav": true
       },
-
       {
         "enum": "regular",
         "slug": "regular",
@@ -146,7 +158,6 @@
     "typographer": false,
     "quotes": "“”‘’"
   },
-
   "baseURL": "https://spac.icjia-api.cloud",
   "archiveBaseURL": "https://archive.icjia.cloud"
 }
