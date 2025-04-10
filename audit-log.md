@@ -20,6 +20,8 @@ The SPAC (Illinois Sentencing Policy Advisory Council) client website is a Vue.j
 - **CSS Preprocessor**: Sass (node-sass 4.9.0, sass-loader 10.0.0)
 - **JavaScript Transpiler**: Babel with @vue/cli-plugin-babel/preset and @babel/preset-env
 - **API Communication**: GraphQL (graphql-request 1.8.2)
+- **Backend CMS**: Strapi 2.x (headless CMS)
+- **Backend URL**: [https://spac.icjia-api.cloud](https://spac.icjia-api.cloud)
 - **Search Functionality**: Fuse.js 3.4.6
 - **Date Handling**: Moment.js 2.24.0
 - **Content Rendering**: Markdown-it 10.0.0 with plugins (attrs, named-headers)
