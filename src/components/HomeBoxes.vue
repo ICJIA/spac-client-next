@@ -45,7 +45,7 @@
       <div class="text-center mb-5">
         <v-icon style="color: #fff" size="80px">monetization_on</v-icon>
       </div>
-      <h2 class="heavy text-center">Fiscal Impact Analyses</h2>
+      <h2 class="heavy text-center">Impact Analyses</h2>
       <p class="pt-4">
         Estimates of the benefits and costs of proposed sentencing legislation
         and policy changes.

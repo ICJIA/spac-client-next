@@ -54,7 +54,7 @@ This will:
 - Run the buildSearchIndex.js script to generate the search index
 - Run the buildSitemap.js script to create the sitemap
 - Start a Vue CLI development server with hot-reload
-- The application will be available at http://localhost:8080/
+- Make the application available at http://localhost:8080/
 
 #### Production Build
 
@@ -77,7 +77,7 @@ The contents of the `dist/` directory can then be deployed to a web server or ho
 
 ### Deployment
 
-The site appears to be deployed on Netlify, as indicated by the presence of netlify-lambda dependency and references to Netlify functions in the configuration.
+The site is deployed on Netlify and uses Netlify functions for serverless functionality.
 
 ## Audit Log Purpose
 
@@ -93,11 +93,28 @@ When updating this audit log:
 
 ## Site Updates
 
-### 2025-05-23: Changed "Fiscal Impact Analysis" to "Impact Analysis" in publications menu
-- **Change Summary**: Updated the title of the Fiscal Impact Analysis publication type to display as "Impact Analysis" in the publications menu.
+### 2025-05-23: Updated hardcoded "Fiscal Impact Analyses" to "Impact Analyses" in HomeBoxes
+- **Change Summary**: Changed the hardcoded reference from "Fiscal Impact Analyses" to "Impact Analyses" in the HomeBoxes component to maintain consistency with config changes.
 - **Files Modified**:
-  - `src/config.json`: Changed the title field for the fiscalImpactAnalysis enum from "Fiscal Impact Analysis" to "Impact Analysis" while maintaining the same slug and functionality
-- **Technical Notes**: This change affects only the display label in the publications dropdown menu; the underlying enum value, slug, and routing remain unchanged
+  - `src/components/HomeBoxes.vue`: Updated the heading text from "Fiscal Impact Analyses" to "Impact Analyses"
+- **Technical Notes**: This change ensures consistent terminology throughout the application while maintaining the same routing and functionality.
+
+### 2025-05-23: Updated publication titles and found hardcoded "Fiscal Impact Analyses" reference
+- **Change Summary**: Identified and documented a hardcoded reference to "Fiscal Impact Analyses" in the HomeBoxes component and discovered additional publication title changes in config.json.
+- **Files Examined**:
+  - `src/components/HomeBoxes.vue`: Contains a hardcoded reference to "Fiscal Impact Analyses" that needs to be updated to "Impact Analyses"
+  - `src/config.json`: Multiple publication titles have been simplified
+- **Technical Notes**: The HomeBoxes component contains a hardcoded plural reference that should be updated to maintain consistency with the config changes.
+
+### 2025-05-23: Changed publication titles in config.json
+- **Change Summary**: Simplified multiple publication type titles throughout the application.
+- **Files Modified**:
+  - `src/config.json`: Changed several publication titles:
+    - Changed "Fiscal Impact Analysis" to "Impact Analysis"
+    - Changed "Research Reports" to "Reports"
+    - Changed "Prison Population Projections" to "Projections"
+    - Changed "Annual Report" to "Annual Reports" (pluralized)
+- **Technical Notes**: These changes affect the display labels in the publications dropdown menu and category headings; the underlying enum values, slugs, and routing remain unchanged
 
 ### 2025-05-23: Changed "News" to "Announcements" in navigation
 - **Change Summary**: Updated all instances of "News" to "Announcements" in the navigation and related UI elements without modifying routing or backend functionality.

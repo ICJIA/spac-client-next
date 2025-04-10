@@ -92,8 +92,8 @@
       {
         "enum": "annualReport",
         "slug": "annual-report",
-        "title": "Annual Report",
-        "short": "Annual Report",
+        "title": "Annual Reports",
+        "short": "Annual Reports",
         "description": "",
         "displayNav": true
       },
@@ -110,22 +110,22 @@
         "slug": "fiscal-impact-analysis",
         "title": "Impact Analysis",
         "short": "Impact Analysis",
-        "description": "SPAC Impact Analysis reports an estimated correctional resource need for changes to Illinois' sentencing policies or practices. Where possible, the analysis will include as many costs or benefits as possible with detailed description of the calculations used to create the estimates.",
+        "description": "",
         "displayNav": true
       },
       {
         "enum": "researchReport",
         "slug": "research-reports",
-        "title": "Research Reports",
-        "short": "Research Reports",
+        "title": "Reports",
+        "short": "Reports",
         "description": "",
         "displayNav": true
       },
       {
         "enum": "prisonPopulationProjection",
         "slug": "prison-population-projections",
-        "title": "Prison Population Projections",
-        "short": "Population Projections",
+        "title": "Projections",
+        "short": "Projections",
         "description": "",
         "displayNav": true
       }
