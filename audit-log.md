@@ -6,29 +6,6 @@ The SPAC (Illinois Sentencing Policy Advisory Council) client website is a Vue.j
 
 **Live URL**: [https://spac.illinois.gov](https://spac.illinois.gov)
 
-### Technical Specifications
-
-- **Project Name**: spac-client-next-prod
-- **Version**: 0.1.0
-- **Framework**: Vue.js 2.6.12
-- **Node.js Version**: v14.20.1 (as specified in .nvmrc)
-- **Package Manager**: Yarn 1.22.22
-- **UI Framework**: Vuetify 2.4.3
-- **State Management**: Vuex 3.5.1
-- **Routing**: Vue Router 3.4.3
-- **Build System**: Vue CLI 4.5.6
-- **CSS Preprocessor**: Sass (node-sass 4.9.0, sass-loader 10.0.0)
-- **JavaScript Transpiler**: Babel with @vue/cli-plugin-babel/preset and @babel/preset-env
-- **API Communication**: GraphQL (graphql-request 1.8.2)
-- **Backend CMS**: Strapi 2.x (headless CMS)
-- **Backend URL**: [https://spac.icjia-api.cloud](https://spac.icjia-api.cloud)
-- **Search Functionality**: Fuse.js 3.4.6
-- **Date Handling**: Moment.js 2.24.0
-- **Content Rendering**: Markdown-it 10.0.0 with plugins (attrs, named-headers)
-- **Analytics**: Vue Analytics 5.22.1 (Google Analytics integration)
-- **Meta Tags Management**: Vue Meta 2.4.0
-- **Security**: XSS protection via xss 1.0.6
-
 ### Build Process
 
 The application uses a custom build process that:
