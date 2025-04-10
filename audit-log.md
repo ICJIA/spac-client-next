@@ -95,56 +95,56 @@ When updating this audit log:
 
 ## Site Updates
 
-### 2025-05-23: Added MIT LICENSE file
+### 2025-04-10: Added MIT LICENSE file
 - **Change Summary**: Added a standard MIT license file to the project repository.
 - **Files Added**:
   - `LICENSE`: Created a new MIT license file with copyright attributed to "Sentencing Policy Advisory Council" for the year 2025
 - **Technical Notes**: The MIT license allows for free use, modification, and distribution of the software while providing liability protection for the authors.
 
-### 2025-05-23: Added social media links to footer
+### 2025-04-10: Added social media links to footer
 - **Change Summary**: Added LinkedIn and X/Twitter social media links to the website footer.
 - **Files Modified**:
   - `src/components/AppFooter.vue`: Added social media icons with links to SPAC's LinkedIn and X/Twitter profiles
 - **Technical Notes**: Used Material Design Icons (mdi-linkedin and mdi-twitter) from the Vuetify framework. Added hover effects and proper accessibility attributes (aria-labels) to the social media links.
 
-### 2025-05-23: Changed "Fiscal Impact" tag display to "Impact Analysis" in tag chips
+### 2025-04-10: Changed "Fiscal Impact" tag display to "Impact Analysis" in tag chips
 - **Change Summary**: Updated the display of the "Fiscal Impact" tag to show as "Impact Analysis" in the tag chips/badges throughout the application.
 - **Files Modified**:
   - `src/components/TagList.vue`: Added conditional logic to display "IMPACT ANALYSIS" instead of "FISCAL IMPACT" in the tag chips when the tag slug is "fiscal-impact"
 - **Technical Notes**: This change ensures consistent terminology in the tag chips displayed on publication pages and other content types. The underlying tag slug and routing remain unchanged.
 
-### 2025-05-23: Changed "Fiscal Impact" tag display to "Impact Analysis"
+### 2025-04-10: Changed "Fiscal Impact" tag display to "Impact Analysis"
 - **Change Summary**: Updated the display of the "Fiscal Impact" tag to show as "Impact Analysis" in the tag page while maintaining the same URL and routing.
 - **Files Modified**:
   - `src/views/TagsSingle.vue`: Added conditional logic to display "Impact Analysis" instead of "Fiscal Impact" when the tag slug is "fiscal-impact"
 - **Technical Notes**: This change affects only the display of the tag name in the UI; the underlying tag slug ("fiscal-impact") and routing remain unchanged. Since tags are stored in the backend database, this frontend override ensures consistent terminology without requiring backend changes.
 
-### 2025-05-23: Changed "Council Meeting" to "Council Meetings" in meetings menu
+### 2025-04-10: Changed "Council Meeting" to "Council Meetings" in meetings menu
 - **Change Summary**: Updated the display label for the regular meeting type from singular "Council Meeting" to plural "Council Meetings" in the meetings menu and related UI elements.
 - **Files Modified**:
   - `src/config.json`: Changed both the title and short fields for the regular meeting enum from "Council Meeting" to "Council Meetings"
 - **Technical Notes**: This change affects only the display labels; the underlying enum value ("regular"), slug ("regular"), and routing remain unchanged. The application dynamically displays meeting type titles from the config.json file.
 
-### 2025-05-23: Changed "Regular Meeting" to "Council Meeting" in meetings menu
+### 2025-04-10: Changed "Regular Meeting" to "Council Meeting" in meetings menu
 - **Change Summary**: Updated the display label for the Regular Meeting type to Council Meeting in the meetings menu and related UI elements.
 - **Files Modified**:
   - `src/config.json`: Changed both the title and short fields for the regular meeting enum from "Regular Meeting" to "Council Meeting"
 - **Technical Notes**: This change affects only the display labels; the underlying enum value ("regular"), slug ("regular"), and routing remain unchanged. The application dynamically displays meeting type titles from the config.json file.
 
-### 2025-05-23: Updated hardcoded "Fiscal Impact Analyses" to "Impact Analyses" in HomeBoxes
+### 2025-04-10: Updated hardcoded "Fiscal Impact Analyses" to "Impact Analyses" in HomeBoxes
 - **Change Summary**: Changed the hardcoded reference from "Fiscal Impact Analyses" to "Impact Analyses" in the HomeBoxes component to maintain consistency with config changes.
 - **Files Modified**:
   - `src/components/HomeBoxes.vue`: Updated the heading text from "Fiscal Impact Analyses" to "Impact Analyses"
 - **Technical Notes**: This change ensures consistent terminology throughout the application while maintaining the same routing and functionality.
 
-### 2025-05-23: Updated publication titles and found hardcoded "Fiscal Impact Analyses" reference
+### 2025-04-10: Updated publication titles and found hardcoded "Fiscal Impact Analyses" reference
 - **Change Summary**: Identified and documented a hardcoded reference to "Fiscal Impact Analyses" in the HomeBoxes component and discovered additional publication title changes in config.json.
 - **Files Examined**:
   - `src/components/HomeBoxes.vue`: Contains a hardcoded reference to "Fiscal Impact Analyses" that needs to be updated to "Impact Analyses"
   - `src/config.json`: Multiple publication titles have been simplified
 - **Technical Notes**: The HomeBoxes component contains a hardcoded plural reference that should be updated to maintain consistency with the config changes.
 
-### 2025-05-23: Changed publication titles in config.json
+### 2025-04-10: Changed publication titles in config.json
 - **Change Summary**: Simplified multiple publication type titles throughout the application.
 - **Files Modified**:
   - `src/config.json`: Changed several publication titles:
@@ -154,7 +154,7 @@ When updating this audit log:
     - Changed "Annual Report" to "Annual Reports" (pluralized)
 - **Technical Notes**: These changes affect the display labels in the publications dropdown menu and category headings; the underlying enum values, slugs, and routing remain unchanged
 
-### 2025-05-23: Changed "News" to "Announcements" in navigation
+### 2025-04-10: Changed "News" to "Announcements" in navigation
 - **Change Summary**: Updated all instances of "News" to "Announcements" in the navigation and related UI elements without modifying routing or backend functionality.
 - **Files Modified**:
   - `src/App.vue`: Modified to intercept the sections data after API load to change the "News" label to "Announcements" in the navigation menu
