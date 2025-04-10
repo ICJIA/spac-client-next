@@ -20,3 +20,9 @@ When updating this audit log:
   - `src/components/NewsCard.vue`: Changed text from "SPAC News" to "SPAC Announcements" to maintain consistent terminology
 - **Technical Notes**: Only display labels were changed; all routing, URLs, and backend functionality remain unchanged
 
+### 2025-05-23: Changed "Fiscal Impact Analysis" to "Impact Analysis" in publications menu
+- **Change Summary**: Updated the title of the Fiscal Impact Analysis publication type to display as "Impact Analysis" in the publications menu.
+- **Files Modified**:
+  - `src/config.json`: Changed the title field for the fiscalImpactAnalysis enum from "Fiscal Impact Analysis" to "Impact Analysis" while maintaining the same slug and functionality
+- **Technical Notes**: This change affects only the display label in the publications dropdown menu; the underlying enum value, slug, and routing remain unchanged
+
