@@ -95,6 +95,12 @@ When updating this audit log:
 
 ## Site Updates
 
+### 2025-05-23: Added MIT LICENSE file
+- **Change Summary**: Added a standard MIT license file to the project repository.
+- **Files Added**:
+  - `LICENSE`: Created a new MIT license file with copyright attributed to "Sentencing Policy Advisory Council" for the year 2025
+- **Technical Notes**: The MIT license allows for free use, modification, and distribution of the software while providing liability protection for the authors.
+
 ### 2025-05-23: Added social media links to footer
 - **Change Summary**: Added LinkedIn and X/Twitter social media links to the website footer.
 - **Files Modified**:
