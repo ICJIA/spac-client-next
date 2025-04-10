@@ -93,6 +93,36 @@ When updating this audit log:
 
 ## Site Updates
 
+### 2025-05-23: Added social media links to footer
+- **Change Summary**: Added LinkedIn and X/Twitter social media links to the website footer.
+- **Files Modified**:
+  - `src/components/AppFooter.vue`: Added social media icons with links to SPAC's LinkedIn and X/Twitter profiles
+- **Technical Notes**: Used Material Design Icons (mdi-linkedin and mdi-twitter) from the Vuetify framework. Added hover effects and proper accessibility attributes (aria-labels) to the social media links.
+
+### 2025-05-23: Changed "Fiscal Impact" tag display to "Impact Analysis" in tag chips
+- **Change Summary**: Updated the display of the "Fiscal Impact" tag to show as "Impact Analysis" in the tag chips/badges throughout the application.
+- **Files Modified**:
+  - `src/components/TagList.vue`: Added conditional logic to display "IMPACT ANALYSIS" instead of "FISCAL IMPACT" in the tag chips when the tag slug is "fiscal-impact"
+- **Technical Notes**: This change ensures consistent terminology in the tag chips displayed on publication pages and other content types. The underlying tag slug and routing remain unchanged.
+
+### 2025-05-23: Changed "Fiscal Impact" tag display to "Impact Analysis"
+- **Change Summary**: Updated the display of the "Fiscal Impact" tag to show as "Impact Analysis" in the tag page while maintaining the same URL and routing.
+- **Files Modified**:
+  - `src/views/TagsSingle.vue`: Added conditional logic to display "Impact Analysis" instead of "Fiscal Impact" when the tag slug is "fiscal-impact"
+- **Technical Notes**: This change affects only the display of the tag name in the UI; the underlying tag slug ("fiscal-impact") and routing remain unchanged. Since tags are stored in the backend database, this frontend override ensures consistent terminology without requiring backend changes.
+
+### 2025-05-23: Changed "Council Meeting" to "Council Meetings" in meetings menu
+- **Change Summary**: Updated the display label for the regular meeting type from singular "Council Meeting" to plural "Council Meetings" in the meetings menu and related UI elements.
+- **Files Modified**:
+  - `src/config.json`: Changed both the title and short fields for the regular meeting enum from "Council Meeting" to "Council Meetings"
+- **Technical Notes**: This change affects only the display labels; the underlying enum value ("regular"), slug ("regular"), and routing remain unchanged. The application dynamically displays meeting type titles from the config.json file.
+
+### 2025-05-23: Changed "Regular Meeting" to "Council Meeting" in meetings menu
+- **Change Summary**: Updated the display label for the Regular Meeting type to Council Meeting in the meetings menu and related UI elements.
+- **Files Modified**:
+  - `src/config.json`: Changed both the title and short fields for the regular meeting enum from "Regular Meeting" to "Council Meeting"
+- **Technical Notes**: This change affects only the display labels; the underlying enum value ("regular"), slug ("regular"), and routing remain unchanged. The application dynamically displays meeting type titles from the config.json file.
+
 ### 2025-05-23: Updated hardcoded "Fiscal Impact Analyses" to "Impact Analyses" in HomeBoxes
 - **Change Summary**: Changed the hardcoded reference from "Fiscal Impact Analyses" to "Impact Analyses" in the HomeBoxes component to maintain consistency with config changes.
 - **Files Modified**:

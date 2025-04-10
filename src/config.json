@@ -142,8 +142,8 @@
       {
         "enum": "regular",
         "slug": "regular",
-        "title": "Regular Meeting",
-        "short": "Regular Meeting",
+        "title": "Council Meetings",
+        "short": "Council Meetings",
         "description": "",
         "displayNav": true
       }

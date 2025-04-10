@@ -46,14 +46,28 @@
           "
         />
 
-        <br />
-        <div style="font-size: 12px">
-          <!-- {{ new Date().getFullYear() }}
-          <strong>
-            <a href="http://www.icjia.state.il.us" class="footer-link"
-              >Illinois Criminal Justice Information Authority</a
-            > </strong
-          >&nbsp;|&nbsp; -->
+        <div class="mt-3">
+          <a
+            href="https://www.linkedin.com/company/illinois-sentencing-policy-advisory-council"
+            target="_blank"
+            rel="noreferrer"
+            class="social-icon"
+            aria-label="SPAC LinkedIn"
+          >
+            <v-icon color="white" class="mx-2">mdi-linkedin</v-icon>
+          </a>
+          <a
+            href="https://x.com/spacillinois"
+            target="_blank"
+            rel="noreferrer"
+            class="social-icon"
+            aria-label="SPAC X/Twitter"
+          >
+            <v-icon color="white" class="mx-2">mdi-twitter</v-icon>
+          </a>
+        </div>
+
+        <div style="font-size: 12px" class="mt-2">
           <strong
             ><a
               href="https://archive.icjia.cloud/"
@@ -104,5 +118,18 @@ export default {
 
 .footer-link:hover {
   color: #aaa !important;
+}
+
+.social-icon {
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.social-icon:hover {
+  opacity: 0.7;
+}
+
+.social-icon .v-icon {
+  font-size: 24px;
 }
 </style>
