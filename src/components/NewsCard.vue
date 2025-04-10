@@ -20,7 +20,7 @@
                 })
               "
             >
-              SPAC News
+              SPAC Announcements
             </div>
           </div>
         </v-col>

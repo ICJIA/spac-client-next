@@ -11,9 +11,9 @@
         class="dynamic-content site-description"
       ></div>
       <TagList :tags="content[0].tags" class="mt-5"></TagList>
-      <div class="text-right mt-10" v-if="showUpdated && content[0].updatedAt">
+      <!-- <div class="text-right mt-10" v-if="showUpdated && content[0].updatedAt">
         Last updated: {{ content[0].updatedAt | timeAgoFormat }}
-      </div>
+      </div> -->
     </v-card-text>
   </v-card>
 </template>
@@ -26,23 +26,23 @@ import TagList from "@/components/TagList";
 export default {
   mixins: [handleClicks],
   components: {
-    TagList
+    TagList,
   },
   data() {
     return {
-      renderToHtml
+      renderToHtml,
     };
   },
   props: {
     content: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     showUpdated: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 };
 </script>
 

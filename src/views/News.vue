@@ -8,7 +8,7 @@
         >
           <v-row>
             <v-col cols="12">
-              <h1 class="page-title">News Archive</h1>
+              <h1 class="page-title">Announcements Archive</h1>
             </v-col>
           </v-row>
         </v-container>
@@ -60,7 +60,7 @@ export default {
       sectionContent: [],
       news: [],
       renderToHtml,
-      title: "News Archive",
+      title: "Announcements Archive",
       newsSorted: []
     };
   },

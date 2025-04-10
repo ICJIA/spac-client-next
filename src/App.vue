@@ -9,7 +9,7 @@
       <v-main
         id="content-top"
         aria-live="polite"
-        style="background: #fafafa; min-height: 68vh"
+        style="background: #fafafa; min-height: 100vh"
       >
         <!-- <Corona ref="alert" />
         <Census :key="$route.path"></Census> -->
@@ -53,7 +53,7 @@ export default {
       // all titles will be injected into this template
       titleTemplate: "SPAC | %s",
       htmlAttrs: {
-        lang: "en",
+        lang: "en"
       },
       link: [{ rel: "canonical", href: this.canonical }],
       meta: [
@@ -61,15 +61,15 @@ export default {
         {
           vmid: "robots",
           name: "robots",
-          content: "index, follow",
+          content: "index, follow"
         },
         {
           vmid: "description",
           name: "description",
           content:
-            "The Illinois Sentencing Policy Advisory Council (SPAC) was created to more accurately determine the consequences of sentencing policy decisions. ",
-        },
-      ],
+            "The Illinois Sentencing Policy Advisory Council (SPAC) was created to more accurately determine the consequences of sentencing policy decisions. "
+        }
+      ]
     };
   },
   components: {
@@ -77,7 +77,7 @@ export default {
     AppDrawer,
     AppFooter,
     Breadcrumb,
-    Loader,
+    Loader
   },
   methods: {},
   watch: {
@@ -86,7 +86,7 @@ export default {
       this.canonical = this.$store.getters.config.clientURL + this.$route.path;
       console.log("Canonical: ", this.canonical);
       if (this.$refs.alert) this.$refs.alert.reset();
-    },
+    }
   },
   async mounted() {},
   async created() {
@@ -116,6 +116,14 @@ export default {
       this.$store.dispatch("setSearchIndex", searchIndex);
 
       this.sections = await getAllSections();
+
+      // Change 'News' label to 'Announcements' in navigation
+      this.sections.forEach(section => {
+        if (section.slug === "news") {
+          section.title = "Announcements";
+        }
+      });
+
       this.$store.dispatch("setSections", this.sections);
 
       await this.$store.dispatch("setApiStatus");
@@ -130,9 +138,9 @@ export default {
       loading: true,
       test: [],
       env: process.env.NODE_ENV,
-      canonical: null,
+      canonical: null
     };
-  },
+  }
 };
 </script>
 <style></style>
