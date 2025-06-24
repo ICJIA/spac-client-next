@@ -78,6 +78,16 @@ When updating this audit log:
 
 ## Site Updates
 
+### 2025-06-24: Implemented HTML documentation generator with build integration
+- **Change Summary**: Created automated HTML documentation generator using the createDocumentationHTML.js template, integrated it into the build process, and configured robots.txt to restrict search engine access to the documentation directory.
+- **Files Added**:
+  - `creators/createDocumentationHTML.js`: Complete HTML generator script with dark/light mode toggle, responsive design, syntax highlighting, and smooth scrolling functionality
+  - `public/documentation/index.html`: Generated HTML documentation (53 KB) with professional styling and interactive features
+- **Files Modified**:
+  - `package.json`: Added `markdown-it-anchor` dependency and integrated documentation generation into serve/build scripts with new `create:documentation` command
+  - `public/robots.txt`: Updated to include `Disallow: /documentation/` directive while maintaining existing crawling permissions and adding sitemap reference
+- **Technical Notes**: The HTML generator converts project-documentation.md to a professional HTML interface with CSS variables for theme management, localStorage theme persistence, automatic heading ID generation, and smooth anchor scrolling. The documentation is now automatically generated during both development and production builds, ensuring it stays current with project changes. The robots.txt configuration keeps the documentation accessible to team members while hiding it from search engines.
+
 ### 2025-06-24: Created comprehensive project documentation
 - **Change Summary**: Developed complete project documentation following the project-documentation-prompt.md template, providing comprehensive guidance for new developers and covering all aspects of the SPAC website project from setup to deployment.
 - **Files Added**:
