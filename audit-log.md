@@ -65,12 +65,32 @@ This file serves as a log of changes made to the SPAC website in 2025. It is mai
 ## Audit Log Rules
 
 When updating this audit log:
-1. Add a new entry with the current date
-2. Include a brief description of the change (1-2 sentences)
-3. List all files modified with brief descriptions of changes
-4. Document all changes between the last update and the current state of the project
+1. **Use the standardized prompt**: Reference `audit-log-prompt.md` for the proper format and guidelines
+2. **Add new entries at the top**: Place new entries immediately after the "## Site Updates" heading (reverse chronological order)
+3. Add a new entry with the current date in YYYY-MM-DD format
+4. Include a brief description of the change (1-2 sentences)
+5. List all files modified/added/removed with brief descriptions of changes
+6. Document all changes between the last update and the current state of the project
+7. Include technical notes with implementation details and context
+8. **Update for significant changes**: Use this process for any meaningful modifications to the codebase, configuration, or project structure
+
+**Important**: Always use the template and guidelines in `audit-log-prompt.md` to ensure consistency and completeness in documentation. New entries should always be added at the top of the "Site Updates" section so the most recent changes are immediately visible.
 
 ## Site Updates
+
+### 2025-06-24: Created comprehensive project documentation
+- **Change Summary**: Developed complete project documentation following the project-documentation-prompt.md template, providing comprehensive guidance for new developers and covering all aspects of the SPAC website project from setup to deployment.
+- **Files Added**:
+  - `project-documentation.md`: Complete project documentation with 13 major sections including project overview, technology stack, architecture, setup instructions, development workflow, build processes, configuration, troubleshooting, and Node.js development guide
+- **Technical Notes**: The documentation follows the established template structure and includes platform-specific setup instructions with mandatory WSL2 requirements for Windows users, comprehensive troubleshooting guides, and detailed explanations of the custom build process including search index generation and sitemap creation. This serves as the definitive guide for onboarding new developers and understanding the complete SPAC website architecture and development workflow.
+
+### 2025-06-24: Created audit log documentation and prompt template
+- **Change Summary**: Developed a standardized prompt template for creating and updating audit log entries to ensure consistency and completeness in project documentation. Updated audit log rules to require use of the new template for all significant changes.
+- **Files Added**:
+  - `audit-log-prompt.md`: Created comprehensive prompt template with guidelines, format specifications, and examples for maintaining audit logs
+- **Files Modified**:
+  - `audit-log.md`: Updated the "Audit Log Rules" section to reference the new prompt template and establish it as the standard process for documenting changes
+- **Technical Notes**: The prompt template provides a structured approach for documenting changes, including required information fields, formatting guidelines, and special considerations for different types of modifications. All future significant changes to the codebase should use this template to maintain consistent documentation standards and assist new developers in understanding the change history.
 
 ### 2025-04-10: Added MIT LICENSE file
 - **Change Summary**: Added a standard MIT license file to the project repository.
