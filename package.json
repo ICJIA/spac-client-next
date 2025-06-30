@@ -9,7 +9,7 @@
     "build:search": "node buildSearchIndex.js",
     "create:documentation": "node ./creators/createDocumentationHTML.js",
     "docs:dev": "node ./creators/createDocumentationHTML.js",
-    "docs:jsdoc": "jsdoc -c jsdoc.conf.json",
+    "docs:jsdoc": "npx jsdoc -c jsdoc.conf.json",
     "docs:generate": "npm run docs:dev && npm run docs:jsdoc"
   },
   "dependencies": {
@@ -57,6 +57,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.0.1",
+    "jsdoc": "^4.0.4",
     "node-sass": "^4.9.0",
     "prettier": "^1.19.1",
     "sass": "~1.32.0",
