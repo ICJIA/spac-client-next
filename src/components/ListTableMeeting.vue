@@ -64,7 +64,7 @@ export default {
       Array.prototype.insert = function(index, item) {
         this.splice(index, 0, item);
       };
-      let obj = {
+      const obj = {
         text: "Category",
         align: "left",
         sortable: true,
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     getRoute(meeting) {
-      let parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
+      const parentPath = this.$store.getters.config.strapiEnums.meetings.filter(
         cat => {
           return cat.enum === meeting.category;
         }
@@ -127,8 +127,8 @@ export default {
           this.expanded.push(value);
           this.expanded.shift();
           if (this.expanded[0].title) {
-            let scheduled = dateFormat(this.expanded[0].scheduledDate);
-            //console.log(scheduled);
+            const scheduled = dateFormat(this.expanded[0].scheduledDate);
+            // console.log(scheduled);
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
@@ -139,8 +139,8 @@ export default {
         } else {
           this.expanded.push(value);
           if (this.expanded[0].title) {
-            let scheduled = dateFormat(this.expanded[0].scheduledDate);
-            //console.log(scheduled);
+            const scheduled = dateFormat(this.expanded[0].scheduledDate);
+            // console.log(scheduled);
             this.$ga.event({
               eventCategory: "Meeting",
               eventAction: "Preview",
@@ -152,7 +152,7 @@ export default {
       }
     },
     getCategoryTitle(catEnum) {
-      let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
+      const categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
         c => {
           return c.enum === catEnum;
         }

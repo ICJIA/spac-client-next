@@ -100,7 +100,7 @@ export default {
       Array.prototype.insert = function(index, item) {
         this.splice(index, 0, item);
       };
-      let obj = {
+      const obj = {
         text: "Category",
         align: "left",
         sortable: true,
@@ -141,7 +141,7 @@ export default {
         if (this.expanded.length) {
           this.expanded.shift();
           this.expanded.push(value);
-          //console.log("send preview event here: ", this.expanded[0].title);
+          // console.log("send preview event here: ", this.expanded[0].title);
           if (this.expanded[0].title) {
             this.$ga.event({
               eventCategory: "Publication",
@@ -151,7 +151,7 @@ export default {
           }
         } else {
           this.expanded.push(value);
-          //console.log("send preview event here: ", this.expanded[0].title);
+          // console.log("send preview event here: ", this.expanded[0].title);
           if (this.expanded[0].title) {
             this.$ga.event({
               eventCategory: "Publication",
@@ -163,18 +163,18 @@ export default {
       }
     },
     download(item) {
-      let ext = item.mediaMaterial.file.name.split(".").pop();
-      //console.log("Download: ", item.mediaMaterial.file.hash + "." + ext);
+      const ext = item.mediaMaterial.file.name.split(".").pop();
+      // console.log("Download: ", item.mediaMaterial.file.hash + "." + ext);
       this.$ga.event({
         eventCategory: "File",
         eventAction: "Download",
         eventLabel: item.mediaMaterial.file.hash + "." + ext
       });
-      let path = item.mediaMaterial.file.url;
+      const path = item.mediaMaterial.file.url;
       window.open(this.$store.getters.config.baseURL + path);
     },
     gotoExternal(item) {
-      //console.log(item.externalMediaMaterial.url);
+      // console.log(item.externalMediaMaterial.url);
       if (item.externalMediaMaterial.url) {
         this.$ga.event({
           eventCategory: "Video",
@@ -186,8 +186,8 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     getCategoryTitle(catEnum) {
-      let cat = strapiEnumToObject("publications", catEnum);
-      //console.log(cat);
+      const cat = strapiEnumToObject("publications", catEnum);
+      // console.log(cat);
       //   let categoryName = this.$store.getters.config.strapiEnums.meetings.filter(
       //     c => {
       //       return c.enum === catEnum;
@@ -198,10 +198,10 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     displayNewLabel(createdAt) {
-      let now = moment(new Date()); //todays date
-      let end = moment(createdAt); // another date
-      let duration = moment.duration(now.diff(end));
-      let days = duration.asDays();
+      const now = moment(new Date()); // todays date
+      const end = moment(createdAt); // another date
+      const duration = moment.duration(now.diff(end));
+      const days = duration.asDays();
       if (days <= this.$store.state.config.daysToDisplayNewLabel) {
         return `<div style="font-weight: 900; font-size: 12px; color: #fff; background: green;" class="text-center">&nbsp;&nbsp;NEW!&nbsp;&nbsp;</div>`;
       }

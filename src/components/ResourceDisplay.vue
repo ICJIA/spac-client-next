@@ -70,9 +70,9 @@ export default {
   mixins: [handleClicks],
   methods: {
     displayUpdated(createdAt, updatedAt) {
-      var posted = moment(createdAt);
-      var updated = moment(updatedAt);
-      var duration = moment.duration(updated.diff(posted)).days();
+      const posted = moment(createdAt);
+      const updated = moment(updatedAt);
+      const duration = moment.duration(updated.diff(posted)).days();
 
       if (duration > 1) {
         return true;

@@ -53,13 +53,28 @@
 </template>
 
 <script>
-//import { getFile, getExternalFile } from "@/services/Download";
+/**
+ * @fileoverview Meeting card component for displaying meeting information.
+ * Renders a card with meeting title, date, description, and downloadable materials.
+ * Includes date formatting and responsive design for meeting listings.
+ */
+
+// import { getFile, getExternalFile } from "@/services/Download";
 /* eslint-disable vue/no-unused-components */
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import moment from "moment";
 import TagList from "@/components/TagList";
 import DownloadBox from "@/components/DownloadBox";
+
+/**
+ * Meeting card component for displaying meeting details.
+ * Shows meeting title, formatted date, description, and associated materials.
+ * Supports markdown content rendering and file downloads.
+ *
+ * @vue
+ * @displayName MeetingCard
+ */
 export default {
   components: {
     TagList,
@@ -74,9 +89,9 @@ export default {
   mixins: [handleClicks],
   methods: {
     displayUpdated(createdAt, updatedAt) {
-      var posted = moment(createdAt);
-      var updated = moment(updatedAt);
-      var duration = moment.duration(updated.diff(posted)).days();
+      const posted = moment(createdAt);
+      const updated = moment(updatedAt);
+      const duration = moment.duration(updated.diff(posted)).days();
 
       if (duration > 1) {
         return true;

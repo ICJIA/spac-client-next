@@ -70,21 +70,59 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Biography card component for displaying individual person profiles.
+ * Renders a card with headshot, name, title, membership information, and biography content.
+ * Includes responsive design and browser-specific handling for IE compatibility.
+ */
+
 import { renderToHtml } from "@/services/Markdown";
 import { getHeadshotLink } from "@/services/Image";
 import { handleClicks } from "@/mixins/handleClicks";
 import TagList from "@/components/TagList";
+
+/**
+ * Biography card component for displaying person profiles.
+ * Shows headshot, name, title, membership, and biography content with tags.
+ * Supports responsive layout and handles markdown content rendering.
+ *
+ * @vue
+ * @displayName BiographyCard
+ */
 export default {
   mixins: [handleClicks],
   components: {
     TagList
   },
+  /**
+   * Component data function.
+   * Provides access to service functions for template usage.
+   *
+   * @returns {Object} Component reactive data
+   * @returns {Function} returns.renderToHtml - Markdown rendering function
+   * @returns {Function} returns.getHeadshotLink - Headshot image URL generator
+   */
   data() {
     return {
       renderToHtml,
       getHeadshotLink
     };
   },
+
+  /**
+   * Component props definition.
+   *
+   * @typedef {Object} Props
+   * @property {Object} person - Person object containing biography data
+   * @property {string} person.firstName - Person's first name
+   * @property {string} person.lastName - Person's last name
+   * @property {string} person.title - Person's job title
+   * @property {string} person.membership - Membership information
+   * @property {Object} [person.headshot] - Headshot image object
+   * @property {string} person.content - Biography content in markdown
+   * @property {Array} person.tags - Array of associated tags
+   * @property {boolean} displayCategory - Whether to display category information
+   */
   props: {
     person: {
       type: Object,

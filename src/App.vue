@@ -35,6 +35,12 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Root Vue component for the SPAC application.
+ * Manages application initialization, loading states, and provides the main layout structure.
+ * Handles configuration loading, search index setup, and section data management.
+ */
+
 import AppNav from "@/components/AppNav";
 // import Census from "@/components/Census";
 import AppDrawer from "@/components/AppDrawer";
@@ -44,8 +50,23 @@ import Loader from "@/components/Loader";
 // import Corona from "@/components/Corona";
 // import OutdatedBrowser from "@/components/OutdatedBrowser";
 import { getAllSections } from "@/services/Content";
+
+/**
+ * Root Vue component that serves as the main application wrapper.
+ * Initializes the application state, loads configuration and content,
+ * and provides the base layout structure for all pages.
+ *
+ * @vue
+ * @displayName App
+ */
 export default {
   name: "App",
+  /**
+   * Vue Meta configuration for SEO and document head management.
+   * Sets default title, meta tags, and canonical URL for the application.
+   *
+   * @returns {Object} Meta information object for vue-meta
+   */
   metaInfo() {
     return {
       // if no subcomponents specify a metaInfo.title, this title will be used
@@ -89,6 +110,13 @@ export default {
     }
   },
   async mounted() {},
+  /**
+   * Vue created lifecycle hook - initializes the application.
+   * Loads configuration, search index, sections data, and sets up the store.
+   * Only runs if the application hasn't been initialized yet.
+   *
+   * @async
+   */
   async created() {
     this.loading = true;
 
@@ -96,7 +124,7 @@ export default {
       const configPromise = process.BROWSER_BUILD
         ? import("@/config.json")
         : Promise.resolve(require("@/config.json"));
-      let config = await configPromise;
+      const config = await configPromise;
       this.$store.dispatch("setConfig", config);
       this.sections = config.sections;
       this.canonical = config.clientURL + this.$route.path;
@@ -112,7 +140,7 @@ export default {
       const searchIndexPromise = process.BROWSER_BUILD
         ? import("@/api/searchIndex.json")
         : Promise.resolve(require("@/api/searchIndex.json"));
-      let searchIndex = await searchIndexPromise;
+      const searchIndex = await searchIndexPromise;
       this.$store.dispatch("setSearchIndex", searchIndex);
 
       this.sections = await getAllSections();

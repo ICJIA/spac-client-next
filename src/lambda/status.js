@@ -1,4 +1,4 @@
-var https = require("https");
+const https = require("https");
 require("dotenv").config();
 
 let request;
@@ -67,10 +67,10 @@ const headers = {
 function queryServer(server) {
   // eslint-disable-next-line no-unused-vars
   return new Promise(function(resolve, reject) {
-    let start = new Date();
+    const start = new Date();
     request = https.get(server.options, response => {
-      let end = new Date();
-      let duration = end - start;
+      const end = new Date();
+      const duration = end - start;
       server.status = response.statusCode;
       server.statusMessage = response.statusMessage;
       server.duration = duration + "ms";
@@ -85,12 +85,12 @@ function queryServer(server) {
 }
 // eslint-disable-next-line no-unused-vars
 exports.handler = async (event, context) => {
-  let arr = [];
+  const arr = [];
   servers.forEach((server, index) => {
-    let s = queryServer(servers[index]);
+    const s = queryServer(servers[index]);
     arr.push(s);
   });
-  let response = await Promise.all(arr);
+  const response = await Promise.all(arr);
   return {
     statusCode: 200,
     headers,

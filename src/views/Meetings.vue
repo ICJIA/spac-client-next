@@ -218,7 +218,7 @@ export default {
         contentMap,
         meetingsName
       );
-      //console.log(this.meetings);
+      // console.log(this.meetings);
       this.loading = false;
     },
     filterMeetingData(categoryEnum) {

@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Content service for the SPAC application.
+ * Provides functions to fetch various types of content from the GraphQL API including
+ * pages, news posts, publications, meetings, biographies, and site descriptions.
+ * All functions include XSS protection and error handling with EventBus notifications.
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
 /* eslint-disable no-console */
 /* eslint-disable no-unreachable */
 /* eslint-disable no-undef */
@@ -8,23 +18,50 @@ const config = require("@/config.json");
 const xss = require("xss");
 
 const axios = require("axios");
+
+/**
+ * Axios instance configured for GraphQL API requests.
+ * Includes base URL from configuration and 10-second timeout.
+ *
+ * @type {AxiosInstance}
+ */
 const api = axios.create({
   baseURL: config.baseURL,
   timeout: 10000
 });
 
+/**
+ * Request interceptor to start NProgress loading indicator.
+ *
+ * @param {Object} config - Axios request configuration
+ * @returns {Object} Modified request configuration
+ */
 api.interceptors.request.use(config => {
   NProgress.start();
   return config;
 });
 
+/**
+ * Response interceptor to complete NProgress loading indicator.
+ *
+ * @param {Object} response - Axios response object
+ * @returns {Object} Unmodified response object
+ */
 api.interceptors.response.use(response => {
   NProgress.done();
   return response;
 });
 
+/**
+ * Generic function to execute GraphQL queries against the API.
+ *
+ * @async
+ * @function
+ * @param {string} query - GraphQL query string
+ * @returns {Promise<Object>} API response containing query results
+ */
 async function queryEndpoint(query) {
-  let content = await api({
+  const content = await api({
     url: "/graphql",
     method: "post",
     data: {
@@ -34,6 +71,13 @@ async function queryEndpoint(query) {
   return content;
 }
 
+/**
+ * Builds GraphQL query to fetch a single page by slug.
+ *
+ * @function
+ * @param {string} slug - Page slug identifier
+ * @returns {string} GraphQL query string
+ */
 const getPageQuery = slug => {
   return `{
   pages (where: {slug: "${slug}", isPublished: true}) {
@@ -58,6 +102,13 @@ const getPageQuery = slug => {
 }`;
 };
 
+/**
+ * Builds GraphQL query to fetch a single news post by slug.
+ *
+ * @function
+ * @param {string} slug - Post slug identifier
+ * @returns {string} GraphQL query string
+ */
 const getPostQuery = slug => {
   return `{
   posts  (where: {slug: "${slug}", isPublished: true}) {
@@ -707,10 +758,20 @@ const getUpcomingMeetingsQuery = targetDate => {
   `;
 };
 
+/**
+ * Fetches a single page by slug from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Page slug identifier
+ * @returns {Promise<Array>} Array of page objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getPage = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let page = await queryEndpoint(getPageQuery(slug));
+    const page = await queryEndpoint(getPageQuery(slug));
     return page.data.data.pages;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -719,10 +780,20 @@ const getPage = async ({ slug }) => {
   }
 };
 
+/**
+ * Fetches a single news post by slug from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Post slug identifier
+ * @returns {Promise<Array>} Array of post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getPost = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let post = await queryEndpoint(getPostQuery(slug));
+    const post = await queryEndpoint(getPostQuery(slug));
     return post.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -731,10 +802,20 @@ const getPost = async ({ slug }) => {
   }
 };
 
+/**
+ * Fetches a limited number of recent news posts for the front page.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {number} params.limit - Maximum number of posts to retrieve
+ * @returns {Promise<Array>} Array of post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getFrontPageNews = async ({ limit }) => {
   try {
     limit = xss(limit);
-    let news = await queryEndpoint(getFrontPageNewsQuery(limit));
+    const news = await queryEndpoint(getFrontPageNewsQuery(limit));
     return news.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -743,9 +824,17 @@ const getFrontPageNews = async ({ limit }) => {
   }
 };
 
+/**
+ * Fetches all published news posts from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} Array of all news post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getAllNews = async () => {
   try {
-    let news = await queryEndpoint(getAllNewsQuery());
+    const news = await queryEndpoint(getAllNewsQuery());
     return news.data.data.posts;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -754,10 +843,21 @@ const getAllNews = async () => {
   }
 };
 
+/**
+ * Fetches all content associated with a specific tag.
+ * Returns pages, news, publications, meetings, and biographies tagged with the specified slug.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Tag slug identifier
+ * @returns {Promise<Array>} Array of tag objects with associated content or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getContentByTag = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let content = await queryEndpoint(getContentByTagQuery(slug));
+    const content = await queryEndpoint(getContentByTagQuery(slug));
 
     return content.data.data.tags;
   } catch (e) {
@@ -767,9 +867,18 @@ const getContentByTag = async ({ slug }) => {
   }
 };
 
+/**
+ * Fetches all published sections with their associated pages.
+ * Used for building navigation menus and site structure.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} Array of section objects with nested pages or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
 const getAllSections = async () => {
   try {
-    let sections = await queryEndpoint(getAllSectionsQuery());
+    const sections = await queryEndpoint(getAllSectionsQuery());
     return sections.data.data.sections;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -782,7 +891,7 @@ const getPageBySection = async ({ section, slug }) => {
   try {
     slug = xss(slug);
     section = xss(section);
-    let sections = await queryEndpoint(getPageBySectionQuery(section, slug));
+    const sections = await queryEndpoint(getPageBySectionQuery(section, slug));
     return sections.data.data.sections;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -794,7 +903,7 @@ const getPageBySection = async ({ section, slug }) => {
 const getSiteDescription = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let sites = await queryEndpoint(getSiteDescriptionQuery(slug));
+    const sites = await queryEndpoint(getSiteDescriptionQuery(slug));
     return sites.data.data.sites;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -805,7 +914,7 @@ const getSiteDescription = async ({ slug }) => {
 
 const getAllSiteDescriptions = async () => {
   try {
-    let sites = await queryEndpoint(getAllSiteDescriptionsQuery());
+    const sites = await queryEndpoint(getAllSiteDescriptionsQuery());
     return sites.data.data.sites;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -816,7 +925,7 @@ const getAllSiteDescriptions = async () => {
 
 const getAllBiographies = async () => {
   try {
-    let biographies = await queryEndpoint(getAllBiographiesQuery());
+    const biographies = await queryEndpoint(getAllBiographiesQuery());
     return biographies.data.data.biographies;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -828,7 +937,7 @@ const getAllBiographies = async () => {
 const getSingleBiography = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let biography = await queryEndpoint(getSingleBiographiesQuery(slug));
+    const biography = await queryEndpoint(getSingleBiographiesQuery(slug));
     return biography.data.data.biographies;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -839,7 +948,7 @@ const getSingleBiography = async ({ slug }) => {
 
 const getAllMeetings = async () => {
   try {
-    let meetings = await queryEndpoint(getAllMeetingsQuery());
+    const meetings = await queryEndpoint(getAllMeetingsQuery());
     return meetings.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -851,11 +960,11 @@ const getAllMeetings = async () => {
 const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
   try {
     strapiEnumCategory = xss(strapiEnumCategory);
-    //console.log("category: ", strapiEnumCategory);
-    let meetings = await queryEndpoint(
+    // console.log("category: ", strapiEnumCategory);
+    const meetings = await queryEndpoint(
       getMeetingsByCategoryQuery(strapiEnumCategory)
     );
-    //console.log(meetings.data);
+    // console.log(meetings.data);
     return meetings.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -867,7 +976,7 @@ const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
 const getSingleMeeting = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let meeting = await queryEndpoint(getSingleMeetingQuery(slug));
+    const meeting = await queryEndpoint(getSingleMeetingQuery(slug));
     return meeting.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -878,10 +987,10 @@ const getSingleMeeting = async ({ slug }) => {
 
 const getFrontPagePublications = async () => {
   try {
-    let featuredPublications = await queryEndpoint(
+    const featuredPublications = await queryEndpoint(
       getFrontPagePublicationsQuery()
     );
-    //console.log(featuredPublications.data.data.publications);
+    // console.log(featuredPublications.data.data.publications);
     return featuredPublications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -892,7 +1001,7 @@ const getFrontPagePublications = async () => {
 
 const getAllPublications = async () => {
   try {
-    let publications = await queryEndpoint(getAllPublicationsQuery());
+    const publications = await queryEndpoint(getAllPublicationsQuery());
     return publications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -904,11 +1013,11 @@ const getAllPublications = async () => {
 const getPublicationsByCategory = async ({ strapiEnumCategory }) => {
   try {
     strapiEnumCategory = xss(strapiEnumCategory);
-    //console.log("category: ", strapiEnumCategory);
-    let publications = await queryEndpoint(
+    // console.log("category: ", strapiEnumCategory);
+    const publications = await queryEndpoint(
       getPublicationsByCategoryQuery(strapiEnumCategory)
     );
-    //console.log(publications.data);
+    // console.log(publications.data);
     return publications.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -920,7 +1029,7 @@ const getPublicationsByCategory = async ({ strapiEnumCategory }) => {
 const getSinglePublication = async ({ slug }) => {
   try {
     slug = xss(slug);
-    let publication = await queryEndpoint(getSinglePublicationQuery(slug));
+    const publication = await queryEndpoint(getSinglePublicationQuery(slug));
     return publication.data.data.publications;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());
@@ -931,8 +1040,8 @@ const getSinglePublication = async ({ slug }) => {
 
 const getUpcomingMeetings = async ({ targetDate }) => {
   try {
-    let meetings = await queryEndpoint(getUpcomingMeetingsQuery(targetDate));
-    //console.table("upcoming meetings: ", meetings.data.data.meetings);
+    const meetings = await queryEndpoint(getUpcomingMeetingsQuery(targetDate));
+    // console.table("upcoming meetings: ", meetings.data.data.meetings);
     return meetings.data.data.meetings;
   } catch (e) {
     EventBus.$emit("contentServiceError", e.toString());

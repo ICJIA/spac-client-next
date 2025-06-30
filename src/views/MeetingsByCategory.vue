@@ -103,7 +103,7 @@ export default {
       );
 
       if (category.length) {
-        let strapiEnumCategory = category[0].enum;
+        const strapiEnumCategory = category[0].enum;
         this.categoryTitle = category[0].title;
         this.categoryDescription = category[0].description;
         const name = `getMeetingsByCategory-${strapiEnumCategory}`;

@@ -87,29 +87,61 @@
 </template>
 
 <script>
+/**
+ * @fileoverview News card component for displaying news articles and announcements.
+ * Renders a card with title, content, posted date, and read more functionality.
+ * Supports various display options including elevation, height control, and news link display.
+ */
+
 import Readmore from "@/components/Readmore";
 import PostedDate from "@/components/PostedDate";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import TagList from "@/components/TagList";
 import moment from "moment";
+
+/**
+ * News card component for displaying news articles.
+ * Shows title, content preview, posted/updated dates, and tags.
+ * Includes read more functionality and responsive design options.
+ *
+ * @vue
+ * @displayName NewsCard
+ */
 export default {
   components: {
     PostedDate,
     Readmore,
     TagList
   },
+  /**
+   * Component data function.
+   * Provides access to service functions for template usage.
+   *
+   * @returns {Object} Component reactive data
+   * @returns {Function} returns.renderToHtml - Markdown rendering function
+   */
   data() {
     return {
       renderToHtml
     };
   },
+
   mixins: [handleClicks],
+
   methods: {
+    /**
+     * Determines if the updated date should be displayed.
+     * Shows updated date only if it's more than 1 day after creation.
+     *
+     * @param {string} createdAt - ISO date string of creation
+     * @param {string} updatedAt - ISO date string of last update
+     * @returns {boolean} True if updated date should be shown
+     */
     displayUpdated(createdAt, updatedAt) {
-      var posted = moment(createdAt);
-      var updated = moment(updatedAt);
-      var duration = moment.duration(updated.diff(posted)).days();
+      const posted = moment(createdAt);
+      const updated = moment(updatedAt);
+      const duration = moment.duration(updated.diff(posted)).days();
 
       if (duration > 1) {
         return true;
@@ -118,6 +150,23 @@ export default {
       }
     }
   },
+  /**
+   * Component props definition.
+   *
+   * @typedef {Object} Props
+   * @property {boolean} readMore - Whether to show read more functionality
+   * @property {number} height - Maximum height for content preview in pixels
+   * @property {Object} content - News article content object
+   * @property {string} content.title - Article title
+   * @property {string} content.content - Article content in markdown
+   * @property {string} content.slug - Article URL slug
+   * @property {string} content.createdAt - Creation date
+   * @property {string} content.updatedAt - Last update date
+   * @property {Array} content.tags - Associated tags
+   * @property {boolean} elevation - Whether to show card elevation/shadow
+   * @property {boolean} fullHeight - Whether to display full content height
+   * @property {boolean} displayNewsLink - Whether to show "SPAC Announcements" link
+   */
   props: {
     readMore: {
       type: Boolean,

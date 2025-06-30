@@ -42,7 +42,7 @@ export default {
       this.splice(index, 0, item);
     };
     if (this.contentType === "meeting") {
-      let obj = {
+      const obj = {
         text: "Scheduled",
         align: "left",
         sortable: true,
@@ -53,7 +53,7 @@ export default {
     }
 
     if (this.contentType === "publication") {
-      let obj1 = {
+      const obj1 = {
         text: "Year",
         align: "left",
         sortable: true,
@@ -61,7 +61,7 @@ export default {
       };
 
       this.headers.insert(0, obj1);
-      let obj2 = {
+      const obj2 = {
         text: "Category",
         align: "left",
         sortable: true,
@@ -99,8 +99,8 @@ export default {
       }
     },
     clicked(item) {
-      //console.log(item);
-      let route = this.getRoute(item);
+      // console.log(item);
+      const route = this.getRoute(item);
       this.$router.push(route);
     }
   },

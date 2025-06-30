@@ -45,6 +45,20 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Navigation dropdown component for meetings section.
+ * Provides a dropdown menu with meeting categories and navigation links.
+ * Filters and displays available meeting types from the store configuration.
+ */
+
+/**
+ * Meetings navigation dropdown component.
+ * Displays a dropdown menu with different meeting categories.
+ * Loads meeting types from store configuration and provides navigation.
+ *
+ * @vue
+ * @displayName NavMeetings
+ */
 export default {
   data: () => ({
     items: () => []

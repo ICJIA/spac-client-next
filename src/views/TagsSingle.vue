@@ -11,7 +11,13 @@
               <div style="font-size: 14px; font-weight: bold; color: purple">
                 Items tagged with:
               </div>
-              <h1 class="page-title">{{ content[0].slug === 'fiscal-impact' ? 'Impact Analysis' : content[0].name }}</h1>
+              <h1 class="page-title">
+                {{
+                  content[0].slug === "fiscal-impact"
+                    ? "Impact Analysis"
+                    : content[0].name
+                }}
+              </h1>
             </v-col>
           </v-row>
           <v-row v-if="content[0].content">
@@ -191,7 +197,10 @@ export default {
       if (checkIfValidPage(this.content)) {
         this.showToc = true;
         // Override the title for fiscal-impact tag
-        this.title = this.content[0].slug === 'fiscal-impact' ? 'Impact Analysis' : this.content[0].name;
+        this.title =
+          this.content[0].slug === "fiscal-impact"
+            ? "Impact Analysis"
+            : this.content[0].name;
         this.$ga.page({
           page: this.$route.path,
           title: this.title,

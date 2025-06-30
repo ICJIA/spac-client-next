@@ -41,11 +41,25 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Main search component for the SPAC application.
+ * Provides full-text search functionality using Fuse.js with configurable search options.
+ * Displays search results in a list format with result cards and pagination.
+ */
+
 import Fuse from "fuse.js";
 import BaseList from "@/components/BaseList";
 import SearchCard from "@/components/SearchCard";
 import { stripHTML } from "@/services/Utilities";
 
+/**
+ * Main search component with full-text search capabilities.
+ * Uses Fuse.js for fuzzy searching across all site content.
+ * Provides configurable search options and result display.
+ *
+ * @vue
+ * @displayName Search
+ */
 export default {
   components: {
     BaseList,
@@ -89,7 +103,7 @@ export default {
   methods: {
     instantSearch() {
       this.queryResults = this.fuse.search(this.query);
-      //console.log(this.fuse.search(this.query));
+      // console.log(this.fuse.search(this.query));
     },
     getCategory(item) {
       if (!item.slug) return;

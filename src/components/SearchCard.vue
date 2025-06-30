@@ -41,7 +41,22 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Search result card component for displaying individual search results.
+ * Renders a card with title, content preview, and metadata for each search result item.
+ * Handles different content types and provides appropriate routing links.
+ */
+
 import { stripHTML } from "@/services/Utilities";
+
+/**
+ * Search result card component.
+ * Displays individual search results with title, content preview, and navigation.
+ * Adapts display based on content type and provides clean HTML content.
+ *
+ * @vue
+ * @displayName SearchCard
+ */
 export default {
   props: {
     item: {

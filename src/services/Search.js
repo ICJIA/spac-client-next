@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Search service for the SPAC application.
+ * Provides functionality to load and process the search index for client-side search.
+ * Transforms content items by adding parent paths for proper URL generation.
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
 /* eslint-disable no-unreachable */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
@@ -5,19 +14,48 @@
 import { EventBus } from "@/event-bus";
 import { strapiEnumToObject } from "@/services/Utilities";
 
+/**
+ * Promise that resolves to the search index data.
+ * Uses dynamic import for browser builds, require for server builds.
+ *
+ * @type {Promise<Object>}
+ */
 const searchIndexPromise = process.BROWSER_BUILD
   ? import("@/api/searchIndex.json")
   : Promise.resolve(require("@/api/searchIndex.json"));
 
+/**
+ * Promise that resolves to the application configuration.
+ * Uses dynamic import for browser builds, require for server builds.
+ *
+ * @type {Promise<Object>}
+ */
 const configPromise = process.BROWSER_BUILD
   ? import("@/config.json")
   : Promise.resolve(require("@/config.json"));
 
+/**
+ * Loads and processes the search index for client-side search functionality.
+ * Transforms all content items by adding appropriate parent paths for URL generation.
+ * Combines pages, news, meetings, biographies, publications, sections, and tags into a unified search index.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} Array of all searchable content items with parent paths
+ * @throws {Error} Emits search service error event on failure
+ * @example
+ * const searchData = await getSearchIndex();
+ * // Returns array of items like:
+ * // [
+ * //   { title: "News Article", parentPath: "/news", slug: "article-slug", ... },
+ * //   { title: "Page Title", parentPath: "/section", slug: "page-slug", ... }
+ * // ]
+ */
 const getSearchIndex = async () => {
   try {
-    let searchIndex = await searchIndexPromise;
+    const searchIndex = await searchIndexPromise;
 
-    let pages = searchIndex["pages"].map(item => {
+    const pages = searchIndex["pages"].map(item => {
       if (item.slug === "home") {
         item.parentPath = "/";
       } else {
@@ -36,34 +74,34 @@ const getSearchIndex = async () => {
       return item;
     });
 
-    let news = searchIndex["news"].map(item => {
+    const news = searchIndex["news"].map(item => {
       item.parentPath = "/news";
       return item;
     });
 
-    let sections = searchIndex["sections"].map(item => {
+    const sections = searchIndex["sections"].map(item => {
       item.parentPath = "";
       return item;
     });
 
-    let tags = searchIndex["tags"].map(item => {
+    const tags = searchIndex["tags"].map(item => {
       item.parentPath = `/tags`;
       return item;
     });
 
-    let meetings = searchIndex["meetings"].map(item => {
-      let categoryObj = strapiEnumToObject("meetings", item.category);
+    const meetings = searchIndex["meetings"].map(item => {
+      const categoryObj = strapiEnumToObject("meetings", item.category);
       item.parentPath = `/meetings/${categoryObj[0].slug}`;
       return item;
     });
 
-    let biographies = searchIndex["biographies"].map(item => {
+    const biographies = searchIndex["biographies"].map(item => {
       item.parentPath = "/about/biographies";
       return item;
     });
 
-    let publications = searchIndex["publications"].map(item => {
-      let categoryObj = strapiEnumToObject("publications", item.category);
+    const publications = searchIndex["publications"].map(item => {
+      const categoryObj = strapiEnumToObject("publications", item.category);
       item.parentPath = `/publications/${categoryObj[0].slug}`;
       return item;
     });

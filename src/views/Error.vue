@@ -33,7 +33,22 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Error page view component for the SPAC application.
+ * Displays error messages with status codes and provides navigation back to home.
+ * Handles error tracking, cache clearing, and Google Analytics event logging.
+ */
+
 import ErrorContent from "@/components/ErrorContent";
+
+/**
+ * Error page view component.
+ * Displays error information and provides user-friendly error handling.
+ * Tracks errors in Google Analytics and clears cache on error pages.
+ *
+ * @vue
+ * @displayName Error
+ */
 export default {
   components: {
     ErrorContent
@@ -56,7 +71,7 @@ export default {
       this.debug = {};
       this.debug["meta"] = this.$route.params.msg;
       this.debug["referrer"] = referrer;
-      //console.table(this.debug);
+      // console.table(this.debug);
       this.$ga.page({
         page: this.$route.path,
         title: this.title,

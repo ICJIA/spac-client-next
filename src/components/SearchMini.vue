@@ -51,11 +51,26 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Mini search component for the SPAC application navigation.
+ * Provides a compact search interface with dropdown results and keyboard navigation.
+ * Integrates with the main search functionality and EventBus for communication.
+ */
+
 import Fuse from "fuse.js";
 import BaseList from "@/components/BaseList";
 import { getSearchIndex } from "@/services/Search";
 import { addAttributeToElement } from "@/services/Utilities";
 import { EventBus } from "@/event-bus";
+
+/**
+ * Mini search component for navigation bar.
+ * Provides compact search with dropdown results and keyboard shortcuts.
+ * Loads search index and provides real-time search suggestions.
+ *
+ * @vue
+ * @displayName SearchMini
+ */
 export default {
   components: {
     BaseList

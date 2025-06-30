@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    //console.log("Browser info: ", this.$browserDetect.meta);
+    // console.log("Browser info: ", this.$browserDetect.meta);
   }
 };
 </script>

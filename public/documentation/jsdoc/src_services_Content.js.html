@@ -1,0 +1,1076 @@
+<!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="API documentation for the Illinois Sentencing Policy Advisory Council (SPAC) website"><meta name="author" content="ICJIA"><title>Source: src/services/Content.js</title><!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(baseURL=(baseURL="/documentation/jsdoc/").replace(/https?:\/\//i,"")).substr(baseURL.indexOf("/"))</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">SPAC Client API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-mixins"><div>Mixins</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="handleClicks.html">handleClicks</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#LS_ROUTE_KEY">LS_ROUTE_KEY</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#apiDir">apiDir</a></div><div class="sidebar-section-children"><a href="global.html#apiDir">apiDir</a></div><div class="sidebar-section-children"><a href="global.html#buildStatusUrl">buildStatusUrl</a></div><div class="sidebar-section-children"><a href="global.html#checkIfValidPage">checkIfValidPage</a></div><div class="sidebar-section-children"><a href="global.html#configPromise">configPromise</a></div><div class="sidebar-section-children"><a href="global.html#createDocumentationHTML">createDocumentationHTML</a></div><div class="sidebar-section-children"><a href="global.html#fetchData">fetchData</a></div><div class="sidebar-section-children"><a href="global.html#fileName">fileName</a></div><div class="sidebar-section-children"><a href="global.html#filename">filename</a></div><div class="sidebar-section-children"><a href="global.html#generateHTMLTemplate">generateHTMLTemplate</a></div><div class="sidebar-section-children"><a href="global.html#getAllNews">getAllNews</a></div><div class="sidebar-section-children"><a href="global.html#getAllSections">getAllSections</a></div><div class="sidebar-section-children"><a href="global.html#getContentByTag">getContentByTag</a></div><div class="sidebar-section-children"><a href="global.html#getDefaultThumbnail">getDefaultThumbnail</a></div><div class="sidebar-section-children"><a href="global.html#getExternalFile">getExternalFile</a></div><div class="sidebar-section-children"><a href="global.html#getFile">getFile</a></div><div class="sidebar-section-children"><a href="global.html#getFrontPageNews">getFrontPageNews</a></div><div class="sidebar-section-children"><a href="global.html#getHash">getHash</a></div><div class="sidebar-section-children"><a href="global.html#getHeadshotLink">getHeadshotLink</a></div><div class="sidebar-section-children"><a href="global.html#getOffset">getOffset</a></div><div class="sidebar-section-children"><a href="global.html#getPage">getPage</a></div><div class="sidebar-section-children"><a href="global.html#getPageQuery">getPageQuery</a></div><div class="sidebar-section-children"><a href="global.html#getPost">getPost</a></div><div class="sidebar-section-children"><a href="global.html#getPostQuery">getPostQuery</a></div><div class="sidebar-section-children"><a href="global.html#getSearchIndex">getSearchIndex</a></div><div class="sidebar-section-children"><a href="global.html#getThumbnailLink">getThumbnailLink</a></div><div class="sidebar-section-children"><a href="global.html#lastModMap">lastModMap</a></div><div class="sidebar-section-children"><a href="global.html#md">md</a></div><div class="sidebar-section-children"><a href="global.html#mutations">mutations</a></div><div class="sidebar-section-children"><a href="global.html#opts">opts</a></div><div class="sidebar-section-children"><a href="global.html#query">query</a></div><div class="sidebar-section-children"><a href="global.html#query">query</a></div><div class="sidebar-section-children"><a href="global.html#queryEndpoint">queryEndpoint</a></div><div class="sidebar-section-children"><a href="global.html#renderToHtml">renderToHtml</a></div><div class="sidebar-section-children"><a href="global.html#router">router</a></div><div class="sidebar-section-children"><a href="global.html#routes">routes</a></div><div class="sidebar-section-children"><a href="global.html#scrollBehavior">scrollBehavior</a></div><div class="sidebar-section-children"><a href="global.html#searchIndexPromise">searchIndexPromise</a></div><div class="sidebar-section-children"><a href="global.html#sections">sections</a></div><div class="sidebar-section-children"><a href="global.html#state">state</a></div><div class="sidebar-section-children"><a href="global.html#stripHTML">stripHTML</a></div><div class="sidebar-section-children"><a href="global.html#thumborURL">thumborURL</a></div><div class="sidebar-section-children"><a href="global.html#titleCase">titleCase</a></div><div class="sidebar-section-children"><a href="global.html#truncate">truncate</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">src_services_Content.js</h1></header><article><pre class="prettyprint source lang-js"><code>/**
+ * @fileoverview Content service for the SPAC application.
+ * Provides functions to fetch various types of content from the GraphQL API including
+ * pages, news posts, publications, meetings, biographies, and site descriptions.
+ * All functions include XSS protection and error handling with EventBus notifications.
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
+/* eslint-disable no-console */
+/* eslint-disable no-unreachable */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+
+import { EventBus } from "@/event-bus";
+const config = require("@/config.json");
+const xss = require("xss");
+
+const axios = require("axios");
+
+/**
+ * Axios instance configured for GraphQL API requests.
+ * Includes base URL from configuration and 10-second timeout.
+ *
+ * @type {AxiosInstance}
+ */
+const api = axios.create({
+  baseURL: config.baseURL,
+  timeout: 10000
+});
+
+/**
+ * Request interceptor to start NProgress loading indicator.
+ *
+ * @param {Object} config - Axios request configuration
+ * @returns {Object} Modified request configuration
+ */
+api.interceptors.request.use(config => {
+  NProgress.start();
+  return config;
+});
+
+/**
+ * Response interceptor to complete NProgress loading indicator.
+ *
+ * @param {Object} response - Axios response object
+ * @returns {Object} Unmodified response object
+ */
+api.interceptors.response.use(response => {
+  NProgress.done();
+  return response;
+});
+
+/**
+ * Generic function to execute GraphQL queries against the API.
+ *
+ * @async
+ * @function
+ * @param {string} query - GraphQL query string
+ * @returns {Promise&lt;Object>} API response containing query results
+ */
+async function queryEndpoint(query) {
+  const content = await api({
+    url: "/graphql",
+    method: "post",
+    data: {
+      query
+    }
+  });
+  return content;
+}
+
+/**
+ * Builds GraphQL query to fetch a single page by slug.
+ *
+ * @function
+ * @param {string} slug - Page slug identifier
+ * @returns {string} GraphQL query string
+ */
+const getPageQuery = slug => {
+  return `{
+  pages (where: {slug: "${slug}", isPublished: true}) {
+    id
+    createdAt
+    updatedAt
+    title
+    showToc
+    addDivider
+    slug
+    content
+    isPublished
+    summary
+    displayNav
+    tags {
+      name
+      slug
+    }
+    
+    
+  }
+}`;
+};
+
+/**
+ * Builds GraphQL query to fetch a single news post by slug.
+ *
+ * @function
+ * @param {string} slug - Post slug identifier
+ * @returns {string} GraphQL query string
+ */
+const getPostQuery = slug => {
+  return `{
+  posts  (where: {slug: "${slug}", isPublished: true}) {
+    id
+    createdAt
+    updatedAt
+    title
+    slug
+    content
+    isPublished
+    summary
+    tags {
+      name
+      slug
+    }
+    
+    
+  }
+}`;
+};
+
+const getFrontPageNewsQuery = limit => {
+  return `{
+  posts(sort: "createdAt:desc", limit: ${limit}, where: {isPublished: true}) {
+    title
+    isPublished
+    slug
+    tags {
+      name
+      slug
+    }
+    summary
+    content
+    createdAt
+    updatedAt
+    displayReadMore
+    isPublished
+    
+  }
+}`;
+};
+
+const getAllNewsQuery = () => {
+  return `{
+  posts(sort: "createdAt:desc", where: {isPublished: true}, limit: ${config.maxResults}) {
+    title
+    slug
+    isPublished
+    tags {
+      name
+      slug
+    }
+    summary
+    content
+    createdAt
+    updatedAt
+    isPublished
+    
+  }
+}`;
+};
+
+const getContentByTagQuery = slug => {
+  return `
+  {
+  tags(where: { slug: "${slug}" }) {
+    name
+    slug
+    content
+
+    
+
+    meetings (sort: "scheduledDate:desc", where: {isPublished: true},limit: ${config.maxResults}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+    
+    
+     tags {
+      name
+      slug
+    }
+  }
+
+    pages(sort: "title:asc", where: { isPublished: true },limit: ${config.maxResults}) {
+      title
+      slug
+      summary
+      content
+      addDivider
+      showToc
+      isPublished
+      updatedAt
+      createdAt
+      section {
+      title
+      slug
+    }
+      tags {
+        name
+        slug
+      }
+    }
+
+
+
+
+    publications(
+    sort: "year:desc"
+    where: { isPublished: true },limit: ${config.maxResults}
+  ) {
+    createdAt
+    updatedAt
+    title
+    year
+    isPublished
+    slug
+    searchMeta
+    summary
+    category
+     tags {
+      name
+      slug
+    }
+    
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+        hash
+      }
+    }
+  }
+
+
+
+
+
+
+
+    biographies(sort: "alphabetizeBy:asc", where: { isPublished: true }) {
+      firstName
+      middleName
+      lastName
+      membership
+      order
+      boldTitle
+      slug
+      prefix
+      suffix
+      title
+      content
+      category
+      tags {
+        name
+        slug
+      }
+      alphabetizeBy
+      headshot {
+        url
+        name
+      }
+    }
+
+
+
+
+
+
+    news: posts(sort: "createdAt:desc", where: { isPublished: true },limit: ${config.maxResults}) {
+      title
+      slug
+      isPublished
+      tags {
+        name
+        slug
+      }
+      summary
+      content
+      createdAt
+      updatedAt
+      isPublished
+    }
+  }
+}
+  
+  `;
+};
+
+const getAllSectionsQuery = () => {
+  return `{
+  sections (sort: "order:asc" where: { isPublished: true}) {
+    title
+    slug
+    isPublished
+    summary
+    searchMeta
+    summary
+    order
+    hasSubMenus
+    displayNav
+    displayFooter
+    displayDrawer
+    
+    pages (sort: "order:asc", where: { isPublished: true}) {
+      title
+      slug
+      order
+      isPublished
+      displayNav
+      summary
+      addDivider
+    }
+  }
+}`;
+};
+
+const getPageBySectionQuery = (section, slug) => {
+  return `{
+  sections(where: { slug: "${section}" }) {
+    title
+    slug
+    summary
+    hasSubMenus
+    searchMeta
+    pages(where: { isPublished: true, slug: "${slug}" }) {
+      id
+      createdAt
+      updatedAt
+      title
+      showToc
+      addDivider
+      slug
+      content
+      isPublished
+      summary
+      tags {
+        name
+        slug
+      }
+      
+    }
+  }
+}`;
+};
+
+const getSiteDescriptionQuery = slug => {
+  return `{
+  sites (where: {isPublished: true, slug: "${slug}"}){
+    id
+    title
+    slug
+    summary
+    content
+    siteType
+    createdAt
+    updatedAt
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getAllSiteDescriptionsQuery = () => {
+  return `{
+  sites (sort: "title:asc", where: {isPublished: true}){
+    id
+    title
+    slug
+    summary
+    content
+    siteType
+    showToc
+     createdAt
+    updatedAt
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getAllBiographiesQuery = () => {
+  return `
+  {
+  biographies (sort: "alphabetizeBy:asc", where: {isPublished: true}){
+    isPublished,
+    firstName
+    middleName
+    lastName
+    boldTitle
+    membership
+    order
+    slug
+    prefix
+    suffix
+    title
+    content
+    category
+    tags {
+      name
+      slug
+    }
+    alphabetizeBy
+     headshot {
+      url
+      name
+    }
+  }
+}`;
+};
+
+const getSingleBiographiesQuery = slug => {
+  return `
+  {
+  biographies (where: {slug: "${slug}", isPublished: true}){
+    isPublished
+    firstName
+    middleName
+    lastName
+    boldTitle
+    membership
+    order
+    prefix
+    suffix
+    slug
+    title
+    content
+    category
+     tags {
+      name
+      slug
+    }
+    alphabetizeBy
+     headshot {
+      url
+      name
+    }
+  }
+}`;
+};
+
+const getAllMeetingsQuery = () => {
+  return `{
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true},limit: ${config.maxResults}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
+const getMeetingsByCategoryQuery = category => {
+  return `{
+  meetings (sort: "scheduledDate:desc", where: {isPublished: true, category: "${category}"},limit: ${config.maxResults}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
+const getSingleMeetingQuery = slug => {
+  return `
+  {
+  meetings (sort: "scheduledDate:desc", where: {slug: "${slug}", isPublished: true}) {
+   createdAt
+    updatedAt
+    title
+    slug
+    scheduledDate
+    summary
+    category
+    content
+    meetingMaterial {
+      name
+      summary
+      file {
+        name
+        hash
+        url
+      }
+    }
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getFrontPagePublicationsQuery = () => {
+  return `{
+  publications(
+    sort: "bannerRank:desc"
+    where: { isPublished: true, addToBanner: true }
+  ) {
+    createdAt
+    updatedAt
+    title
+    year
+    isPublished
+    slug
+    searchMeta
+    summary
+    category
+    addToBanner
+    bannerRank
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+        hash
+      }
+    }
+    
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getAllPublicationsQuery = () => {
+  return `
+  {
+  publications(sort: "year:desc", where: { isPublished: true },limit: ${config.maxResults}) {
+    createdAt
+    updatedAt
+    title
+    year
+    isPublished
+    slug
+    searchMeta
+    summary
+    category
+    addToBanner
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+        hash
+      }
+    }
+    
+    tags {
+      name
+      slug
+    }
+  }
+}`;
+};
+
+const getPublicationsByCategoryQuery = category => {
+  return `{
+  publications (sort: "year:desc", where: {isPublished: true, category: "${category}"},limit: ${config.maxResults}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    year
+    summary
+    category
+    addToBanner
+    isPublished
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+        hash
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
+const getSinglePublicationQuery = slug => {
+  return `{
+  publications (where: {isPublished: true, slug: "${slug}"}) {
+    createdAt
+    updatedAt
+    title
+    slug
+    year
+    summary
+    category
+    addToBanner
+    isPublished
+    externalMediaMaterial {
+      name
+      summary
+      url
+      thumbnail {
+        name
+        url
+        hash
+      }
+    }
+    mediaMaterial {
+      summary
+      thumbnail {
+        name
+        url
+      }
+      file {
+        name
+        url
+        hash
+      }
+    }
+     tags {
+      name
+      slug
+    }
+  }
+}
+  `;
+};
+
+const getUpcomingMeetingsQuery = targetDate => {
+  return `
+  {
+  meetings(
+    sort: "scheduledDate:asc"
+    where: { scheduledDate_gte: "${targetDate}", isPublished: true }
+  ) {
+    scheduledDate
+    title
+    summary
+    content
+    isPublished
+    slug
+    category
+  }
+}
+  `;
+};
+
+/**
+ * Fetches a single page by slug from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Page slug identifier
+ * @returns {Promise&lt;Array>} Array of page objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getPage = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const page = await queryEndpoint(getPageQuery(slug));
+    return page.data.data.pages;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("getPage error", e.toString());
+    return [];
+  }
+};
+
+/**
+ * Fetches a single news post by slug from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Post slug identifier
+ * @returns {Promise&lt;Array>} Array of post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getPost = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const post = await queryEndpoint(getPostQuery(slug));
+    return post.data.data.posts;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+/**
+ * Fetches a limited number of recent news posts for the front page.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {number} params.limit - Maximum number of posts to retrieve
+ * @returns {Promise&lt;Array>} Array of post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getFrontPageNews = async ({ limit }) => {
+  try {
+    limit = xss(limit);
+    const news = await queryEndpoint(getFrontPageNewsQuery(limit));
+    return news.data.data.posts;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+/**
+ * Fetches all published news posts from the GraphQL API.
+ *
+ * @async
+ * @function
+ * @returns {Promise&lt;Array>} Array of all news post objects or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getAllNews = async () => {
+  try {
+    const news = await queryEndpoint(getAllNewsQuery());
+    return news.data.data.posts;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+/**
+ * Fetches all content associated with a specific tag.
+ * Returns pages, news, publications, meetings, and biographies tagged with the specified slug.
+ *
+ * @async
+ * @function
+ * @param {Object} params - Parameters object
+ * @param {string} params.slug - Tag slug identifier
+ * @returns {Promise&lt;Array>} Array of tag objects with associated content or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getContentByTag = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const content = await queryEndpoint(getContentByTagQuery(slug));
+
+    return content.data.data.tags;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+/**
+ * Fetches all published sections with their associated pages.
+ * Used for building navigation menus and site structure.
+ *
+ * @async
+ * @function
+ * @returns {Promise&lt;Array>} Array of section objects with nested pages or empty array on error
+ * @throws {Error} Emits contentServiceError event on failure
+ */
+const getAllSections = async () => {
+  try {
+    const sections = await queryEndpoint(getAllSectionsQuery());
+    return sections.data.data.sections;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getPageBySection = async ({ section, slug }) => {
+  try {
+    slug = xss(slug);
+    section = xss(section);
+    const sections = await queryEndpoint(getPageBySectionQuery(section, slug));
+    return sections.data.data.sections;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getSiteDescription = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const sites = await queryEndpoint(getSiteDescriptionQuery(slug));
+    return sites.data.data.sites;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getAllSiteDescriptions = async () => {
+  try {
+    const sites = await queryEndpoint(getAllSiteDescriptionsQuery());
+    return sites.data.data.sites;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getAllBiographies = async () => {
+  try {
+    const biographies = await queryEndpoint(getAllBiographiesQuery());
+    return biographies.data.data.biographies;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getSingleBiography = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const biography = await queryEndpoint(getSingleBiographiesQuery(slug));
+    return biography.data.data.biographies;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getAllMeetings = async () => {
+  try {
+    const meetings = await queryEndpoint(getAllMeetingsQuery());
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getMeetingsByCategory = async ({ strapiEnumCategory }) => {
+  try {
+    strapiEnumCategory = xss(strapiEnumCategory);
+    // console.log("category: ", strapiEnumCategory);
+    const meetings = await queryEndpoint(
+      getMeetingsByCategoryQuery(strapiEnumCategory)
+    );
+    // console.log(meetings.data);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getSingleMeeting = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const meeting = await queryEndpoint(getSingleMeetingQuery(slug));
+    return meeting.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getFrontPagePublications = async () => {
+  try {
+    const featuredPublications = await queryEndpoint(
+      getFrontPagePublicationsQuery()
+    );
+    // console.log(featuredPublications.data.data.publications);
+    return featuredPublications.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getAllPublications = async () => {
+  try {
+    const publications = await queryEndpoint(getAllPublicationsQuery());
+    return publications.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getPublicationsByCategory = async ({ strapiEnumCategory }) => {
+  try {
+    strapiEnumCategory = xss(strapiEnumCategory);
+    // console.log("category: ", strapiEnumCategory);
+    const publications = await queryEndpoint(
+      getPublicationsByCategoryQuery(strapiEnumCategory)
+    );
+    // console.log(publications.data);
+    return publications.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getSinglePublication = async ({ slug }) => {
+  try {
+    slug = xss(slug);
+    const publication = await queryEndpoint(getSinglePublicationQuery(slug));
+    return publication.data.data.publications;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+const getUpcomingMeetings = async ({ targetDate }) => {
+  try {
+    const meetings = await queryEndpoint(getUpcomingMeetingsQuery(targetDate));
+    // console.table("upcoming meetings: ", meetings.data.data.meetings);
+    return meetings.data.data.meetings;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    console.log("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+export {
+  getPage,
+  getPost,
+  getFrontPageNews,
+  getAllNews,
+  getContentByTag,
+  getAllSections,
+  getPageBySection,
+  getSiteDescription,
+  getAllSiteDescriptions,
+  getAllBiographies,
+  getSingleBiography,
+  getAllMeetings,
+  getMeetingsByCategory,
+  getSingleMeeting,
+  getFrontPagePublications,
+  getAllPublications,
+  getPublicationsByCategory,
+  getSinglePublication,
+  getUpcomingMeetings
+};
+</code></pre></article></section><footer class="footer" id="PeOAagUepe"><div class="wrapper">&copy; <span id="jsdoc-current-year"></span> <a href="https://spac.illinois.gov" target="_blank">Illinois Sentencing Policy Advisory Council</a> | <a href="https://github.com/ICJIA/spac-client-next" target="_blank">View on GitHub</a></div></footer></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">SPAC Client API</a><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-mixins"><div>Mixins</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="handleClicks.html">handleClicks</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#LS_ROUTE_KEY">LS_ROUTE_KEY</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#api">api</a></div><div class="sidebar-section-children"><a href="global.html#apiDir">apiDir</a></div><div class="sidebar-section-children"><a href="global.html#apiDir">apiDir</a></div><div class="sidebar-section-children"><a href="global.html#buildStatusUrl">buildStatusUrl</a></div><div class="sidebar-section-children"><a href="global.html#checkIfValidPage">checkIfValidPage</a></div><div class="sidebar-section-children"><a href="global.html#configPromise">configPromise</a></div><div class="sidebar-section-children"><a href="global.html#createDocumentationHTML">createDocumentationHTML</a></div><div class="sidebar-section-children"><a href="global.html#fetchData">fetchData</a></div><div class="sidebar-section-children"><a href="global.html#fileName">fileName</a></div><div class="sidebar-section-children"><a href="global.html#filename">filename</a></div><div class="sidebar-section-children"><a href="global.html#generateHTMLTemplate">generateHTMLTemplate</a></div><div class="sidebar-section-children"><a href="global.html#getAllNews">getAllNews</a></div><div class="sidebar-section-children"><a href="global.html#getAllSections">getAllSections</a></div><div class="sidebar-section-children"><a href="global.html#getContentByTag">getContentByTag</a></div><div class="sidebar-section-children"><a href="global.html#getDefaultThumbnail">getDefaultThumbnail</a></div><div class="sidebar-section-children"><a href="global.html#getExternalFile">getExternalFile</a></div><div class="sidebar-section-children"><a href="global.html#getFile">getFile</a></div><div class="sidebar-section-children"><a href="global.html#getFrontPageNews">getFrontPageNews</a></div><div class="sidebar-section-children"><a href="global.html#getHash">getHash</a></div><div class="sidebar-section-children"><a href="global.html#getHeadshotLink">getHeadshotLink</a></div><div class="sidebar-section-children"><a href="global.html#getOffset">getOffset</a></div><div class="sidebar-section-children"><a href="global.html#getPage">getPage</a></div><div class="sidebar-section-children"><a href="global.html#getPageQuery">getPageQuery</a></div><div class="sidebar-section-children"><a href="global.html#getPost">getPost</a></div><div class="sidebar-section-children"><a href="global.html#getPostQuery">getPostQuery</a></div><div class="sidebar-section-children"><a href="global.html#getSearchIndex">getSearchIndex</a></div><div class="sidebar-section-children"><a href="global.html#getThumbnailLink">getThumbnailLink</a></div><div class="sidebar-section-children"><a href="global.html#lastModMap">lastModMap</a></div><div class="sidebar-section-children"><a href="global.html#md">md</a></div><div class="sidebar-section-children"><a href="global.html#mutations">mutations</a></div><div class="sidebar-section-children"><a href="global.html#opts">opts</a></div><div class="sidebar-section-children"><a href="global.html#query">query</a></div><div class="sidebar-section-children"><a href="global.html#query">query</a></div><div class="sidebar-section-children"><a href="global.html#queryEndpoint">queryEndpoint</a></div><div class="sidebar-section-children"><a href="global.html#renderToHtml">renderToHtml</a></div><div class="sidebar-section-children"><a href="global.html#router">router</a></div><div class="sidebar-section-children"><a href="global.html#routes">routes</a></div><div class="sidebar-section-children"><a href="global.html#scrollBehavior">scrollBehavior</a></div><div class="sidebar-section-children"><a href="global.html#searchIndexPromise">searchIndexPromise</a></div><div class="sidebar-section-children"><a href="global.html#sections">sections</a></div><div class="sidebar-section-children"><a href="global.html#state">state</a></div><div class="sidebar-section-children"><a href="global.html#stripHTML">stripHTML</a></div><div class="sidebar-section-children"><a href="global.html#thumborURL">thumborURL</a></div><div class="sidebar-section-children"><a href="global.html#titleCase">titleCase</a></div><div class="sidebar-section-children"><a href="global.html#truncate">truncate</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("jsdoc-current-year");e&&(e.textContent=(new Date).getFullYear())})</script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>

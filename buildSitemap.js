@@ -1,19 +1,65 @@
+/**
+ * @fileoverview Build script for generating sitemap.xml and routes.json files.
+ * This script fetches all published content from the GraphQL API and generates:
+ * 1. A routes.json file containing all application routes
+ * 2. A sitemap.xml file for search engine optimization
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
 /* eslint-disable no-console */
 const { request } = require("graphql-request");
 const jsonfile = require("jsonfile");
 const config = require("./src/config.json");
 const fs = require("fs");
-var sm = require("sitemap");
+const sm = require("sitemap");
 // const slug = require("slug");
 // slug.defaults.mode = "rfc3986";
+
+/**
+ * GraphQL API endpoint URL constructed from configuration.
+ * @type {string}
+ */
 const api = `${config.baseURL}/graphql`;
+
+/**
+ * Directory path where the routes file will be saved.
+ * @type {string}
+ */
 const apiDir = "./src/api";
+
+/**
+ * Filename for the generated routes JSON file.
+ * @type {string}
+ */
 const filename = "routes.json";
+
+/**
+ * Array of content sections to process for route generation.
+ * @type {string[]}
+ */
 const sections = ["pages", "news", "tags", "meetings", "publications"];
-const publicPath = "";
-let routes = [];
+
+/**
+ * Array to store all generated routes.
+ * @type {string[]}
+ */
+const routes = [];
+
+/**
+ * Map to store last modification dates for each route.
+ * Used for sitemap generation with proper lastmod values.
+ * @type {Map<string, Date>}
+ */
 const lastModMap = new Map();
 
+/**
+ * GraphQL query to fetch all published content for route and sitemap generation.
+ * Retrieves slugs and update timestamps for pages, news, publications, meetings, and tags.
+ *
+ * @type {string}
+ */
 const query = `{
   pages (where: {isPublished: true}) {
     slug
@@ -51,14 +97,27 @@ const query = `{
   
 }`;
 
+/**
+ * Ensure the API directory exists before writing files.
+ * Creates the directory if it doesn't exist.
+ */
 if (!fs.existsSync(apiDir)) {
   fs.mkdirSync(apiDir);
   console.log(`Created: ${apiDir}/`);
 }
 
-request(api, query).then((res) => {
-  sections.forEach((section) => {
-    let sectionRoutes = res[section].map((item) => {
+/**
+ * Execute the GraphQL query and process the results to generate routes and sitemap.
+ *
+ * @async
+ * @function
+ * @param {string} api - GraphQL API endpoint URL
+ * @param {string} query - GraphQL query string
+ * @returns {Promise<void>} Promise that resolves when files are generated
+ */
+request(api, query).then(res => {
+  sections.forEach(section => {
+    const sectionRoutes = res[section].map(item => {
       let path;
       /**
        *
@@ -97,7 +156,7 @@ request(api, query).then((res) => {
        *
        */
       if (section === "publications") {
-        let catEnum = config.strapiEnums.publications.filter((cat) => {
+        const catEnum = config.strapiEnums.publications.filter(cat => {
           return item.category === cat.enum;
         });
 
@@ -108,7 +167,7 @@ request(api, query).then((res) => {
        * Meetings
        *
        */
-      let catEnum = config.strapiEnums.meetings.filter((cat) => {
+      const catEnum = config.strapiEnums.meetings.filter(cat => {
         return item.category === cat.enum;
       });
       if (section === "meetings") {
@@ -120,9 +179,9 @@ request(api, query).then((res) => {
     routes.push(...sectionRoutes);
   });
 
-  for (let category in config.strapiEnums) {
-    let categoryRoutes = config.strapiEnums[category].map((m) => {
-      let singleRoute = `${config.publicPath}/${category}/${m.slug}`;
+  for (const category in config.strapiEnums) {
+    const categoryRoutes = config.strapiEnums[category].map(m => {
+      const singleRoute = `${config.publicPath}/${category}/${m.slug}`;
       lastModMap.set(`${singleRoute}`, new Date());
       return singleRoute;
     });
@@ -130,7 +189,7 @@ request(api, query).then((res) => {
   }
 
   // remove dupes
-  let paths = [...new Set(routes)];
+  const paths = [...new Set(routes)];
   // add root
   paths.push("/");
   lastModMap.set(`/`, new Date());
@@ -139,8 +198,8 @@ request(api, query).then((res) => {
     console.log(`Created: ${apiDir}/${filename}`);
   });
 
-  let urls = paths.map((route) => {
-    let obj = {};
+  const urls = paths.map(route => {
+    const obj = {};
     obj.url = route;
     obj.changefreq = "weekly";
     obj.priority = 0.5;
@@ -148,10 +207,10 @@ request(api, query).then((res) => {
     return obj;
   });
 
-  let sitemap = sm.createSitemap({
+  const sitemap = sm.createSitemap({
     hostname: `${config.clientURL}`,
-    cacheTime: 600000, //600 sec (10 min) cache purge period
-    urls,
+    cacheTime: 600000, // 600 sec (10 min) cache purge period
+    urls
   });
 
   fs.writeFileSync("./public/sitemap.xml", sitemap.toString());

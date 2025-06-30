@@ -20,7 +20,7 @@ export default {
       return this.toggle ? this.toggleOn : this.toggleOff;
     },
     emitToggle() {
-      let payload = {};
+      const payload = {};
       if (this.toggle) {
         payload.message = this.toggleOn;
       } else {
@@ -28,9 +28,9 @@ export default {
       }
       payload.name = this.name;
       // eslint-disable-next-line no-console
-      //console.log("toggle: ", payload.message);
+      // console.log("toggle: ", payload.message);
       EventBus.$emit("toggle", payload);
-      //console.log(payload.name, payload.message);
+      // console.log(payload.name, payload.message);
     }
   },
   mounted() {

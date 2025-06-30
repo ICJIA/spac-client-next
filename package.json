@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "node buildSearchIndex.js && node buildSitemap.js && node ./creators/createDocumentationHTML.js && vue-cli-service serve",
-    "build": "node buildSearchIndex.js && node buildSitemap.js && node ./creators/createDocumentationHTML.js && vue-cli-service build",
+    "serve": "node buildSearchIndex.js && node buildSitemap.js && npm run docs:generate && vue-cli-service serve",
+    "build": "node buildSearchIndex.js && node buildSitemap.js && npm run docs:generate && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:search": "node buildSearchIndex.js",
-    "create:documentation": "node ./creators/createDocumentationHTML.js"
+    "create:documentation": "node ./creators/createDocumentationHTML.js",
+    "docs:dev": "node ./creators/createDocumentationHTML.js",
+    "docs:jsdoc": "jsdoc -c jsdoc.conf.json",
+    "docs:generate": "npm run docs:dev && npm run docs:jsdoc"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.0.0-rc.12",
@@ -50,6 +53,7 @@
     "@vue/cli-service": "^4.5.6",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.0.3",
+    "clean-jsdoc-theme": "^4.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.0.1",
@@ -72,7 +76,34 @@
       "@vue/prettier"
     ],
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "no-unused-vars": "warn",
+      "prefer-const": "warn",
+      "no-var": "warn",
+      "spaced-comment": [
+        "warn",
+        "always",
+        {
+          "line": {
+            "markers": [
+              "/"
+            ],
+            "exceptions": [
+              "-",
+              "+"
+            ]
+          },
+          "block": {
+            "markers": [
+              "*"
+            ],
+            "exceptions": [
+              "*"
+            ],
+            "balanced": true
+          }
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint"

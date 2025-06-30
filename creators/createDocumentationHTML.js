@@ -1,6 +1,10 @@
 /**
- * Documentation HTML Generator
- * Converts project-documentation.md to professional HTML documentation
+ * @fileoverview Documentation HTML Generator for the SPAC project.
+ * Converts project-documentation.md to professional HTML documentation with
+ * dark/light theme support, syntax highlighting, and responsive design.
+ *
+ * @author ICJIA
+ * @since 1.0.0
  */
 
 require("dotenv").config();
@@ -27,7 +31,16 @@ const md = new MarkdownIt({
   });
 
 /**
- * Generate HTML template with proper structure and styling
+ * Generates a complete HTML template with embedded CSS and JavaScript.
+ * Creates a professional documentation page with dark/light theme support,
+ * syntax highlighting, responsive design, and accessibility features.
+ *
+ * @function
+ * @param {string} content - Rendered HTML content from markdown
+ * @param {string} projectName - Name of the project for page title and meta tags
+ * @returns {string} Complete HTML document as a string
+ * @example
+ * const html = generateHTMLTemplate('<h1>Documentation</h1>', 'My Project');
  */
 function generateHTMLTemplate(content, projectName) {
   return `<!DOCTYPE html>
@@ -405,6 +418,19 @@ function generateHTMLTemplate(content, projectName) {
 </html>`;
 }
 
+/**
+ * Main function to create HTML documentation from markdown.
+ * Reads project-documentation.md, converts it to HTML, and generates
+ * a complete documentation website with professional styling.
+ *
+ * @async
+ * @function
+ * @throws {Error} When project-documentation.md file is not found
+ * @throws {Error} When file operations fail
+ * @example
+ * // Run the documentation generator
+ * await createDocumentationHTML();
+ */
 async function createDocumentationHTML() {
   try {
     console.log("📖 Creating documentation HTML...");
@@ -436,7 +462,12 @@ async function createDocumentationHTML() {
     const fullHTML = generateHTMLTemplate(htmlContent, projectName);
 
     // Ensure output directory exists
-    const outputDir = path.join(process.cwd(), "public", "documentation");
+    const outputDir = path.join(
+      process.cwd(),
+      "public",
+      "documentation",
+      "dev"
+    );
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }

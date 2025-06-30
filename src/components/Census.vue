@@ -56,7 +56,7 @@ export default {
       }
     },
     showCensusModal() {
-      //console.log("local storage: ", localStorage.getItem("showCensusModal"));
+      // console.log("local storage: ", localStorage.getItem("showCensusModal"));
       if (localStorage.getItem("showCensusModal")) {
         return false;
       } else {

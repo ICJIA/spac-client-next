@@ -117,11 +117,32 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Main navigation bar component for the SPAC application.
+ * Displays the site logo, title, and primary navigation menu.
+ * Includes responsive design with mobile drawer toggle functionality.
+ */
+
 /* eslint-disable vue/no-use-v-if-with-v-for */
 import { EventBus } from "@/event-bus";
 import NavPublications from "@/components/NavPublications";
 import NavMeetings from "@/components/NavMeetings";
+
+/**
+ * Application navigation bar component.
+ * Renders the top navigation with logo, site title, and section links.
+ * Adapts to different screen sizes and provides mobile navigation toggle.
+ *
+ * @vue
+ * @displayName AppNav
+ */
 export default {
+  /**
+   * Component props definition.
+   *
+   * @typedef {Object} Props
+   * @property {Array} sections - Array of site sections for navigation menu
+   */
   props: {
     sections: {
       type: Array,
@@ -133,11 +154,22 @@ export default {
     NavMeetings
   },
   methods: {
+    /**
+     * Toggles the mobile navigation drawer.
+     * Emits an event to the EventBus to open/close the drawer.
+     */
     toggleDrawer() {
       EventBus.$emit("toggleDrawer");
     },
+
+    /**
+     * Calculates the appropriate logo width based on screen size.
+     * Returns smaller width for extra small screens (mobile).
+     *
+     * @returns {number} Logo width in pixels
+     */
     logoWidth() {
-      //console.log(this.$vuetify.breakpoint);
+      // console.log(this.$vuetify.breakpoint);
       if (this.$vuetify.breakpoint.xs) {
         return 50;
       } else {

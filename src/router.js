@@ -1,14 +1,44 @@
+/**
+ * @fileoverview Vue Router configuration for the SPAC application.
+ * Defines all application routes with lazy loading for optimal performance.
+ * Includes route guards and navigation behavior configuration.
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
+/**
+ * Local storage key for storing the previous route path.
+ * Used for navigation history and back button functionality.
+ *
+ * @type {string}
+ */
 const LS_ROUTE_KEY = process.env.VUE_APP_LS_ROUTE_KEY;
 
+/**
+ * Vue Router instance configuration with all application routes.
+ * Uses history mode for clean URLs and implements lazy loading for code splitting.
+ *
+ * @type {VueRouter}
+ */
 const router = new Router({
   mode: "history",
-  //base: `${process.env.BASE_URL}`,
+  // base: `${process.env.BASE_URL}`,
+  /**
+   * Custom scroll behavior for route navigation.
+   * Always scrolls to top of page when navigating to a new route.
+   *
+   * @param {Route} to - Target route object
+   * @param {Route} from - Current route being navigated away from
+   * @param {Object} savedPosition - Saved scroll position (if any)
+   * @returns {Object} Scroll position coordinates
+   */
   // eslint-disable-next-line no-unused-vars
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
@@ -217,6 +247,14 @@ const router = new Router({
   ]
 });
 
+/**
+ * Router afterEach navigation guard.
+ * Stores the previous route path in localStorage for navigation history.
+ * Handles localStorage errors gracefully by logging them to console.
+ *
+ * @param {Route} to - Target route object being navigated to
+ * @param {Route} from - Current route being navigated away from
+ */
 router.afterEach((to, from) => {
   try {
     localStorage.setItem(LS_ROUTE_KEY, from.path);
@@ -225,4 +263,9 @@ router.afterEach((to, from) => {
   }
 });
 
+/**
+ * Export the configured Vue Router instance.
+ *
+ * @type {VueRouter}
+ */
 export default router;

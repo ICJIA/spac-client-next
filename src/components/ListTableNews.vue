@@ -112,8 +112,8 @@ export default {
       console.log("Route here: ", item);
     },
     displayUpdated(item) {
-      let created = dateFormat(item.createdAt);
-      let updated = dateFormat(item.updatedAt);
+      const created = dateFormat(item.createdAt);
+      const updated = dateFormat(item.updatedAt);
       if (created === updated) {
         return "-";
       } else {
@@ -128,7 +128,7 @@ export default {
           this.expanded.push(value);
           this.expanded.shift();
           if (this.expanded[0].title) {
-            //console.log(scheduled);
+            // console.log(scheduled);
             this.$ga.event({
               eventCategory: "News",
               eventAction: "Preview",
@@ -138,7 +138,7 @@ export default {
         } else {
           this.expanded.push(value);
           if (this.expanded[0].title) {
-            //console.log(scheduled);
+            // console.log(scheduled);
             this.$ga.event({
               eventCategory: "News",
               eventAction: "Preview",

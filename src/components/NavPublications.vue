@@ -41,6 +41,20 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Navigation dropdown component for publications section.
+ * Provides a dropdown menu with publication categories and navigation links.
+ * Filters and displays available publication types from the store configuration.
+ */
+
+/**
+ * Publications navigation dropdown component.
+ * Displays a dropdown menu with different publication categories.
+ * Loads publication types from store configuration and provides navigation.
+ *
+ * @vue
+ * @displayName NavPublications
+ */
 export default {
   data: () => ({
     items: () => []

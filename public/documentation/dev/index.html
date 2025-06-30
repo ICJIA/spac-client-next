@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive project documentation for spac-client-next-prod">
+    <meta name="robots" content="noindex, nofollow">
+    <title>spac-client-next-prod - Project Documentation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,100&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100&family=Raleway:ital,wght@0,100;0,400;0,900;1,100&display=swap" rel="stylesheet">
+
+    <!-- Syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+    <style>
+        /* CSS Variables for theme management */
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --accent-primary: #1976d2;
+            --accent-secondary: #1565c0;
+            --code-bg: #2d3748;
+            --code-text: #e2e8f0;
+            --shadow: rgba(0,0,0,0.1);
+            --toggle-bg: #ccc;
+            --toggle-thumb: #fff;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #404040;
+            --accent-primary: #64b5f6;
+            --accent-secondary: #42a5f5;
+            --code-bg: #1e1e1e;
+            --code-text: #f0f0f0;
+            --shadow: rgba(0,0,0,0.3);
+            --toggle-bg: #555;
+            --toggle-thumb: #fff;
+        }
+
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-primary);
+        }
+
+        .documentation-container {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+            padding: 40px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .theme-toggle:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: var(--toggle-bg);
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: var(--toggle-thumb);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .toggle-thumb {
+            transform: translateX(20px);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            color: var(--accent-primary);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 10px;
+            font-size: 2.5em;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--accent-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: var(--accent-secondary);
+            font-size: 1.5em;
+        }
+
+        h4 {
+            color: var(--text-primary);
+            font-size: 1.25em;
+        }
+
+        /* Links */
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--accent-secondary);
+        }
+
+        /* Code blocks */
+        code {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-secondary);
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--border-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--accent-primary);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: var(--border-color);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* Horizontal rules */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 2em 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .documentation-container { padding: 20px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .documentation-container {
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+            }
+            .theme-toggle {
+                display: none !important;
+            }
+            * {
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Theme toggle button -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" tabindex="0">
+        <span class="toggle-switch">
+            <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-label">Dark</span>
+    </button>
+
+    <div class="documentation-container">
+        <h1 id="spac-client-website---project-documentation" tabindex="-1">SPAC Client Website - Project Documentation</h1>
+<h2 id="project-overview" tabindex="-1">Project Overview</h2>
+<h3 id="repository-information" tabindex="-1">Repository Information</h3>
+<ul>
+<li><strong>Repository</strong>: <a href="https://github.com/ICJIA/spac-client-next">ICJIA/spac-client-next</a></li>
+<li><strong>Live URL</strong>: <a href="https://spac.illinois.gov">https://spac.illinois.gov</a></li>
+<li><strong>Project Name</strong>: spac-client-next-prod</li>
+<li><strong>Version</strong>: 0.1.0</li>
+</ul>
+<h3 id="purpose-and-goals" tabindex="-1">Purpose and Goals</h3>
+<p>The SPAC (Illinois Sentencing Policy Advisory Council) client website is a Vue.js-based frontend application that serves as the public-facing website for SPAC. The site provides access to publications, news/announcements, meeting information, and other resources related to sentencing policy in Illinois.</p>
+<p>SPAC was created to collect, analyze and present data from all relevant sources to more accurately determine the consequences of sentencing policy decisions and to review the effectiveness and efficiency of current sentencing policies and practices. SPAC reports directly to the Governor and the General Assembly.</p>
+<h3 id="key-features" tabindex="-1">Key Features</h3>
+<ul>
+<li><strong>Publications Management</strong>: Categorized publications with search and filtering capabilities</li>
+<li><strong>News/Announcements</strong>: Latest updates and announcements from SPAC</li>
+<li><strong>Meeting Information</strong>: Council meetings, archives, and upcoming events</li>
+<li><strong>Search Functionality</strong>: Full-text search across all content types using Fuse.js</li>
+<li><strong>Responsive Design</strong>: Mobile-first design using Vuetify framework</li>
+<li><strong>Content Management</strong>: Dynamic content served from Strapi CMS backend</li>
+<li><strong>SEO Optimization</strong>: Automated sitemap generation and meta tag management</li>
+</ul>
+<h3 id="project-history" tabindex="-1">Project History</h3>
+<ul>
+<li>Built as a Vue.js 2.x application with Vuetify UI framework</li>
+<li>Deployed on Netlify with serverless functions</li>
+<li>Uses Strapi CMS as backend content management system</li>
+<li>Implements custom build process for search indexing and sitemap generation</li>
+</ul>
+<h2 id="technology-stack" tabindex="-1">Technology Stack</h2>
+<h3 id="core-framework" tabindex="-1">Core Framework</h3>
+<ul>
+<li><strong>Vue.js</strong>: 2.6.12 (main frontend framework)</li>
+<li><strong>Vue Router</strong>: 3.4.3 (client-side routing)</li>
+<li><strong>Vuex</strong>: 3.5.1 (state management)</li>
+<li><strong>Vue CLI</strong>: 4.5.6 (build tooling and development server)</li>
+</ul>
+<h3 id="ui-framework-%26-styling" tabindex="-1">UI Framework &amp; Styling</h3>
+<ul>
+<li><strong>Vuetify</strong>: 2.4.3 (Material Design component framework)</li>
+<li><strong>Material Design Icons</strong>: @mdi/font 5.6.55</li>
+<li><strong>Sass</strong>: ~1.32.0 (CSS preprocessing)</li>
+<li><strong>Node Sass</strong>: 4.9.0</li>
+</ul>
+<h3 id="content-management-%26-data" tabindex="-1">Content Management &amp; Data</h3>
+<ul>
+<li><strong>Strapi CMS</strong>: Backend content management (external API)</li>
+<li><strong>GraphQL</strong>: Data querying with graphql-request 1.8.2</li>
+<li><strong>Axios</strong>: 0.19.0 (HTTP client for API requests)</li>
+<li><strong>Markdown-it</strong>: 10.0.0 (markdown processing with plugins)</li>
+</ul>
+<h3 id="build-tools-%26-development" tabindex="-1">Build Tools &amp; Development</h3>
+<ul>
+<li><strong>Vue CLI Service</strong>: 4.5.6 (build system and dev server)</li>
+<li><strong>Babel</strong>: ES6+ transpilation with babel-polyfill</li>
+<li><strong>ESLint</strong>: 6.7.2 (code linting with Prettier integration)</li>
+<li><strong>Webpack</strong>: Bundling (via Vue CLI)</li>
+</ul>
+<h3 id="search-%26-utility-libraries" tabindex="-1">Search &amp; Utility Libraries</h3>
+<ul>
+<li><strong>Fuse.js</strong>: 3.4.6 (fuzzy search functionality)</li>
+<li><strong>Lodash</strong>: 4.17.15 (utility functions)</li>
+<li><strong>Moment.js</strong>: 2.24.0 (date manipulation)</li>
+<li><strong>Crypto-js</strong>: 3.1.9-1 (cryptographic functions)</li>
+</ul>
+<h3 id="analytics-%26-monitoring" tabindex="-1">Analytics &amp; Monitoring</h3>
+<ul>
+<li><strong>Vue Analytics</strong>: 5.22.1 (Google Analytics integration)</li>
+<li><strong>Google Analytics ID</strong>: UA-150580082-1</li>
+<li><strong>NProgress</strong>: 0.2.0 (loading progress indicators)</li>
+</ul>
+<h3 id="deployment-%26-hosting" tabindex="-1">Deployment &amp; Hosting</h3>
+<ul>
+<li><strong>Netlify</strong>: Primary hosting platform with CDN</li>
+<li><strong>Netlify Functions</strong>: Serverless backend functions</li>
+<li><strong>Netlify Lambda</strong>: 1.6.3 (local development of functions)</li>
+<li><strong>Domain</strong>: <a href="http://spac.illinois.gov">spac.illinois.gov</a> (custom domain)</li>
+</ul>
+<h2 id="architecture-overview" tabindex="-1">Architecture Overview</h2>
+<h3 id="high-level-architecture" tabindex="-1">High-Level Architecture</h3>
+<p>The SPAC website follows a JAMstack architecture pattern:</p>
+<ol>
+<li><strong>Frontend</strong>: Vue.js SPA with static generation capabilities</li>
+<li><strong>Backend</strong>: Headless Strapi CMS providing GraphQL API</li>
+<li><strong>Build Process</strong>: Custom scripts for search indexing and sitemap generation</li>
+<li><strong>Deployment</strong>: Netlify with automated builds and serverless functions</li>
+<li><strong>Content Delivery</strong>: Global CDN with edge caching</li>
+</ol>
+<h3 id="data-flow-patterns" tabindex="-1">Data Flow Patterns</h3>
+<ol>
+<li><strong>Content Fetching</strong>: GraphQL queries to Strapi CMS during build time</li>
+<li><strong>Search Index</strong>: Pre-built JSON index for client-side search</li>
+<li><strong>Routing</strong>: Client-side routing with dynamic route generation</li>
+<li><strong>State Management</strong>: Centralized Vuex store for application state</li>
+<li><strong>Caching</strong>: Local storage for route referrers and content caching</li>
+</ol>
+<h3 id="key-design-patterns" tabindex="-1">Key Design Patterns</h3>
+<ul>
+<li><strong>Component-Based Architecture</strong>: Reusable Vue components with clear separation of concerns</li>
+<li><strong>Service Layer Pattern</strong>: Dedicated service modules for API interactions and utilities</li>
+<li><strong>Event Bus Pattern</strong>: Global event communication between components</li>
+<li><strong>Configuration-Driven</strong>: JSON configuration for enums, categories, and settings</li>
+<li><strong>Progressive Enhancement</strong>: Core functionality works without JavaScript</li>
+</ul>
+<h3 id="integration-points" tabindex="-1">Integration Points</h3>
+<ul>
+<li><strong>Strapi CMS API</strong>: GraphQL endpoint for content management</li>
+<li><strong>Google Analytics</strong>: User behavior tracking and analytics</li>
+<li><strong>Thumbor Image Service</strong>: Dynamic image resizing and optimization</li>
+<li><strong>Archive Server</strong>: External document archive integration</li>
+<li><strong>Social Media</strong>: LinkedIn and X/Twitter integration</li>
+</ul>
+<h2 id="directory-structure" tabindex="-1">Directory Structure</h2>
+<pre><code>spac-client-next/
+├── public/                     # Static assets and build output
+│   ├── index.html             # Main HTML template
+│   ├── sitemap.xml            # Generated sitemap
+│   └── robots.txt             # Search engine directives
+├── src/                       # Source code
+│   ├── api/                   # Generated API data
+│   │   ├── routes.json        # Generated routes for sitemap
+│   │   └── searchIndex.json   # Generated search index
+│   ├── assets/                # Static assets (images, fonts)
+│   │   └── img/               # Image assets
+│   ├── components/            # Vue components
+│   │   ├── App*.vue           # Layout components (Nav, Footer, Drawer)
+│   │   ├── Base*.vue          # Base/utility components
+│   │   ├── Home*.vue          # Homepage-specific components
+│   │   ├── List*.vue          # List/table components
+│   │   └── *.vue              # Feature-specific components
+│   ├── css/                   # Global styles
+│   │   └── app.css            # Main stylesheet
+│   ├── lambda/                # Netlify function source
+│   │   └── *.js               # Serverless function handlers
+│   ├── mixins/                # Vue mixins
+│   │   └── handleClicks.js    # Click handling utilities
+│   ├── plugins/               # Vue plugins
+│   │   └── vuetify.js         # Vuetify configuration
+│   ├── sass/                  # Sass stylesheets
+│   │   └── main.scss          # Main Sass file
+│   ├── services/              # Service layer
+│   │   ├── Content.js         # Content API service
+│   │   ├── Search.js          # Search functionality
+│   │   ├── Utilities.js       # Utility functions
+│   │   └── *.js               # Other services
+│   ├── views/                 # Page components
+│   │   ├── Home.vue           # Homepage
+│   │   ├── News*.vue          # News/announcements pages
+│   │   ├── Publications*.vue  # Publications pages
+│   │   ├── Meetings*.vue      # Meetings pages
+│   │   └── *.vue              # Other page components
+│   ├── config.json            # Application configuration
+│   ├── main.js                # Application entry point
+│   ├── router.js              # Vue Router configuration
+│   └── store.js               # Vuex store configuration
+├── netlify/                   # Netlify function builds
+│   └── *.js                   # Compiled serverless functions
+├── buildSearchIndex.js        # Search index generation script
+├── buildSitemap.js            # Sitemap generation script
+├── package.json               # Dependencies and scripts
+├── vue.config.js              # Vue CLI configuration
+├── netlify.toml               # Netlify deployment configuration
+├── audit-log.md               # Project change log
+├── audit-log-prompt.md        # Audit log template
+└── .env.sample                # Environment variables template
+</code></pre>
+<h3 id="key-configuration-files" tabindex="-1">Key Configuration Files</h3>
+<ul>
+<li><strong>package.json</strong>: Dependencies, scripts, and project metadata</li>
+<li><strong>vue.config.js</strong>: Vue CLI and Vuetify configuration</li>
+<li><strong>src/config.json</strong>: Application settings, API endpoints, and enums</li>
+<li><strong>netlify.toml</strong>: Deployment and function configuration</li>
+<li><strong>.env</strong>: Environment variables (not in repository)</li>
+</ul>
+<h3 id="generated-vs-source-files" tabindex="-1">Generated vs Source Files</h3>
+<ul>
+<li><strong>Generated</strong>: <code>src/api/</code>, <code>public/sitemap.xml</code>, <code>netlify/</code> functions</li>
+<li><strong>Source</strong>: All other files in <code>src/</code>, build scripts, configuration files</li>
+<li><strong>Build Output</strong>: <code>dist/</code> directory (created during build, not in repository)</li>
+</ul>
+<h2 id="key-components" tabindex="-1">Key Components</h2>
+<h3 id="layout-components" tabindex="-1">Layout Components</h3>
+<ul>
+<li><strong>App.vue</strong>: Main application wrapper with navigation, drawer, and footer</li>
+<li><strong>AppNav.vue</strong>: Primary navigation bar with responsive design and dropdown menus</li>
+<li><strong>AppFooter.vue</strong>: Site footer with links, social media icons, and branding</li>
+<li><strong>AppDrawer.vue</strong>: Mobile navigation drawer with site sections</li>
+<li><strong>Breadcrumb.vue</strong>: Dynamic breadcrumb navigation based on current route</li>
+</ul>
+<h3 id="content-components" tabindex="-1">Content Components</h3>
+<ul>
+<li><strong>BaseContent.vue</strong>: Wrapper component for page content with loading states</li>
+<li><strong>BaseList.vue</strong>: Reusable list component for displaying collections</li>
+<li><strong>NewsCard.vue</strong>: Individual news/announcement item display</li>
+<li><strong>PublicationCard.vue</strong>: Publication item with metadata and download links</li>
+<li><strong>MeetingCard.vue</strong>: Meeting information display with dates and details</li>
+<li><strong>BiographyCard.vue</strong>: Council member biography display</li>
+</ul>
+<h3 id="page-components" tabindex="-1">Page Components</h3>
+<ul>
+<li><strong>Home.vue</strong>: Homepage with featured content sections</li>
+<li><strong>Section.vue</strong>: Generic section page with dynamic content</li>
+<li><strong>Page.vue</strong>: Individual page component with table of contents</li>
+<li><strong>News.vue</strong>: News archive listing with pagination</li>
+<li><strong>Publications.vue</strong>: Publications listing with category filtering</li>
+<li><strong>Meetings.vue</strong>: Meetings listing with category and date filtering</li>
+<li><strong>Search.vue</strong>: Search results page with filtering options</li>
+</ul>
+<h3 id="utility-components" tabindex="-1">Utility Components</h3>
+<ul>
+<li><strong>Search.vue</strong>: Global search functionality with autocomplete</li>
+<li><strong>SearchMini.vue</strong>: Compact search component for mobile</li>
+<li><strong>TagList.vue</strong>: Tag display with custom label mapping</li>
+<li><strong>TOC.vue</strong>: Table of contents generator for long content</li>
+<li><strong>Loader.vue</strong>: Loading spinner component</li>
+<li><strong>Toggle.vue</strong>: Generic toggle/switch component</li>
+</ul>
+<h3 id="state-management-components" tabindex="-1">State Management Components</h3>
+<ul>
+<li><strong>store.js</strong>: Centralized Vuex store with modules for:
+<ul>
+<li>Application state (loading, sections, search index)</li>
+<li>Configuration management</li>
+<li>API status monitoring</li>
+<li>Content caching</li>
+</ul>
+</li>
+</ul>
+<h2 id="api-documentation" tabindex="-1">API Documentation</h2>
+<h3 id="external-api-integrations" tabindex="-1">External API Integrations</h3>
+<h4 id="strapi-cms-graphql-api" tabindex="-1">Strapi CMS GraphQL API</h4>
+<ul>
+<li><strong>Endpoint</strong>: Configured in <code>src/config.json</code> as <code>baseURL</code></li>
+<li><strong>Authentication</strong>: None required for public content</li>
+<li><strong>Query Types</strong>: Pages, News/Posts, Publications, Meetings, Biographies, Sections, Tags</li>
+</ul>
+<p><strong>Example Query Structure</strong>:</p>
+<pre><code class="language-graphql">{
+  pages(where: {isPublished: true}) {
+    title
+    slug
+    content
+    summary
+    searchMeta
+    section {
+      title
+      slug
+    }
+    tags {
+      name
+      slug
+    }
+  }
+}
+</code></pre>
+<h4 id="content-types-and-endpoints" tabindex="-1">Content Types and Endpoints</h4>
+<ol>
+<li><strong>Pages</strong>: <code>/pages</code> - Static content pages with sections</li>
+<li><strong>News/Posts</strong>: <code>/posts</code> - News articles and announcements</li>
+<li><strong>Publications</strong>: <code>/publications</code> - Research reports and documents</li>
+<li><strong>Meetings</strong>: <code>/meetings</code> - Council meetings and archives</li>
+<li><strong>Biographies</strong>: <code>/biographies</code> - Council member profiles</li>
+<li><strong>Sections</strong>: <code>/sections</code> - Site navigation sections</li>
+<li><strong>Tags</strong>: <code>/tags</code> - Content categorization tags</li>
+</ol>
+<h3 id="data-processing-workflows" tabindex="-1">Data Processing Workflows</h3>
+<h4 id="search-index-generation-(buildsearchindex.js)" tabindex="-1">Search Index Generation (<code>buildSearchIndex.js</code>)</h4>
+<ol>
+<li>Fetches all published content from Strapi GraphQL API</li>
+<li>Processes content for search optimization</li>
+<li>Generates <code>src/api/searchIndex.json</code> for client-side search</li>
+<li>Includes metadata, titles, summaries, and searchable content</li>
+</ol>
+<h4 id="sitemap-generation-(buildsitemap.js)" tabindex="-1">Sitemap Generation (<code>buildSitemap.js</code>)</h4>
+<ol>
+<li>Fetches all published content with URLs and update dates</li>
+<li>Generates route mappings based on content categories</li>
+<li>Creates <code>src/api/routes.json</code> for dynamic routing</li>
+<li>Outputs <code>public/sitemap.xml</code> for search engines</li>
+</ol>
+<h4 id="content-caching-strategy" tabindex="-1">Content Caching Strategy</h4>
+<ul>
+<li><strong>Local Storage</strong>: Route referrers and user preferences</li>
+<li><strong>Vuex Store</strong>: Application state and content cache</li>
+<li><strong>Build-time Caching</strong>: Pre-generated search index and routes</li>
+<li><strong>CDN Caching</strong>: Netlify edge caching for static assets</li>
+</ul>
+<h3 id="error-handling-strategies" tabindex="-1">Error Handling Strategies</h3>
+<ul>
+<li><strong>API Failures</strong>: Graceful degradation with cached content</li>
+<li><strong>Network Issues</strong>: Offline-friendly with service worker (if implemented)</li>
+<li><strong>Content Missing</strong>: Default content and error pages</li>
+<li><strong>Search Failures</strong>: Fallback to basic filtering</li>
+<li><strong>Image Loading</strong>: Placeholder images and lazy loading</li>
+</ul>
+<h2 id="setup-instructions" tabindex="-1">Setup Instructions</h2>
+<h3 id="prerequisites-and-system-requirements" tabindex="-1">Prerequisites and System Requirements</h3>
+<p>⚠️ <strong>IMPORTANT PLATFORM COMPATIBILITY WARNING</strong> ⚠️</p>
+<p>This project is <strong>NOT compatible with vanilla Windows</strong> (native Windows without WSL2). Development requires one of these supported platforms:</p>
+<ol>
+<li><strong>Windows with WSL2</strong> (Windows Subsystem for Linux 2) - <strong>REQUIRED</strong> for Windows users</li>
+<li><strong>macOS</strong> (Apple Silicon M1/M2/M3/M4 preferred over Intel for better performance)</li>
+<li><strong>Linux</strong> (Debian/Ubuntu distributions recommended)</li>
+</ol>
+<p><strong>Technical Reasoning</strong>: Node.js development tools, file system operations, and build processes work more reliably on Unix-like systems. Many npm packages, build tools, and file watchers have compatibility issues with native Windows environments.</p>
+<h3 id="required-software" tabindex="-1">Required Software</h3>
+<ul>
+<li><strong>Node.js</strong>: Version 14.x or higher (LTS recommended)</li>
+<li><strong>Yarn</strong>: 1.22.22 or higher (preferred package manager)</li>
+<li><strong>Git</strong>: For version control</li>
+<li><strong>Code Editor</strong>: VS Code recommended with Vue.js extensions</li>
+</ul>
+<h3 id="step-by-step-installation" tabindex="-1">Step-by-Step Installation</h3>
+<h4 id="1.-clone-the-repository" tabindex="-1">1. Clone the Repository</h4>
+<pre><code class="language-bash">git clone https://github.com/ICJIA/spac-client-next.git
+cd spac-client-next
+</code></pre>
+<h4 id="2.-install-dependencies" tabindex="-1">2. Install Dependencies</h4>
+<pre><code class="language-bash"># Install all dependencies using Yarn (preferred)
+yarn install
+
+# OR using npm (if Yarn is not available)
+npm install
+</code></pre>
+<h4 id="3.-environment-configuration" tabindex="-1">3. Environment Configuration</h4>
+<pre><code class="language-bash"># Copy the environment template
+cp .env.sample .env
+
+# Edit .env file with your configuration
+# Required variables:
+# VUE_APP_BASE_API_URL='spac.icjia-api.cloud'
+# VUE_APP_BASE_CLIENT_URL='spac.illinois.gov'
+# VUE_APP_IMAGE_SERVER_URL='image.icjia.cloud'
+# VUE_APP_ARCHIVE_SERVER_URL='archive.icjia.cloud'
+# VUE_APP_THUMBOR_KEY=your_thumbor_key
+</code></pre>
+<h4 id="4.-verification-steps" tabindex="-1">4. Verification Steps</h4>
+<pre><code class="language-bash"># Test the development server
+yarn serve
+
+# Verify build process
+yarn build
+
+# Check linting
+yarn lint
+</code></pre>
+<h3 id="troubleshooting-common-issues" tabindex="-1">Troubleshooting Common Issues</h3>
+<h4 id="windows-users-(wsl2-required)" tabindex="-1">Windows Users (WSL2 Required)</h4>
+<ul>
+<li><strong>Error</strong>: <code>ENOENT: no such file or directory</code> → Use WSL2, not native Windows</li>
+<li><strong>Error</strong>: <code>gyp ERR! stack Error: Can't find Python</code> → Use WSL2 with proper Linux environment</li>
+<li><strong>Performance Issues</strong>: Store projects in WSL2 file system (<code>/home/username/</code>), not Windows file system (<code>/mnt/c/</code>)</li>
+</ul>
+<h4 id="general-issues" tabindex="-1">General Issues</h4>
+<ul>
+<li><strong>Port Conflicts</strong>: Change port in <code>vue.config.js</code> or use <code>yarn serve --port 8081</code></li>
+<li><strong>Memory Issues</strong>: Increase Node.js memory limit: <code>export NODE_OPTIONS=&quot;--max-old-space-size=4096&quot;</code></li>
+<li><strong>Build Failures</strong>: Clear node_modules and reinstall: <code>rm -rf node_modules &amp;&amp; yarn install</code></li>
+</ul>
+<h2 id="development-workflow" tabindex="-1">Development Workflow</h2>
+<h3 id="git-workflow-and-branching-strategy" tabindex="-1">Git Workflow and Branching Strategy</h3>
+<ul>
+<li><strong>Main Branch</strong>: <code>master</code> (production-ready code)</li>
+<li><strong>Feature Branches</strong>: Create from master for new features</li>
+<li><strong>Naming Convention</strong>: <code>feature/description</code> or <code>fix/issue-description</code></li>
+<li><strong>Pull Requests</strong>: Required for all changes to master branch</li>
+<li><strong>Code Review</strong>: All changes should be reviewed before merging</li>
+</ul>
+<h3 id="code-standards-and-formatting" tabindex="-1">Code Standards and Formatting</h3>
+<ul>
+<li><strong>ESLint Configuration</strong>: Extends Vue.js essential and Prettier</li>
+<li><strong>Prettier Integration</strong>: Automatic code formatting on save</li>
+<li><strong>Vue Style Guide</strong>: Follow official Vue.js style guide</li>
+<li><strong>Component Naming</strong>: PascalCase for components, kebab-case for files</li>
+<li><strong>Linting Command</strong>: <code>yarn lint</code> to check code quality</li>
+</ul>
+<h3 id="testing-approach-and-procedures" tabindex="-1">Testing Approach and Procedures</h3>
+<ul>
+<li><strong>Manual Testing</strong>: Test all functionality in development environment</li>
+<li><strong>Cross-Browser Testing</strong>: Chrome, Firefox, Safari, Edge</li>
+<li><strong>Mobile Testing</strong>: Responsive design on various screen sizes</li>
+<li><strong>Accessibility Testing</strong>: Keyboard navigation and screen readers</li>
+<li><strong>Performance Testing</strong>: Lighthouse audits for optimization</li>
+</ul>
+<h3 id="common-development-tasks" tabindex="-1">Common Development Tasks</h3>
+<h4 id="starting-development-server" tabindex="-1">Starting Development Server</h4>
+<pre><code class="language-bash"># Start development server with hot reload
+yarn serve
+
+# This will:
+# 1. Generate search index (buildSearchIndex.js)
+# 2. Create sitemap (buildSitemap.js)
+# 3. Start Vue CLI dev server at http://localhost:8080
+</code></pre>
+<h4 id="building-for-production" tabindex="-1">Building for Production</h4>
+<pre><code class="language-bash"># Create production build
+yarn build
+
+# This will:
+# 1. Generate search index
+# 2. Create sitemap
+# 3. Build optimized Vue application
+# 4. Output to dist/ directory
+</code></pre>
+<h4 id="content-updates" tabindex="-1">Content Updates</h4>
+<pre><code class="language-bash"># Regenerate search index only
+yarn build:search
+
+# Full rebuild (recommended after content changes)
+yarn build
+</code></pre>
+<h4 id="code-quality-checks" tabindex="-1">Code Quality Checks</h4>
+<pre><code class="language-bash"># Run ESLint
+yarn lint
+
+# Auto-fix linting issues
+yarn lint --fix
+</code></pre>
+<h2 id="build-and-deployment" tabindex="-1">Build and Deployment</h2>
+<h3 id="build-process-overview" tabindex="-1">Build Process Overview</h3>
+<p>The SPAC website uses a custom build process that runs in sequence:</p>
+<ol>
+<li>
+<p><strong>Search Index Generation</strong> (<code>buildSearchIndex.js</code>)</p>
+<ul>
+<li>Fetches all content from Strapi CMS via GraphQL</li>
+<li>Processes content for search optimization</li>
+<li>Generates <code>src/api/searchIndex.json</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Sitemap Generation</strong> (<code>buildSitemap.js</code>)</p>
+<ul>
+<li>Creates route mappings for all content</li>
+<li>Generates <code>src/api/routes.json</code> and <code>public/sitemap.xml</code></li>
+<li>Includes last modification dates for SEO</li>
+</ul>
+</li>
+<li>
+<p><strong>Vue Application Build</strong> (Vue CLI)</p>
+<ul>
+<li>Transpiles and bundles all source code</li>
+<li>Optimizes assets and applies tree shaking</li>
+<li>Outputs production-ready files to <code>dist/</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="content-generation-workflows" tabindex="-1">Content Generation Workflows</h3>
+<h4 id="search-index-process" tabindex="-1">Search Index Process</h4>
+<pre><code class="language-javascript">// buildSearchIndex.js workflow:
+1. Connect to Strapi GraphQL API
+2. Query all published content types
+3. Process and optimize for search
+4. Write to src/api/searchIndex.json
+5. Used by Fuse.js for client-side search
+</code></pre>
+<h4 id="sitemap-process" tabindex="-1">Sitemap Process</h4>
+<pre><code class="language-javascript">// buildSitemap.js workflow:
+1. Fetch all published content with URLs
+2. Generate route mappings based on categories
+3. Create XML sitemap with lastmod dates
+4. Output routes.json and sitemap.xml
+5. Submit to search engines automatically
+</code></pre>
+<h3 id="deployment-configuration" tabindex="-1">Deployment Configuration</h3>
+<h4 id="netlify-configuration-(netlify.toml)" tabindex="-1">Netlify Configuration (<code>netlify.toml</code>)</h4>
+<pre><code class="language-toml">[build]
+  command = &quot;yarn build&quot;
+  functions = &quot;netlify&quot;
+  publish = &quot;dist&quot;
+
+[build.environment]
+  NODE_VERSION = &quot;14&quot;
+  YARN_VERSION = &quot;1.22.22&quot;
+</code></pre>
+<h4 id="serverless-functions" tabindex="-1">Serverless Functions</h4>
+<ul>
+<li><strong>Location</strong>: <code>netlify/</code> directory (compiled from <code>src/lambda/</code>)</li>
+<li><strong>Functions</strong>: Status monitoring, deployment hooks, health checks</li>
+<li><strong>Runtime</strong>: Node.js 14.x</li>
+<li><strong>Endpoints</strong>: <code>/.netlify/functions/[function-name]</code></li>
+</ul>
+<h4 id="environment-specific-considerations" tabindex="-1">Environment-Specific Considerations</h4>
+<ul>
+<li><strong>Development</strong>: Uses local API endpoints and debug mode</li>
+<li><strong>Production</strong>: Optimized builds with analytics enabled</li>
+<li><strong>Staging</strong>: Same as production but with different API endpoints</li>
+<li><strong>CDN</strong>: Automatic asset optimization and global distribution</li>
+</ul>
+<h3 id="deployment-process" tabindex="-1">Deployment Process</h3>
+<ol>
+<li><strong>Code Push</strong>: Push changes to GitHub repository</li>
+<li><strong>Automatic Build</strong>: Netlify detects changes and triggers build</li>
+<li><strong>Build Execution</strong>: Runs <code>yarn build</code> command</li>
+<li><strong>Function Deployment</strong>: Deploys serverless functions</li>
+<li><strong>Asset Optimization</strong>: Compresses and optimizes static assets</li>
+<li><strong>CDN Distribution</strong>: Distributes to global edge locations</li>
+<li><strong>DNS Update</strong>: Updates <a href="http://spac.illinois.gov">spac.illinois.gov</a> to point to new deployment</li>
+</ol>
+<h2 id="configuration" tabindex="-1">Configuration</h2>
+<h3 id="environment-variables" tabindex="-1">Environment Variables</h3>
+<p>Required environment variables in <code>.env</code> file:</p>
+<pre><code class="language-bash"># API Configuration
+VUE_APP_BASE_API_URL='spac.icjia-api.cloud'
+VUE_APP_BASE_CLIENT_URL='spac.illinois.gov'
+
+# Image Services
+VUE_APP_IMAGE_SERVER_URL='image.icjia.cloud'
+VUE_APP_THUMBOR_KEY=your_thumbor_key_here
+
+# External Services
+VUE_APP_ARCHIVE_SERVER_URL='archive.icjia.cloud'
+
+# Application Settings
+VUE_APP_LS_ROUTE_KEY=&quot;spac:referrer&quot;
+
+# Serverless Functions (if needed)
+SERVERLESS_USERNAME=username
+SERVERLESS_PASSWORD=password
+</code></pre>
+<h3 id="application-configuration-(src%2Fconfig.json)" tabindex="-1">Application Configuration (<code>src/config.json</code>)</h3>
+<h4 id="core-settings" tabindex="-1">Core Settings</h4>
+<ul>
+<li><strong>clientURL</strong>: Production website URL</li>
+<li><strong>publicPath</strong>: Base path for routing</li>
+<li><strong>maxResults</strong>: Maximum search results to display</li>
+<li><strong>daysToDisplayNewLabel</strong>: Days to show “NEW” labels on content</li>
+</ul>
+<h4 id="search-configuration" tabindex="-1">Search Configuration</h4>
+<pre><code class="language-json">{
+  &quot;search&quot;: {
+    &quot;shouldSort&quot;: true,
+    &quot;threshold&quot;: 0.8,
+    &quot;location&quot;: 0,
+    &quot;distance&quot;: 100,
+    &quot;maxPatternLength&quot;: 32,
+    &quot;minMatchCharLength&quot;: 3,
+    &quot;keys&quot;: [&quot;searchMeta&quot;, &quot;title&quot;, &quot;summary&quot;, &quot;name&quot;]
+  }
+}
+</code></pre>
+<h4 id="content-categories-and-enums" tabindex="-1">Content Categories and Enums</h4>
+<ul>
+<li><strong>Publications</strong>: Research reports, impact analyses, projections, annual reports</li>
+<li><strong>Meetings</strong>: Regular meetings, special meetings, archives</li>
+<li><strong>News</strong>: Announcements and updates</li>
+<li><strong>Tags</strong>: Content categorization system</li>
+</ul>
+<h3 id="build-and-deployment-configurations" tabindex="-1">Build and Deployment Configurations</h3>
+<h4 id="vue-cli-configuration-(vue.config.js)" tabindex="-1">Vue CLI Configuration (<code>vue.config.js</code>)</h4>
+<pre><code class="language-javascript">module.exports = {
+  transpileDependencies: [&quot;vuetify&quot;],
+  pluginOptions: {
+    moment: {
+      locales: [&quot;en&quot;]
+    }
+  }
+};
+</code></pre>
+<h4 id="package-manager-configuration" tabindex="-1">Package Manager Configuration</h4>
+<ul>
+<li><strong>Primary Package Manager</strong>: Yarn 1.22.22</li>
+<li><strong>Lock File</strong>: yarn.lock (committed to repository)</li>
+<li><strong>Scripts</strong>: Defined in package.json for consistent commands</li>
+<li><strong>Dependencies</strong>: Production and development dependencies clearly separated</li>
+</ul>
+<h3 id="seo-and-analytics-setup" tabindex="-1">SEO and Analytics Setup</h3>
+<h4 id="google-analytics" tabindex="-1">Google Analytics</h4>
+<ul>
+<li><strong>Tracking ID</strong>: UA-150580082-1</li>
+<li><strong>Implementation</strong>: Vue Analytics plugin</li>
+<li><strong>Debug Mode</strong>: Enabled in development, disabled in production</li>
+<li><strong>Events</strong>: Page views, search queries, content interactions</li>
+</ul>
+<h4 id="seo-configuration" tabindex="-1">SEO Configuration</h4>
+<ul>
+<li><strong>Meta Tags</strong>: Dynamic meta descriptions and titles</li>
+<li><strong>Canonical URLs</strong>: Automatic canonical URL generation</li>
+<li><strong>Sitemap</strong>: Auto-generated XML sitemap</li>
+<li><strong>Robots.txt</strong>: Search engine crawling directives</li>
+<li><strong>Structured Data</strong>: JSON-LD for enhanced search results</li>
+</ul>
+<h2 id="troubleshooting" tabindex="-1">Troubleshooting</h2>
+<h3 id="common-issues-and-solutions" tabindex="-1">Common Issues and Solutions</h3>
+<h4 id="build-and-development-issues" tabindex="-1">Build and Development Issues</h4>
+<p><strong>Problem</strong>: <code>yarn serve</code> fails with module not found errors
+<strong>Solution</strong>:</p>
+<pre><code class="language-bash"># Clear node_modules and reinstall
+rm -rf node_modules yarn.lock
+yarn install
+</code></pre>
+<p><strong>Problem</strong>: Search functionality not working
+<strong>Solution</strong>:</p>
+<pre><code class="language-bash"># Regenerate search index
+yarn build:search
+# Or full rebuild
+yarn build
+</code></pre>
+<p><strong>Problem</strong>: Sitemap not updating
+<strong>Solution</strong>:</p>
+<pre><code class="language-bash"># Check API connectivity and rebuild
+yarn build
+# Verify sitemap.xml in public/ directory
+</code></pre>
+<h4 id="content-display-issues" tabindex="-1">Content Display Issues</h4>
+<p><strong>Problem</strong>: Missing images or broken thumbnails
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check Thumbor configuration in .env</li>
+<li>Verify image URLs in Strapi CMS</li>
+<li>Check network connectivity to image servers</li>
+</ul>
+<p><strong>Problem</strong>: Content not displaying or outdated
+<strong>Solution</strong>:</p>
+<ul>
+<li>Verify Strapi CMS API is accessible</li>
+<li>Check content publication status in CMS</li>
+<li>Rebuild search index and sitemap</li>
+</ul>
+<p><strong>Problem</strong>: Search returns no results
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check search index generation</li>
+<li>Verify Fuse.js configuration in config.json</li>
+<li>Test with different search terms</li>
+</ul>
+<h4 id="deployment-issues" tabindex="-1">Deployment Issues</h4>
+<p><strong>Problem</strong>: Netlify build failures
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check build logs for specific errors</li>
+<li>Verify environment variables are set</li>
+<li>Test build locally first</li>
+</ul>
+<p><strong>Problem</strong>: 404 errors on deployed site
+<strong>Solution</strong>:</p>
+<ul>
+<li>Check routing configuration</li>
+<li>Verify _redirects file (if needed)</li>
+<li>Test routes in development</li>
+</ul>
+<p><strong>Problem</strong>: Slow loading or performance issues
+<strong>Solution</strong>:</p>
+<ul>
+<li>Run Lighthouse audit</li>
+<li>Check image optimization</li>
+<li>Verify CDN configuration</li>
+</ul>
+<h3 id="debug-mode-and-logging-strategies" tabindex="-1">Debug Mode and Logging Strategies</h3>
+<h4 id="development-debugging" tabindex="-1">Development Debugging</h4>
+<pre><code class="language-javascript">// Enable Vue.js devtools
+Vue.config.devtools = true
+
+// Console logging in development
+if (process.env.NODE_ENV === 'development') {
+  console.log('Debug info:', data)
+}
+
+// Network request debugging
+// Check browser Network tab for API calls
+</code></pre>
+<h4 id="production-monitoring" tabindex="-1">Production Monitoring</h4>
+<ul>
+<li><strong>Google Analytics</strong>: User behavior and error tracking</li>
+<li><strong>Netlify Analytics</strong>: Performance and traffic monitoring</li>
+<li><strong>Console Errors</strong>: Check browser console for JavaScript errors</li>
+<li><strong>API Status</strong>: Monitor Strapi CMS availability</li>
+</ul>
+<h3 id="performance-optimization-tips" tabindex="-1">Performance Optimization Tips</h3>
+<h4 id="frontend-optimization" tabindex="-1">Frontend Optimization</h4>
+<ul>
+<li><strong>Code Splitting</strong>: Vue CLI automatically splits routes</li>
+<li><strong>Image Optimization</strong>: Use Thumbor for responsive images</li>
+<li><strong>Lazy Loading</strong>: Implement for images and components</li>
+<li><strong>Bundle Analysis</strong>: Use <code>yarn build --analyze</code> to check bundle size</li>
+</ul>
+<h4 id="content-optimization" tabindex="-1">Content Optimization</h4>
+<ul>
+<li><strong>Search Index</strong>: Keep search index size manageable</li>
+<li><strong>Image Sizes</strong>: Optimize images before uploading to CMS</li>
+<li><strong>Content Caching</strong>: Leverage browser and CDN caching</li>
+<li><strong>API Queries</strong>: Optimize GraphQL queries for minimal data</li>
+</ul>
+<h3 id="maintenance-tasks-and-schedules" tabindex="-1">Maintenance Tasks and Schedules</h3>
+<h4 id="regular-maintenance-(weekly)" tabindex="-1">Regular Maintenance (Weekly)</h4>
+<ul>
+<li>Monitor site performance and uptime</li>
+<li>Check for broken links or missing content</li>
+<li>Review Google Analytics for issues</li>
+<li>Update dependencies if security patches available</li>
+</ul>
+<h4 id="monthly-maintenance" tabindex="-1">Monthly Maintenance</h4>
+<ul>
+<li>Review and update content in Strapi CMS</li>
+<li>Check search functionality and index size</li>
+<li>Monitor server costs and usage</li>
+<li>Update documentation as needed</li>
+</ul>
+<h4 id="quarterly-maintenance" tabindex="-1">Quarterly Maintenance</h4>
+<ul>
+<li>Dependency updates and security audits</li>
+<li>Performance optimization review</li>
+<li>Backup verification and disaster recovery testing</li>
+<li>SEO audit and optimization</li>
+</ul>
+<h2 id="node.js-development-guide-for-new-developers" tabindex="-1">Node.js Development Guide for New Developers</h2>
+<h3 id="node.js-fundamentals-and-ecosystem" tabindex="-1">Node.js Fundamentals and Ecosystem</h3>
+<p>Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. For SPAC development, you need to understand:</p>
+<ul>
+<li><strong>Package Management</strong>: npm and Yarn for dependency management</li>
+<li><strong>Module System</strong>: CommonJS and ES6 modules</li>
+<li><strong>Asynchronous Programming</strong>: Promises, async/await patterns</li>
+<li><strong>Build Tools</strong>: Webpack, Babel, and Vue CLI integration</li>
+</ul>
+<h3 id="platform-specific-setup-instructions" tabindex="-1">Platform-Specific Setup Instructions</h3>
+<h4 id="windows-with-wsl2-(mandatory-for-windows-users)" tabindex="-1">Windows with WSL2 (MANDATORY for Windows Users)</h4>
+<p><strong>Why WSL2 is Required:</strong></p>
+<ul>
+<li>Native Windows lacks proper Unix-like file system operations</li>
+<li>Many Node.js packages have native dependencies that don’t compile on Windows</li>
+<li>File watchers and build tools perform poorly on Windows file systems</li>
+<li>Path resolution and symlink handling differ significantly from Unix systems</li>
+</ul>
+<p><strong>Complete WSL2 Setup Process:</strong></p>
+<ol>
+<li>
+<p><strong>Install WSL2</strong>:</p>
+<pre><code class="language-powershell"># Run in PowerShell as Administrator
+wsl --install
+# Restart computer when prompted
+</code></pre>
+</li>
+<li>
+<p><strong>Install Ubuntu</strong>:</p>
+<pre><code class="language-bash"># Install Ubuntu from Microsoft Store
+# Or via command line:
+wsl --install -d Ubuntu
+</code></pre>
+</li>
+<li>
+<p><strong>Setup Development Environment</strong>:</p>
+<pre><code class="language-bash"># Update system
+sudo apt update &amp;&amp; sudo apt upgrade -y
+
+# Install Node.js via NodeSource
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Install Yarn
+npm install -g yarn
+
+# Verify installations
+node --version
+yarn --version
+</code></pre>
+</li>
+<li>
+<p><strong>VS Code Integration</strong>:</p>
+<ul>
+<li>Install “Remote - WSL” extension</li>
+<li>Open project in WSL: <code>code .</code> from WSL terminal</li>
+<li>Store projects in WSL file system: <code>/home/username/projects/</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="macos-(fully-supported)" tabindex="-1">macOS (Fully Supported)</h4>
+<pre><code class="language-bash"># Install Homebrew
+/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+
+# Install Node.js
+brew install node
+
+# Install Yarn
+brew install yarn
+
+# Verify installations
+node --version
+yarn --version
+</code></pre>
+<h4 id="linux-(fully-supported)" tabindex="-1">Linux (Fully Supported)</h4>
+<pre><code class="language-bash"># Ubuntu/Debian
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install -g yarn
+
+# Fedora
+sudo dnf install nodejs npm
+npm install -g yarn
+
+# Verify installations
+node --version
+yarn --version
+</code></pre>
+<h3 id="essential-command-line-skills" tabindex="-1">Essential Command Line Skills</h3>
+<pre><code class="language-bash"># Navigation
+cd /path/to/project
+ls -la
+pwd
+
+# File operations
+cp file.txt backup.txt
+mv old-name.txt new-name.txt
+rm unwanted-file.txt
+
+# Git operations
+git status
+git add .
+git commit -m &quot;message&quot;
+git push origin branch-name
+
+# Package management
+yarn install
+yarn add package-name
+yarn remove package-name
+yarn upgrade
+</code></pre>
+<h3 id="development-workflow-best-practices" tabindex="-1">Development Workflow Best Practices</h3>
+<ol>
+<li><strong>Always use WSL2 on Windows</strong> - Never develop in native Windows</li>
+<li><strong>Store projects in Unix file system</strong> - Not in <code>/mnt/c/</code> on WSL2</li>
+<li><strong>Use Yarn consistently</strong> - Don’t mix npm and Yarn commands</li>
+<li><strong>Keep dependencies updated</strong> - Regular security updates</li>
+<li><strong>Test locally before pushing</strong> - Run <code>yarn build</code> before commits</li>
+</ol>
+<h3 id="project-specific-quick-start-guide" tabindex="-1">Project-Specific Quick Start Guide</h3>
+<pre><code class="language-bash"># 1. Clone and setup
+git clone https://github.com/ICJIA/spac-client-next.git
+cd spac-client-next
+cp .env.sample .env
+# Edit .env with your configuration
+
+# 2. Install dependencies
+yarn install
+
+# 3. Start development
+yarn serve
+
+# 4. Build for production
+yarn build
+
+# 5. Run quality checks
+yarn lint
+</code></pre>
+<h3 id="useful-tools-and-extensions" tabindex="-1">Useful Tools and Extensions</h3>
+<h4 id="vs-code-extensions" tabindex="-1">VS Code Extensions</h4>
+<ul>
+<li><strong>Vetur</strong>: Vue.js language support</li>
+<li><strong>ESLint</strong>: Code linting integration</li>
+<li><strong>Prettier</strong>: Code formatting</li>
+<li><strong>Remote - WSL</strong>: WSL2 integration (Windows only)</li>
+<li><strong>GitLens</strong>: Enhanced Git capabilities</li>
+<li><strong>Auto Rename Tag</strong>: HTML/Vue tag renaming</li>
+</ul>
+<h4 id="browser-tools" tabindex="-1">Browser Tools</h4>
+<ul>
+<li><strong>Vue.js DevTools</strong>: Browser extension for Vue debugging</li>
+<li><strong>Lighthouse</strong>: Performance and SEO auditing</li>
+<li><strong>Network Tab</strong>: API request monitoring</li>
+<li><strong>Console</strong>: JavaScript error debugging</li>
+</ul>
+<h4 id="command-line-utilities" tabindex="-1">Command Line Utilities</h4>
+<pre><code class="language-bash"># Global tools that are helpful
+npm install -g @vue/cli          # Vue CLI
+npm install -g netlify-cli       # Netlify deployment
+npm install -g lighthouse        # Performance auditing
+</code></pre>
+<p>This comprehensive documentation provides everything needed for new developers to understand, set up, and contribute to the SPAC website project. The documentation follows the established audit log system and will be maintained according to the project’s documentation standards.</p>
+
+    </div>
+
+    <!-- Syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <!-- Theme management and navigation functionality -->
+    <script>
+        // Theme management
+        function initializeTheme() {
+            // Check for saved theme preference or default to dark mode
+            const savedTheme = localStorage.getItem('documentation-theme') || 'dark';
+            const body = document.body;
+            const toggleLabel = document.querySelector('.toggle-label');
+
+            body.setAttribute('data-theme', savedTheme);
+            toggleLabel.textContent = savedTheme === 'dark' ? 'Dark' : 'Light';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const toggleLabel = document.querySelector('.toggle-label');
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            body.setAttribute('data-theme', newTheme);
+            toggleLabel.textContent = newTheme === 'dark' ? 'Dark' : 'Light';
+
+            // Save theme preference
+            localStorage.setItem('documentation-theme', newTheme);
+        }
+
+        // Keyboard accessibility for theme toggle
+        document.addEventListener('keydown', function(e) {
+            if (e.target.classList.contains('theme-toggle') && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme
+            initializeTheme();
+
+            // Generate IDs for all headings
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            headings.forEach(function(heading) {
+                if (!heading.id) {
+                    const text = heading.textContent || heading.innerText;
+                    const id = text.toLowerCase()
+                        .replace(/[^a-z0-9\s-]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-')
+                        .replace(/^-|-$/g, '');
+                    heading.id = id;
+                }
+            });
+
+            // Add smooth scrolling to anchor links
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            anchorLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: src/entry.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: src/entry.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Application entry point for the SPAC Vue.js application.
+ * This file serves as the main entry point and handles browser compatibility.
+ * Currently loads the main application directly, with legacy IE detection code commented out.
+ *
+ * @author ICJIA
+ * @since 1.0.0
+ */
+
+// Legacy Internet Explorer detection and fallback code (currently disabled)
+// if (isIE()) {
+//   var banner = "";
+//   banner = banner + "&lt;div style='text-align: center; margin-top: 50px'>";
+//   banner = banner + "&lt;img src='/icjia-logo.png' alt='ICJIA Logo'>";
+//   banner = banner + "&lt;/div>";
+//   banner =
+//     banner +
+//     "&lt;div style='font-family: Lato, sans-serif; margin-top: 50px; padding-top: 20px; padding-bottom:20px; background: #eee; text-align: center'>";
+
+//   banner =
+//     banner +
+//     "&lt;h1>The &lt;a href='/'>Adult Redeploy Illinois website&lt;/a> does not support Internet Explorer.";
+//   banner =
+//     banner +
+//     "&lt;br>&lt;br>Please upgrade to a modern, secure browser such as &lt;a href='https://www.google.com/chrome/'>Chrome&lt;/a>, &lt;a href='https://www.mozilla.org/en-US/firefox/new/'>Firefox&lt;/a>, or &lt;a href='https://www.microsoft.com/en-us/windows/microsoft-edge'>MS Edge&lt;/a>.&lt;/h1>";
+//   banner = banner + "&lt;/div>";
+
+//   document.querySelector("#app").innerHTML = banner;
+// } else require("./main");
+
+/**
+ * Legacy Internet Explorer detection function (currently disabled).
+ * Detects IE 10 and below via MSIE user agent string.
+ * Detects IE 11 via Trident user agent string.
+ *
+ * @function
+ * @returns {boolean} True if Internet Explorer is detected
+ */
+// function isIE() {
+//   const isIE10orLess = window.navigator.userAgent.indexOf("MSIE") > -1;
+//   const isIE11 = window.navigator.userAgent.indexOf("Trident/") > -1;
+//   return isIE10orLess || isIE11;
+// }
+
+/**
+ * Load the main application module.
+ * This bypasses the IE detection and loads the Vue.js application directly.
+ */
+require("./main");
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Mixins</h3><ul><li><a href="handleClicks.html">handleClicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LS_ROUTE_KEY">LS_ROUTE_KEY</a></li><li><a href="global.html#api">api</a></li><li><a href="global.html#apiDir">apiDir</a></li><li><a href="global.html#buildStatusUrl">buildStatusUrl</a></li><li><a href="global.html#checkIfValidPage">checkIfValidPage</a></li><li><a href="global.html#configPromise">configPromise</a></li><li><a href="global.html#createDocumentationHTML">createDocumentationHTML</a></li><li><a href="global.html#fetchData">fetchData</a></li><li><a href="global.html#fileName">fileName</a></li><li><a href="global.html#filename">filename</a></li><li><a href="global.html#generateHTMLTemplate">generateHTMLTemplate</a></li><li><a href="global.html#getAllNews">getAllNews</a></li><li><a href="global.html#getAllSections">getAllSections</a></li><li><a href="global.html#getContentByTag">getContentByTag</a></li><li><a href="global.html#getDefaultThumbnail">getDefaultThumbnail</a></li><li><a href="global.html#getExternalFile">getExternalFile</a></li><li><a href="global.html#getFile">getFile</a></li><li><a href="global.html#getFrontPageNews">getFrontPageNews</a></li><li><a href="global.html#getHash">getHash</a></li><li><a href="global.html#getHeadshotLink">getHeadshotLink</a></li><li><a href="global.html#getOffset">getOffset</a></li><li><a href="global.html#getPage">getPage</a></li><li><a href="global.html#getPageQuery">getPageQuery</a></li><li><a href="global.html#getPost">getPost</a></li><li><a href="global.html#getPostQuery">getPostQuery</a></li><li><a href="global.html#getSearchIndex">getSearchIndex</a></li><li><a href="global.html#getThumbnailLink">getThumbnailLink</a></li><li><a href="global.html#lastModMap">lastModMap</a></li><li><a href="global.html#md">md</a></li><li><a href="global.html#mutations">mutations</a></li><li><a href="global.html#opts">opts</a></li><li><a href="global.html#query">query</a></li><li><a href="global.html#queryEndpoint">queryEndpoint</a></li><li><a href="global.html#renderToHtml">renderToHtml</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routes">routes</a></li><li><a href="global.html#scrollBehavior">scrollBehavior</a></li><li><a href="global.html#searchIndexPromise">searchIndexPromise</a></li><li><a href="global.html#sections">sections</a></li><li><a href="global.html#state">state</a></li><li><a href="global.html#stripHTML">stripHTML</a></li><li><a href="global.html#thumborURL">thumborURL</a></li><li><a href="global.html#titleCase">titleCase</a></li><li><a href="global.html#truncate">truncate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 30 2025 08:56:06 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -63,13 +63,13 @@ export default {
   },
   methods: {
     scrollTo(id) {
-      //console.log(id);
+      // console.log(id);
       this.$vuetify.goTo(`#${id}`, { offset: 100 });
     },
     setToc() {
       const sections = Array.from(document.querySelectorAll("h2"));
       sections.forEach(section => {
-        let obj = {};
+        const obj = {};
         obj.text = section.innerText;
         obj.id = section.id;
         this.toc.push(obj);
@@ -78,17 +78,17 @@ export default {
   },
   async mounted() {
     await this.setToc();
-    var section = document.querySelectorAll("h2");
+    const section = document.querySelectorAll("h2");
     if (section) {
-      var sections = {};
-      var i = 0;
+      const sections = {};
+      let i = 0;
       this.$refs["anchor"].classList.add("visible");
       section.forEach(e => {
         sections[e.id] = e.offsetTop - 50;
       });
 
       window.onscroll = () => {
-        var scrollPosition =
+        const scrollPosition =
           document.documentElement.scrollTop || document.body.scrollTop;
         const tocItems = document.querySelectorAll(".tocItem");
 
@@ -100,7 +100,7 @@ export default {
         } else {
           this.$refs["anchor"].classList.remove("visible");
         }
-        //console.log(scrollPosition);
+        // console.log(scrollPosition);
         for (i in sections) {
           if (sections[i] <= scrollPosition) {
             const sectionItem = document.getElementById(`scrollTo-${i}`);

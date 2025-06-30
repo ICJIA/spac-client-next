@@ -12,7 +12,11 @@
             text-color="white"
           >
             <v-icon left color="grey lighten-4">label</v-icon
-            >{{ tag.slug === 'fiscal-impact' ? 'IMPACT ANALYSIS' : tag.name | upperCase }}
+            >{{
+              tag.slug === "fiscal-impact"
+                ? "IMPACT ANALYSIS"
+                : tag.name | upperCase
+            }}
           </v-chip>
         </span>
 

@@ -142,19 +142,52 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Mobile navigation drawer component for the SPAC application.
+ * Provides a slide-out navigation menu for mobile devices with site logo,
+ * section links, and responsive design. Integrates with EventBus for toggle functionality.
+ */
+
 import { EventBus } from "@/event-bus";
+
+/**
+ * Mobile navigation drawer component.
+ * Displays a collapsible side navigation menu with site sections and logo.
+ * Responds to EventBus toggle events and provides mobile-friendly navigation.
+ *
+ * @vue
+ * @displayName AppDrawer
+ */
 export default {
+  /**
+   * Vue mounted lifecycle hook.
+   * Sets up EventBus listener for drawer toggle functionality.
+   */
   mounted() {
     EventBus.$on("toggleDrawer", () => {
       this.drawer = !this.drawer;
     });
   },
+
+  /**
+   * Component props definition.
+   *
+   * @typedef {Object} Props
+   * @property {Array} sections - Array of site sections for navigation menu
+   */
   props: {
     sections: {
       type: Array,
       default: () => []
     }
   },
+  /**
+   * Component data function.
+   *
+   * @returns {Object} Component reactive data
+   * @returns {boolean} returns.drawer - Whether the drawer is open/closed
+   * @returns {Array} returns.items - Legacy navigation items (currently unused)
+   */
   data() {
     return {
       drawer: false,

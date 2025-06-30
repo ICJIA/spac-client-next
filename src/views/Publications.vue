@@ -106,6 +106,12 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Publications listing view component for the SPAC application.
+ * Displays a categorized list of all publications with filtering and toggle functionality.
+ * Handles content loading, caching, and provides category-based organization.
+ */
+
 import BaseContent from "@/components/BaseContent";
 import ListTablePublication from "@/components/ListTablePublication";
 import { EventBus } from "@/event-bus";
@@ -118,6 +124,14 @@ import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
 import Toggle from "@/components/Toggle";
 
+/**
+ * Publications listing view component.
+ * Displays all publications organized by categories with toggle functionality.
+ * Handles content loading, filtering, and provides SEO metadata.
+ *
+ * @vue
+ * @displayName Publications
+ */
 export default {
   mixins: [handleClicks],
   metaInfo() {

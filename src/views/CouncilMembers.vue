@@ -135,7 +135,7 @@ export default {
         this.routeToError();
       }
 
-      let biographyContent = this.$store.getters.getContentFromCache(
+      const biographyContent = this.$store.getters.getContentFromCache(
         contentMap,
         biographies
       );

@@ -207,14 +207,14 @@ export default {
   },
   methods: {
     routeToCategory(item) {
-      let categoryObj = strapiEnumToObject("publications", item.category);
-      let path = `/publications/${categoryObj[0].slug}`;
+      const categoryObj = strapiEnumToObject("publications", item.category);
+      const path = `/publications/${categoryObj[0].slug}`;
       this.$router.push(`${path}`).catch(err => {
         this.$vuetify.goTo(0);
       });
     },
     gotoExternal(item) {
-      //console.log(item.externalMediaMaterial.url);
+      // console.log(item.externalMediaMaterial.url);
       if (item.externalMediaMaterial.url) {
         this.$ga.event({
           eventCategory: "Video",
@@ -226,9 +226,9 @@ export default {
     },
     download(item) {
       if (item.mediaMaterial.file) {
-        let path = item.mediaMaterial.file.url;
+        const path = item.mediaMaterial.file.url;
         window.open(this.$store.getters.config.baseURL + path);
-        let ext = item.mediaMaterial.file.name.split(".").pop();
+        const ext = item.mediaMaterial.file.name.split(".").pop();
         console.log(
           "Download event: ",
           item.mediaMaterial.file.hash + "." + ext

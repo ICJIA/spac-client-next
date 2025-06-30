@@ -56,6 +56,12 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Generic page view component for the SPAC application.
+ * Displays individual pages with dynamic content, breadcrumbs, and SEO metadata.
+ * Handles route changes, content loading, and markdown rendering for static pages.
+ */
+
 import BaseContent from "@/components/BaseContent";
 import TagList from "@/components/TagList";
 import TOC from "@/components/TOC";
@@ -64,6 +70,15 @@ import { getPageBySection } from "@/services/Content";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+
+/**
+ * Generic page view component.
+ * Displays individual pages with dynamic content based on route parameters.
+ * Handles content loading, caching, and provides breadcrumb navigation.
+ *
+ * @vue
+ * @displayName Page
+ */
 export default {
   watch: {
     $route: "fetchContent"

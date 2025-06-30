@@ -153,13 +153,13 @@ export default {
     /**
      * One way to get a unique id -- the component's own interal id. But folks say to avoid this.
      */
-    //this.id = this._uid;
+    // this.id = this._uid;
 
     this.id = this.create_UUID();
     this.$nextTick(() => {
-      let sectionHeight = document.getElementById(this.id).scrollHeight;
+      const sectionHeight = document.getElementById(this.id).scrollHeight;
       this.sectionHeight = sectionHeight;
-      //console.log(sectionHeight, this.height);
+      // console.log(sectionHeight, this.height);
       if (this.sectionHeight === this.height) {
         this.hideButton = true;
         this.removeFade = true;
@@ -240,17 +240,20 @@ export default {
       };
     },
     create_UUID() {
-      var dt = new Date().getTime();
-      var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-        var r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-      });
+      let dt = new Date().getTime();
+      const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        c => {
+          const r = (dt + Math.random() * 16) % 16 | 0;
+          dt = Math.floor(dt / 16);
+          return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
       return uuid;
     },
     collapseSection(element) {
-      let sectionHeight = element.scrollHeight;
-      let elementTransition = element.style.transition;
+      const sectionHeight = element.scrollHeight;
+      const elementTransition = element.style.transition;
       element.style.transition = "";
       requestAnimationFrame(() => {
         element.style.height = sectionHeight + "px";
@@ -262,7 +265,7 @@ export default {
       element.setAttribute("data-collapsed", "true");
     },
     expandSection(element) {
-      let sectionHeight = element.scrollHeight;
+      const sectionHeight = element.scrollHeight;
       element.style.height = sectionHeight + "px";
       element.addEventListener(
         "transitionend",
@@ -273,8 +276,8 @@ export default {
       element.setAttribute("data-collapsed", "false");
     },
     toggle(eventLabel) {
-      let section = document.getElementById(this.id);
-      let isCollapsed = section.getAttribute("data-collapsed") === "true";
+      const section = document.getElementById(this.id);
+      const isCollapsed = section.getAttribute("data-collapsed") === "true";
       if (isCollapsed) {
         this.expandSection(section);
         section.setAttribute("data-collapsed", "false");
@@ -282,8 +285,8 @@ export default {
         this.collapseSection(section);
       }
       this.isCollapsed = !this.isCollapsed;
-      let status = this.isCollapsed ? "Closed" : "Opened";
-      //console.log(status + ": ", eventLabel);
+      const status = this.isCollapsed ? "Closed" : "Opened";
+      // console.log(status + ": ", eventLabel);
 
       this.$ga.event({
         eventCategory: "ReadMore",

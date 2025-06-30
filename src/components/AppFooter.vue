@@ -89,21 +89,59 @@
 </template>
 
 <script>
+/**
+ * @fileoverview Application footer component for the SPAC website.
+ * Displays site navigation links, logo, contact information, and social media links.
+ * Provides archive server URL functionality and responsive footer layout.
+ */
+
+/**
+ * Application footer component.
+ * Renders the site footer with navigation links, branding, and contact information.
+ * Includes social media links and archive server integration.
+ *
+ * @vue
+ * @displayName AppFooter
+ */
 export default {
+  /**
+   * Vue mounted lifecycle hook.
+   * Currently used for debugging environment variables.
+   */
   mounted() {
-    //console.log(process.env);
+    // console.log(process.env);
   },
+
   methods: {
+    /**
+     * Gets the archive server URL from environment variables.
+     *
+     * @returns {string} Complete HTTPS URL to the archive server
+     */
     getArchive() {
       return `https://${process.env.VUE_APP_ARCHIVE_SERVER_URL}`;
     }
   },
+
+  /**
+   * Component props definition.
+   *
+   * @typedef {Object} Props
+   * @property {Array} sections - Array of site sections for footer navigation
+   */
   props: {
     sections: {
       type: Array,
       default: () => []
     }
   },
+
+  /**
+   * Component data function.
+   *
+   * @returns {Object} Component reactive data
+   * @returns {Array} returns.icons - Array of social media icon CSS classes
+   */
   data: () => ({
     icons: ["fab fa-facebook", "fab fa-twitter"]
   })

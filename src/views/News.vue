@@ -31,6 +31,12 @@
 </template>
 
 <script>
+/**
+ * @fileoverview News listing view component for the SPAC application.
+ * Displays a paginated list of all news articles and announcements.
+ * Handles content loading, caching, and provides SEO metadata for the news section.
+ */
+
 import BaseContent from "@/components/BaseContent";
 
 import ListTableNews from "@/components/ListTableNews";
@@ -41,6 +47,15 @@ import { sortBy } from "lodash";
 import { getHash, checkIfValidPage } from "@/services/Utilities";
 import { renderToHtml } from "@/services/Markdown";
 import { handleClicks } from "@/mixins/handleClicks";
+
+/**
+ * News listing view component.
+ * Displays all news articles in a paginated table format.
+ * Handles content loading, sorting, and provides navigation breadcrumbs.
+ *
+ * @vue
+ * @displayName News
+ */
 export default {
   components: {
     BaseContent,

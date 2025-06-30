@@ -1,0 +1,57 @@
+{
+  "source": {
+    "include": [
+      "./src/services/",
+      "./src/mixins/",
+      "./src/plugins/",
+      "./src/filters.js",
+      "./src/main.js",
+      "./src/router.js",
+      "./src/store.js",
+      "./creators/",
+      "./buildSearchIndex.js",
+      "./buildSitemap.js"
+    ],
+    "includePattern": "\\.js$",
+    "exclude": [
+      "./src/api/",
+      "./node_modules/"
+    ]
+  },
+  "opts": {
+    "destination": "./public/documentation/jsdoc/",
+    "recurse": true,
+    "readme": "./README.md",
+    "template": "./node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+      "default_theme": "dark",
+      "homepageTitle": "SPAC API Documentation",
+      "title": "SPAC Client API",
+      "base_url": "/documentation/jsdoc/",
+      "search": true,
+      "meta": [
+        {
+          "name": "description",
+          "content": "API documentation for the Illinois Sentencing Policy Advisory Council (SPAC) website"
+        },
+        {
+          "name": "author",
+          "content": "ICJIA"
+        }
+      ],
+      "footer": "&copy; <span id='jsdoc-current-year'></span> <a href='https://spac.illinois.gov' target='_blank'>Illinois Sentencing Policy Advisory Council</a> | <a href='https://github.com/ICJIA/spac-client-next' target='_blank'>View on GitHub</a>",
+      "add_scripts": "document.addEventListener('DOMContentLoaded', function() { const yearElement = document.getElementById('jsdoc-current-year'); if (yearElement) { yearElement.textContent = new Date().getFullYear(); } });"
+    }
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  },
+  "markdown": {
+    "parser": "gfm",
+    "idInHeadings": true
+  }
+}
