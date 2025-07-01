@@ -6,6 +6,44 @@
 
 > SPAC was created to collect, analyze and present data from all relevant sources to more accurately determine the consequences of sentencing policy decisions and to review the effectiveness and efficiency of current sentencing policies and practices. SPAC reports directly to the Governor and the General Assembly.
 
+## Documentation
+
+This project includes comprehensive documentation accessible through a centralized portal:
+
+### 📚 Documentation Portal
+Access the main documentation portal at: **`/documentation/`**
+
+The portal provides easy navigation to all available documentation:
+
+#### 🔧 Developer Documentation (`/documentation/dev/`)
+- **Complete project setup and installation guide**
+- **Architecture overview and technical specifications**
+- **Development workflows and best practices**
+- **Deployment instructions and environment configuration**
+- **Component library and usage examples**
+
+#### 📖 JSDoc API Documentation (`/documentation/jsdoc/`)
+- **Auto-generated API documentation from code comments**
+- **Function signatures, parameters, and return values**
+- **Service and utility module documentation**
+- **Interactive search functionality**
+- **Light/dark theme support**
+
+### 🛠️ Documentation Commands
+
+```bash
+# Generate all documentation (dev + API docs)
+npm run docs:generate
+
+# Generate only developer documentation
+npm run docs:dev
+
+# Generate only JSDoc API documentation
+npm run docs:jsdoc
+```
+
+**Note:** Documentation is automatically generated during the build process (`npm run build`) and development server startup (`npm run serve`).
+
 ## Setup
 ```
 npm install
@@ -26,4 +64,6 @@ npm run build
 ```
 
 Deploy ```/dist``` folder.
+
+**Note:** The build process automatically includes all documentation in the `/dist/documentation/` directory.
 

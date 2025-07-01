@@ -78,6 +78,29 @@ When updating this audit log:
 
 ## Site Updates
 
+### 2025-06-30: Documentation Portal Restructuring and JSDoc Theme Enhancement
+- **Change Summary**: Restructured the entire documentation system with a centralized portal, implemented clean-jsdoc-theme with light/dark mode support, added dynamic copyright year functionality, and updated README with comprehensive documentation information. Created a professional documentation portal that provides easy access to both developer documentation and auto-generated API documentation.
+- **Files Modified**:
+  - **Documentation Portal**:
+    - `public/documentation/index.html` - Created new centralized documentation portal with modern design, theme toggle, and navigation to dev/JSDoc sections
+    - `public/documentation/dev/index.html` - Moved existing developer documentation to new `/dev/` subdirectory
+  - **JSDoc Configuration**:
+    - `jsdoc.conf.json` - Updated to use clean-jsdoc-theme with dark mode default, custom branding, search functionality, and dynamic footer
+    - Added clean-jsdoc-theme package dependency for enhanced documentation appearance
+  - **Build Scripts**:
+    - `package.json` - Updated scripts to use local JSDoc installation with `npx`, added new documentation generation commands (`docs:dev`, `docs:jsdoc`, `docs:generate`)
+    - `creators/createDocumentationHTML.js` - Modified output path to generate documentation in `/dev/` subdirectory
+  - **Documentation Content**:
+    - `README.md` - Added comprehensive documentation section explaining portal structure, available documentation types, and generation commands
+    - `src/main.js` - Fixed JSDoc warning by correcting `@type` tag syntax (removed description from type-only tag)
+- **Technical Implementation**:
+  - **Portal Design**: Responsive layout with SPAC brand colors (#6A1B9A), CSS variables for theme management, flexbox sticky footer, and Material Design icons
+  - **JSDoc Theme**: Integrated clean-jsdoc-theme v4.3.0 with search functionality, light/dark mode toggle, and custom SPAC branding
+  - **Dynamic Year**: Implemented JavaScript-based dynamic copyright year using `new Date().getFullYear()` for both portal and JSDoc footers
+  - **Build Integration**: Documentation generation now integrated into serve/build processes, ensuring docs are always up-to-date
+  - **Directory Structure**: Organized as `/documentation/` (portal), `/documentation/dev/` (manual docs), `/documentation/jsdoc/` (API docs)
+- **User Experience Improvements**: Centralized access point for all documentation, professional appearance matching project branding, automatic theme detection, and comprehensive navigation between documentation types
+
 ### 2025-06-30: Comprehensive JSDoc documentation implementation across entire codebase
 - **Change Summary**: Added comprehensive JSDoc comments to all JavaScript, TypeScript, and Vue.js files throughout the project, implementing standardized documentation patterns with @param, @returns, @example, and @since tags. Enhanced ESLint configuration to support JSDoc patterns while maintaining code quality standards.
 - **Files Modified**:
