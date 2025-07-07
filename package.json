@@ -28,6 +28,7 @@
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-attrs": "^3.0.1",
     "markdown-it-named-headers": "0.0.4",
+    "minimatch": "^3.0.4",
     "moment": "^2.24.0",
     "netlify-lambda": "^1.6.3",
     "nprogress": "^0.2.0",
