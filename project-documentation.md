@@ -1,5 +1,7 @@
 # SPAC Client Website - Project Documentation
 
+**📅 Last Updated**: October 23, 2025
+
 ## Project Overview
 
 ### Repository Information
@@ -272,7 +274,326 @@ spac-client-next/
 - **Build-time Caching**: Pre-generated search index and routes
 - **CDN Caching**: Netlify edge caching for static assets
 
+## Custom Caching System
+
+### Overview
+
+The SPAC application implements a sophisticated, in-memory caching system built on top of Vuex (Vue's state management library). This system efficiently manages API responses to minimize redundant network requests and improve application performance.
+
+### Architecture
+
+The caching system consists of three main components:
+
+1. **Vuex Store** (`src/store.js`) - Central state management with cache storage
+2. **Content Service** (`src/services/Content.js`) - GraphQL API interface with query functions
+3. **View Components** - Components that request cached content
+
+### How the Caching System Works
+
+```
+View Component
+    ↓
+    ├─→ Creates contentMap (Map of queries to fetch)
+    ├─→ Calls store.dispatch("cacheContent", contentMap)
+    ↓
+Vuex Store (cacheContent action)
+    ├─→ Checks if each query is already cached (by MD5 hash)
+    ├─→ Only fetches uncached queries from API
+    ├─→ Stores results in cache Map
+    ↓
+View Component
+    ├─→ Retrieves cached content via getContentFromCache getter
+    ├─→ Renders data to user
+```
+
+### Cache Key Generation
+
+Cache keys are generated using MD5 hashes of query identifiers:
+
+```javascript
+import { getHash } from "@/services/Utilities";
+
+const queryName = "getNews";
+const hash = getHash(queryName); // Returns MD5 hash
+```
+
+**Location**: `src/services/Utilities.js` - `getHash()` function
+
+### Cache Storage
+
+The cache is stored as a JavaScript `Map` in the Vuex state:
+
+```javascript
+// In src/store.js state
+cache: new Map()
+```
+
+- **Key**: MD5 hash of query identifier
+- **Value**: API response data (array or object)
+
+### Core Cache Operations
+
+#### SET_CACHE Mutation
+Stores a query result in the cache:
+
+```javascript
+SET_CACHE(state, { hash, query }) {
+  state.cache.set(hash, query);
+}
+```
+
+#### CLEAR_CACHE Mutation
+Clears all cached data:
+
+```javascript
+CLEAR_CACHE(state) {
+  state.cache.clear();
+}
+```
+
+#### cacheContent Action
+Main action for fetching and caching content:
+
+```javascript
+async cacheContent({ commit, state, getters }, contentMap)
+```
+
+**Parameters:**
+- `contentMap` (Map): Map of query configurations
+
+**contentMap Structure:**
+```javascript
+const contentMap = new Map();
+contentMap.set("queryName", {
+  hash: getHash("queryName"),
+  query: queryFunction,
+  params: { /* query parameters */ }
+});
+```
+
+**Returns:**
+```javascript
+{
+  itemsCached: number,           // Items fetched in this call
+  totalCacheSize: number,        // Total items in cache
+  millisecondsToComplete: number, // Time taken
+  previouslyCached: boolean      // Whether items were already cached
+}
+```
+
+#### inCache Getter
+Checks if a query result is cached:
+
+```javascript
+getters.inCache(hash) // Returns boolean
+```
+
+#### getContentFromCache Getter
+Retrieves cached content:
+
+```javascript
+getters.getContentFromCache(contentMap, key)
+```
+
+**Parameters:**
+- `contentMap` (Map): The same map used in cacheContent
+- `key` (string): The key used when setting the map entry
+
+**Returns:** Cached data or empty array if not found
+
+### Usage Patterns
+
+#### Basic Usage Example
+
+```javascript
+// In a Vue component
+async fetchContent() {
+  this.loading = true;
+
+  // 1. Create content map
+  const contentMap = new Map();
+  const newsName = "getNews";
+  contentMap.set(newsName, {
+    hash: getHash(newsName),
+    query: getAllNews,
+    params: {}
+  });
+
+  // 2. Dispatch caching action
+  await this.$store.dispatch("cacheContent", contentMap);
+
+  // 3. Retrieve from cache
+  this.news = this.$store.getters.getContentFromCache(
+    contentMap,
+    newsName
+  );
+
+  this.loading = false;
+}
+```
+
+#### Multiple Queries Example
+
+```javascript
+const contentMap = new Map();
+
+// Add first query
+contentMap.set("getNews", {
+  hash: getHash("getNews"),
+  query: getAllNews,
+  params: {}
+});
+
+// Add second query
+contentMap.set("getPublications", {
+  hash: getHash("getPublications"),
+  query: getAllPublications,
+  params: {}
+});
+
+// Fetch both (only uncached ones hit the API)
+await this.$store.dispatch("cacheContent", contentMap);
+
+// Retrieve both
+const news = this.$store.getters.getContentFromCache(contentMap, "getNews");
+const publications = this.$store.getters.getContentFromCache(
+  contentMap,
+  "getPublications"
+);
+```
+
+#### Parameterized Queries Example
+
+```javascript
+const contentMap = new Map();
+const slug = "my-page";
+const queryName = `getPage-${slug}`;
+
+contentMap.set(queryName, {
+  hash: getHash(queryName),
+  query: getPage,
+  params: { slug }
+});
+
+await this.$store.dispatch("cacheContent", contentMap);
+const page = this.$store.getters.getContentFromCache(contentMap, queryName);
+```
+
+### Cache Invalidation
+
+#### Current Strategy
+
+The caching system uses a **session-based cache invalidation** strategy:
+
+- Cache persists for the duration of the user's session
+- Cache is cleared when the app initializes via `initApp` action
+- Manual cache clearing available via `CLEAR_CACHE` mutation
+
+#### Clearing Cache
+
+```javascript
+// Clear all cached content
+this.$store.commit("CLEAR_CACHE");
+
+// Clear localStorage route tracking
+this.$store.commit("CLEAR_LOCAL_STORAGE");
+```
+
+### Performance Considerations
+
+#### Benefits
+
+1. **Reduced API Calls**: Identical queries within a session only hit the API once
+2. **Faster Navigation**: Cached data loads instantly on revisits
+3. **Parallel Requests**: Multiple uncached queries execute in parallel via `Promise.all()`
+4. **Debug Logging**: Optional debug output shows cache performance metrics
+
+#### Enabling Debug Mode
+
+Set `debug: true` in `src/config.json`:
+
+```json
+{
+  "debug": true
+}
+```
+
+This logs cache operations to the browser console.
+
+### Common Patterns in Views
+
+Most view components follow this pattern:
+
+- **News.vue** - Fetches all news
+- **Publications.vue** - Fetches all publications
+- **MeetingsSingle.vue** - Fetches single meeting by slug
+- **TagsSingle.vue** - Fetches content by tag
+- **Home.vue** - Fetches multiple content types
+
+All use the same caching mechanism with different query functions.
+
+### Extending the Caching System
+
+#### Adding a New Cached Query
+
+1. Create query function in `src/services/Content.js`
+2. In your component, create a contentMap entry
+3. Call `cacheContent` action
+4. Retrieve with `getContentFromCache` getter
+
+Example:
+
+```javascript
+// In Content.js
+const getMyData = async ({ param }) => {
+  try {
+    const data = await queryEndpoint(getMyDataQuery(param));
+    return data.data.data.myData;
+  } catch (e) {
+    EventBus.$emit("contentServiceError", e.toString());
+    return [];
+  }
+};
+
+// In your component
+const contentMap = new Map();
+contentMap.set("myData", {
+  hash: getHash("myData"),
+  query: getMyData,
+  params: { param: "value" }
+});
+
+await this.$store.dispatch("cacheContent", contentMap);
+const myData = this.$store.getters.getContentFromCache(contentMap, "myData");
+```
+
+### Troubleshooting
+
+#### Data Not Appearing
+
+1. Check browser console for errors
+2. Verify query function returns data in expected format
+3. Ensure hash is correctly generated
+4. Check that contentMap key matches retrieval key
+
+#### Cache Not Working
+
+1. Verify `cacheContent` action completes
+2. Check that `inCache` getter returns true for subsequent calls
+3. Enable debug mode to see cache operations
+
+#### Performance Issues
+
+1. Check API response times
+2. Monitor cache size in debug output
+3. Consider implementing cache size limits if needed
+
 ### Error Handling Strategies
+- **API Failures**: Graceful degradation with cached content
+- **Network Issues**: Offline-friendly with service worker (if implemented)
+- **Content Missing**: Default content and error pages
+- **Search Failures**: Fallback to basic filtering
+- **Image Loading**: Placeholder images and lazy loading
 - **API Failures**: Graceful degradation with cached content
 - **Network Issues**: Offline-friendly with service worker (if implemented)
 - **Content Missing**: Default content and error pages
@@ -295,7 +616,7 @@ This project is **NOT compatible with vanilla Windows** (native Windows without 
 
 ### Required Software
 - **Node.js**: Version 14.x or higher (LTS recommended)
-- **Yarn**: 1.22.22 or higher (preferred package manager)
+- **npm**: 6.x or higher (included with Node.js)
 - **Git**: For version control
 - **Code Editor**: VS Code recommended with Vue.js extensions
 
@@ -309,10 +630,7 @@ cd spac-client-next
 
 #### 2. Install Dependencies
 ```bash
-# Install all dependencies using Yarn (preferred)
-yarn install
-
-# OR using npm (if Yarn is not available)
+# Install all dependencies using npm
 npm install
 ```
 
@@ -333,13 +651,13 @@ cp .env.sample .env
 #### 4. Verification Steps
 ```bash
 # Test the development server
-yarn serve
+npm run serve
 
 # Verify build process
-yarn build
+npm run build
 
 # Check linting
-yarn lint
+npm run lint
 ```
 
 ### Troubleshooting Common Issues
@@ -350,9 +668,9 @@ yarn lint
 - **Performance Issues**: Store projects in WSL2 file system (`/home/username/`), not Windows file system (`/mnt/c/`)
 
 #### General Issues
-- **Port Conflicts**: Change port in `vue.config.js` or use `yarn serve --port 8081`
+- **Port Conflicts**: Change port in `vue.config.js` or use `npm run serve -- --port 8081`
 - **Memory Issues**: Increase Node.js memory limit: `export NODE_OPTIONS="--max-old-space-size=4096"`
-- **Build Failures**: Clear node_modules and reinstall: `rm -rf node_modules && yarn install`
+- **Build Failures**: Clear node_modules and reinstall: `rm -rf node_modules package-lock.json && npm install`
 
 ## Development Workflow
 
@@ -368,7 +686,7 @@ yarn lint
 - **Prettier Integration**: Automatic code formatting on save
 - **Vue Style Guide**: Follow official Vue.js style guide
 - **Component Naming**: PascalCase for components, kebab-case for files
-- **Linting Command**: `yarn lint` to check code quality
+- **Linting Command**: `npm run lint` to check code quality
 
 ### Testing Approach and Procedures
 - **Manual Testing**: Test all functionality in development environment
@@ -382,7 +700,7 @@ yarn lint
 #### Starting Development Server
 ```bash
 # Start development server with hot reload
-yarn serve
+npm run serve
 
 # This will:
 # 1. Generate search index (buildSearchIndex.js)
@@ -393,7 +711,7 @@ yarn serve
 #### Building for Production
 ```bash
 # Create production build
-yarn build
+npm run build
 
 # This will:
 # 1. Generate search index
@@ -405,19 +723,19 @@ yarn build
 #### Content Updates
 ```bash
 # Regenerate search index only
-yarn build:search
+npm run build:search
 
 # Full rebuild (recommended after content changes)
-yarn build
+npm run build
 ```
 
 #### Code Quality Checks
 ```bash
 # Run ESLint
-yarn lint
+npm run lint
 
 # Auto-fix linting issues
-yarn lint --fix
+npm run lint -- --fix
 ```
 
 ## Build and Deployment
@@ -467,13 +785,12 @@ The SPAC website uses a custom build process that runs in sequence:
 #### Netlify Configuration (`netlify.toml`)
 ```toml
 [build]
-  command = "yarn build"
+  command = "npm run build"
   functions = "netlify"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "14"
-  YARN_VERSION = "1.22.22"
 ```
 
 #### Serverless Functions
@@ -491,7 +808,7 @@ The SPAC website uses a custom build process that runs in sequence:
 ### Deployment Process
 1. **Code Push**: Push changes to GitHub repository
 2. **Automatic Build**: Netlify detects changes and triggers build
-3. **Build Execution**: Runs `yarn build` command
+3. **Build Execution**: Runs `npm run build` command
 4. **Function Deployment**: Deploys serverless functions
 5. **Asset Optimization**: Compresses and optimizes static assets
 6. **CDN Distribution**: Distributes to global edge locations
@@ -566,8 +883,8 @@ module.exports = {
 ```
 
 #### Package Manager Configuration
-- **Primary Package Manager**: Yarn 1.22.22
-- **Lock File**: yarn.lock (committed to repository)
+- **Primary Package Manager**: npm (included with Node.js)
+- **Lock File**: package-lock.json (committed to repository)
 - **Scripts**: Defined in package.json for consistent commands
 - **Dependencies**: Production and development dependencies clearly separated
 
@@ -591,28 +908,28 @@ module.exports = {
 ### Common Issues and Solutions
 
 #### Build and Development Issues
-**Problem**: `yarn serve` fails with module not found errors
+**Problem**: `npm run serve` fails with module not found errors
 **Solution**:
 ```bash
 # Clear node_modules and reinstall
-rm -rf node_modules yarn.lock
-yarn install
+rm -rf node_modules package-lock.json
+npm install
 ```
 
 **Problem**: Search functionality not working
 **Solution**:
 ```bash
 # Regenerate search index
-yarn build:search
+npm run build:search
 # Or full rebuild
-yarn build
+npm run build
 ```
 
 **Problem**: Sitemap not updating
 **Solution**:
 ```bash
 # Check API connectivity and rebuild
-yarn build
+npm run build
 # Verify sitemap.xml in public/ directory
 ```
 
@@ -682,7 +999,7 @@ if (process.env.NODE_ENV === 'development') {
 - **Code Splitting**: Vue CLI automatically splits routes
 - **Image Optimization**: Use Thumbor for responsive images
 - **Lazy Loading**: Implement for images and components
-- **Bundle Analysis**: Use `yarn build --analyze` to check bundle size
+- **Bundle Analysis**: Use `npm run build` and check dist/ directory for bundle size
 
 #### Content Optimization
 - **Search Index**: Keep search index size manageable
@@ -715,7 +1032,7 @@ if (process.env.NODE_ENV === 'development') {
 ### Node.js Fundamentals and Ecosystem
 Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. For SPAC development, you need to understand:
 
-- **Package Management**: npm and Yarn for dependency management
+- **Package Management**: npm for dependency management
 - **Module System**: CommonJS and ES6 modules
 - **Asynchronous Programming**: Promises, async/await patterns
 - **Build Tools**: Webpack, Babel, and Vue CLI integration
@@ -753,12 +1070,9 @@ Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. For SPAC
    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
    sudo apt-get install -y nodejs
 
-   # Install Yarn
-   npm install -g yarn
-
-   # Verify installations
+   # Verify installation
    node --version
-   yarn --version
+   npm --version
    ```
 
 4. **VS Code Integration**:
@@ -774,12 +1088,9 @@ Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. For SPAC
 # Install Node.js
 brew install node
 
-# Install Yarn
-brew install yarn
-
-# Verify installations
+# Verify installation
 node --version
-yarn --version
+npm --version
 ```
 
 #### Linux (Fully Supported)
@@ -787,15 +1098,13 @@ yarn --version
 # Ubuntu/Debian
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
-npm install -g yarn
 
 # Fedora
 sudo dnf install nodejs npm
-npm install -g yarn
 
-# Verify installations
+# Verify installation
 node --version
-yarn --version
+npm --version
 ```
 
 ### Essential Command Line Skills
@@ -817,18 +1126,18 @@ git commit -m "message"
 git push origin branch-name
 
 # Package management
-yarn install
-yarn add package-name
-yarn remove package-name
-yarn upgrade
+npm install
+npm install package-name
+npm uninstall package-name
+npm update
 ```
 
 ### Development Workflow Best Practices
 1. **Always use WSL2 on Windows** - Never develop in native Windows
 2. **Store projects in Unix file system** - Not in `/mnt/c/` on WSL2
-3. **Use Yarn consistently** - Don't mix npm and Yarn commands
+3. **Use npm consistently** - Don't mix package managers
 4. **Keep dependencies updated** - Regular security updates
-5. **Test locally before pushing** - Run `yarn build` before commits
+5. **Test locally before pushing** - Run `npm run build` before commits
 
 ### Project-Specific Quick Start Guide
 ```bash
@@ -839,16 +1148,16 @@ cp .env.sample .env
 # Edit .env with your configuration
 
 # 2. Install dependencies
-yarn install
+npm install
 
 # 3. Start development
-yarn serve
+npm run serve
 
 # 4. Build for production
-yarn build
+npm run build
 
 # 5. Run quality checks
-yarn lint
+npm run lint
 ```
 
 ### Useful Tools and Extensions

@@ -294,6 +294,7 @@
 
     <div class="documentation-container">
         <h1 id="spac-client-website---project-documentation" tabindex="-1">SPAC Client Website - Project Documentation</h1>
+<p><strong>📅 Last Updated</strong>: October 23, 2025</p>
 <h2 id="project-overview" tabindex="-1">Project Overview</h2>
 <h3 id="repository-information" tabindex="-1">Repository Information</h3>
 <ul>
@@ -580,8 +581,265 @@
 <li><strong>Build-time Caching</strong>: Pre-generated search index and routes</li>
 <li><strong>CDN Caching</strong>: Netlify edge caching for static assets</li>
 </ul>
+<h2 id="custom-caching-system" tabindex="-1">Custom Caching System</h2>
+<h3 id="overview" tabindex="-1">Overview</h3>
+<p>The SPAC application implements a sophisticated, in-memory caching system built on top of Vuex (Vue’s state management library). This system efficiently manages API responses to minimize redundant network requests and improve application performance.</p>
+<h3 id="architecture" tabindex="-1">Architecture</h3>
+<p>The caching system consists of three main components:</p>
+<ol>
+<li><strong>Vuex Store</strong> (<code>src/store.js</code>) - Central state management with cache storage</li>
+<li><strong>Content Service</strong> (<code>src/services/Content.js</code>) - GraphQL API interface with query functions</li>
+<li><strong>View Components</strong> - Components that request cached content</li>
+</ol>
+<h3 id="how-the-caching-system-works" tabindex="-1">How the Caching System Works</h3>
+<pre><code>View Component
+    ↓
+    ├─→ Creates contentMap (Map of queries to fetch)
+    ├─→ Calls store.dispatch(&quot;cacheContent&quot;, contentMap)
+    ↓
+Vuex Store (cacheContent action)
+    ├─→ Checks if each query is already cached (by MD5 hash)
+    ├─→ Only fetches uncached queries from API
+    ├─→ Stores results in cache Map
+    ↓
+View Component
+    ├─→ Retrieves cached content via getContentFromCache getter
+    ├─→ Renders data to user
+</code></pre>
+<h3 id="cache-key-generation" tabindex="-1">Cache Key Generation</h3>
+<p>Cache keys are generated using MD5 hashes of query identifiers:</p>
+<pre><code class="language-javascript">import { getHash } from &quot;@/services/Utilities&quot;;
+
+const queryName = &quot;getNews&quot;;
+const hash = getHash(queryName); // Returns MD5 hash
+</code></pre>
+<p><strong>Location</strong>: <code>src/services/Utilities.js</code> - <code>getHash()</code> function</p>
+<h3 id="cache-storage" tabindex="-1">Cache Storage</h3>
+<p>The cache is stored as a JavaScript <code>Map</code> in the Vuex state:</p>
+<pre><code class="language-javascript">// In src/store.js state
+cache: new Map()
+</code></pre>
+<ul>
+<li><strong>Key</strong>: MD5 hash of query identifier</li>
+<li><strong>Value</strong>: API response data (array or object)</li>
+</ul>
+<h3 id="core-cache-operations" tabindex="-1">Core Cache Operations</h3>
+<h4 id="set_cache-mutation" tabindex="-1">SET_CACHE Mutation</h4>
+<p>Stores a query result in the cache:</p>
+<pre><code class="language-javascript">SET_CACHE(state, { hash, query }) {
+  state.cache.set(hash, query);
+}
+</code></pre>
+<h4 id="clear_cache-mutation" tabindex="-1">CLEAR_CACHE Mutation</h4>
+<p>Clears all cached data:</p>
+<pre><code class="language-javascript">CLEAR_CACHE(state) {
+  state.cache.clear();
+}
+</code></pre>
+<h4 id="cachecontent-action" tabindex="-1">cacheContent Action</h4>
+<p>Main action for fetching and caching content:</p>
+<pre><code class="language-javascript">async cacheContent({ commit, state, getters }, contentMap)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>contentMap</code> (Map): Map of query configurations</li>
+</ul>
+<p><strong>contentMap Structure:</strong></p>
+<pre><code class="language-javascript">const contentMap = new Map();
+contentMap.set(&quot;queryName&quot;, {
+  hash: getHash(&quot;queryName&quot;),
+  query: queryFunction,
+  params: { /* query parameters */ }
+});
+</code></pre>
+<p><strong>Returns:</strong></p>
+<pre><code class="language-javascript">{
+  itemsCached: number,           // Items fetched in this call
+  totalCacheSize: number,        // Total items in cache
+  millisecondsToComplete: number, // Time taken
+  previouslyCached: boolean      // Whether items were already cached
+}
+</code></pre>
+<h4 id="incache-getter" tabindex="-1">inCache Getter</h4>
+<p>Checks if a query result is cached:</p>
+<pre><code class="language-javascript">getters.inCache(hash) // Returns boolean
+</code></pre>
+<h4 id="getcontentfromcache-getter" tabindex="-1">getContentFromCache Getter</h4>
+<p>Retrieves cached content:</p>
+<pre><code class="language-javascript">getters.getContentFromCache(contentMap, key)
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>contentMap</code> (Map): The same map used in cacheContent</li>
+<li><code>key</code> (string): The key used when setting the map entry</li>
+</ul>
+<p><strong>Returns:</strong> Cached data or empty array if not found</p>
+<h3 id="usage-patterns" tabindex="-1">Usage Patterns</h3>
+<h4 id="basic-usage-example" tabindex="-1">Basic Usage Example</h4>
+<pre><code class="language-javascript">// In a Vue component
+async fetchContent() {
+  this.loading = true;
+
+  // 1. Create content map
+  const contentMap = new Map();
+  const newsName = &quot;getNews&quot;;
+  contentMap.set(newsName, {
+    hash: getHash(newsName),
+    query: getAllNews,
+    params: {}
+  });
+
+  // 2. Dispatch caching action
+  await this.$store.dispatch(&quot;cacheContent&quot;, contentMap);
+
+  // 3. Retrieve from cache
+  this.news = this.$store.getters.getContentFromCache(
+    contentMap,
+    newsName
+  );
+
+  this.loading = false;
+}
+</code></pre>
+<h4 id="multiple-queries-example" tabindex="-1">Multiple Queries Example</h4>
+<pre><code class="language-javascript">const contentMap = new Map();
+
+// Add first query
+contentMap.set(&quot;getNews&quot;, {
+  hash: getHash(&quot;getNews&quot;),
+  query: getAllNews,
+  params: {}
+});
+
+// Add second query
+contentMap.set(&quot;getPublications&quot;, {
+  hash: getHash(&quot;getPublications&quot;),
+  query: getAllPublications,
+  params: {}
+});
+
+// Fetch both (only uncached ones hit the API)
+await this.$store.dispatch(&quot;cacheContent&quot;, contentMap);
+
+// Retrieve both
+const news = this.$store.getters.getContentFromCache(contentMap, &quot;getNews&quot;);
+const publications = this.$store.getters.getContentFromCache(
+  contentMap,
+  &quot;getPublications&quot;
+);
+</code></pre>
+<h4 id="parameterized-queries-example" tabindex="-1">Parameterized Queries Example</h4>
+<pre><code class="language-javascript">const contentMap = new Map();
+const slug = &quot;my-page&quot;;
+const queryName = `getPage-${slug}`;
+
+contentMap.set(queryName, {
+  hash: getHash(queryName),
+  query: getPage,
+  params: { slug }
+});
+
+await this.$store.dispatch(&quot;cacheContent&quot;, contentMap);
+const page = this.$store.getters.getContentFromCache(contentMap, queryName);
+</code></pre>
+<h3 id="cache-invalidation" tabindex="-1">Cache Invalidation</h3>
+<h4 id="current-strategy" tabindex="-1">Current Strategy</h4>
+<p>The caching system uses a <strong>session-based cache invalidation</strong> strategy:</p>
+<ul>
+<li>Cache persists for the duration of the user’s session</li>
+<li>Cache is cleared when the app initializes via <code>initApp</code> action</li>
+<li>Manual cache clearing available via <code>CLEAR_CACHE</code> mutation</li>
+</ul>
+<h4 id="clearing-cache" tabindex="-1">Clearing Cache</h4>
+<pre><code class="language-javascript">// Clear all cached content
+this.$store.commit(&quot;CLEAR_CACHE&quot;);
+
+// Clear localStorage route tracking
+this.$store.commit(&quot;CLEAR_LOCAL_STORAGE&quot;);
+</code></pre>
+<h3 id="performance-considerations" tabindex="-1">Performance Considerations</h3>
+<h4 id="benefits" tabindex="-1">Benefits</h4>
+<ol>
+<li><strong>Reduced API Calls</strong>: Identical queries within a session only hit the API once</li>
+<li><strong>Faster Navigation</strong>: Cached data loads instantly on revisits</li>
+<li><strong>Parallel Requests</strong>: Multiple uncached queries execute in parallel via <code>Promise.all()</code></li>
+<li><strong>Debug Logging</strong>: Optional debug output shows cache performance metrics</li>
+</ol>
+<h4 id="enabling-debug-mode" tabindex="-1">Enabling Debug Mode</h4>
+<p>Set <code>debug: true</code> in <code>src/config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;debug&quot;: true
+}
+</code></pre>
+<p>This logs cache operations to the browser console.</p>
+<h3 id="common-patterns-in-views" tabindex="-1">Common Patterns in Views</h3>
+<p>Most view components follow this pattern:</p>
+<ul>
+<li><strong>News.vue</strong> - Fetches all news</li>
+<li><strong>Publications.vue</strong> - Fetches all publications</li>
+<li><strong>MeetingsSingle.vue</strong> - Fetches single meeting by slug</li>
+<li><strong>TagsSingle.vue</strong> - Fetches content by tag</li>
+<li><strong>Home.vue</strong> - Fetches multiple content types</li>
+</ul>
+<p>All use the same caching mechanism with different query functions.</p>
+<h3 id="extending-the-caching-system" tabindex="-1">Extending the Caching System</h3>
+<h4 id="adding-a-new-cached-query" tabindex="-1">Adding a New Cached Query</h4>
+<ol>
+<li>Create query function in <code>src/services/Content.js</code></li>
+<li>In your component, create a contentMap entry</li>
+<li>Call <code>cacheContent</code> action</li>
+<li>Retrieve with <code>getContentFromCache</code> getter</li>
+</ol>
+<p>Example:</p>
+<pre><code class="language-javascript">// In Content.js
+const getMyData = async ({ param }) =&gt; {
+  try {
+    const data = await queryEndpoint(getMyDataQuery(param));
+    return data.data.data.myData;
+  } catch (e) {
+    EventBus.$emit(&quot;contentServiceError&quot;, e.toString());
+    return [];
+  }
+};
+
+// In your component
+const contentMap = new Map();
+contentMap.set(&quot;myData&quot;, {
+  hash: getHash(&quot;myData&quot;),
+  query: getMyData,
+  params: { param: &quot;value&quot; }
+});
+
+await this.$store.dispatch(&quot;cacheContent&quot;, contentMap);
+const myData = this.$store.getters.getContentFromCache(contentMap, &quot;myData&quot;);
+</code></pre>
+<h3 id="troubleshooting" tabindex="-1">Troubleshooting</h3>
+<h4 id="data-not-appearing" tabindex="-1">Data Not Appearing</h4>
+<ol>
+<li>Check browser console for errors</li>
+<li>Verify query function returns data in expected format</li>
+<li>Ensure hash is correctly generated</li>
+<li>Check that contentMap key matches retrieval key</li>
+</ol>
+<h4 id="cache-not-working" tabindex="-1">Cache Not Working</h4>
+<ol>
+<li>Verify <code>cacheContent</code> action completes</li>
+<li>Check that <code>inCache</code> getter returns true for subsequent calls</li>
+<li>Enable debug mode to see cache operations</li>
+</ol>
+<h4 id="performance-issues" tabindex="-1">Performance Issues</h4>
+<ol>
+<li>Check API response times</li>
+<li>Monitor cache size in debug output</li>
+<li>Consider implementing cache size limits if needed</li>
+</ol>
 <h3 id="error-handling-strategies" tabindex="-1">Error Handling Strategies</h3>
 <ul>
+<li><strong>API Failures</strong>: Graceful degradation with cached content</li>
+<li><strong>Network Issues</strong>: Offline-friendly with service worker (if implemented)</li>
+<li><strong>Content Missing</strong>: Default content and error pages</li>
+<li><strong>Search Failures</strong>: Fallback to basic filtering</li>
+<li><strong>Image Loading</strong>: Placeholder images and lazy loading</li>
 <li><strong>API Failures</strong>: Graceful degradation with cached content</li>
 <li><strong>Network Issues</strong>: Offline-friendly with service worker (if implemented)</li>
 <li><strong>Content Missing</strong>: Default content and error pages</li>
@@ -601,7 +859,7 @@
 <h3 id="required-software" tabindex="-1">Required Software</h3>
 <ul>
 <li><strong>Node.js</strong>: Version 14.x or higher (LTS recommended)</li>
-<li><strong>Yarn</strong>: 1.22.22 or higher (preferred package manager)</li>
+<li><strong>npm</strong>: 6.x or higher (included with Node.js)</li>
 <li><strong>Git</strong>: For version control</li>
 <li><strong>Code Editor</strong>: VS Code recommended with Vue.js extensions</li>
 </ul>
@@ -611,10 +869,7 @@
 cd spac-client-next
 </code></pre>
 <h4 id="2.-install-dependencies" tabindex="-1">2. Install Dependencies</h4>
-<pre><code class="language-bash"># Install all dependencies using Yarn (preferred)
-yarn install
-
-# OR using npm (if Yarn is not available)
+<pre><code class="language-bash"># Install all dependencies using npm
 npm install
 </code></pre>
 <h4 id="3.-environment-configuration" tabindex="-1">3. Environment Configuration</h4>
@@ -631,13 +886,13 @@ cp .env.sample .env
 </code></pre>
 <h4 id="4.-verification-steps" tabindex="-1">4. Verification Steps</h4>
 <pre><code class="language-bash"># Test the development server
-yarn serve
+npm run serve
 
 # Verify build process
-yarn build
+npm run build
 
 # Check linting
-yarn lint
+npm run lint
 </code></pre>
 <h3 id="troubleshooting-common-issues" tabindex="-1">Troubleshooting Common Issues</h3>
 <h4 id="windows-users-(wsl2-required)" tabindex="-1">Windows Users (WSL2 Required)</h4>
@@ -648,9 +903,9 @@ yarn lint
 </ul>
 <h4 id="general-issues" tabindex="-1">General Issues</h4>
 <ul>
-<li><strong>Port Conflicts</strong>: Change port in <code>vue.config.js</code> or use <code>yarn serve --port 8081</code></li>
+<li><strong>Port Conflicts</strong>: Change port in <code>vue.config.js</code> or use <code>npm run serve -- --port 8081</code></li>
 <li><strong>Memory Issues</strong>: Increase Node.js memory limit: <code>export NODE_OPTIONS=&quot;--max-old-space-size=4096&quot;</code></li>
-<li><strong>Build Failures</strong>: Clear node_modules and reinstall: <code>rm -rf node_modules &amp;&amp; yarn install</code></li>
+<li><strong>Build Failures</strong>: Clear node_modules and reinstall: <code>rm -rf node_modules package-lock.json &amp;&amp; npm install</code></li>
 </ul>
 <h2 id="development-workflow" tabindex="-1">Development Workflow</h2>
 <h3 id="git-workflow-and-branching-strategy" tabindex="-1">Git Workflow and Branching Strategy</h3>
@@ -667,7 +922,7 @@ yarn lint
 <li><strong>Prettier Integration</strong>: Automatic code formatting on save</li>
 <li><strong>Vue Style Guide</strong>: Follow official Vue.js style guide</li>
 <li><strong>Component Naming</strong>: PascalCase for components, kebab-case for files</li>
-<li><strong>Linting Command</strong>: <code>yarn lint</code> to check code quality</li>
+<li><strong>Linting Command</strong>: <code>npm run lint</code> to check code quality</li>
 </ul>
 <h3 id="testing-approach-and-procedures" tabindex="-1">Testing Approach and Procedures</h3>
 <ul>
@@ -680,7 +935,7 @@ yarn lint
 <h3 id="common-development-tasks" tabindex="-1">Common Development Tasks</h3>
 <h4 id="starting-development-server" tabindex="-1">Starting Development Server</h4>
 <pre><code class="language-bash"># Start development server with hot reload
-yarn serve
+npm run serve
 
 # This will:
 # 1. Generate search index (buildSearchIndex.js)
@@ -689,7 +944,7 @@ yarn serve
 </code></pre>
 <h4 id="building-for-production" tabindex="-1">Building for Production</h4>
 <pre><code class="language-bash"># Create production build
-yarn build
+npm run build
 
 # This will:
 # 1. Generate search index
@@ -699,17 +954,17 @@ yarn build
 </code></pre>
 <h4 id="content-updates" tabindex="-1">Content Updates</h4>
 <pre><code class="language-bash"># Regenerate search index only
-yarn build:search
+npm run build:search
 
 # Full rebuild (recommended after content changes)
-yarn build
+npm run build
 </code></pre>
 <h4 id="code-quality-checks" tabindex="-1">Code Quality Checks</h4>
 <pre><code class="language-bash"># Run ESLint
-yarn lint
+npm run lint
 
 # Auto-fix linting issues
-yarn lint --fix
+npm run lint -- --fix
 </code></pre>
 <h2 id="build-and-deployment" tabindex="-1">Build and Deployment</h2>
 <h3 id="build-process-overview" tabindex="-1">Build Process Overview</h3>
@@ -760,13 +1015,12 @@ yarn lint --fix
 <h3 id="deployment-configuration" tabindex="-1">Deployment Configuration</h3>
 <h4 id="netlify-configuration-(netlify.toml)" tabindex="-1">Netlify Configuration (<code>netlify.toml</code>)</h4>
 <pre><code class="language-toml">[build]
-  command = &quot;yarn build&quot;
+  command = &quot;npm run build&quot;
   functions = &quot;netlify&quot;
   publish = &quot;dist&quot;
 
 [build.environment]
   NODE_VERSION = &quot;14&quot;
-  YARN_VERSION = &quot;1.22.22&quot;
 </code></pre>
 <h4 id="serverless-functions" tabindex="-1">Serverless Functions</h4>
 <ul>
@@ -786,7 +1040,7 @@ yarn lint --fix
 <ol>
 <li><strong>Code Push</strong>: Push changes to GitHub repository</li>
 <li><strong>Automatic Build</strong>: Netlify detects changes and triggers build</li>
-<li><strong>Build Execution</strong>: Runs <code>yarn build</code> command</li>
+<li><strong>Build Execution</strong>: Runs <code>npm run build</code> command</li>
 <li><strong>Function Deployment</strong>: Deploys serverless functions</li>
 <li><strong>Asset Optimization</strong>: Compresses and optimizes static assets</li>
 <li><strong>CDN Distribution</strong>: Distributes to global edge locations</li>
@@ -854,8 +1108,8 @@ SERVERLESS_PASSWORD=password
 </code></pre>
 <h4 id="package-manager-configuration" tabindex="-1">Package Manager Configuration</h4>
 <ul>
-<li><strong>Primary Package Manager</strong>: Yarn 1.22.22</li>
-<li><strong>Lock File</strong>: yarn.lock (committed to repository)</li>
+<li><strong>Primary Package Manager</strong>: npm (included with Node.js)</li>
+<li><strong>Lock File</strong>: package-lock.json (committed to repository)</li>
 <li><strong>Scripts</strong>: Defined in package.json for consistent commands</li>
 <li><strong>Dependencies</strong>: Production and development dependencies clearly separated</li>
 </ul>
@@ -875,26 +1129,26 @@ SERVERLESS_PASSWORD=password
 <li><strong>Robots.txt</strong>: Search engine crawling directives</li>
 <li><strong>Structured Data</strong>: JSON-LD for enhanced search results</li>
 </ul>
-<h2 id="troubleshooting" tabindex="-1">Troubleshooting</h2>
+<h2 id="troubleshooting-1" tabindex="-1">Troubleshooting</h2>
 <h3 id="common-issues-and-solutions" tabindex="-1">Common Issues and Solutions</h3>
 <h4 id="build-and-development-issues" tabindex="-1">Build and Development Issues</h4>
-<p><strong>Problem</strong>: <code>yarn serve</code> fails with module not found errors
+<p><strong>Problem</strong>: <code>npm run serve</code> fails with module not found errors
 <strong>Solution</strong>:</p>
 <pre><code class="language-bash"># Clear node_modules and reinstall
-rm -rf node_modules yarn.lock
-yarn install
+rm -rf node_modules package-lock.json
+npm install
 </code></pre>
 <p><strong>Problem</strong>: Search functionality not working
 <strong>Solution</strong>:</p>
 <pre><code class="language-bash"># Regenerate search index
-yarn build:search
+npm run build:search
 # Or full rebuild
-yarn build
+npm run build
 </code></pre>
 <p><strong>Problem</strong>: Sitemap not updating
 <strong>Solution</strong>:</p>
 <pre><code class="language-bash"># Check API connectivity and rebuild
-yarn build
+npm run build
 # Verify sitemap.xml in public/ directory
 </code></pre>
 <h4 id="content-display-issues" tabindex="-1">Content Display Issues</h4>
@@ -967,7 +1221,7 @@ if (process.env.NODE_ENV === 'development') {
 <li><strong>Code Splitting</strong>: Vue CLI automatically splits routes</li>
 <li><strong>Image Optimization</strong>: Use Thumbor for responsive images</li>
 <li><strong>Lazy Loading</strong>: Implement for images and components</li>
-<li><strong>Bundle Analysis</strong>: Use <code>yarn build --analyze</code> to check bundle size</li>
+<li><strong>Bundle Analysis</strong>: Use <code>npm run build</code> and check dist/ directory for bundle size</li>
 </ul>
 <h4 id="content-optimization" tabindex="-1">Content Optimization</h4>
 <ul>
@@ -1002,7 +1256,7 @@ if (process.env.NODE_ENV === 'development') {
 <h3 id="node.js-fundamentals-and-ecosystem" tabindex="-1">Node.js Fundamentals and Ecosystem</h3>
 <p>Node.js is a JavaScript runtime built on Chrome’s V8 JavaScript engine. For SPAC development, you need to understand:</p>
 <ul>
-<li><strong>Package Management</strong>: npm and Yarn for dependency management</li>
+<li><strong>Package Management</strong>: npm for dependency management</li>
 <li><strong>Module System</strong>: CommonJS and ES6 modules</li>
 <li><strong>Asynchronous Programming</strong>: Promises, async/await patterns</li>
 <li><strong>Build Tools</strong>: Webpack, Babel, and Vue CLI integration</li>
@@ -1041,12 +1295,9 @@ sudo apt update &amp;&amp; sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-# Install Yarn
-npm install -g yarn
-
-# Verify installations
+# Verify installation
 node --version
-yarn --version
+npm --version
 </code></pre>
 </li>
 <li>
@@ -1065,26 +1316,21 @@ yarn --version
 # Install Node.js
 brew install node
 
-# Install Yarn
-brew install yarn
-
-# Verify installations
+# Verify installation
 node --version
-yarn --version
+npm --version
 </code></pre>
 <h4 id="linux-(fully-supported)" tabindex="-1">Linux (Fully Supported)</h4>
 <pre><code class="language-bash"># Ubuntu/Debian
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
-npm install -g yarn
 
 # Fedora
 sudo dnf install nodejs npm
-npm install -g yarn
 
-# Verify installations
+# Verify installation
 node --version
-yarn --version
+npm --version
 </code></pre>
 <h3 id="essential-command-line-skills" tabindex="-1">Essential Command Line Skills</h3>
 <pre><code class="language-bash"># Navigation
@@ -1104,18 +1350,18 @@ git commit -m &quot;message&quot;
 git push origin branch-name
 
 # Package management
-yarn install
-yarn add package-name
-yarn remove package-name
-yarn upgrade
+npm install
+npm install package-name
+npm uninstall package-name
+npm update
 </code></pre>
 <h3 id="development-workflow-best-practices" tabindex="-1">Development Workflow Best Practices</h3>
 <ol>
 <li><strong>Always use WSL2 on Windows</strong> - Never develop in native Windows</li>
 <li><strong>Store projects in Unix file system</strong> - Not in <code>/mnt/c/</code> on WSL2</li>
-<li><strong>Use Yarn consistently</strong> - Don’t mix npm and Yarn commands</li>
+<li><strong>Use npm consistently</strong> - Don’t mix package managers</li>
 <li><strong>Keep dependencies updated</strong> - Regular security updates</li>
-<li><strong>Test locally before pushing</strong> - Run <code>yarn build</code> before commits</li>
+<li><strong>Test locally before pushing</strong> - Run <code>npm run build</code> before commits</li>
 </ol>
 <h3 id="project-specific-quick-start-guide" tabindex="-1">Project-Specific Quick Start Guide</h3>
 <pre><code class="language-bash"># 1. Clone and setup
@@ -1125,16 +1371,16 @@ cp .env.sample .env
 # Edit .env with your configuration
 
 # 2. Install dependencies
-yarn install
+npm install
 
 # 3. Start development
-yarn serve
+npm run serve
 
 # 4. Build for production
-yarn build
+npm run build
 
 # 5. Run quality checks
-yarn lint
+npm run lint
 </code></pre>
 <h3 id="useful-tools-and-extensions" tabindex="-1">Useful Tools and Extensions</h3>
 <h4 id="vs-code-extensions" tabindex="-1">VS Code Extensions</h4>
