@@ -549,6 +549,21 @@
   }
 }
 </code></pre>
+<h4 id="thumbor-image-server" tabindex="-1">Thumbor Image Server</h4>
+<ul>
+<li><strong>Endpoint</strong>: <code>https://image.icjia.cloud</code></li>
+<li><strong>Purpose</strong>: Smart image optimization, resizing, cropping, and caching</li>
+<li><strong>Configuration</strong>: <code>src/config.json</code> → <code>imageServerURL</code></li>
+<li><strong>Security Key</strong>: Stored in <code>.env</code> → <code>VUE_APP_THUMBOR_KEY</code></li>
+</ul>
+<p><strong>Image URL Format</strong>:</p>
+<pre><code>https://image.icjia.cloud/unsafe/{width}x{height}/{image-url}
+</code></pre>
+<p><strong>Example</strong>:</p>
+<pre><code>https://image.icjia.cloud/unsafe/310x360/spac.icjia-api.cloud/uploads/publication-cover.png
+</code></pre>
+<p><strong>⚠️ Important</strong>: For questions about the Thumbor security key or password, please contact the previous SPAC web developer.</p>
+<p><strong>For comprehensive Thumbor documentation</strong>, see <code>/THUMBOR_IMAGE_SERVER.md</code></p>
 <h4 id="content-types-and-endpoints" tabindex="-1">Content Types and Endpoints</h4>
 <ol>
 <li><strong>Pages</strong>: <code>/pages</code> - Static content pages with sections</li>
@@ -559,6 +574,106 @@
 <li><strong>Sections</strong>: <code>/sections</code> - Site navigation sections</li>
 <li><strong>Tags</strong>: <code>/tags</code> - Content categorization tags</li>
 </ol>
+<h3 id="tagging-system" tabindex="-1">Tagging System</h3>
+<p>The SPAC application uses a flexible tagging system to organize and cross-reference content across multiple content types. Tags enable users to discover related content and provide a secondary navigation method.</p>
+<h4 id="taggable-content-types" tabindex="-1">Taggable Content Types</h4>
+<p>The following content types support tags:</p>
+<ul>
+<li><strong>Pages</strong> - Static content pages</li>
+<li><strong>Posts (News)</strong> - News articles and announcements</li>
+<li><strong>Publications</strong> - Research reports and documents</li>
+<li><strong>Meetings</strong> - Council meetings and events</li>
+<li><strong>Biographies</strong> - Council member profiles</li>
+<li><strong>Sites</strong> - Site descriptions and special pages</li>
+</ul>
+<h4 id="tag-schema" tabindex="-1">Tag Schema</h4>
+<p>Each tag contains:</p>
+<ul>
+<li><strong>id</strong> - Unique identifier</li>
+<li><strong>name</strong> - Display name (e.g., “Sentencing Policy”)</li>
+<li><strong>slug</strong> - URL-friendly identifier (e.g., “sentencing-policy”)</li>
+<li><strong>content</strong> - Optional tag description</li>
+</ul>
+<h4 id="tag-relationships" tabindex="-1">Tag Relationships</h4>
+<p>Tags create cross-content relationships. A single tag can be associated with pages, news posts, publications, meetings, and biographies simultaneously.</p>
+<h4 id="sample-tag-query" tabindex="-1">Sample Tag Query</h4>
+<pre><code class="language-graphql">{
+  tags(where: {slug: &quot;sentencing-policy&quot;}) {
+    name
+    slug
+    content
+
+    pages(sort: &quot;title:asc&quot;, where: {isPublished: true}) {
+      title
+      slug
+      summary
+    }
+
+    posts(sort: &quot;createdAt:desc&quot;, where: {isPublished: true}) {
+      title
+      slug
+      summary
+      createdAt
+    }
+
+    publications(sort: &quot;year:desc&quot;, where: {isPublished: true}) {
+      title
+      slug
+      year
+    }
+
+    meetings(sort: &quot;scheduledDate:desc&quot;, where: {isPublished: true}) {
+      title
+      slug
+      scheduledDate
+    }
+
+    biographies(sort: &quot;alphabetizeBy:asc&quot;, where: {isPublished: true}) {
+      firstName
+      lastName
+      title
+    }
+  }
+}
+</code></pre>
+<h4 id="tag-display" tabindex="-1">Tag Display</h4>
+<ul>
+<li>Tags are displayed as <strong>purple chips</strong> with a label icon</li>
+<li>The “fiscal-impact” tag displays as <strong>“IMPACT ANALYSIS”</strong> (special case)</li>
+<li>Tags are <strong>clickable</strong> and link to <code>/tags/{tag-slug}</code></li>
+<li>Multiple tags can be applied to a single piece of content</li>
+<li>Tags are displayed in <strong>uppercase</strong> in the UI</li>
+</ul>
+<h4 id="tag-navigation" tabindex="-1">Tag Navigation</h4>
+<p>When users click a tag, they navigate to <code>/tags/{tag-slug}</code> which displays:</p>
+<ol>
+<li>Tag description (if available)</li>
+<li>All tagged pages</li>
+<li>All tagged news posts</li>
+<li>All tagged publications</li>
+<li>All tagged meetings</li>
+<li>All tagged council members</li>
+</ol>
+<h4 id="using-tags-in-code" tabindex="-1">Using Tags in Code</h4>
+<p>Tags are included in all content queries:</p>
+<pre><code class="language-javascript">// Tags are automatically included
+{
+  pages(where: {isPublished: true}) {
+    title
+    slug
+    tags {
+      name
+      slug
+    }
+  }
+}
+</code></pre>
+<p>Fetch all content for a specific tag using the <code>getContentByTag</code> function:</p>
+<pre><code class="language-javascript">import { getContentByTag } from &quot;@/services/Content&quot;;
+
+const tagContent = await getContentByTag({ slug: &quot;sentencing-policy&quot; });
+</code></pre>
+<p><strong>For comprehensive tagging documentation and more examples</strong>, see <code>/GRAPHQL_API_GUIDE.md</code> → “Tagging System” section</p>
 <h3 id="data-processing-workflows" tabindex="-1">Data Processing Workflows</h3>
 <h4 id="search-index-generation-(buildsearchindex.js)" tabindex="-1">Search Index Generation (<code>buildSearchIndex.js</code>)</h4>
 <ol>
@@ -583,7 +698,16 @@
 </ul>
 <h2 id="custom-caching-system" tabindex="-1">Custom Caching System</h2>
 <h3 id="overview" tabindex="-1">Overview</h3>
-<p>The SPAC application implements a sophisticated, in-memory caching system built on top of Vuex (Vue’s state management library). This system efficiently manages API responses to minimize redundant network requests and improve application performance.</p>
+<p>The SPAC application implements a sophisticated, <strong>session-only in-memory caching system</strong> built on top of Vuex (Vue’s state management library). This system efficiently manages API responses to minimize redundant network requests and improve application performance during a user’s browsing session.</p>
+<p><strong>⚠️ Important</strong>: This cache is <strong>NOT persistent</strong>. It exists only in memory for the current browser session and is cleared when:</p>
+<ul>
+<li>The page is reloaded</li>
+<li>A new browser tab is opened</li>
+<li>The user closes the browser</li>
+<li>The user navigates away and returns later</li>
+</ul>
+<h3 id="historical-context" tabindex="-1">Historical Context</h3>
+<p>This custom caching system was implemented to optimize repeated page lookups within a single session. At the time of implementation, Apollo GraphQL did not have the robust caching features it has today. Since then, Apollo Client has evolved to include sophisticated caching mechanisms for GraphQL queries. However, this custom system remains in place and continues to provide session-level performance optimization for repeated content access.</p>
 <h3 id="architecture" tabindex="-1">Architecture</h3>
 <p>The caching system consists of three main components:</p>
 <ol>
@@ -743,28 +867,49 @@ await this.$store.dispatch(&quot;cacheContent&quot;, contentMap);
 const page = this.$store.getters.getContentFromCache(contentMap, queryName);
 </code></pre>
 <h3 id="cache-invalidation" tabindex="-1">Cache Invalidation</h3>
-<h4 id="current-strategy" tabindex="-1">Current Strategy</h4>
-<p>The caching system uses a <strong>session-based cache invalidation</strong> strategy:</p>
+<h4 id="session-only-behavior" tabindex="-1">Session-Only Behavior</h4>
+<p>The caching system uses a <strong>session-only cache invalidation</strong> strategy:</p>
 <ul>
-<li>Cache persists for the duration of the user’s session</li>
-<li>Cache is cleared when the app initializes via <code>initApp</code> action</li>
-<li>Manual cache clearing available via <code>CLEAR_CACHE</code> mutation</li>
+<li><strong>Cache Duration</strong>: Persists only for the duration of the user’s current browser session</li>
+<li><strong>Automatic Expiration</strong>: Cache is automatically cleared when:
+<ul>
+<li>Page is reloaded (F5, Cmd+R)</li>
+<li>Browser tab is closed</li>
+<li>User navigates away and returns later</li>
+<li>Browser session ends</li>
 </ul>
-<h4 id="clearing-cache" tabindex="-1">Clearing Cache</h4>
+</li>
+<li><strong>App Initialization</strong>: Cache is cleared when the app initializes via <code>initApp</code> action</li>
+<li><strong>Manual Clearing</strong>: Available via <code>CLEAR_CACHE</code> mutation for programmatic cache clearing</li>
+</ul>
+<h4 id="clearing-cache-manually" tabindex="-1">Clearing Cache Manually</h4>
 <pre><code class="language-javascript">// Clear all cached content
 this.$store.commit(&quot;CLEAR_CACHE&quot;);
 
 // Clear localStorage route tracking
 this.$store.commit(&quot;CLEAR_LOCAL_STORAGE&quot;);
 </code></pre>
+<p><strong>Use Cases for Manual Clearing:</strong></p>
+<ul>
+<li>After content updates on the backend</li>
+<li>When user explicitly requests a refresh</li>
+<li>During development/testing</li>
+</ul>
 <h3 id="performance-considerations" tabindex="-1">Performance Considerations</h3>
-<h4 id="benefits" tabindex="-1">Benefits</h4>
+<h4 id="benefits-(session-only)" tabindex="-1">Benefits (Session-Only)</h4>
 <ol>
 <li><strong>Reduced API Calls</strong>: Identical queries within a session only hit the API once</li>
-<li><strong>Faster Navigation</strong>: Cached data loads instantly on revisits</li>
+<li><strong>Faster Navigation</strong>: Cached data loads instantly when revisiting pages within the same session</li>
 <li><strong>Parallel Requests</strong>: Multiple uncached queries execute in parallel via <code>Promise.all()</code></li>
 <li><strong>Debug Logging</strong>: Optional debug output shows cache performance metrics</li>
 </ol>
+<h4 id="limitations" tabindex="-1">Limitations</h4>
+<ul>
+<li><strong>No Cross-Session Persistence</strong>: Cache is lost on page reload or new browser session</li>
+<li><strong>Memory-Based Only</strong>: No persistent storage (localStorage, IndexedDB, etc.)</li>
+<li><strong>Single Tab Only</strong>: Each browser tab has its own independent cache</li>
+<li><strong>Session-Specific</strong>: Useful for repeated lookups within a single browsing session</li>
+</ul>
 <h4 id="enabling-debug-mode" tabindex="-1">Enabling Debug Mode</h4>
 <p>Set <code>debug: true</code> in <code>src/config.json</code>:</p>
 <pre><code class="language-json">{
@@ -826,12 +971,20 @@ const myData = this.$store.getters.getContentFromCache(contentMap, &quot;myData&
 <li>Verify <code>cacheContent</code> action completes</li>
 <li>Check that <code>inCache</code> getter returns true for subsequent calls</li>
 <li>Enable debug mode to see cache operations</li>
+<li>Remember: Cache is cleared on page reload - test within the same session</li>
 </ol>
+<h4 id="cache-lost-after-reload" tabindex="-1">Cache Lost After Reload</h4>
+<p><strong>Expected Behavior</strong>: Cache is cleared when the page is reloaded. This is by design.</p>
+<ul>
+<li>If you need data to persist across reloads, use localStorage or a backend session</li>
+<li>For development, keep the page open and navigate without reloading</li>
+</ul>
 <h4 id="performance-issues" tabindex="-1">Performance Issues</h4>
 <ol>
 <li>Check API response times</li>
 <li>Monitor cache size in debug output</li>
-<li>Consider implementing cache size limits if needed</li>
+<li>Remember: Cache benefits only apply within a single session</li>
+<li>First page load will always hit the API (cache is empty)</li>
 </ol>
 <h3 id="error-handling-strategies" tabindex="-1">Error Handling Strategies</h3>
 <ul>
@@ -1406,6 +1559,294 @@ npm install -g netlify-cli       # Netlify deployment
 npm install -g lighthouse        # Performance auditing
 </code></pre>
 <p>This comprehensive documentation provides everything needed for new developers to understand, set up, and contribute to the SPAC website project. The documentation follows the established audit log system and will be maintained according to the project’s documentation standards.</p>
+<h2 id="%F0%9F%9A%80-future%3A-adobe-experience-manager-(aem)-migration" tabindex="-1">🚀 Future: Adobe Experience Manager (AEM) Migration</h2>
+<p><strong>⚠️ Important</strong>: This application is planned to be migrated to Adobe Experience Manager (AEM).</p>
+<h3 id="overview-1" tabindex="-1">Overview</h3>
+<p>This Vue.js + Strapi application will eventually be upgraded to AEM, which will provide enterprise-grade CMS capabilities, built-in CDN and image optimization, improved performance and scalability, reduced maintenance overhead, and automatic security updates.</p>
+<h3 id="key-migration-considerations" tabindex="-1">Key Migration Considerations</h3>
+<h4 id="content-structure" tabindex="-1">Content Structure</h4>
+<ul>
+<li>All Strapi content types will map to AEM Content Fragments</li>
+<li>Tags and categorization will be preserved</li>
+<li>All custom fields and relationships will be maintained</li>
+</ul>
+<h4 id="frontend" tabindex="-1">Frontend</h4>
+<ul>
+<li>Vue.js components will be converted to AEM components</li>
+<li>Current URL structure will be maintained for SEO</li>
+<li>Caching strategy will shift from session-only to multi-layer (browser, CDN, dispatcher)</li>
+</ul>
+<h4 id="images" tabindex="-1">Images</h4>
+<ul>
+<li>Thumbor image optimization will be replaced with AEM Dynamic Media</li>
+<li>Image URLs will change format but functionality remains the same</li>
+</ul>
+<h4 id="search" tabindex="-1">Search</h4>
+<ul>
+<li>Client-side search will migrate to AEM Search &amp; Promote or Elasticsearch</li>
+<li>Search functionality will remain the same for users</li>
+</ul>
+<h3 id="for-developers-assigned-to-aem-migration" tabindex="-1">For Developers Assigned to AEM Migration</h3>
+<p>If you’re assigned to work on the AEM migration:</p>
+<ol>
+<li><strong>Read the Migration Guide</strong>: See <code>/AEM_MIGRATION_GUIDE.md</code> for comprehensive strategy</li>
+<li><strong>Understand Current Architecture</strong>: Familiarize yourself with this Vue.js + Strapi setup</li>
+<li><strong>Plan Content Migration</strong>: Map all Strapi content models to AEM Content Fragments</li>
+<li><strong>Develop AEM Components</strong>: Convert Vue.js components to AEM components</li>
+<li><strong>Test Thoroughly</strong>: Validate all content and functionality after migration</li>
+</ol>
+<p><strong>Estimated Timeline</strong>: 3-5 months for complete migration</p>
+<h3 id="java-specific-patterns-for-aem-development" tabindex="-1">Java-Specific Patterns for AEM Development</h3>
+<h4 id="sling-models" tabindex="-1">Sling Models</h4>
+<p>Sling Models are the primary pattern for mapping content to Java objects in AEM. They replace the GraphQL query logic from Strapi.</p>
+<pre><code class="language-java">@Model(adaptables = Resource.class)
+public class PageModel {
+    @ValueMapValue
+    private String title;
+
+    @ValueMapValue
+    private String slug;
+
+    @ChildResource
+    private List&lt;TagModel&gt; tags;
+
+    // Getters...
+}
+</code></pre>
+<h4 id="osgi-services" tabindex="-1">OSGi Services</h4>
+<p>Create OSGi services to handle business logic (similar to Strapi plugins).</p>
+<pre><code class="language-java">@Component(service = ContentService.class)
+public class ContentServiceImpl implements ContentService {
+    @Override
+    public List&lt;ContentModel&gt; getContentByTag(ResourceResolver resolver, String tagSlug) {
+        // Implementation
+    }
+}
+</code></pre>
+<h4 id="query-builder" tabindex="-1">Query Builder</h4>
+<p>Replace GraphQL queries with AEM Query Builder for repository queries.</p>
+<pre><code class="language-java">Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;path&quot;, &quot;/content/spac/publications&quot;);
+map.put(&quot;type&quot;, &quot;cq:Page&quot;);
+map.put(&quot;property&quot;, &quot;jcr:content/category&quot;);
+map.put(&quot;property.value&quot;, category);
+
+Query query = queryBuilder.createQuery(PredicateGroup.create(map), resolver.adaptTo(Session.class));
+SearchResult result = query.getResult();
+</code></pre>
+<h4 id="content-fragment-models" tabindex="-1">Content Fragment Models</h4>
+<p>Create Content Fragment Models for each Strapi content type.</p>
+<pre><code class="language-xml">&lt;model jcr:title=&quot;Publication&quot; sling:resourceType=&quot;cq/dam/cfm/models/editor/components/schemaType/cfm-schemaType&quot;&gt;
+    &lt;fieldDefs jcr:primaryType=&quot;nt:unstructured&quot;&gt;
+        &lt;title jcr:primaryType=&quot;nt:unstructured&quot; fieldType=&quot;text&quot; required=&quot;{Boolean}true&quot;/&gt;
+        &lt;slug jcr:primaryType=&quot;nt:unstructured&quot; fieldType=&quot;text&quot; required=&quot;{Boolean}true&quot;/&gt;
+        &lt;year jcr:primaryType=&quot;nt:unstructured&quot; fieldType=&quot;number&quot; required=&quot;{Boolean}true&quot;/&gt;
+    &lt;/fieldDefs&gt;
+&lt;/model&gt;
+</code></pre>
+<h4 id="caching-with-aem" tabindex="-1">Caching with AEM</h4>
+<p>Replace Vuex session-only caching with AEM’s built-in caching mechanisms.</p>
+<pre><code class="language-java">@Component(service = CachedContentService.class)
+public class CachedContentServiceImpl implements CachedContentService {
+    @Reference
+    private CacheManager cacheManager;
+
+    @Override
+    public List&lt;PublicationModel&gt; getPublicationsByCategory(ResourceResolver resolver, String category) {
+        Cache cache = cacheManager.getCache(&quot;spac-content-cache&quot;);
+        String cacheKey = &quot;publications-&quot; + category;
+
+        if (cache.get(cacheKey) != null) {
+            return (List&lt;PublicationModel&gt;) cache.get(cacheKey).getObjectValue();
+        }
+
+        List&lt;PublicationModel&gt; publications = fetchPublications(resolver, category);
+        cache.put(new net.sf.ehcache.Element(cacheKey, publications, 3600));
+
+        return publications;
+    }
+}
+</code></pre>
+<h4 id="tagging-system-1" tabindex="-1">Tagging System</h4>
+<p>Implement AEM’s native tagging system to replace Strapi tags.</p>
+<pre><code class="language-java">@Component(service = TaggingService.class)
+public class TaggingServiceImpl implements TaggingService {
+    @Override
+    public List&lt;ContentModel&gt; getContentByTag(ResourceResolver resolver, String tagId) {
+        TagManager tagManager = resolver.adaptTo(TagManager.class);
+        Tag tag = tagManager.resolve(tagId);
+
+        String queryString = &quot;SELECT * FROM [cq:Page] WHERE [cq:tags] = '&quot; + tag.getTagID() + &quot;'&quot;;
+        // Execute query and return results
+    }
+}
+</code></pre>
+<h4 id="workflows" tabindex="-1">Workflows</h4>
+<p>Implement AEM workflows to replace Strapi publishing logic.</p>
+<pre><code class="language-java">@Component(service = WorkflowProcess.class, property = {&quot;process.label=Publish Content&quot;})
+public class PublishContentWorkflow implements WorkflowProcess {
+    @Override
+    public void execute(WorkItem item, WorkflowSession session, WorkflowData data) {
+        String payloadPath = (String) data.getPayloadData();
+        Resource resource = session.adaptTo(ResourceResolver.class).getResource(payloadPath);
+
+        if (resource != null) {
+            ModifiableValueMap props = resource.adaptTo(ModifiableValueMap.class);
+            props.put(&quot;isPublished&quot;, true);
+            props.put(&quot;publishedDate&quot;, Calendar.getInstance());
+            replicateContent(resource, session);
+        }
+    }
+}
+</code></pre>
+<h4 id="search-implementation" tabindex="-1">Search Implementation</h4>
+<p>Replace client-side Fuse.js search with AEM search capabilities.</p>
+<pre><code class="language-java">@Component(service = SearchService.class)
+public class SearchServiceImpl implements SearchService {
+    @Reference
+    private QueryBuilder queryBuilder;
+
+    @Override
+    public List&lt;SearchResultModel&gt; search(ResourceResolver resolver, String query) {
+        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;path&quot;, &quot;/content/spac&quot;);
+        map.put(&quot;type&quot;, &quot;cq:Page&quot;);
+        map.put(&quot;fulltext&quot;, query);
+
+        Query q = queryBuilder.createQuery(PredicateGroup.create(map), resolver.adaptTo(Session.class));
+        SearchResult result = q.getResult();
+
+        List&lt;SearchResultModel&gt; results = new ArrayList&lt;&gt;();
+        for (Hit hit : result.getHits()) {
+            SearchResultModel model = new SearchResultModel();
+            model.setTitle(hit.getTitle());
+            model.setPath(hit.getPath());
+            results.add(model);
+        }
+        return results;
+    }
+}
+</code></pre>
+<h3 id="common-issues-and-challenges-during-migration" tabindex="-1">Common Issues and Challenges During Migration</h3>
+<h4 id="1.-data-type-mismatches" tabindex="-1">1. Data Type Mismatches</h4>
+<p><strong>Issue</strong>: Strapi data types don’t always map directly to AEM data types.</p>
+<p><strong>Strapi → AEM Mapping</strong>:</p>
+<ul>
+<li>String → Text</li>
+<li>Long Text → Rich Text</li>
+<li>Integer → Number</li>
+<li>Boolean → Boolean</li>
+<li>DateTime → Date</li>
+<li>JSON → Structured Content (requires custom handling)</li>
+<li>Relations → References</li>
+</ul>
+<p><strong>Solution</strong>: Create conversion utilities for each data type during migration.</p>
+<h4 id="2.-relationship-and-reference-handling" tabindex="-1">2. Relationship and Reference Handling</h4>
+<p><strong>Issue</strong>: Strapi relationships (arrays of IDs) need to become AEM references (paths).</p>
+<p><strong>Problem</strong>: Strapi stores relations as arrays of IDs; AEM stores references as paths to content fragments.</p>
+<p><strong>Solution</strong>: Map Strapi IDs to AEM content fragment paths during migration.</p>
+<h4 id="3.-rich-text-content-migration" tabindex="-1">3. Rich Text Content Migration</h4>
+<p><strong>Issue</strong>: HTML content may contain broken image URLs and internal links.</p>
+<p><strong>Problems</strong>:</p>
+<ul>
+<li>Image URLs point to Strapi server</li>
+<li>Internal links use Strapi slug format</li>
+<li>Custom HTML attributes may not be supported</li>
+</ul>
+<p><strong>Solution</strong>: Migrate images to AEM DAM and update all internal links to use AEM paths.</p>
+<h4 id="4.-image-asset-migration" tabindex="-1">4. Image Asset Migration</h4>
+<p><strong>Issue</strong>: Large-scale image migration requires proper metadata handling.</p>
+<p><strong>Problems</strong>:</p>
+<ul>
+<li>Large number of images to migrate</li>
+<li>Image metadata (alt text, descriptions) may be missing</li>
+<li>Image URLs change format</li>
+<li>Thumbor optimization URLs need to be updated</li>
+</ul>
+<p><strong>Solution</strong>: Use bulk import with metadata extraction and proper error handling.</p>
+<h4 id="5.-url-structure-and-redirects" tabindex="-1">5. URL Structure and Redirects</h4>
+<p><strong>Issue</strong>: Content paths change from Strapi to AEM, breaking SEO and existing links.</p>
+<p><strong>Strapi URLs</strong> → <strong>AEM URLs</strong>:</p>
+<ul>
+<li><code>/publications/fiscal-impact-2024</code> → <code>/content/spac/publications/fiscal-impact-2024</code></li>
+<li><code>/news/latest-announcement</code> → <code>/content/spac/news/latest-announcement</code></li>
+</ul>
+<p><strong>Solution</strong>: Implement 301 redirects from old Strapi URLs to new AEM URLs.</p>
+<h4 id="6.-seo-metadata-mapping" tabindex="-1">6. SEO Metadata Mapping</h4>
+<p><strong>Issue</strong>: Custom Strapi SEO fields need to map to AEM standard properties.</p>
+<p><strong>Strapi Fields</strong>:</p>
+<ul>
+<li><code>searchMeta</code> → AEM search metadata</li>
+<li><code>seoTitle</code> → AEM <code>jcr:title</code></li>
+<li><code>seoDescription</code> → AEM <code>cq:description</code></li>
+</ul>
+<p><strong>Solution</strong>: Map custom fields to AEM standard properties during migration.</p>
+<h4 id="7.-date-and-timezone-issues" tabindex="-1">7. Date and Timezone Issues</h4>
+<p><strong>Issue</strong>: Strapi ISO 8601 dates need conversion to AEM Calendar format.</p>
+<p><strong>Problem</strong>:</p>
+<ul>
+<li>Strapi: ISO 8601 format with timezone</li>
+<li>AEM: JCR Calendar format (UTC)</li>
+<li>Timezone conversion errors</li>
+</ul>
+<p><strong>Solution</strong>: Convert to UTC and handle timezone properly during migration.</p>
+<h4 id="8.-draft-vs-published-content" tabindex="-1">8. Draft vs Published Content</h4>
+<p><strong>Issue</strong>: Strapi has separate draft/published states; AEM uses versioning.</p>
+<p><strong>Problem</strong>:</p>
+<ul>
+<li>Strapi: Separate draft/published states</li>
+<li>AEM: Versioning system with author/publish environments</li>
+<li>Risk of duplicating content</li>
+</ul>
+<p><strong>Solution</strong>: Only migrate published content; use AEM versioning for drafts.</p>
+<h4 id="9.-custom-fields-and-extensions" tabindex="-1">9. Custom Fields and Extensions</h4>
+<p><strong>Issue</strong>: Strapi custom fields may not have direct AEM equivalents.</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li>Custom validation rules</li>
+<li>Custom UI components</li>
+<li>Plugin-specific fields</li>
+<li>Dynamic field configurations</li>
+</ul>
+<p><strong>Solution</strong>: Create custom AEM components or store as generic properties.</p>
+<h4 id="10.-performance-and-bulk-migration" tabindex="-1">10. Performance and Bulk Migration</h4>
+<p><strong>Issue</strong>: Migrating large amounts of content can be slow and resource-intensive.</p>
+<p><strong>Problems</strong>:</p>
+<ul>
+<li>API rate limiting</li>
+<li>Memory issues with large datasets</li>
+<li>Network timeouts</li>
+<li>Database locks</li>
+</ul>
+<p><strong>Solution</strong>: Use batch processing with delays to avoid rate limiting and resource exhaustion.</p>
+<h4 id="11.-content-validation-and-data-quality" tabindex="-1">11. Content Validation and Data Quality</h4>
+<p><strong>Issue</strong>: Strapi data may have inconsistencies or missing required fields.</p>
+<p><strong>Problems</strong>:</p>
+<ul>
+<li>Missing required fields</li>
+<li>Invalid data formats</li>
+<li>Orphaned references</li>
+<li>Inconsistent naming conventions</li>
+</ul>
+<p><strong>Solution</strong>: Validate data before migration; handle orphaned references gracefully.</p>
+<h4 id="12.-search-index-rebuilding" tabindex="-1">12. Search Index Rebuilding</h4>
+<p><strong>Issue</strong>: After migration, search indexes need to be rebuilt.</p>
+<p><strong>Problems</strong>:</p>
+<ul>
+<li>Old Strapi content still in search index</li>
+<li>New AEM content not indexed</li>
+<li>Search results pointing to old URLs</li>
+<li>Performance degradation during reindexing</li>
+</ul>
+<p><strong>Solution</strong>: Reindex all migrated content paths after migration is complete.</p>
+<h3 id="resources" tabindex="-1">Resources</h3>
+<ul>
+<li><strong>AEM Documentation</strong>: <a href="https://experienceleague.adobe.com/docs/experience-manager-cloud-service/">https://experienceleague.adobe.com/docs/experience-manager-cloud-service/</a></li>
+<li><strong>AEM Core Components</strong>: <a href="https://github.com/adobe/aem-core-wcm-components">https://github.com/adobe/aem-core-wcm-components</a></li>
+<li><strong>AEM GraphQL API</strong>: <a href="https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/headless/graphql-api/">https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/headless/graphql-api/</a></li>
+<li><strong>AEM Dynamic Media</strong>: <a href="https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/assets/dynamicmedia/">https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/assets/dynamicmedia/</a></li>
+</ul>
+<p><strong>For comprehensive AEM migration guidance with detailed checklists, code examples, and solutions</strong>, see <code>/AEM_MIGRATION_GUIDE.md</code></p>
 
     </div>
 

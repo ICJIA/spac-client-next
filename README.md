@@ -225,16 +225,250 @@ spac-client-next/
 └── .env.sample              # Environment variables template
 ```
 
+## 🚀 Future: Adobe Experience Manager (AEM) Migration
+
+**⚠️ Important**: This application is planned to be migrated to Adobe Experience Manager (AEM).
+
+New developers should be aware that this Vue.js + Strapi application will eventually be upgraded to AEM, which will provide:
+- ✅ Enterprise-grade CMS capabilities
+- ✅ Built-in CDN and image optimization
+- ✅ Improved performance and scalability
+- ✅ Reduced maintenance overhead
+- ✅ Automatic security updates
+
+### Key Migration Considerations
+
+**Content Structure**:
+- All Strapi content types will map to AEM Content Fragments
+- Tags and categorization will be preserved
+- All custom fields and relationships will be maintained
+
+**Frontend**:
+- Vue.js components will be converted to AEM components
+- Current URL structure will be maintained for SEO
+- Caching strategy will shift from session-only to multi-layer (browser, CDN, dispatcher)
+
+**Images**:
+- Thumbor image optimization will be replaced with AEM Dynamic Media
+- Image URLs will change format but functionality remains the same
+
+**Search**:
+- Client-side search will migrate to AEM Search & Promote or Elasticsearch
+- Search functionality will remain the same for users
+
+### For Developers Assigned to AEM Migration
+
+If you're assigned to work on the AEM migration:
+
+1. **Read the Migration Guide**: See `/AEM_MIGRATION_GUIDE.md` for comprehensive strategy
+2. **Understand Current Architecture**: Familiarize yourself with this Vue.js + Strapi setup
+3. **Plan Content Migration**: Map all Strapi content models to AEM Content Fragments
+4. **Develop AEM Components**: Convert Vue.js components to AEM components
+5. **Test Thoroughly**: Validate all content and functionality after migration
+
+**Estimated Timeline**: 3-5 months for complete migration
+
+### Common Issues When Migrating from Strapi to AEM
+
+AEM developers should be aware of these common challenges:
+
+1. **Data Type Mismatches**: Strapi data types don't always map directly to AEM types
+   - Solution: Create conversion utilities for each data type
+
+2. **Relationship Handling**: Strapi relationships (arrays of IDs) need to become AEM references (paths)
+   - Solution: Map Strapi IDs to AEM content fragment paths
+
+3. **Rich Text Content**: HTML content may contain broken image URLs and internal links
+   - Solution: Migrate images to AEM DAM and update all internal links
+
+4. **Image Assets**: Large-scale image migration requires proper metadata handling
+   - Solution: Use bulk import with metadata extraction
+
+5. **URL Structure Changes**: Content paths change, breaking SEO and existing links
+   - Solution: Implement 301 redirects from old Strapi URLs to new AEM URLs
+
+6. **SEO Metadata**: Custom Strapi SEO fields need to map to AEM standard properties
+   - Solution: Map searchMeta, seoTitle, seoDescription to AEM properties
+
+7. **Date/Timezone Issues**: Strapi ISO 8601 dates need conversion to AEM Calendar format
+   - Solution: Convert to UTC and handle timezone properly
+
+8. **Draft vs Published**: Strapi has separate draft/published states; AEM uses versioning
+   - Solution: Only migrate published content; use AEM versioning for drafts
+
+9. **Custom Fields**: Strapi custom fields may not have AEM equivalents
+   - Solution: Create custom AEM components or store as generic properties
+
+10. **Performance**: Bulk migration of large datasets can be slow
+    - Solution: Use batch processing with delays to avoid rate limiting
+
+11. **Data Quality**: Strapi data may have inconsistencies or missing fields
+    - Solution: Validate data before migration; handle orphaned references
+
+12. **Search Indexes**: After migration, search indexes need rebuilding
+    - Solution: Reindex all migrated content paths after migration complete
+
+**For detailed solutions and code examples**, see `/AEM_MIGRATION_GUIDE.md` → "Common Issues and Challenges"
+
+**For detailed AEM migration guidance**:
+- 📄 **Markdown**: `/AEM_MIGRATION_GUIDE.md`
+- 🌐 **HTML**: View in `/public/documentation/dev/index.html` (search for "AEM Migration")
+- 📖 **In Developer Docs**: See "AEM Migration Guide" section in developer documentation
+
+## 🔗 GraphQL API
+
+### Accessing the GraphQL Playground
+
+The SPAC application uses a Strapi CMS backend with GraphQL API. You can interact with the API using the interactive GraphQL Playground:
+
+**Production**: https://spac.icjia-api.cloud/graphql
+
+**Development**: http://localhost:9000/graphql (when running backend locally)
+
+The playground provides:
+- ✅ Interactive query editor
+- ✅ Real-time validation
+- ✅ Schema documentation
+- ✅ Query history
+
+### Quick Sample Queries
+
+**Fetch all published pages:**
+```graphql
+{
+  pages(where: {isPublished: true}) {
+    title
+    slug
+    summary
+  }
+}
+```
+
+**Fetch latest news posts:**
+```graphql
+{
+  posts(sort: "createdAt:desc", where: {isPublished: true}, limit: 10) {
+    title
+    slug
+    summary
+    createdAt
+  }
+}
+```
+
+**Fetch publications by year:**
+```graphql
+{
+  publications(sort: "year:desc", where: {isPublished: true}, limit: 50) {
+    title
+    slug
+    year
+    category
+  }
+}
+```
+
+**For comprehensive GraphQL documentation and more sample queries**, see `/GRAPHQL_API_GUIDE.md`
+
+### 🏷️ Tagging System
+
+The application uses a flexible tagging system to organize content across pages, news, publications, meetings, and biographies. Tags enable cross-content discovery and provide secondary navigation.
+
+**Fetch all content for a specific tag:**
+```graphql
+{
+  tags(where: {slug: "sentencing-policy"}) {
+    name
+    slug
+    pages(where: {isPublished: true}) {
+      title
+      slug
+    }
+    posts(where: {isPublished: true}) {
+      title
+      slug
+    }
+    publications(where: {isPublished: true}) {
+      title
+      slug
+    }
+    meetings(where: {isPublished: true}) {
+      title
+      slug
+    }
+    biographies(where: {isPublished: true}) {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+**Tag Features:**
+- Tags are displayed as **purple chips** in the UI
+- Tags are **clickable** and link to `/tags/{tag-slug}`
+- Multiple tags can be applied to a single piece of content
+- The "fiscal-impact" tag displays as **"IMPACT ANALYSIS"**
+
+**For detailed tagging documentation**, see `/GRAPHQL_API_GUIDE.md` → "Tagging System" section
+
+### 🖼️ Thumbor Image Server
+
+The application uses **Thumbor**, a smart imaging service, to optimize and serve images across the website.
+
+**Image Server**: `https://image.icjia.cloud`
+
+**Image URL Format**:
+```
+https://image.icjia.cloud/unsafe/{width}x{height}/{image-url}
+```
+
+**Example**:
+```
+https://image.icjia.cloud/unsafe/310x360/spac.icjia-api.cloud/uploads/publication-cover.png
+```
+
+**Thumbor Features:**
+- ✅ Automatic image resizing
+- ✅ Smart cropping
+- ✅ Image filtering and optimization
+- ✅ Format conversion (JPEG, PNG, WebP)
+- ✅ Caching for performance
+
+**⚠️ Important**: For questions about the Thumbor security key or password, please contact the previous SPAC web developer.
+
+**For comprehensive Thumbor documentation**, see `/THUMBOR_IMAGE_SERVER.md`
+
 ## 🔄 Understanding the Caching System
 
-The application uses a custom in-memory caching system to optimize performance:
+### What is the Caching System?
 
-- **Session-based caching**: Data is cached for the duration of the user's session
+The application uses a custom **session-only in-memory caching system** to optimize performance:
+
+- **Session-based caching**: Data is cached only for the duration of the user's current browser session
+- **Not persistent**: Cache is cleared on page reload, new tabs, or when the browser closes
 - **MD5 hash keys**: Queries are identified by MD5 hashes for efficient lookup
 - **Parallel requests**: Multiple uncached queries execute in parallel
 - **Automatic invalidation**: Cache is cleared on app initialization
 
-**For detailed information**, see the **Custom Caching System** section in the developer documentation at `/documentation/dev/`
+### ⚠️ Important: Session-Only (NOT Persistent)
+
+The cache is **NOT persistent** across:
+- ❌ Page reloads (F5, Cmd+R)
+- ❌ New browser tabs
+- ❌ New browser sessions
+- ❌ Closing and reopening the browser
+
+The cache **IS** useful for:
+- ✅ Repeated page lookups within the same session
+- ✅ Faster navigation without reloading
+- ✅ Reducing API calls during a browsing session
+
+### Historical Context
+
+This custom caching system was implemented to **optimize repeated page lookups within a single session**. At the time of implementation, Apollo GraphQL did not have the robust caching features it has today. Since then, Apollo Client has evolved to include sophisticated caching mechanisms for GraphQL queries. However, this custom system remains in place and continues to provide session-level performance optimization.
+
+**For detailed information**, see the **Custom Caching System** section in the developer documentation at `/documentation/dev/` or read `/CACHING_SYSTEM_CLARIFICATION.md`
 
 ### Quick Example
 
