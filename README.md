@@ -133,8 +133,8 @@ npm run docs:jsdoc
 
 ### Prerequisites
 
-- **Node.js**: 22.19.0 or higher (LTS recommended)
-- **npm**: 8.x or higher (included with Node.js)
+- **Node.js**: 16.20.2 or higher (LTS recommended)
+- **npm**: 7.x or higher (included with Node.js)
 - **Git**: For version control
 
 ### Installation Steps

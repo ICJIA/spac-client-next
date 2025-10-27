@@ -1162,8 +1162,8 @@ const myData = this.$store.getters.getContentFromCache(contentMap, &quot;myData&
 <p><strong>Technical Reasoning</strong>: Node.js development tools, file system operations, and build processes work more reliably on Unix-like systems. Many npm packages, build tools, and file watchers have compatibility issues with native Windows environments.</p>
 <h3 id="required-software" tabindex="-1">Required Software</h3>
 <ul>
-<li><strong>Node.js</strong>: Version 22.19.0 or higher (LTS recommended)</li>
-<li><strong>npm</strong>: 8.x or higher (included with Node.js)</li>
+<li><strong>Node.js</strong>: Version 16.20.2 or higher (LTS recommended)</li>
+<li><strong>npm</strong>: 7.x or higher (included with Node.js)</li>
 <li><strong>Git</strong>: For version control</li>
 <li><strong>Code Editor</strong>: VS Code recommended with Vue.js extensions</li>
 </ul>
@@ -1324,13 +1324,13 @@ npm run lint -- --fix
   publish = &quot;dist&quot;
 
 [build.environment]
-  NODE_VERSION = &quot;22.19.0&quot;
+  NODE_VERSION = &quot;16.20.2&quot;
 </code></pre>
 <h4 id="serverless-functions" tabindex="-1">Serverless Functions</h4>
 <ul>
 <li><strong>Location</strong>: <code>netlify/</code> directory (compiled from <code>src/lambda/</code>)</li>
 <li><strong>Functions</strong>: Status monitoring, deployment hooks, health checks</li>
-<li><strong>Runtime</strong>: Node.js 22.19.0</li>
+<li><strong>Runtime</strong>: Node.js 16.20.2</li>
 <li><strong>Endpoints</strong>: <code>/.netlify/functions/[function-name]</code></li>
 </ul>
 <h4 id="environment-specific-considerations" tabindex="-1">Environment-Specific Considerations</h4>

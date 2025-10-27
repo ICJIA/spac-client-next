@@ -61,7 +61,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.0.1",
     "jsdoc": "^4.0.4",
-    "lighthouse": "^13.0.1",
     "minimatch": "5.1.2",
     "playwright": "^1.56.1",
     "prettier": "^1.19.1",

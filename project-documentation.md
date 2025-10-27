@@ -894,8 +894,8 @@ This project is **NOT compatible with vanilla Windows** (native Windows without 
 **Technical Reasoning**: Node.js development tools, file system operations, and build processes work more reliably on Unix-like systems. Many npm packages, build tools, and file watchers have compatibility issues with native Windows environments.
 
 ### Required Software
-- **Node.js**: Version 22.19.0 or higher (LTS recommended)
-- **npm**: 8.x or higher (included with Node.js)
+- **Node.js**: Version 16.20.2 or higher (LTS recommended)
+- **npm**: 7.x or higher (included with Node.js)
 - **Git**: For version control
 - **Code Editor**: VS Code recommended with Vue.js extensions
 
@@ -1069,13 +1069,13 @@ The SPAC website uses a custom build process that runs in sequence:
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "22.19.0"
+  NODE_VERSION = "16.20.2"
 ```
 
 #### Serverless Functions
 - **Location**: `netlify/` directory (compiled from `src/lambda/`)
 - **Functions**: Status monitoring, deployment hooks, health checks
-- **Runtime**: Node.js 22.19.0
+- **Runtime**: Node.js 16.20.2
 - **Endpoints**: `/.netlify/functions/[function-name]`
 
 #### Environment-Specific Considerations

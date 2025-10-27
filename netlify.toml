@@ -1,5 +1,5 @@
 [build.environment]
-NODE_VERSION = "22.19.0"
+NODE_VERSION = "16.20.2"
 
 # [build]
 #   Command = "npm run deploy"
