@@ -12,10 +12,34 @@
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
-const { AxeBuilder } = require("@axe-core/playwright");
-const { chromium } = require("playwright");
-const lighthouse = require("lighthouse");
-const chromeLauncher = require("chrome-launcher");
+
+// Check if required packages are installed
+let AxeBuilder, chromium, lighthouse, chromeLauncher;
+
+try {
+  ({ AxeBuilder } = require("@axe-core/playwright"));
+  ({ chromium } = require("playwright"));
+  lighthouse = require("lighthouse");
+  chromeLauncher = require("chrome-launcher");
+} catch (error) {
+  console.error(
+    "\n❌ ERROR: Required accessibility audit packages are not installed.\n"
+  );
+  console.error(
+    "The accessibility audit script requires additional dependencies that are not"
+  );
+  console.error(
+    "included in the main build to keep the build lightweight for Netlify.\n"
+  );
+  console.error(
+    "To run accessibility audits, install the optional dependencies:\n"
+  );
+  console.error(
+    "  npm install --save-dev @axe-core/playwright playwright chrome-launcher\n"
+  );
+  console.error("Then run: npm run audit:accessibility\n");
+  process.exit(1);
+}
 
 /**
  * Configuration for accessibility audits

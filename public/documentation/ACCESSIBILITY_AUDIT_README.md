@@ -17,6 +17,16 @@ Before running audits, ensure:
 2. The application is accessible at `http://localhost:8080`
 3. All dependencies are installed: `npm install`
 
+### Install Optional Audit Dependencies
+
+The accessibility audit tools are **optional dependencies** to keep the main build lightweight for Netlify. To run audits, install them first:
+
+```bash
+npm install --save-dev @axe-core/playwright playwright chrome-launcher
+```
+
+> **Note:** These packages require Node.js >=18. If you're using Node 16, you can still run audits locally by temporarily switching to Node 18+ with `nvm use 18` (if available).
+
 ### Run Audit
 
 Execute the accessibility audit:
