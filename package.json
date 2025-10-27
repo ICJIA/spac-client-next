@@ -10,7 +10,8 @@
     "create:documentation": "node ./creators/createDocumentationHTML.js",
     "docs:dev": "node ./creators/createDocumentationHTML.js",
     "docs:jsdoc": "npx jsdoc -c jsdoc.conf.json",
-    "docs:generate": "npm run docs:dev && npm run docs:jsdoc"
+    "docs:generate": "npm run docs:dev && npm run docs:jsdoc",
+    "audit:accessibility": "node scripts/auditAccessibility.js"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.0.0-rc.12",
@@ -46,18 +47,23 @@
     "xss": "^1.0.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
     "@mdi/font": "^5.6.55",
     "@vue/cli-plugin-babel": "^4.5.6",
     "@vue/cli-plugin-eslint": "^4.5.6",
     "@vue/cli-service": "^4.5.6",
     "@vue/eslint-config-prettier": "^6.0.0",
+    "axe-core": "^4.11.0",
     "babel-eslint": "^10.0.3",
+    "chrome-launcher": "^1.2.1",
     "clean-jsdoc-theme": "^4.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.0.1",
     "jsdoc": "^4.0.4",
+    "lighthouse": "^13.0.1",
     "minimatch": "5.1.2",
+    "playwright": "^1.56.1",
     "prettier": "^1.19.1",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",

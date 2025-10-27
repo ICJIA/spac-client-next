@@ -93,10 +93,19 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-    <script
-      src="https://assets.adobedtm.com/c318d2739692/96e37aff7009/launch-4ef36d3c8aed.min.js"
-      async
-    ></script>
+    <!-- Adobe Launch Script - Only loaded in production to avoid dpm.demdex.net errors in development -->
+    <script>
+      if (
+        window.location.hostname !== "localhost" &&
+        window.location.hostname !== "127.0.0.1"
+      ) {
+        var script = document.createElement("script");
+        script.src =
+          "https://assets.adobedtm.com/c318d2739692/96e37aff7009/launch-4ef36d3c8aed.min.js";
+        script.async = true;
+        document.head.appendChild(script);
+      }
+    </script>
   </head>
   <body>
     <noscript>

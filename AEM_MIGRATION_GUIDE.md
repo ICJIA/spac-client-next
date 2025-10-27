@@ -100,6 +100,761 @@ Create AEM Content Fragment Models for each Strapi content type:
    - Configure image optimization profiles
    - Test image delivery
 
+## Strapi to AEM Migration: Detailed Step-by-Step Guide
+
+This section provides comprehensive, step-by-step instructions for migrating the SPAC Client application from Strapi CMS to Adobe Experience Manager (AEM).
+
+### Step 1: Export Content from Strapi
+
+#### 1.1 Export via GraphQL API
+
+Create a Node.js script to export all content from Strapi:
+
+```javascript
+/**
+ * Export all content from Strapi GraphQL API
+ */
+const { request } = require('graphql-request');
+const fs = require('fs');
+const path = require('path');
+
+const STRAPI_API = 'https://spac.icjia-api.cloud/graphql';
+
+const exportQuery = `{
+  pages(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        summary
+        content
+        searchMeta
+        isPublished
+        createdAt
+        updatedAt
+        tags {
+          data {
+            id
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+  publications(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        year
+        category
+        summary
+        content
+        isPublished
+        tags {
+          data {
+            id
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+  news(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        summary
+        content
+        isPublished
+        createdAt
+        updatedAt
+        tags {
+          data {
+            id
+            attributes {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+
+async function exportStrapiContent() {
+  try {
+    console.log('📤 Exporting content from Strapi...');
+
+    const data = await request(STRAPI_API, exportQuery);
+
+    const exportDir = path.join(process.cwd(), 'strapi-export');
+    if (!fs.existsSync(exportDir)) {
+      fs.mkdirSync(exportDir, { recursive: true });
+    }
+
+    fs.writeFileSync(
+      path.join(exportDir, 'strapi-content.json'),
+      JSON.stringify(data, null, 2)
+    );
+
+    console.log('✅ Content exported successfully');
+    console.log(`📁 Saved to: ${exportDir}/strapi-content.json`);
+
+    return data;
+  } catch (error) {
+    console.error('❌ Export failed:', error.message);
+    process.exit(1);
+  }
+}
+
+exportStrapiContent();
+```
+
+#### 1.2 Export Assets from Strapi
+
+```javascript
+/**
+ * Download all assets from Strapi
+ */
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+async function downloadAssets(strapiContent) {
+  const assetsDir = path.join(process.cwd(), 'strapi-export', 'assets');
+
+  if (!fs.existsSync(assetsDir)) {
+    fs.mkdirSync(assetsDir, { recursive: true });
+  }
+
+  // Extract all image URLs from content
+  const imageUrls = new Set();
+
+  // Scan all content for image references
+  const scanForImages = (obj) => {
+    if (typeof obj === 'string' && obj.includes('uploads')) {
+      imageUrls.add(obj);
+    } else if (typeof obj === 'object' && obj !== null) {
+      Object.values(obj).forEach(scanForImages);
+    }
+  };
+
+  scanForImages(strapiContent);
+
+  console.log(`📥 Downloading ${imageUrls.size} assets...`);
+
+  let downloaded = 0;
+  for (const url of imageUrls) {
+    try {
+      const response = await axios.get(url, { responseType: 'arraybuffer' });
+      const filename = path.basename(url.split('?')[0]);
+      const filepath = path.join(assetsDir, filename);
+
+      fs.writeFileSync(filepath, response.data);
+      downloaded++;
+
+      if (downloaded % 10 === 0) {
+        console.log(`  ✅ Downloaded ${downloaded}/${imageUrls.size}`);
+      }
+    } catch (error) {
+      console.warn(`  ⚠️  Failed to download: ${url}`);
+    }
+  }
+
+  console.log(`✅ Asset download complete: ${downloaded} files`);
+}
+```
+
+### Step 2: Transform Strapi Data for AEM
+
+#### 2.1 Create Data Transformation Script
+
+```javascript
+/**
+ * Transform Strapi data to AEM Content Fragment format
+ */
+const fs = require('fs');
+const path = require('path');
+
+class StrapiToAEMTransformer {
+  constructor(strapiData) {
+    this.strapiData = strapiData;
+    this.tagMapping = new Map(); // Map Strapi tag IDs to AEM tag paths
+    this.transformedData = {
+      pages: [],
+      publications: [],
+      news: [],
+      tags: []
+    };
+  }
+
+  /**
+   * Transform all Strapi tags to AEM tag structure
+   */
+  transformTags() {
+    const allTags = new Set();
+
+    // Collect all unique tags
+    const collectTags = (items) => {
+      items.forEach(item => {
+        if (item.attributes.tags?.data) {
+          item.attributes.tags.data.forEach(tag => {
+            allTags.add(JSON.stringify({
+              id: tag.id,
+              name: tag.attributes.name,
+              slug: tag.attributes.slug
+            }));
+          });
+        }
+      });
+    };
+
+    collectTags(this.strapiData.pages.data);
+    collectTags(this.strapiData.publications.data);
+    collectTags(this.strapiData.news.data);
+
+    // Transform to AEM format
+    allTags.forEach((tagJson, index) => {
+      const tag = JSON.parse(tagJson);
+      const aemTag = {
+        id: `tag-${tag.slug}`,
+        path: `/content/cq:tags/spac/topics/${tag.slug}`,
+        title: tag.name,
+        description: `Tag: ${tag.name}`,
+        properties: {
+          'jcr:title': tag.name,
+          'jcr:description': `Migrated from Strapi tag: ${tag.name}`
+        }
+      };
+
+      this.transformedData.tags.push(aemTag);
+      this.tagMapping.set(tag.id, aemTag.path);
+    });
+
+    console.log(`✅ Transformed ${this.transformedData.tags.length} tags`);
+  }
+
+  /**
+   * Transform Strapi pages to AEM Content Fragments
+   */
+  transformPages() {
+    this.strapiData.pages.data.forEach(page => {
+      const attrs = page.attributes;
+
+      const aemPage = {
+        id: `page-${attrs.slug}`,
+        path: `/content/dam/spac/pages/${attrs.slug}`,
+        contentType: 'page',
+        properties: {
+          'jcr:title': attrs.title,
+          'jcr:description': attrs.summary,
+          'cq:description': attrs.summary,
+          'searchMeta': attrs.searchMeta || '',
+          'isPublished': attrs.isPublished,
+          'createdAt': new Date(attrs.createdAt).toISOString(),
+          'updatedAt': new Date(attrs.updatedAt).toISOString()
+        },
+        content: {
+          title: attrs.title,
+          slug: attrs.slug,
+          summary: attrs.summary,
+          content: this.migrateRichText(attrs.content),
+          tags: this.mapTags(attrs.tags?.data || [])
+        }
+      };
+
+      this.transformedData.pages.push(aemPage);
+    });
+
+    console.log(`✅ Transformed ${this.transformedData.pages.length} pages`);
+  }
+
+  /**
+   * Transform Strapi publications to AEM Content Fragments
+   */
+  transformPublications() {
+    this.strapiData.publications.data.forEach(pub => {
+      const attrs = pub.attributes;
+
+      const aemPub = {
+        id: `publication-${attrs.slug}`,
+        path: `/content/dam/spac/publications/${attrs.slug}`,
+        contentType: 'publication',
+        properties: {
+          'jcr:title': attrs.title,
+          'jcr:description': attrs.summary,
+          'cq:description': attrs.summary,
+          'year': attrs.year,
+          'category': attrs.category,
+          'isPublished': attrs.isPublished
+        },
+        content: {
+          title: attrs.title,
+          slug: attrs.slug,
+          year: attrs.year,
+          category: attrs.category,
+          summary: attrs.summary,
+          content: this.migrateRichText(attrs.content),
+          tags: this.mapTags(attrs.tags?.data || [])
+        }
+      };
+
+      this.transformedData.publications.push(aemPub);
+    });
+
+    console.log(`✅ Transformed ${this.transformedData.publications.length} publications`);
+  }
+
+  /**
+   * Transform Strapi news to AEM Content Fragments
+   */
+  transformNews() {
+    this.strapiData.news.data.forEach(newsItem => {
+      const attrs = newsItem.attributes;
+
+      const aemNews = {
+        id: `news-${attrs.slug}`,
+        path: `/content/dam/spac/news/${attrs.slug}`,
+        contentType: 'news',
+        properties: {
+          'jcr:title': attrs.title,
+          'jcr:description': attrs.summary,
+          'cq:description': attrs.summary,
+          'isPublished': attrs.isPublished,
+          'createdAt': new Date(attrs.createdAt).toISOString(),
+          'updatedAt': new Date(attrs.updatedAt).toISOString()
+        },
+        content: {
+          title: attrs.title,
+          slug: attrs.slug,
+          summary: attrs.summary,
+          content: this.migrateRichText(attrs.content),
+          tags: this.mapTags(attrs.tags?.data || [])
+        }
+      };
+
+      this.transformedData.news.push(aemNews);
+    });
+
+    console.log(`✅ Transformed ${this.transformedData.news.length} news items`);
+  }
+
+  /**
+   * Migrate rich text content from Strapi to AEM format
+   * - Replace Strapi image URLs with AEM DAM paths
+   * - Convert internal links to AEM paths
+   * - Clean up unsupported HTML attributes
+   */
+  migrateRichText(html) {
+    if (!html) return '';
+
+    let migratedHtml = html;
+
+    // Replace Strapi image URLs with AEM DAM paths
+    migratedHtml = migratedHtml.replace(
+      /https:\/\/spac\.icjia-api\.cloud\/uploads\//g,
+      '/content/dam/spac/images/'
+    );
+
+    // Convert internal links from slug format to AEM paths
+    migratedHtml = migratedHtml.replace(
+      /href="\/([^"]+)"/g,
+      'href="/content/spac/$1"'
+    );
+
+    // Remove unsupported data attributes
+    migratedHtml = migratedHtml.replace(
+      / data-[a-z-]+="[^"]*"/g,
+      ''
+    );
+
+    return migratedHtml;
+  }
+
+  /**
+   * Map Strapi tag IDs to AEM tag paths
+   */
+  mapTags(strapiTags) {
+    return strapiTags.map(tag => ({
+      id: `tag-${tag.attributes.slug}`,
+      path: this.tagMapping.get(tag.id),
+      name: tag.attributes.name
+    }));
+  }
+
+  /**
+   * Execute all transformations
+   */
+  transform() {
+    console.log('🔄 Transforming Strapi data to AEM format...\n');
+
+    this.transformTags();
+    this.transformPages();
+    this.transformPublications();
+    this.transformNews();
+
+    console.log('\n✅ All transformations complete');
+    return this.transformedData;
+  }
+
+  /**
+   * Save transformed data to file
+   */
+  saveToFile(outputPath) {
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    fs.writeFileSync(outputPath, JSON.stringify(this.transformedData, null, 2));
+    console.log(`💾 Transformed data saved to: ${outputPath}`);
+  }
+}
+
+module.exports = StrapiToAEMTransformer;
+```
+
+### Step 3: Import Transformed Data to AEM
+
+#### 3.1 Create AEM Import Script
+
+```javascript
+/**
+ * Import transformed data to AEM via REST API
+ */
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+class AEMImporter {
+  constructor(aemHost, username, password) {
+    this.aemHost = aemHost; // e.g., 'https://author.aem.cloud'
+    this.auth = {
+      username,
+      password
+    };
+    this.client = axios.create({
+      baseURL: aemHost,
+      auth: this.auth,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  /**
+   * Create a Content Fragment in AEM
+   */
+  async createContentFragment(path, contentType, properties, content) {
+    try {
+      const payload = {
+        'jcr:primaryType': 'dam:Asset',
+        'jcr:content': {
+          'jcr:primaryType': 'dam:AssetContent',
+          'jcr:title': properties['jcr:title'],
+          'jcr:description': properties['jcr:description'],
+          ...properties
+        },
+        'content': content
+      };
+
+      const response = await this.client.post(
+        `/api/assets${path}`,
+        payload
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(`❌ Failed to create fragment at ${path}:`, error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Create tags in AEM
+   */
+  async createTags(tags) {
+    console.log(`📝 Creating ${tags.length} tags in AEM...`);
+
+    let created = 0;
+    for (const tag of tags) {
+      try {
+        await this.client.post(
+          `/bin/tagcommand`,
+          {
+            cmd: 'createTag',
+            tag: tag.path,
+            properties: tag.properties
+          }
+        );
+        created++;
+      } catch (error) {
+        console.warn(`⚠️  Failed to create tag ${tag.path}`);
+      }
+    }
+
+    console.log(`✅ Created ${created}/${tags.length} tags`);
+  }
+
+  /**
+   * Import all content fragments
+   */
+  async importContentFragments(transformedData) {
+    const allFragments = [
+      ...transformedData.pages,
+      ...transformedData.publications,
+      ...transformedData.news
+    ];
+
+    console.log(`📥 Importing ${allFragments.length} content fragments...`);
+
+    let imported = 0;
+    for (const fragment of allFragments) {
+      try {
+        await this.createContentFragment(
+          fragment.path,
+          fragment.contentType,
+          fragment.properties,
+          fragment.content
+        );
+        imported++;
+
+        if (imported % 10 === 0) {
+          console.log(`  ✅ Imported ${imported}/${allFragments.length}`);
+        }
+      } catch (error) {
+        console.warn(`⚠️  Failed to import ${fragment.id}`);
+      }
+    }
+
+    console.log(`✅ Import complete: ${imported}/${allFragments.length} fragments`);
+  }
+
+  /**
+   * Execute full import process
+   */
+  async import(transformedData) {
+    try {
+      console.log('🚀 Starting AEM import process...\n');
+
+      // Create tags first
+      await this.createTags(transformedData.tags);
+
+      // Import content fragments
+      await this.importContentFragments(transformedData);
+
+      console.log('\n✅ AEM import complete!');
+    } catch (error) {
+      console.error('❌ Import failed:', error.message);
+      process.exit(1);
+    }
+  }
+}
+
+module.exports = AEMImporter;
+```
+
+### Step 4: Migrate Assets to AEM DAM
+
+#### 4.1 Upload Assets to AEM DAM
+
+```javascript
+/**
+ * Upload migrated assets to AEM Digital Asset Management
+ */
+const FormData = require('form-data');
+const fs = require('fs');
+const path = require('path');
+const axios = require('axios');
+
+class AEMAssetUploader {
+  constructor(aemHost, username, password) {
+    this.aemHost = aemHost;
+    this.auth = { username, password };
+  }
+
+  /**
+   * Upload a single asset to AEM DAM
+   */
+  async uploadAsset(filePath, damPath) {
+    try {
+      const form = new FormData();
+      form.append('file', fs.createReadStream(filePath));
+
+      const response = await axios.post(
+        `${this.aemHost}/api/assets${damPath}`,
+        form,
+        {
+          auth: this.auth,
+          headers: form.getHeaders()
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(`❌ Failed to upload ${filePath}:`, error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Upload all assets from export directory
+   */
+  async uploadAllAssets(assetsDir) {
+    const files = fs.readdirSync(assetsDir);
+    console.log(`📤 Uploading ${files.length} assets to AEM DAM...`);
+
+    let uploaded = 0;
+    for (const file of files) {
+      try {
+        const filePath = path.join(assetsDir, file);
+        const damPath = `/spac/images/${file}`;
+
+        await this.uploadAsset(filePath, damPath);
+        uploaded++;
+
+        if (uploaded % 10 === 0) {
+          console.log(`  ✅ Uploaded ${uploaded}/${files.length}`);
+        }
+      } catch (error) {
+        console.warn(`⚠️  Failed to upload ${file}`);
+      }
+    }
+
+    console.log(`✅ Asset upload complete: ${uploaded}/${files.length} files`);
+  }
+}
+
+module.exports = AEMAssetUploader;
+```
+
+### Step 5: Tag Migration Strategy
+
+#### 5.1 Strapi to AEM Tag Mapping
+
+Strapi uses a flat tag structure, while AEM uses a hierarchical taxonomy. Here's how to map them:
+
+**Strapi Tag Structure:**
+```json
+{
+  "id": 1,
+  "name": "Sentencing Policy",
+  "slug": "sentencing-policy"
+}
+```
+
+**AEM Tag Structure:**
+```
+/content/cq:tags/spac/
+├── topics/
+│   ├── sentencing-policy/
+│   │   ├── jcr:title: "Sentencing Policy"
+│   │   ├── jcr:description: "Migrated from Strapi"
+│   │   └── sling:resourceType: "cq/tagging/components/tag"
+│   └── fiscal-impact/
+│       └── ...
+└── categories/
+    └── ...
+```
+
+#### 5.2 Tag Mapping Implementation
+
+```javascript
+/**
+ * Map Strapi tags to AEM taxonomy
+ */
+class TagMigrationStrategy {
+  /**
+   * Create AEM tag hierarchy from flat Strapi tags
+   */
+  static createAEMTagHierarchy(strapiTags) {
+    const taxonomy = {
+      topics: [],
+      categories: [],
+      regions: []
+    };
+
+    strapiTags.forEach(tag => {
+      const aemTag = {
+        id: `tag-${tag.slug}`,
+        path: `/content/cq:tags/spac/topics/${tag.slug}`,
+        title: tag.name,
+        properties: {
+          'jcr:title': tag.name,
+          'jcr:description': `Migrated from Strapi: ${tag.name}`,
+          'sling:resourceType': 'cq/tagging/components/tag'
+        }
+      };
+
+      // Categorize tags based on naming patterns
+      if (tag.name.includes('Policy') || tag.name.includes('Law')) {
+        taxonomy.topics.push(aemTag);
+      } else if (tag.name.includes('Region') || tag.name.includes('State')) {
+        taxonomy.regions.push(aemTag);
+      } else {
+        taxonomy.categories.push(aemTag);
+      }
+    });
+
+    return taxonomy;
+  }
+
+  /**
+   * Apply tags to content during migration
+   */
+  static applyTagsToContent(aemContent, strapiContent, tagMapping) {
+    if (!strapiContent.tags || strapiContent.tags.length === 0) {
+      return aemContent;
+    }
+
+    aemContent.tags = strapiContent.tags.map(tag => {
+      const aemTagPath = tagMapping.get(tag.id);
+      return {
+        id: `tag-${tag.slug}`,
+        path: aemTagPath,
+        name: tag.name
+      };
+    });
+
+    return aemContent;
+  }
+
+  /**
+   * Validate tag references after migration
+   */
+  static validateTagReferences(aemContent, existingTags) {
+    const missingTags = [];
+
+    if (aemContent.tags) {
+      aemContent.tags.forEach(tag => {
+        if (!existingTags.find(t => t.path === tag.path)) {
+          missingTags.push(tag);
+        }
+      });
+    }
+
+    return {
+      isValid: missingTags.length === 0,
+      missingTags
+    };
+  }
+}
+
+module.exports = TagMigrationStrategy;
+```
+
 ### Phase 3: Java Development for AEM
 
 #### Sling Models (Core Pattern)

@@ -295,6 +295,157 @@
     <div class="documentation-container">
         <h1 id="spac-client-website---project-documentation" tabindex="-1">SPAC Client Website - Project Documentation</h1>
 <p><strong>📅 Last Updated</strong>: October 23, 2025</p>
+<h2 id="%F0%9F%93%91-table-of-contents" tabindex="-1">📑 Table of Contents</h2>
+<ul>
+<li>
+<p><a href="#project-overview">Project Overview</a></p>
+<ul>
+<li><a href="#repository-information">Repository Information</a></li>
+<li><a href="#purpose-and-goals">Purpose and Goals</a></li>
+<li><a href="#key-features">Key Features</a></li>
+<li><a href="#project-history">Project History</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#technology-stack">Technology Stack</a></p>
+<ul>
+<li><a href="#core-framework">Core Framework</a></li>
+<li><a href="#ui-framework--styling">UI Framework &amp; Styling</a></li>
+<li><a href="#content-management--data">Content Management &amp; Data</a></li>
+<li><a href="#build-tools--development">Build Tools &amp; Development</a></li>
+<li><a href="#search--utility-libraries">Search &amp; Utility Libraries</a></li>
+<li><a href="#analytics--monitoring">Analytics &amp; Monitoring</a></li>
+<li><a href="#deployment--hosting">Deployment &amp; Hosting</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#architecture-overview">Architecture Overview</a></p>
+<ul>
+<li><a href="#high-level-architecture">High-Level Architecture</a></li>
+<li><a href="#data-flow-patterns">Data Flow Patterns</a></li>
+<li><a href="#key-design-patterns">Key Design Patterns</a></li>
+<li><a href="#integration-points">Integration Points</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#directory-structure">Directory Structure</a></p>
+<ul>
+<li><a href="#key-configuration-files">Key Configuration Files</a></li>
+<li><a href="#generated-vs-source-files">Generated vs Source Files</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#key-components">Key Components</a></p>
+<ul>
+<li><a href="#layout-components">Layout Components</a></li>
+<li><a href="#content-components">Content Components</a></li>
+<li><a href="#page-components">Page Components</a></li>
+<li><a href="#utility-components">Utility Components</a></li>
+<li><a href="#state-management-components">State Management Components</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#api-documentation">API Documentation</a></p>
+<ul>
+<li><a href="#external-api-integrations">External API Integrations</a></li>
+<li><a href="#tagging-system">Tagging System</a></li>
+<li><a href="#data-processing-workflows">Data Processing Workflows</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#custom-caching-system">Custom Caching System</a></p>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#historical-context">Historical Context</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#how-the-caching-system-works">How the Caching System Works</a></li>
+<li><a href="#cache-key-generation">Cache Key Generation</a></li>
+<li><a href="#cache-storage">Cache Storage</a></li>
+<li><a href="#core-cache-operations">Core Cache Operations</a></li>
+<li><a href="#usage-patterns">Usage Patterns</a></li>
+<li><a href="#cache-invalidation">Cache Invalidation</a></li>
+<li><a href="#performance-considerations">Performance Considerations</a></li>
+<li><a href="#common-patterns-in-views">Common Patterns in Views</a></li>
+<li><a href="#extending-the-caching-system">Extending the Caching System</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#error-handling-strategies">Error Handling Strategies</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#setup-instructions">Setup Instructions</a></p>
+<ul>
+<li><a href="#prerequisites-and-system-requirements">Prerequisites and System Requirements</a></li>
+<li><a href="#required-software">Required Software</a></li>
+<li><a href="#step-by-step-installation">Step-by-Step Installation</a></li>
+<li><a href="#troubleshooting-common-issues">Troubleshooting Common Issues</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#development-workflow">Development Workflow</a></p>
+<ul>
+<li><a href="#git-workflow-and-branching-strategy">Git Workflow and Branching Strategy</a></li>
+<li><a href="#code-standards-and-formatting">Code Standards and Formatting</a></li>
+<li><a href="#testing-approach-and-procedures">Testing Approach and Procedures</a></li>
+<li><a href="#common-development-tasks">Common Development Tasks</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#build-and-deployment">Build and Deployment</a></p>
+<ul>
+<li><a href="#build-process-overview">Build Process Overview</a></li>
+<li><a href="#content-generation-workflows">Content Generation Workflows</a></li>
+<li><a href="#deployment-configuration">Deployment Configuration</a></li>
+<li><a href="#deployment-process">Deployment Process</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#configuration">Configuration</a></p>
+<ul>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#application-configuration-srcconfigjson">Application Configuration</a></li>
+<li><a href="#build-and-deployment-configurations">Build and Deployment Configurations</a></li>
+<li><a href="#seo-and-analytics-setup">SEO and Analytics Setup</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#troubleshooting">Troubleshooting</a></p>
+<ul>
+<li><a href="#common-issues-and-solutions">Common Issues and Solutions</a></li>
+<li><a href="#debug-mode-and-logging-strategies">Debug Mode and Logging Strategies</a></li>
+<li><a href="#performance-optimization-tips">Performance Optimization Tips</a></li>
+<li><a href="#maintenance-tasks-and-schedules">Maintenance Tasks and Schedules</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#nodejs-development-guide-for-new-developers">Node.js Development Guide for New Developers</a></p>
+<ul>
+<li><a href="#nodejs-fundamentals-and-ecosystem">Node.js Fundamentals and Ecosystem</a></li>
+<li><a href="#platform-specific-setup-instructions">Platform-Specific Setup Instructions</a></li>
+<li><a href="#essential-command-line-skills">Essential Command Line Skills</a></li>
+<li><a href="#development-workflow-best-practices">Development Workflow Best Practices</a></li>
+<li><a href="#project-specific-quick-start-guide">Project-Specific Quick Start Guide</a></li>
+<li><a href="#useful-tools-and-extensions">Useful Tools and Extensions</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#strapi-to-aem-migration-step-by-step-implementation">Strapi to AEM Migration: Step-by-Step Implementation</a></p>
+<ul>
+<li><a href="#overview-of-migration-process">Overview of Migration Process</a></li>
+<li><a href="#key-migration-considerations">Key Migration Considerations</a></li>
+<li><a href="#for-developers-assigned-to-aem-migration">For Developers Assigned to AEM Migration</a></li>
+<li><a href="#java-specific-patterns-for-aem-development">Java-Specific Patterns for AEM Development</a></li>
+<li><a href="#common-issues-and-challenges-during-migration">Common Issues and Challenges During Migration</a></li>
+<li><a href="#step-1-export-content-from-strapi">Step 1: Export Content from Strapi</a></li>
+<li><a href="#step-2-transform-strapi-data-for-aem">Step 2: Transform Strapi Data for AEM</a></li>
+<li><a href="#step-3-import-to-aem">Step 3: Import to AEM</a></li>
+<li><a href="#step-4-migrate-assets-to-aem-dam">Step 4: Migrate Assets to AEM DAM</a></li>
+<li><a href="#step-5-validation-and-testing">Step 5: Validation and Testing</a></li>
+<li><a href="#migration-checklist">Migration Checklist</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
 <h2 id="project-overview" tabindex="-1">Project Overview</h2>
 <h3 id="repository-information" tabindex="-1">Repository Information</h3>
 <ul>
@@ -1839,6 +1990,282 @@ public class SearchServiceImpl implements SearchService {
 <li>Performance degradation during reindexing</li>
 </ul>
 <p><strong>Solution</strong>: Reindex all migrated content paths after migration is complete.</p>
+<h2 id="strapi-to-aem-migration%3A-step-by-step-implementation" tabindex="-1">Strapi to AEM Migration: Step-by-Step Implementation</h2>
+<p>This section provides a comprehensive guide for migrating the SPAC Client from Strapi CMS to Adobe Experience Manager (AEM).</p>
+<h3 id="overview-of-migration-process" tabindex="-1">Overview of Migration Process</h3>
+<p>The migration involves five main steps:</p>
+<ol>
+<li><strong>Export Content from Strapi</strong> - Extract all content, assets, and metadata</li>
+<li><strong>Transform Data for AEM</strong> - Convert Strapi format to AEM Content Fragment format</li>
+<li><strong>Import to AEM</strong> - Load transformed data into AEM via REST API</li>
+<li><strong>Migrate Assets</strong> - Upload all images to AEM Digital Asset Management (DAM)</li>
+<li><strong>Validate and Test</strong> - Verify all content and functionality</li>
+</ol>
+<h3 id="step-1%3A-export-content-from-strapi" tabindex="-1">Step 1: Export Content from Strapi</h3>
+<h4 id="export-via-graphql-api" tabindex="-1">Export via GraphQL API</h4>
+<p>Use the Strapi GraphQL API to export all published content:</p>
+<pre><code class="language-javascript">// Export pages, publications, news, and tags
+const exportQuery = `{
+  pages(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        summary
+        content
+        searchMeta
+        isPublished
+        createdAt
+        updatedAt
+        tags { data { id attributes { name slug } } }
+      }
+    }
+  }
+  publications(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        year
+        category
+        summary
+        content
+        isPublished
+        tags { data { id attributes { name slug } } }
+      }
+    }
+  }
+  news(pagination: {limit: 1000}) {
+    data {
+      id
+      attributes {
+        title
+        slug
+        summary
+        content
+        isPublished
+        createdAt
+        updatedAt
+        tags { data { id attributes { name slug } } }
+      }
+    }
+  }
+}`;
+</code></pre>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Export only published content (filter by <code>isPublished: true</code>)</li>
+<li>Include all relationships and metadata</li>
+<li>Export tags with their IDs and slugs for mapping</li>
+<li>Save exported data as JSON for transformation</li>
+</ul>
+<h4 id="download-assets" tabindex="-1">Download Assets</h4>
+<p>Extract all image URLs from content and download them locally:</p>
+<pre><code class="language-javascript">// Scan content for image URLs and download
+const imageUrls = new Set();
+const scanForImages = (obj) =&gt; {
+  if (typeof obj === 'string' &amp;&amp; obj.includes('uploads')) {
+    imageUrls.add(obj);
+  } else if (typeof obj === 'object' &amp;&amp; obj !== null) {
+    Object.values(obj).forEach(scanForImages);
+  }
+};
+
+// Download each image to local directory
+for (const url of imageUrls) {
+  const response = await axios.get(url, { responseType: 'arraybuffer' });
+  fs.writeFileSync(path.join(assetsDir, filename), response.data);
+}
+</code></pre>
+<h3 id="step-2%3A-transform-strapi-data-for-aem" tabindex="-1">Step 2: Transform Strapi Data for AEM</h3>
+<h4 id="tag-transformation" tabindex="-1">Tag Transformation</h4>
+<p>Strapi uses flat tags; AEM uses hierarchical taxonomy. Create a mapping:</p>
+<pre><code class="language-javascript">// Map Strapi tags to AEM tag paths
+const tagMapping = new Map();
+
+strapiTags.forEach(tag =&gt; {
+  const aemTagPath = `/content/cq:tags/spac/topics/${tag.slug}`;
+  tagMapping.set(tag.id, aemTagPath);
+});
+</code></pre>
+<p><strong>AEM Tag Structure:</strong></p>
+<pre><code>/content/cq:tags/spac/
+├── topics/
+│   ├── sentencing-policy/
+│   ├── fiscal-impact/
+│   └── ...
+└── categories/
+    └── ...
+</code></pre>
+<h4 id="content-fragment-transformation" tabindex="-1">Content Fragment Transformation</h4>
+<p>Transform each content type to AEM Content Fragment format:</p>
+<pre><code class="language-javascript">// Transform Strapi page to AEM Content Fragment
+const aemPage = {
+  id: `page-${strapiPage.slug}`,
+  path: `/content/dam/spac/pages/${strapiPage.slug}`,
+  contentType: 'page',
+  properties: {
+    'jcr:title': strapiPage.title,
+    'jcr:description': strapiPage.summary,
+    'cq:description': strapiPage.summary,
+    'searchMeta': strapiPage.searchMeta || '',
+    'isPublished': strapiPage.isPublished,
+    'createdAt': new Date(strapiPage.createdAt).toISOString(),
+    'updatedAt': new Date(strapiPage.updatedAt).toISOString()
+  },
+  content: {
+    title: strapiPage.title,
+    slug: strapiPage.slug,
+    summary: strapiPage.summary,
+    content: migrateRichText(strapiPage.content),
+    tags: mapTags(strapiPage.tags)
+  }
+};
+</code></pre>
+<h4 id="rich-text-migration" tabindex="-1">Rich Text Migration</h4>
+<p>Update image URLs and internal links in rich text content:</p>
+<pre><code class="language-javascript">function migrateRichText(html) {
+  let migratedHtml = html;
+
+  // Replace Strapi image URLs with AEM DAM paths
+  migratedHtml = migratedHtml.replace(
+    /https:\/\/spac\.icjia-api\.cloud\/uploads\//g,
+    '/content/dam/spac/images/'
+  );
+
+  // Convert internal links to AEM paths
+  migratedHtml = migratedHtml.replace(
+    /href=&quot;\/([^&quot;]+)&quot;/g,
+    'href=&quot;/content/spac/$1&quot;'
+  );
+
+  // Remove unsupported attributes
+  migratedHtml = migratedHtml.replace(
+    / data-[a-z-]+=&quot;[^&quot;]*&quot;/g,
+    ''
+  );
+
+  return migratedHtml;
+}
+</code></pre>
+<h3 id="step-3%3A-import-to-aem" tabindex="-1">Step 3: Import to AEM</h3>
+<h4 id="create-tags-first" tabindex="-1">Create Tags First</h4>
+<p>Tags must exist before content can reference them:</p>
+<pre><code class="language-javascript">// Create AEM tags via REST API
+for (const tag of transformedTags) {
+  await aemClient.post('/bin/tagcommand', {
+    cmd: 'createTag',
+    tag: tag.path,
+    properties: {
+      'jcr:title': tag.name,
+      'jcr:description': `Migrated from Strapi: ${tag.name}`
+    }
+  });
+}
+</code></pre>
+<h4 id="import-content-fragments" tabindex="-1">Import Content Fragments</h4>
+<p>Import transformed content to AEM:</p>
+<pre><code class="language-javascript">// Import content fragments
+for (const fragment of transformedContent) {
+  const payload = {
+    'jcr:primaryType': 'dam:Asset',
+    'jcr:content': {
+      'jcr:primaryType': 'dam:AssetContent',
+      'jcr:title': fragment.properties['jcr:title'],
+      ...fragment.properties
+    },
+    'content': fragment.content
+  };
+
+  await aemClient.post(`/api/assets${fragment.path}`, payload);
+}
+</code></pre>
+<h3 id="step-4%3A-migrate-assets-to-aem-dam" tabindex="-1">Step 4: Migrate Assets to AEM DAM</h3>
+<h4 id="upload-images" tabindex="-1">Upload Images</h4>
+<p>Upload all downloaded images to AEM Digital Asset Management:</p>
+<pre><code class="language-javascript">// Upload assets to AEM DAM
+for (const file of assetFiles) {
+  const form = new FormData();
+  form.append('file', fs.createReadStream(filePath));
+
+  await axios.post(
+    `${aemHost}/api/assets/spac/images/${file}`,
+    form,
+    {
+      auth: { username, password },
+      headers: form.getHeaders()
+    }
+  );
+}
+</code></pre>
+<h4 id="update-content-references" tabindex="-1">Update Content References</h4>
+<p>After upload, verify all image references in content point to new AEM DAM paths.</p>
+<h3 id="step-5%3A-validation-and-testing" tabindex="-1">Step 5: Validation and Testing</h3>
+<h4 id="content-validation" tabindex="-1">Content Validation</h4>
+<pre><code class="language-javascript">// Validate migrated content
+function validateContent(aemContent) {
+  const errors = [];
+
+  // Check required fields
+  if (!aemContent.title) errors.push('Missing title');
+  if (!aemContent.slug) errors.push('Missing slug');
+
+  // Validate tag references
+  for (const tag of aemContent.tags) {
+    if (!tagExists(tag.path)) {
+      errors.push(`Tag not found: ${tag.path}`);
+    }
+  }
+
+  // Validate image URLs
+  const imageUrls = aemContent.content.match(/\/content\/dam\/spac\/images\/[^&quot;]+/g) || [];
+  for (const url of imageUrls) {
+    if (!imageExists(url)) {
+      errors.push(`Image not found: ${url}`);
+    }
+  }
+
+  return { isValid: errors.length === 0, errors };
+}
+</code></pre>
+<h4 id="functional-testing" tabindex="-1">Functional Testing</h4>
+<ul>
+<li>Test all page templates render correctly</li>
+<li>Verify tag filtering works</li>
+<li>Test search functionality</li>
+<li>Validate internal links</li>
+<li>Check image display and optimization</li>
+</ul>
+<h3 id="migration-checklist" tabindex="-1">Migration Checklist</h3>
+<p><strong>Pre-Migration:</strong></p>
+<ul>
+<li>[ ] Complete content audit in Strapi</li>
+<li>[ ] Document all custom fields and relationships</li>
+<li>[ ] Plan AEM environment setup</li>
+<li>[ ] Create Content Fragment Models in AEM</li>
+<li>[ ] Set up AEM tag taxonomy</li>
+</ul>
+<p><strong>Migration:</strong></p>
+<ul>
+<li>[ ] Export all content from Strapi</li>
+<li>[ ] Download all assets</li>
+<li>[ ] Transform data to AEM format</li>
+<li>[ ] Create tags in AEM</li>
+<li>[ ] Import content fragments</li>
+<li>[ ] Upload assets to AEM DAM</li>
+<li>[ ] Validate all content</li>
+</ul>
+<p><strong>Post-Migration:</strong></p>
+<ul>
+<li>[ ] Test all functionality</li>
+<li>[ ] Verify search indexing</li>
+<li>[ ] Check SEO metadata</li>
+<li>[ ] Performance testing</li>
+<li>[ ] User acceptance testing</li>
+<li>[ ] Deploy to production</li>
+</ul>
 <h3 id="resources" tabindex="-1">Resources</h3>
 <ul>
 <li><strong>AEM Documentation</strong>: <a href="https://experienceleague.adobe.com/docs/experience-manager-cloud-service/">https://experienceleague.adobe.com/docs/experience-manager-cloud-service/</a></li>
