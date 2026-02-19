@@ -161,7 +161,7 @@ A JSON array where each element is a meeting object:
 
 ### meetings.csv
 
-A flat CSV with 7 columns, focused on meeting identification and direct artifact URLs:
+A flat CSV with 8 columns, focused on meeting identification and direct artifact URLs:
 
 | Column | Description |
 |--------|-------------|
@@ -169,9 +169,12 @@ A flat CSV with 7 columns, focused on meeting identification and direct artifact
 | `scheduledDate` | ISO 8601 date/time |
 | `slug` | URL-safe meeting identifier |
 | `siteUrl` | Full URL to the meeting page on https://spac.illinois.gov |
+| `tags` | Semicolon-separated meeting-level tag names (e.g., `Senate Bill; Sentencing Policy`) |
 | `agendaUrl` | Direct download URL for the meeting agenda PDF (empty if none) |
 | `minutesUrl` | Direct download URL for the meeting minutes PDF (empty if none) |
 | `otherMaterialUrls` | Pipe-separated download URLs for all other materials (slide decks, handouts, reports, etc.) |
+
+> **Note on tags:** Tags exist at the meeting level only. Individual PDFs and material groups do not have their own tags in the CMS schema.
 
 **How materials are classified:**
 - Any material with **"agenda"** in its name goes to `agendaUrl`

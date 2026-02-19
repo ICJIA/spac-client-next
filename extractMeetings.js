@@ -299,11 +299,14 @@ function meetingToCsvRow(meeting) {
     }
   });
 
+  var tagsStr = meeting.tags.map(function (t) { return t.name; }).join("; ");
+
   return [
     meeting.title,
     meeting.scheduledDate,
     meeting.slug,
     meeting.siteUrl,
+    tagsStr,
     agendaUrl,
     minutesUrl,
     otherUrls.join(" | ")
@@ -316,14 +319,14 @@ function meetingToCsvRow(meeting) {
  * Builds a complete CSV string from an array of transformed meetings.
  * Includes a header row followed by one data row per meeting.
  *
- * CSV columns: title, scheduledDate, slug, siteUrl, agendaUrl, minutesUrl,
- * otherMaterialUrls
+ * CSV columns: title, scheduledDate, slug, siteUrl, tags, agendaUrl,
+ * minutesUrl, otherMaterialUrls
  *
  * @param {Object[]} meetings - Array of transformed meeting objects
  * @returns {string} Complete CSV file content
  */
 function buildCsv(meetings) {
-  var header = "title,scheduledDate,slug,siteUrl,agendaUrl,minutesUrl,otherMaterialUrls";
+  var header = "title,scheduledDate,slug,siteUrl,tags,agendaUrl,minutesUrl,otherMaterialUrls";
   var rows = meetings.map(meetingToCsvRow);
   return [header].concat(rows).join("\n");
 }

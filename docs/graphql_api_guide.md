@@ -1229,7 +1229,7 @@ npm run extract:meetings
 
 Outputs to the current working directory:
 - `meetings.json` — Structured JSON with absolute file URLs
-- `meetings.csv` — Flat CSV (title, scheduledDate, slug, siteUrl, agendaUrl, minutesUrl, otherMaterialUrls)
+- `meetings.csv` — Flat CSV (title, scheduledDate, slug, siteUrl, tags, agendaUrl, minutesUrl, otherMaterialUrls)
 
 The CSV is optimized for artifact URL lookup — agenda and minutes get their own columns, and all remaining materials (slide decks, handouts, etc.) are pipe-separated in `otherMaterialUrls`.
 
