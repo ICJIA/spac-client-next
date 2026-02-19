@@ -1227,11 +1227,11 @@ Or via npm:
 npm run extract:meetings
 ```
 
-Outputs to `./src/api/`:
+Outputs to the current working directory:
 - `meetings.json` — Structured JSON with absolute file URLs
-- `meetings.csv` — Flat CSV (title, scheduledDate, location, category, meetingMaterials, tags, slug, siteUrl, createdAt, updatedAt)
+- `meetings.csv` — Flat CSV (title, scheduledDate, slug, siteUrl, agendaUrl, minutesUrl, otherMaterialUrls)
 
-The `location` column in the CSV is empty (see Known Data Gaps). The `meetingMaterials` column has pipe-separated entries with full download URLs.
+The CSV is optimized for artifact URL lookup — agenda and minutes get their own columns, and all remaining materials (slide decks, handouts, etc.) are pipe-separated in `otherMaterialUrls`.
 
 For bulk PDF downloads, SFTP access to the server is preferred — contact Chris Schweda (christopher.schweda@illinois.gov).
 

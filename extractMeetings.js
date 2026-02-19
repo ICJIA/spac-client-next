@@ -247,34 +247,66 @@ function escapeCsvField(value) {
 }
 
 /**
+ * Classifies a meeting material as "agenda", "minutes", or "other" based on
+ * its display name. Matching is case-insensitive.
+ *
+ * @param {string} materialName - Display name of the material (e.g., "Meeting Agenda")
+ * @returns {"agenda"|"minutes"|"other"} Classification bucket
+ */
+function classifyMaterial(materialName) {
+  var name = (materialName || "").toLowerCase().trim();
+  if (name.indexOf("agenda") !== -1) return "agenda";
+  if (name.indexOf("minutes") !== -1) return "minutes";
+  return "other";
+}
+
+/**
+ * Extracts all file URLs from a meeting material entry.
+ *
+ * @param {Object} mat - A meetingMaterials entry from a transformed meeting
+ * @returns {string[]} Array of absolute file URLs
+ */
+function getFileUrls(mat) {
+  return mat.files.map(function (f) { return f.fileUrl; }).filter(Boolean);
+}
+
+/**
  * Converts a transformed meeting object into a single CSV row string.
- * Meeting materials are pipe-separated ("Material A: url | Material B: url").
- * Tags are semicolon-separated ("Tag A; Tag B").
+ * Artifact URLs are split into three columns: agendaUrl (first agenda found),
+ * minutesUrl (first minutes found), and otherMaterialUrls (pipe-separated
+ * URLs for everything else).
  *
  * @param {Object} meeting - Transformed meeting object from {@link transformMeeting}
  * @returns {string} Comma-separated CSV row
  */
 function meetingToCsvRow(meeting) {
-  var materialsStr = meeting.meetingMaterials
-    .map(function (mat) {
-      var urls = mat.files.map(function (f) { return f.fileUrl; }).join(" ");
-      return (mat.name + ": " + urls).trim();
-    })
-    .join(" | ");
+  var agendaUrl = "";
+  var minutesUrl = "";
+  var otherUrls = [];
 
-  var tagsStr = meeting.tags.map(function (t) { return t.name; }).join("; ");
+  meeting.meetingMaterials.forEach(function (mat) {
+    var urls = getFileUrls(mat);
+    var type = classifyMaterial(mat.name);
+    if (type === "agenda" && !agendaUrl) {
+      agendaUrl = urls[0] || "";
+      // If this agenda material had extra files, spill to other
+      urls.slice(1).forEach(function (u) { otherUrls.push(u); });
+    } else if (type === "minutes" && !minutesUrl) {
+      minutesUrl = urls[0] || "";
+      urls.slice(1).forEach(function (u) { otherUrls.push(u); });
+    } else {
+      urls.forEach(function (u) { otherUrls.push(u); });
+    }
+  });
 
   return [
     meeting.title,
     meeting.scheduledDate,
-    meeting.location,
-    meeting.categoryTitle,
-    materialsStr,
-    tagsStr,
     meeting.slug,
     meeting.siteUrl,
-    meeting.createdAt,
-    meeting.updatedAt
+    agendaUrl,
+    minutesUrl,
+    otherUrls.join(" | ")
   ]
     .map(escapeCsvField)
     .join(",");
@@ -284,14 +316,14 @@ function meetingToCsvRow(meeting) {
  * Builds a complete CSV string from an array of transformed meetings.
  * Includes a header row followed by one data row per meeting.
  *
- * CSV columns: title, scheduledDate, location, category, meetingMaterials,
- * tags, slug, siteUrl, createdAt, updatedAt
+ * CSV columns: title, scheduledDate, slug, siteUrl, agendaUrl, minutesUrl,
+ * otherMaterialUrls
  *
  * @param {Object[]} meetings - Array of transformed meeting objects
  * @returns {string} Complete CSV file content
  */
 function buildCsv(meetings) {
-  var header = "title,scheduledDate,location,category,meetingMaterials,tags,slug,siteUrl,createdAt,updatedAt";
+  var header = "title,scheduledDate,slug,siteUrl,agendaUrl,minutesUrl,otherMaterialUrls";
   var rows = meetings.map(meetingToCsvRow);
   return [header].concat(rows).join("\n");
 }

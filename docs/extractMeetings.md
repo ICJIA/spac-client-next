@@ -161,24 +161,36 @@ A JSON array where each element is a meeting object:
 
 ### meetings.csv
 
-A flat CSV with 10 columns:
+A flat CSV with 7 columns, focused on meeting identification and direct artifact URLs:
 
 | Column | Description |
 |--------|-------------|
 | `title` | Meeting title |
 | `scheduledDate` | ISO 8601 date/time |
-| `location` | Always empty (see Known Data Gaps) |
-| `category` | Display name ("Council Meetings" or "Special Topic") |
-| `meetingMaterials` | Pipe-separated list: `Material Name: URL \| Material Name: URL` |
-| `tags` | Semicolon-separated tag names |
 | `slug` | URL-safe meeting identifier |
 | `siteUrl` | Full URL to the meeting page on https://spac.illinois.gov |
-| `createdAt` | CMS record creation timestamp |
-| `updatedAt` | CMS record last-modified timestamp |
+| `agendaUrl` | Direct download URL for the meeting agenda PDF (empty if none) |
+| `minutesUrl` | Direct download URL for the meeting minutes PDF (empty if none) |
+| `otherMaterialUrls` | Pipe-separated download URLs for all other materials (slide decks, handouts, reports, etc.) |
+
+**How materials are classified:**
+- Any material with **"agenda"** in its name goes to `agendaUrl`
+- Any material with **"minutes"** in its name goes to `minutesUrl`
+- Everything else (presentations, handouts, reports, etc.) goes to `otherMaterialUrls`
+
+If a meeting has no materials, all three URL columns are empty. If a meeting has only an agenda, `minutesUrl` and `otherMaterialUrls` are empty, and so on.
+
+**Example row (November 2025 meeting with 4 materials):**
+
+| Column | Value |
+|--------|-------|
+| `agendaUrl` | `https://spac.icjia-api.cloud/uploads/20251121_agenda_final-20251118T18021453.pdf` |
+| `minutesUrl` | `https://spac.icjia-api.cloud/uploads/SPAC_September_Meeting_Minutes-20251120T18394552.pdf` |
+| `otherMaterialUrls` | `https://...Handout_final-20251120T18394552.pdf \| https://...Drug_Trends_Nov21_2025-20251120T18394557.pdf` |
 
 ### Known Data Gaps
 
-- **Location:** There is no `location` field in the SPAC meeting schema. The `location` column in the CSV is intentionally empty as a placeholder.
+- **Location:** There is no `location` field in the SPAC meeting schema. Location is not included in the CSV.
 - **Time:** `scheduledDate` stores a date. Specific meeting times may appear in the `content` Markdown field but are not a separate queryable field.
 
 ---
