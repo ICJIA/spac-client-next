@@ -1,6 +1,6 @@
 # AEM Migration: Common Issues and Solutions Summary
 
-**📅 Last Updated**: October 23, 2025
+**📅 Last Updated**: February 19, 2026
 
 ## Overview
 
@@ -203,5 +203,5 @@ After migration, search indexes need to be rebuilt.
 
 ---
 
-**All documentation is current as of October 23, 2025 and ready for AEM migration planning!**
+**All documentation is current as of February 19, 2026 and ready for AEM migration planning!**
 

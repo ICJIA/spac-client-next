@@ -1,6 +1,6 @@
 # SPAC Client Website - Project Documentation
 
-**📅 Last Updated**: October 23, 2025
+**📅 Last Updated**: February 19, 2026
 
 ## 📑 Table of Contents
 
@@ -261,6 +261,10 @@ spac-client-next/
 │   └── store.js               # Vuex store configuration
 ├── netlify/                   # Netlify function builds
 │   └── *.js                   # Compiled serverless functions
+├── docs/
+│   ├── graphql_api_guide.md   # Comprehensive GraphQL API guide (29 examples)
+│   └── extractMeetings.md     # Meeting extraction script documentation
+├── extractMeetings.js         # Standalone meeting data extraction (zero deps)
 ├── buildSearchIndex.js        # Search index generation script
 ├── buildSitemap.js            # Sitemap generation script
 ├── package.json               # Dependencies and scripts
@@ -496,7 +500,7 @@ import { getContentByTag } from "@/services/Content";
 const tagContent = await getContentByTag({ slug: "sentencing-policy" });
 ```
 
-**For comprehensive tagging documentation and more examples**, see `/GRAPHQL_API_GUIDE.md` → "Tagging System" section
+**For comprehensive tagging documentation and more examples**, see [`docs/graphql_api_guide.md`](docs/graphql_api_guide.md) → "Tagging System" section
 
 ### Data Processing Workflows
 

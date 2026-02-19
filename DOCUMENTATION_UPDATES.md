@@ -1,6 +1,6 @@
 # Documentation Updates Summary
 
-**📅 Last Updated**: October 23, 2025
+**📅 Last Updated**: February 19, 2026
 
 ## Overview
 
@@ -128,7 +128,7 @@ Includes:
    - Verification steps
 
 3. **Development Workflow**
-   - Available npm/yarn commands
+   - Available npm commands
    - Project structure
    - Development best practices
    - Code standards
@@ -163,12 +163,12 @@ Includes:
    - Understand the architecture
 
 2. **Visit Developer Documentation Portal**
-   - Access at `/documentation/dev/` after running `yarn serve`
+   - Access at `/documentation/dev/` after running `npm run serve`
    - Read through project overview and architecture
    - Study the Custom Caching System section
 
 3. **Reference JSDoc API Documentation**
-   - Access at `/documentation/jsdoc/` after running `yarn serve`
+   - Access at `/documentation/jsdoc/` after running `npm run serve`
    - Look up specific functions and services
    - Understand function signatures and parameters
 
@@ -182,19 +182,19 @@ Includes:
 ## Regenerating Documentation
 
 Documentation is automatically generated during:
-- `yarn serve` - Development server startup
-- `yarn build` - Production build
+- `npm run serve` - Development server startup
+- `npm run build` - Production build
 
 Manual regeneration:
 ```bash
 # Generate all documentation
-yarn docs:generate
+npm run docs:generate
 
 # Generate only developer documentation
-yarn docs:dev
+npm run docs:dev
 
 # Generate only JSDoc API documentation
-yarn docs:jsdoc
+npm run docs:jsdoc
 ```
 
 ## Documentation Quality Features
@@ -240,7 +240,7 @@ For questions or issues with the documentation:
 
 ---
 
-**Last Updated**: 2025-10-23
+**Last Updated**: 2026-02-19
 **Documentation Version**: 1.0
 **Project**: SPAC Client Website (Vue.js 2.x)
 

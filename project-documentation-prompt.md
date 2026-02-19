@@ -241,7 +241,7 @@ Create `public/robots.txt` with:
 
 ### Step 11: HTML Documentation Testing
 
-- **Generation Testing**: Verify `yarn create:documentation` works correctly
+- **Generation Testing**: Verify `npm run create:documentation` works correctly
 - **File Output**: Confirm HTML file is created in correct location with appropriate size
 - **Browser Rendering**: Test HTML file opens and renders correctly in browsers
 - **Navigation Functionality**: Verify table of contents links work with smooth scrolling
@@ -870,7 +870,7 @@ Add to package.json scripts section:
 {
   "scripts": {
     "create:documentation": "node ./creators/createDocumentationHTML.js",
-    "scripts": "yarn create:contentDirectory && yarn create:manualPages && yarn create:documentation && yarn create:pages && yarn create:searchIndex && yarn create:sitemap && yarn create:routes"
+    "scripts": "npm run create:contentDirectory && npm run create:manualPages && npm run create:documentation && npm run create:pages && npm run create:searchIndex && npm run create:sitemap && npm run create:routes"
   }
 }
 ```

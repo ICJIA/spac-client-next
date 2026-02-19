@@ -2,7 +2,7 @@
 
 # Illinois Sentencing Policy Advisory Council (SPAC) - Client Website
 
-**📅 Last Updated**: October 23, 2025
+**📅 Last Updated**: February 19, 2026
 
 > The concept for Illinois' sentencing commission, the Sentencing Policy Advisory Council (SPAC), was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission in 2009. The CLEAR Commissioners studied and reorganized the Unified Code of Corrections in an effort to make it less confusing and easier for the public and practitioners to use. That process led to the conclusion that, although many agencies collected statistics and data about sentencing in Illinois, no agency compiled sentencing data specifically to perform comprehensive analysis for reporting to policy makers.
 
@@ -219,6 +219,10 @@ spac-client-next/
 ├── public/
 │   ├── documentation/       # Generated documentation
 │   └── index.html           # Main HTML template
+├── docs/
+│   ├── graphql_api_guide.md # Comprehensive GraphQL API guide (29 examples)
+│   └── extractMeetings.md   # Meeting extraction script documentation
+├── extractMeetings.js       # Standalone meeting data extraction script
 ├── buildSearchIndex.js      # Search index generation
 ├── buildSitemap.js          # Sitemap generation
 ├── package.json             # Dependencies and scripts
@@ -368,7 +372,7 @@ The playground provides:
 }
 ```
 
-**For comprehensive GraphQL documentation and more sample queries**, see `/GRAPHQL_API_GUIDE.md`
+**For comprehensive GraphQL documentation with 29 ready-to-use query examples**, see [`docs/graphql_api_guide.md`](docs/graphql_api_guide.md)
 
 ### 🏷️ Tagging System
 
@@ -410,7 +414,23 @@ The application uses a flexible tagging system to organize content across pages,
 - Multiple tags can be applied to a single piece of content
 - The "fiscal-impact" tag displays as **"IMPACT ANALYSIS"**
 
-**For detailed tagging documentation**, see `/GRAPHQL_API_GUIDE.md` → "Tagging System" section
+**For detailed tagging documentation**, see [`docs/graphql_api_guide.md`](docs/graphql_api_guide.md) → "Tagging System" section
+
+### 📊 Meeting Data Extraction
+
+The project includes a **standalone zero-dependency** Node.js script for extracting meeting data from the SPAC API:
+
+```bash
+# Run the extraction script
+npm run extract:meetings
+# Or directly: node extractMeetings.js
+```
+
+This produces:
+- **meetings.json** — Full structured meeting data (JSON array) with absolute file URLs
+- **meetings.csv** — Flat CSV export suitable for spreadsheets, databases, or the WCM development team
+
+The script uses only Node.js built-in modules (`https`, `fs`, `path`) — no `npm install` required. See [`docs/extractMeetings.md`](docs/extractMeetings.md) for full documentation including adaptation for other content types.
 
 ### 🖼️ Thumbor Image Server
 

@@ -1,6 +1,6 @@
 # Adobe Experience Manager (AEM) Migration Guide
 
-**📅 Last Updated**: October 23, 2025
+**📅 Last Updated**: February 19, 2026
 
 ## Overview
 
@@ -120,6 +120,10 @@ const path = require('path');
 
 const STRAPI_API = 'https://spac.icjia-api.cloud/graphql';
 
+// ⚠️ NOTE: The SPAC API uses **Strapi v3** GraphQL syntax (flat fields, no
+// data/attributes nesting). The v4-style query below is provided as a
+// reference for future Strapi v4+ migrations. For the current SPAC API,
+// use the v3 query syntax documented in docs/graphql_api_guide.md.
 const exportQuery = `{
   pages(pagination: {limit: 1000}) {
     data {

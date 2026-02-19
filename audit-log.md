@@ -20,13 +20,9 @@ To start a development server for local development:
 ```bash
 # Install dependencies first (only needed once or when dependencies change)
 npm install
-# OR if using Yarn
-yarn
 
 # Start the development server
 npm run serve
-# OR if using Yarn
-yarn serve
 ```
 
 This will:
@@ -42,8 +38,6 @@ To create a production build for deployment:
 ```bash
 # Build for production
 npm run build
-# OR if using Yarn
-yarn build
 ```
 
 This will:
