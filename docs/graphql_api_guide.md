@@ -12,6 +12,122 @@ You don't need to install anything to try it. The SPAC API has an interactive pl
 
 ---
 
+## GraphQL vs. REST: When to Use Which
+
+Most web APIs use REST — a pattern where each URL (endpoint) returns a fixed shape of data. GraphQL is a different approach that gives the client more control over what comes back. Both are valid choices; which one fits depends on the project.
+
+### Why SPAC Uses GraphQL
+
+The SPAC site has several content types (meetings, publications, news, biographies, pages, tags) that are heavily interrelated. GraphQL makes it easy to fetch a meeting _and_ its materials _and_ its tags in a single request, asking for only the fields needed. With REST, this would require multiple round-trips or bloated endpoints that return everything.
+
+### Comparison
+
+| | **GraphQL** | **REST** |
+|---|---|---|
+| **Data fetching** | Client specifies exactly which fields it wants | Server decides what each endpoint returns |
+| **Over-fetching** | Eliminated — you only get what you ask for | Common — endpoints often return extra fields you don't need |
+| **Under-fetching** | Eliminated — one query can span related data | Common — you may need to call multiple endpoints and stitch results together |
+| **Number of endpoints** | Single endpoint (`/graphql`) for all queries | One endpoint per resource (`/meetings`, `/meetings/:id`, `/tags`, etc.) |
+| **Learning curve** | Steeper — requires learning query syntax, schema concepts | Gentler — URLs and JSON are familiar to most developers |
+| **Caching** | Harder — all requests go to the same URL, so HTTP caching doesn't work out of the box | Easier — each URL can be cached independently by browsers, CDNs, and proxies |
+| **Tooling** | Interactive playgrounds, schema autocomplete, introspection | `curl`, Postman, browser address bar — works anywhere with no special tools |
+| **Error handling** | Always returns HTTP 200; errors are inside the JSON response body | Uses HTTP status codes (404, 500, etc.) that integrations already understand |
+| **File uploads** | Not built-in; requires workarounds or multipart extensions | Straightforward with `multipart/form-data` |
+| **API versioning** | No versions needed — clients ask for exactly the fields they use, and new fields can be added without breaking anyone | Typically versioned (`/api/v1/`, `/api/v2/`) to avoid breaking clients when the shape changes |
+
+### When to Choose GraphQL
+
+- You have **multiple related content types** and clients need to pull from several at once (this is the SPAC case)
+- Different views of the same data need **different field sets** (e.g., a listing page needs title + date, while a detail page needs everything)
+- You want a **single, self-documenting API** — the schema _is_ the documentation
+- Your frontend team wants **autonomy** to change what data they fetch without backend changes
+
+### When to Choose REST
+
+- Your data model is simple and each resource maps cleanly to a URL
+- You need **HTTP-level caching** (CDNs, browser cache, `304 Not Modified`)
+- Your consumers are scripts, CLI tools, or third-party integrations that expect standard HTTP conventions
+- You want the **simplest possible integration** — `curl https://api.example.com/meetings` just works
+- You need to **stream large responses** or handle **file uploads** natively
+
+### In Practice
+
+Many real-world systems (including Strapi, the CMS behind this site) offer _both_. Strapi exposes a REST API alongside its GraphQL plugin. The SPAC client uses GraphQL for its flexibility, but the same data is accessible via REST at `https://spac.icjia-api.cloud/meetings`, `https://spac.icjia-api.cloud/publications`, etc.
+
+---
+
+## How Adobe Experience Manager (AEM) Compares
+
+Adobe Experience Manager is an enterprise content management platform used by large organizations. Its API architecture is fundamentally different from both Strapi and standalone REST/GraphQL services. Understanding how AEM works helps illustrate why simpler tools like Strapi exist and where enterprise platforms add (or impose) complexity.
+
+### AEM's Architecture in Brief
+
+AEM is built on three layers that shape how its APIs work:
+
+1. **JCR (Java Content Repository)** — All content is stored in a tree of nodes and properties, similar to a filesystem but richer. A page, an image, and a content fragment are all just nodes in this tree.
+2. **Apache Sling** — A framework that maps URLs directly to JCR nodes. Requesting `/content/mysite/en/about` doesn't hit a controller — Sling resolves the JCR node at that path and picks a rendering script based on the node's `sling:resourceType` property.
+3. **OSGi** — A Java module system that manages all backend services as pluggable bundles.
+
+This means AEM is **content-centric by design**: the URL _is_ the content path, and the repository structure _is_ the API. There's no separate "API layer" sitting in front of a database the way Strapi or a custom REST backend works.
+
+### AEM's Content Delivery APIs
+
+AEM offers multiple ways to deliver content headlessly:
+
+| API | Style | Use Case |
+|-----|-------|----------|
+| **GraphQL API** (Content Fragments) | GraphQL | Query structured content with field-level precision. Read-only. Supports persisted queries for CDN caching. |
+| **Content Fragment Delivery (OpenAPI)** | REST (OpenAPI) | Newer REST-based delivery optimized for CDN integration. Auto-generates OpenAPI schemas from Content Fragment Models. |
+| **Assets HTTP API** | REST | CRUD operations on content — create, read, update, delete fragments. Used for management, not just delivery. |
+| **Sling JSON export** | REST-like | Any JCR node can be exported as JSON by appending `.model.json` or `.infinity.json` to its URL. Zero configuration needed, but the shape is dictated by the repository structure. |
+
+### Key Differences from Strapi / Standalone APIs
+
+| | **AEM** | **Strapi (this project)** | **Custom REST API** |
+|---|---|---|---|
+| **Content storage** | JCR tree (nodes & properties) | Relational database (SQL) | Database of your choice |
+| **Schema definition** | Content Fragment Models (GUI-based, auto-generates GraphQL schema) | Content Types (GUI-based, auto-generates REST + GraphQL) | Hand-coded models/migrations |
+| **URL routing** | Sling resolves URLs to JCR paths automatically | Defined by framework (Koa routes) | Hand-coded routes |
+| **GraphQL** | Read-only; persisted queries cached at CDN edge | Read-only (via plugin); standard POST queries | You build it yourself |
+| **Write operations** | Separate REST API (Assets HTTP API) | REST or GraphQL mutations | Your own endpoints |
+| **Caching** | Persisted queries turn GraphQL into cacheable GET requests via Dispatcher + CDN | Application-level (Vuex in this project) | Your own strategy |
+| **Deployment** | Adobe Cloud Service or self-hosted (large Java stack) | Self-hosted Node.js process | Whatever you build |
+| **Cost / complexity** | Enterprise licensing; significant infrastructure and expertise required | Free and open-source; runs on a single server | Depends on your stack |
+| **Target audience** | Large organizations managing thousands of pages across multiple brands and channels | Small-to-mid projects needing a quick, flexible CMS | Teams that want full control |
+
+### What AEM Does Differently
+
+**Content Fragment Models as schema.** In AEM, you define a Content Fragment Model (through a GUI), and the system auto-generates a GraphQL schema from it. This is conceptually similar to how Strapi auto-generates its schema from Content Types — but AEM layers in publishing workflows, localization, versioning, and permissions at the repository level.
+
+**Persisted queries.** AEM's GraphQL API encourages "persisted queries" — you save a query on the server, then request it with a simple GET URL like `/graphql/execute.json/mysite/my-query`. This converts GraphQL's usual single-endpoint-POST pattern into something that CDNs and the AEM Dispatcher can cache like a REST endpoint. It's a clever hybrid that sidesteps one of GraphQL's biggest weaknesses.
+
+**Sling JSON export.** Any content node in AEM can be exported as JSON by appending a selector to the URL — no API definition needed. For example, `/content/mysite/en/meetings.model.json` returns a JSON representation of that page. This is unique to AEM's architecture and has no equivalent in Strapi or typical REST/GraphQL systems.
+
+**Read/write split.** AEM's GraphQL API is read-only. To create or update content programmatically, you use a separate REST API (the Assets HTTP API). Strapi, by contrast, supports both reads and writes through the same GraphQL or REST interface.
+
+### When AEM Makes Sense
+
+- You're an enterprise managing **dozens of sites across multiple brands, languages, and channels**
+- You need built-in **publishing workflows, approval chains, and governance**
+- You need to deliver the same content to web, mobile apps, kiosks, and third-party systems simultaneously
+- Your organization already has Adobe licensing and AEM expertise
+
+### When AEM Is Overkill
+
+- You have a **single site** with a handful of content types (like SPAC)
+- Your team is small and doesn't need enterprise publishing workflows
+- You want to **move fast** without Java infrastructure, Adobe licensing, or specialized AEM developers
+- Your budget and team size favor open-source tools
+
+### Further Reading
+
+- [Introduction to AEM Headless](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/headless/introduction) — Adobe's overview of headless delivery
+- [AEM GraphQL API for Content Fragments](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/headless/graphql-api/content-fragments) — How AEM implements GraphQL
+- [Content Fragment Delivery with OpenAPI](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/headless/aem-content-fragment-delivery-with-openapi) — AEM's newer REST-based delivery API
+- [AEM APIs for Structured Content Delivery](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/headless/apis-headless-and-content-fragments) — Comparison of all AEM headless APIs
+
+---
+
 ## Quick Start: Your First Query
 
 ### Step 1: Open the Playground
