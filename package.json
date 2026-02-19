@@ -7,6 +7,7 @@
     "build": "node buildSearchIndex.js && node buildSitemap.js && npm run docs:generate && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:search": "node buildSearchIndex.js",
+    "extract:meetings": "node extractMeetings.js",
     "create:documentation": "node ./creators/createDocumentationHTML.js",
     "docs:dev": "node ./creators/createDocumentationHTML.js",
     "docs:jsdoc": "npx jsdoc -c jsdoc.conf.json",
