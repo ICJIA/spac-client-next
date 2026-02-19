@@ -28,4 +28,10 @@ yarn-error.log*
 # package-lock.json
 src/api/routes.json
 src/api/searchIndex.json
+src/api/meetings.json
+src/api/meetings.csv
 public/sitemap.xml
+
+# extractMeetings.js output (generated)
+meetings.json
+meetings.csv
