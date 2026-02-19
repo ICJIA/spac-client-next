@@ -16,9 +16,17 @@ You don't need to install anything to try it. The SPAC API has an interactive pl
 
 ### Step 1: Open the Playground
 
-Go to this URL in your browser:
+The playground is for experimenting with queries and browsing the schema — it does not change the GraphQL endpoint used by the application (that remains `https://spac.icjia-api.cloud/graphql`).
 
-**Production**: https://spac.icjia-api.cloud/graphql
+Open one of these URLs in your browser:
+
+**ICJIA Playground** (recommended): https://playground.icjia.app/
+
+A modern, updated version of the Strapi playground with all the same features plus additional flexibility, download options, and an improved interface. Includes full schema autocomplete.
+
+**Built-in Strapi Playground**: https://spac.icjia-api.cloud/graphql
+
+The default Strapi GraphQL playground. Both point to the same underlying API — use whichever you prefer.
 
 **Development**: http://localhost:9000/graphql (when running backend locally)
 
@@ -26,11 +34,12 @@ You'll see an interactive editor with two panels:
 - **Left panel** — where you type your query
 - **Right panel** — where results appear
 
-The playground also provides:
+The playground provides:
 - Real-time query validation (errors show as you type)
-- Schema documentation (click the **DOCS** tab on the right side)
+- Schema documentation and autocomplete
 - Query history
 - Syntax highlighting
+- Download options (enhanced in ICJIA Playground)
 
 ### Step 2: Paste and Run
 
@@ -203,7 +212,11 @@ Parameters are comma-separated inside parentheses:
 
 ## GraphQL Endpoint
 
+The application endpoint for content queries (used in code and build scripts):
+
 **Production**: `https://spac.icjia-api.cloud/graphql`
+
+For interactive query experimentation, use the [ICJIA Playground](https://playground.icjia.app/) or the [built-in Strapi playground](https://spac.icjia-api.cloud/graphql).
 
 **Development**: `http://localhost:9000/graphql` (when running backend locally)
 
@@ -1239,8 +1252,8 @@ For bulk PDF downloads, SFTP access to the server is preferred — contact Chris
 
 ## Tips for Developers
 
-1. **Use the Playground** — Test queries interactively before adding to code
-2. **Check Schema** — Click the DOCS tab on the right side of the playground to browse all available fields
+1. **Use the Playground** — Test queries interactively before adding to code (try the [ICJIA Playground](https://playground.icjia.app/) or the [built-in Strapi playground](https://spac.icjia-api.cloud/graphql))
+2. **Check Schema** — Use the DOCS/schema tab in either playground to browse all available fields
 3. **Always filter `isPublished: true`** — Unpublished content should not appear on the public site
 4. **Use `limit`** — Avoid unbounded queries that return everything
 5. **Cache results** — The Vue app caches GraphQL responses in Vuex (session-only)

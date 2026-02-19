@@ -287,8 +287,9 @@ For full schema details and 29 ready-to-use query examples, see the companion gu
 
 | Item | Value |
 |------|-------|
-| **GraphQL Endpoint** | https://spac.icjia-api.cloud/graphql |
-| **Interactive Playground** | https://spac.icjia-api.cloud/graphql (open in browser) |
+| **GraphQL Endpoint** (used by the app and scripts) | https://spac.icjia-api.cloud/graphql |
+| **Interactive Playground** (recommended for experimenting) | https://playground.icjia.app/ |
+| **Built-in Strapi Playground** (alternative) | https://spac.icjia-api.cloud/graphql (open in browser) |
 | **Public Site** | https://spac.illinois.gov |
 | **File URL Base** | https://spac.icjia-api.cloud (prepend to relative file paths) |
 | **Script Requirements** | Node.js >= 10.0.0, network access to API |

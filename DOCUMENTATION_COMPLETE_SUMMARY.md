@@ -123,7 +123,8 @@ CACHING_SYSTEM_CLARIFICATION.md        # Caching system details
 
 ### GraphQL API
 - **Endpoint**: `https://spac.icjia-api.cloud/graphql`
-- **Playground**: https://spac.icjia-api.cloud/graphql
+- **ICJIA Playground** (recommended): https://playground.icjia.app/ — modern interface with enhanced download options and schema autocomplete
+- **Built-in Strapi Playground**: https://spac.icjia-api.cloud/graphql — default Strapi playground (same API, same features)
 - **10 sample queries** available in GRAPHQL_API_GUIDE.md
 
 ### Tagging System
@@ -181,7 +182,7 @@ All main documentation files include "Last Updated: February 19, 2026" to indica
 
 **API Development**:
 1. See `docs/graphql_api_guide.md` for GraphQL queries (29 examples)
-2. Visit https://spac.icjia-api.cloud/graphql for interactive playground
+2. Visit https://playground.icjia.app/ for the modern ICJIA playground (or https://spac.icjia-api.cloud/graphql for the built-in Strapi playground)
 
 **Content Organization**:
 1. See `docs/graphql_api_guide.md` → "Tagging System" for tag queries

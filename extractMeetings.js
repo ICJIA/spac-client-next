@@ -38,7 +38,8 @@
  * @author ICJIA
  * @since 1.0.0
  * @contact Chris Schweda (christopher.schweda@illinois.gov)
- * @see {@link https://spac.icjia-api.cloud/graphql} GraphQL Playground (interactive)
+ * @see {@link https://playground.icjia.app/} ICJIA GraphQL Playground (recommended)
+ * @see {@link https://spac.icjia-api.cloud/graphql} Built-in Strapi GraphQL Playground
  * @see {@link https://spac.illinois.gov} Public SPAC website
  */
 

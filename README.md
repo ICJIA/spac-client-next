@@ -321,19 +321,32 @@ AEM developers should be aware of these common challenges:
 
 ## 🔗 GraphQL API
 
-### Accessing the GraphQL Playground
+### GraphQL Endpoint
 
-The SPAC application uses a Strapi CMS backend with GraphQL API. You can interact with the API using the interactive GraphQL Playground:
+The SPAC application queries the Strapi CMS backend at this endpoint (used in application code, build scripts, etc.):
 
-**Production**: https://spac.icjia-api.cloud/graphql
+**Production**: `https://spac.icjia-api.cloud/graphql`
 
-**Development**: http://localhost:9000/graphql (when running backend locally)
+**Development**: `http://localhost:9000/graphql` (when running backend locally)
+
+### Interactive Playground
+
+For experimenting with queries, browsing the schema, and testing before adding queries to code, use the interactive GraphQL playground:
+
+**ICJIA Playground** (recommended): https://playground.icjia.app/
+
+A modern, updated GraphQL playground with all the same features as the built-in Strapi playground plus additional flexibility and download options. Includes schema autocomplete, query validation, and an improved interface.
+
+**Built-in Strapi Playground**: https://spac.icjia-api.cloud/graphql
+
+The default Strapi GraphQL playground. Both point to the same underlying API.
 
 The playground provides:
-- ✅ Interactive query editor
+- ✅ Interactive query editor with schema autocomplete
 - ✅ Real-time validation
 - ✅ Schema documentation
 - ✅ Query history
+- ✅ Download options (enhanced in ICJIA Playground)
 
 ### Quick Sample Queries
 
