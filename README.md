@@ -34,6 +34,21 @@ This is a **Vue.js 2.x** single-page application (SPA) that serves as the public
 - ✅ **Analytics**: Google Analytics integration for user behavior tracking
 - ✅ **Accessibility**: WCAG 2.1 AA — Lighthouse 100/100 (desktop + mobile) on all primary pages
 
+## 📜 Changelog
+
+Release notes, accessibility audit evidence, and upgrade notes are tracked in
+**[CHANGELOG.md](./CHANGELOG.md)**. Recent highlights:
+
+- **[0.2.1](./CHANGELOG.md#021---2026-04-16)** — WCAG 1.4.4 (Resize Text) fix
+  for Vuetify button/chip height clipping; re-audit evidence across six pages
+  and skip-link DOM verification.
+- **[0.2.0](./CHANGELOG.md#020---2026-04-16)** — Accessibility hardening pass
+  to meet the April 24, 2026 ADA Title II deadline: skip-to-main-content link,
+  heading-order normalization in the Markdown service, splash-hero contrast,
+  Node 16 → 22 bump, npm-only install on Netlify.
+
+See the full history in [CHANGELOG.md](./CHANGELOG.md).
+
 ## 🏗️ Architecture
 
 The application follows a **JAMstack architecture pattern**:
