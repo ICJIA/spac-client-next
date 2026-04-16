@@ -87,7 +87,6 @@ export default {
     // this.$nextTick(() => {
     //   this.$refs.textfield.focus()
     // })
-    addAttributeToElement("v-text-field", "aria-label", "Search")();
     addAttributeToElement("v-icon--link", "aria-label", "Search")();
     addAttributeToElement("v-icon", "aria-label", "Search")();
     EventBus.$on("hideQuery", () => {

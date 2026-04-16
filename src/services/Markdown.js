@@ -38,7 +38,20 @@ md.use(attrs);
  * // Returns: '<h1 id="header">Header</h1>\n<p>Some <strong>bold</strong> text.</p>\n'
  */
 const renderToHtml = function(markdown) {
-  return md.render(markdown);
+  return normalizeHeadingOrder(md.render(markdown));
+};
+
+// CMS content sometimes skips heading levels (e.g. h2 -> h4), which axe-core
+// flags as heading-order (WCAG 1.3.1). Clamp each heading so it is at most
+// one level deeper than the previous heading in document order.
+const normalizeHeadingOrder = function(html) {
+  let prev = 1;
+  return html.replace(/<(h[1-6])(\s[^>]*)?>([\s\S]*?)<\/\1>/g, (m, tag, attrs, inner) => {
+    const level = parseInt(tag[1], 10);
+    const clamped = Math.min(level, prev + 1);
+    prev = clamped;
+    return `<h${clamped}${attrs || ""}>${inner}</h${clamped}>`;
+  });
 };
 
 export { renderToHtml };

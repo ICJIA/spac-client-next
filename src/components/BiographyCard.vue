@@ -16,7 +16,12 @@
           <v-img
             :src="getHeadshotLink(person.headshot)"
             lazy-src="/placeholder-member.png"
-          ></v-img>
+            :alt="`${person.firstName} ${person.lastName}`"
+          >
+            <template v-slot:placeholder>
+              <div aria-hidden="true"></div>
+            </template>
+          </v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <div

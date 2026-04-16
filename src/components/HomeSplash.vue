@@ -7,8 +7,13 @@
       aspect-ratio="1.3"
       class="mt-0"
       style="border-bottom: 1px solid #bbb;"
+      alt=""
+      role="presentation"
       @click="hideQuery"
     >
+      <template v-slot:placeholder>
+        <div aria-hidden="true"></div>
+      </template>
       <div style="" class="banner">
         <v-container bg grid-list-md text-center class="text-center">
           <v-layout row wrap align-center>
@@ -84,7 +89,7 @@ export default {
 }
 .banner {
   width: 100%;
-  background: rgba(79, 80, 79, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   padding: 40px;
   margin-top: 0px;
 }
@@ -112,7 +117,7 @@ blockquote.splash {
 } */
 
 blockquote.splash cite {
-  color: #eee;
+  color: #fff;
   font-size: 18px;
   display: block;
   margin-top: 5px;
@@ -126,7 +131,7 @@ blockquote.splash cite:before {
 @media only screen and (max-width: 600px) {
   .banner {
     margin-top: 25px;
-    background: rgba(79, 80, 79, 0.5);
+    background: rgba(0, 0, 0, 0.65);
   }
 
   blockquote.splash {

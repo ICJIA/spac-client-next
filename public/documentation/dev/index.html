@@ -294,7 +294,7 @@
 
     <div class="documentation-container">
         <h1 id="spac-client-website---project-documentation" tabindex="-1">SPAC Client Website - Project Documentation</h1>
-<p><strong>📅 Last Updated</strong>: October 23, 2025</p>
+<p><strong>📅 Last Updated</strong>: February 19, 2026</p>
 <h2 id="%F0%9F%93%91-table-of-contents" tabindex="-1">📑 Table of Contents</h2>
 <ul>
 <li>
@@ -602,6 +602,10 @@
 │   └── store.js               # Vuex store configuration
 ├── netlify/                   # Netlify function builds
 │   └── *.js                   # Compiled serverless functions
+├── docs/
+│   ├── graphql_api_guide.md   # Comprehensive GraphQL API guide (29 examples)
+│   └── extractMeetings.md     # Meeting extraction script documentation
+├── extractMeetings.js         # Standalone meeting data extraction (zero deps)
 ├── buildSearchIndex.js        # Search index generation script
 ├── buildSitemap.js            # Sitemap generation script
 ├── package.json               # Dependencies and scripts
@@ -824,7 +828,7 @@
 
 const tagContent = await getContentByTag({ slug: &quot;sentencing-policy&quot; });
 </code></pre>
-<p><strong>For comprehensive tagging documentation and more examples</strong>, see <code>/GRAPHQL_API_GUIDE.md</code> → “Tagging System” section</p>
+<p><strong>For comprehensive tagging documentation and more examples</strong>, see <a href="docs/graphql_api_guide.md"><code>docs/graphql_api_guide.md</code></a> → “Tagging System” section</p>
 <h3 id="data-processing-workflows" tabindex="-1">Data Processing Workflows</h3>
 <h4 id="search-index-generation-(buildsearchindex.js)" tabindex="-1">Search Index Generation (<code>buildSearchIndex.js</code>)</h4>
 <ol>

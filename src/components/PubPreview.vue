@@ -71,10 +71,12 @@
                         class="fill-height ma-0"
                         align="center"
                         justify="center"
+                        aria-hidden="true"
                       >
                         <v-progress-circular
                           indeterminate
                           color="grey darken-5"
+                          aria-label="Loading cover image"
                         ></v-progress-circular>
                       </v-row>
                     </template>

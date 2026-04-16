@@ -1,5 +1,6 @@
 <template>
   <v-app id="page-top">
+    <a href="#content-top" class="skip-link">Skip to main content</a>
     <app-nav :sections="sections"></app-nav>
     <app-drawer :sections="sections"></app-drawer>
 
@@ -8,6 +9,7 @@
     <div v-if="!loading">
       <v-main
         id="content-top"
+        tabindex="-1"
         aria-live="polite"
         style="background: #fafafa; min-height: 100vh"
       >
@@ -171,4 +173,22 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100000;
+  padding: 12px 16px;
+  background: #4a148c;
+  color: #fff !important;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus {
+  left: 0;
+  outline: 3px solid #ffd600;
+  outline-offset: 2px;
+}
+</style>

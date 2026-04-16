@@ -2,6 +2,14 @@
   font-family: "Lato", sans-serif !important;
 } */
 
+/* Accessibility: Vuetify's default empty-state text for v-data-table uses
+   rgba(0,0,0,.38) which fails WCAG AA contrast on white. */
+.v-data-table tbody tr.v-data-table__empty-wrapper td,
+.v-data-table .v-data-footer__select,
+.v-data-table .v-data-footer__pagination {
+  color: rgba(0, 0, 0, 0.76) !important;
+}
+
 h2 {
   margin-bottom: 20px;
   margin-top: 15px;

@@ -2,7 +2,9 @@
 
 # Illinois Sentencing Policy Advisory Council (SPAC) - Client Website
 
-**📅 Last Updated**: February 19, 2026
+**📅 Last Updated**: April 16, 2026
+
+**📌 Current version**: 0.2.0 — see [CHANGELOG.md](./CHANGELOG.md)
 
 > The concept for Illinois' sentencing commission, the Sentencing Policy Advisory Council (SPAC), was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission in 2009. The CLEAR Commissioners studied and reorganized the Unified Code of Corrections in an effort to make it less confusing and easier for the public and practitioners to use. That process led to the conclusion that, although many agencies collected statistics and data about sentencing in Illinois, no agency compiled sentencing data specifically to perform comprehensive analysis for reporting to policy makers.
 
@@ -30,7 +32,7 @@ This is a **Vue.js 2.x** single-page application (SPA) that serves as the public
 - ✅ **Full-Text Search**: Client-side search using Fuse.js
 - ✅ **SEO Optimized**: Automated sitemap generation and meta tag management
 - ✅ **Analytics**: Google Analytics integration for user behavior tracking
-- ✅ **Accessibility**: WCAG compliant with semantic HTML and ARIA labels
+- ✅ **Accessibility**: WCAG 2.1 AA — Lighthouse 100/100 (desktop + mobile) on all primary pages
 
 ## 🏗️ Architecture
 
@@ -133,8 +135,8 @@ npm run docs:jsdoc
 
 ### Prerequisites
 
-- **Node.js**: 16.20.2 or higher (LTS recommended)
-- **npm**: 7.x or higher (included with Node.js)
+- **Node.js**: 22.x (see `.nvmrc` and `netlify.toml`)
+- **npm**: 10.x or higher (included with Node.js 22)
 - **Git**: For version control
 
 ### Installation Steps
@@ -227,6 +229,42 @@ spac-client-next/
 ├── buildSitemap.js          # Sitemap generation
 ├── package.json             # Dependencies and scripts
 └── .env.sample              # Environment variables template
+```
+
+## ♿ Accessibility
+
+This site targets **WCAG 2.1 AA** and the **April 24, 2026 ADA Title II** compliance deadline.
+
+### Current status
+
+- Lighthouse accessibility **100/100** on home, publications, meetings, council-members, and search (desktop + mobile).
+- axe-core AA: 0 violations on content pages; remaining items are Vuetify 2 library-level (see below).
+
+### Features in place
+
+- **Skip link** — "Skip to main content" is the first focusable element on every page, targeting `#content-top` on `<v-main>`.
+- **Semantic landmarks** — `<header>`, `<main>`, `<footer>` via Vuetify app shell; `aria-live="polite"` on `<main>` for SPA route changes.
+- **Heading-order normalization** — `services/Markdown.js` clamps every CMS heading to at most `previous + 1`, so markdown that skips levels (e.g. `##` then `####`) is auto-corrected before render.
+- **Contrast** — splash hero overlay and Vuetify empty-state text were darkened to meet AA.
+- **Alt text** — headshot and decorative image alt values set; decorative images use `alt=""` + `role="presentation"`.
+- **Named controls** — mobile nav hamburger has `aria-label`; search icons have labels via `addAttributeToElement`.
+- **Loading states** — `v-img` placeholder spinners suppressed so screen readers don't announce unlabeled progress indicators.
+
+### Known library-level limitations
+
+These originate in Vuetify 2 and cannot be resolved without upgrading the framework. They are being carried into the AEM migration rather than patched here:
+
+- `nested-interactive` on `v-select` / `v-autocomplete` (publications + meetings filter controls) — Vuetify 2 wraps the `<input>` in a `div[role="button"]`.
+- `td-has-header` on `v-data-table` rows in some configurations.
+
+### Auditing locally
+
+```bash
+npm run serve                  # http://localhost:8080
+# Then from Claude Code:
+#   mcp__lightcap__run_a11y    → Lighthouse accessibility audit
+#   mcp__axecap__audit_url     → axe-core WCAG A/AA audit
+#   mcp__contrastcap          → WCAG contrast audit
 ```
 
 ## 🚀 Future: Adobe Experience Manager (AEM) Migration

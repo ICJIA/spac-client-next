@@ -7,11 +7,11 @@
     <v-row>
       <v-col cols="12" sm="12" md="8">
         <div v-if="about">
-          <p
+          <div
             v-html="renderToHtml(about[0].content)"
             @click="handleClicks"
             class="dynamic-content"
-          ></p>
+          ></div>
         </div>
       </v-col>
       <v-col style="margin-top: 10px" cols="12" sm="12" md="4">

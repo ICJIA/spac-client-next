@@ -5,6 +5,7 @@
       class="hidden-md-and-up"
       style="color: black"
       large
+      aria-label="Open navigation menu"
     ></v-app-bar-nav-icon>
     <!-- 
     <v-app-bar-nav-icon
