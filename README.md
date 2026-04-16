@@ -139,6 +139,12 @@ npm run docs:jsdoc
 - **npm**: 10.x or higher (included with Node.js 22)
 - **Git**: For version control
 
+> ⚠️ **Install with npm, not yarn.** `sass-loader` declares `node-sass` as
+> an optional peer dependency. npm correctly skips it; Yarn 1.x installs
+> it anyway, and `node-sass@4.14.1` has no prebuilt binaries for Node >16
+> — the Netlify build fails with "Unsupported runtime (120)" if yarn is
+> used. Netlify is pinned to npm via `NETLIFY_USE_YARN = "false"`.
+
 ### Installation Steps
 
 #### 1. Clone the Repository

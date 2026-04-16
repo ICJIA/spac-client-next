@@ -21,6 +21,12 @@ pages now score 100/100 on Lighthouse accessibility (desktop + mobile).
 
 ### Changed
 - Node version bumped from 16.20.2 to 22 in `.nvmrc` and `netlify.toml`.
+- Netlify pinned to **npm** (`NETLIFY_USE_YARN = "false"`) and the
+  `packageManager` / `resolutions` yarn fields removed from `package.json`
+  (replaced with npm-native `overrides`). `sass-loader` declares
+  `node-sass` as an optional peer dep; yarn 1.x installs it anyway and
+  `node-sass@4.14.1` has no Node-22 binaries, which broke the first
+  Node-22 deploy attempt. npm honors the optional peer flag and skips it.
 - Splash overlay darkened from `rgba(79,80,79,0.6)` to `rgba(0,0,0,0.65)` and
   `<cite>` color from `#eee` to `#fff` to meet AA contrast on the hero quote.
 - Vuetify empty-state "No data available" text darkened from `rgba(0,0,0,0.38)`

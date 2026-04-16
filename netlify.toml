@@ -1,5 +1,11 @@
 [build.environment]
 NODE_VERSION = "22"
+# Force Netlify to install with npm (honors package-lock.json and skips
+# sass-loader's optional node-sass peer dep). Yarn 1.x installs optional
+# peers by default, which drags in node-sass@4.14.1 — it only ships
+# binaries for Node <=16 and breaks builds on Node 22.
+NETLIFY_USE_YARN = "false"
+NPM_FLAGS = "--legacy-peer-deps"
 
 # [build]
 #   Command = "npm run deploy"
