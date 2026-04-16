@@ -10,6 +10,42 @@
   color: rgba(0, 0, 0, 0.76) !important;
 }
 
+/* WCAG 1.4.4 Resize Text: Vuetify 2 pins buttons/chips/toolbar to fixed
+   pixel heights, so at 200% browser text zoom the labels (e.g. "Search",
+   "READ") clip. Allow these elements to grow with their content. */
+.v-btn:not(.v-btn--icon):not(.v-btn--fab) {
+  height: auto !important;
+  min-height: 36px;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+.v-btn--small:not(.v-btn--icon):not(.v-btn--fab) {
+  min-height: 28px;
+}
+.v-btn--large:not(.v-btn--icon):not(.v-btn--fab) {
+  min-height: 44px;
+}
+.v-btn__content {
+  max-width: 100%;
+  white-space: normal;
+}
+.v-chip {
+  height: auto !important;
+  min-height: 24px;
+}
+.v-chip .v-chip__content {
+  max-width: 100%;
+  white-space: normal;
+}
+.v-app-bar,
+.v-toolbar__content {
+  height: auto !important;
+  min-height: 64px;
+}
+.v-toolbar-title {
+  white-space: normal;
+}
+
 h2 {
   margin-bottom: 20px;
   margin-top: 15px;
