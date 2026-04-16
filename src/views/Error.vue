@@ -20,10 +20,11 @@
             <v-btn
               class="mt-12"
               to="/"
-              aria-label="Return home"
+              aria-label="Go back home"
               outlined
               color="primary"
-              ><v-icon left>chevron_left</v-icon>Go back home</v-btn
+              ><v-icon left aria-hidden="true">chevron_left</v-icon>Go back
+              home</v-btn
             >
           </v-col>
         </v-row>

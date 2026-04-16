@@ -33,21 +33,19 @@
           v-if="content"
         >
           <ul class="pageList">
-            <base-list :items="content.pages" empty="">
-              <template slot-scope="item">
-                <div v-if="item.isPublished">
-                  <li class="pageTitle">
-                    <router-link
-                      class="pageLink"
-                      :to="
-                        `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
-                      "
-                      >{{ item.title }}</router-link
-                    >
-                  </li>
-                </div>
-              </template>
-            </base-list>
+            <li
+              v-for="item in publishedPages"
+              :key="item.slug"
+              class="pageTitle"
+            >
+              <router-link
+                class="pageLink"
+                :to="
+                  `/${$route.params.section.toLowerCase()}/${item.slug.toLowerCase()}`
+                "
+                >{{ item.title }}</router-link
+              >
+            </li>
           </ul>
         </v-container>
       </template>
@@ -127,6 +125,12 @@ export default {
   computed: {
     computedTitle() {
       return this.title;
+    },
+    publishedPages() {
+      return (this.content && this.content.pages
+        ? this.content.pages
+        : []
+      ).filter(p => p.isPublished);
     }
   }
 };

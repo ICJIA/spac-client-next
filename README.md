@@ -4,7 +4,7 @@
 
 **📅 Last Updated**: April 16, 2026
 
-**📌 Current version**: 0.2.1 — see [CHANGELOG.md](./CHANGELOG.md)
+**📌 Current version**: 0.2.2 — see [CHANGELOG.md](./CHANGELOG.md)
 
 > The concept for Illinois' sentencing commission, the Sentencing Policy Advisory Council (SPAC), was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission in 2009. The CLEAR Commissioners studied and reorganized the Unified Code of Corrections in an effort to make it less confusing and easier for the public and practitioners to use. That process led to the conclusion that, although many agencies collected statistics and data about sentencing in Illinois, no agency compiled sentencing data specifically to perform comprehensive analysis for reporting to policy makers.
 
@@ -39,6 +39,10 @@ This is a **Vue.js 2.x** single-page application (SPA) that serves as the public
 Release notes, accessibility audit evidence, and upgrade notes are tracked in
 **[CHANGELOG.md](./CHANGELOG.md)**. Recent highlights:
 
+- **[0.2.2](./CHANGELOG.md#022---2026-04-16)** — Full-site a11y audit
+  (Lighthouse + axe + contrastcap) covering every unique route template,
+  plus two list-semantics fixes (`/about`, `/contact`) and one
+  label/name mismatch fix (`/error`).
 - **[0.2.1](./CHANGELOG.md#021---2026-04-16)** — WCAG 1.4.4 (Resize Text) fix
   for Vuetify button/chip height clipping; re-audit evidence across six pages
   and skip-link DOM verification.
