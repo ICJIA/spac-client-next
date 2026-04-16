@@ -5,6 +5,52 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-04-16
+
+### Fixed
+- **WCAG 1.4.4 Resize Text** — Siteimprove flagged "text clipped when resized"
+  on home-page Search and Read links. Vuetify 2 pins `.v-btn`, `.v-chip`, and
+  `.v-toolbar` to fixed pixel heights, so at 200% browser text-zoom the labels
+  escaped their containers. Fix: switched these classes from `height` to
+  `min-height` in `src/css/app.css` so boxes grow with content.
+  This criterion is not automatable — axe-core and Lighthouse deliberately
+  skip 1.4.4 because the outcome depends on viewport and zoom settings — so
+  the 100/100 Lighthouse score did not catch it. Verified manually in-browser:
+
+  | Element | Normal | 200% text zoom | Clipped? |
+  |---|---|---|---|
+  | Nav "ABOUT" button | 36px | 70px | No |
+  | "READ MORE" meeting button | 36px | 139px | No |
+  | "READ" publication chip | 24px | 26px | No |
+
+### Verified (re-audit after 1.4.4 fix)
+
+Lighthouse accessibility scores re-run on 2026-04-16 after the button/chip
+height change:
+
+| Page | Desktop | Mobile |
+|---|---|---|
+| `/` | **100 / 100** (0 issues) | **100 / 100** (0 issues) |
+| `/publications` | **100 / 100** | — |
+| `/meetings` | **100 / 100** | — |
+| `/about/council-members` | **100 / 100** (0 issues) | — |
+| `/search` | **100 / 100** (0 issues) | — |
+
+axe-core WCAG AA re-run on the same commit:
+
+| Page | Violations |
+|---|---|
+| `/` | **0** |
+| `/about/council-members` | **0** |
+| `/search` | **0** |
+| `/publications` | 1 — `nested-interactive` on v-select (Vuetify 2 library, carried) |
+| `/meetings` | 1 — `nested-interactive` on v-select (Vuetify 2 library, carried) |
+
+Skip-link verified in DOM:
+- First focusable element on every page (`document.querySelector(...) === skip`)
+- Hidden off-screen at `left: -9999px` until focused, then `left: 0px`
+- `href="#content-top"` → `<main id="content-top" tabindex="-1">`, so activation moves focus into the main landmark
+
 ## [0.2.0] - 2026-04-16
 
 Accessibility pass to meet WCAG 2.1 AA ahead of the April 24, 2026 ADA Title II

@@ -4,7 +4,7 @@
 
 **📅 Last Updated**: April 16, 2026
 
-**📌 Current version**: 0.2.0 — see [CHANGELOG.md](./CHANGELOG.md)
+**📌 Current version**: 0.2.1 — see [CHANGELOG.md](./CHANGELOG.md)
 
 > The concept for Illinois' sentencing commission, the Sentencing Policy Advisory Council (SPAC), was developed by the Criminal Law Edit, Alignment and Reform (CLEAR) Commission in 2009. The CLEAR Commissioners studied and reorganized the Unified Code of Corrections in an effort to make it less confusing and easier for the public and practitioners to use. That process led to the conclusion that, although many agencies collected statistics and data about sentencing in Illinois, no agency compiled sentencing data specifically to perform comprehensive analysis for reporting to policy makers.
 

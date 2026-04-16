@@ -1,6 +1,6 @@
 {
   "name": "spac-client-next-prod",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "serve": "node buildSearchIndex.js && node buildSitemap.js && npm run docs:generate && vue-cli-service serve",
